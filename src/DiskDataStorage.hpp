@@ -1,7 +1,9 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
+#include "KeyOffset.h"
 #include "exception/SupermapException.hpp"
 
 namespace supermap {
@@ -10,14 +12,16 @@ class DiskDataStorage {
   public:
     struct AddInfo {
         const std::uint64_t offset;
-        const bool updateIndex;
+        const bool wasShrunk;
     };
 
     explicit DiskDataStorage(double maxOccupancy);
 
-    AddInfo addData(const std::string &key, std::string value);
+    AddInfo add(const std::string &key, std::string&& value);
 
-    std::string getData(std::uint64_t offset);
+    std::string getValue(std::uint64_t offset);
+
+    std::vector<KeyOffset> getRecords();
 
   protected:
     void shrink();
@@ -25,4 +29,5 @@ class DiskDataStorage {
   private:
     const double maxOccupancy_;
 };
+
 } // supermap

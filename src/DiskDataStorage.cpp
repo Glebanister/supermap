@@ -6,11 +6,15 @@ void DiskDataStorage::shrink() {
     throw NotImplementedException();
 }
 
-std::string DiskDataStorage::getData(std::uint64_t offset) {
+std::string DiskDataStorage::getValue(std::uint64_t offset) {
     throw NotImplementedException();
 }
 
-DiskDataStorage::AddInfo DiskDataStorage::addData(const std::string &key, std::string value) {
+DiskDataStorage::AddInfo DiskDataStorage::add(const std::string &key, std::string&& value) {
+    throw NotImplementedException();
+}
+
+std::vector<KeyOffset> DiskDataStorage::getRecords() {
     throw NotImplementedException();
 }
 

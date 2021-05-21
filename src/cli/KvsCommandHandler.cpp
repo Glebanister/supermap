@@ -14,7 +14,7 @@ void KvsCommandHandler::assertArgsLen(std::size_t len, const std::vector<std::st
 }
 
 void AddKeyHandler::handleKvs(const std::vector<std::string> &args, std::ostream &os) {
-    kvs_->addKey(args[0], args[1]);
+    kvs_->add(args[0], std::string(args[1]));
 }
 
 AddKeyHandler::AddKeyHandler(std::shared_ptr<KeyValueStorage> kvs)
@@ -24,7 +24,7 @@ RemoveKeyHandler::RemoveKeyHandler(std::shared_ptr<KeyValueStorage> kvs)
     : KvsCommandHandler("Remove key from storage", 1, std::move(kvs)) {}
 
 void RemoveKeyHandler::handleKvs(const std::vector<std::string> &args, std::ostream &os) {
-    kvs_->removeKey(args[0]);
+    kvs_->remove(args[0]);
 }
 
 ContainsKeyHandler::ContainsKeyHandler(std::shared_ptr<KeyValueStorage> kvs)

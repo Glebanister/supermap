@@ -6,7 +6,7 @@ add_compile_options(-Wall -Wextra -Wshadow -Wpedantic)
 set(EXE ${CMAKE_PROJECT_NAME})
 
 set(SOURCES
-        main.cpp
+        src/main.cpp
         src/exception/SupermapException.cpp
         src/DiskIndex.cpp
         src/DiskDataStorage.cpp
@@ -14,7 +14,8 @@ set(SOURCES
         src/MemTable.cpp src/BST.cpp
         src/Supermap.cpp
         src/cli/CommandLineInterface.cpp
-        src/cli/KvsCommandHandler.cpp)
+        src/cli/KvsCommandHandler.cpp
+        src/KeyOffset.h)
 
 add_executable(${EXE} ${SOURCES})
 target_include_directories(${EXE} PRIVATE src)

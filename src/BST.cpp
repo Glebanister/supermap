@@ -3,11 +3,11 @@
 
 namespace supermap {
 
-void supermap::BST::addKey(const std::string &key, std::string value) {
+void supermap::BST::add(const std::string &key, std::string&& value) {
     throw NotImplementedException();
 }
 
-void BST::removeKey(const std::string &key) {
+void BST::remove(const std::string &key) {
     throw NotImplementedException();
 }
 
