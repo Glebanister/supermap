@@ -10,13 +10,13 @@ void MemTable::flushToDisk() {
 std::size_t MemTable::getMaximumCapacity() const noexcept {
     return maxCapacity_;
 }
-void MemTable::addKey(const std::string &key, std::string value) {
+void MemTable::add(const std::string &key, std::string&& value) {
     throw NotImplementedException();
 }
 bool MemTable::containsKey(const std::string &key) {
     throw NotImplementedException();
 }
-void MemTable::removeKey(const std::string &key) {
+void MemTable::remove(const std::string &key) {
     throw NotImplementedException();
 }
 std::string MemTable::getValue(const std::string &key) {

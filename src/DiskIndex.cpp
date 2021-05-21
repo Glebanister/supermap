@@ -2,10 +2,20 @@
 
 namespace supermap {
 
+DiskIndex::DiskIndex(const std::vector<KeyOffset> &records) {
+
+}
+
 std::uint64_t DiskIndex::getOffset(const std::string &key) {
     throw NotImplementedException();
 }
-void DiskIndex::addKey(const std::string &key, std::uint64_t valueOffset) {
+
+void DiskIndex::clear() {
     throw NotImplementedException();
 }
+
+void DiskIndex::addAll(std::vector<KeyOffset> &records) {
+    throw NotImplementedException();
+}
+
 } // supermap

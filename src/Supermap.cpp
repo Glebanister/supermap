@@ -8,28 +8,27 @@ Supermap::Supermap(std::size_t memTableMaxCapacity, double diskDataStorageMaxOcc
     : filter_(new BloomFilter()),
       memTable_(std::make_unique<MemTable>(std::make_unique<BST>(),
                                            std::make_unique<DiskDataStorage>(diskDataStorageMaxOccupancy),
-                                           std::make_unique<DiskIndex>(),
+                                           std::make_unique<DiskIndex>(std::vector<KeyOffset>()),
                                            memTableMaxCapacity)) {}
 
-void Supermap::addKey(const std::string &key, std::string value) {
+void Supermap::add(const std::string &key, std::string &&value) {
     filter_->addKey(key);
-    memTable_->addKey(key, std::move(value));
+    memTable_->add(key, std::move(value));
 }
 
-void Supermap::removeKey(const std::string &key) {
-    filter_->removeKey(key);
-    memTable_->removeKey(key);
+void Supermap::remove(const std::string &key) {
+    memTable_->remove(key);
 }
 
 bool Supermap::containsKey(const std::string &key) {
-    if (!filter_->shouldCheckStorage(key)) {
+    if (!filter_->mightContain(key)) {
         return false;
     }
     return memTable_->containsKey(key);
 }
 
 std::string Supermap::getValue(const std::string &key) {
-    if (!filter_->shouldCheckStorage(key)) {
+    if (!filter_->mightContain(key)) {
         return "";
     }
     return memTable_->getValue(key);

@@ -21,9 +21,9 @@ class MemTable : public KeyValueStorage {
 
     [[nodiscard]] std::size_t getMaximumCapacity() const noexcept;
 
-    void addKey(const std::string &key, std::string value) override;
+    void add(const std::string &key, std::string&& value) override;
 
-    void removeKey(const std::string &key) override;
+    void remove(const std::string &key) override;
 
     bool containsKey(const std::string &key) override;
 
