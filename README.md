@@ -1,5 +1,7 @@
 # Supermap
 
+[![CMake](https://github.com/Glebanister/supermap/actions/workflows/cmake.yml/badge.svg)](https://github.com/Glebanister/supermap/actions/workflows/cmake.yml)
+
 Key-value storage implementation.
 
 ## Installation
