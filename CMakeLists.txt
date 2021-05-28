@@ -34,7 +34,7 @@ target_link_libraries(${LIBRARY} stdc++ m)
 
 add_executable(${TEST} ${TEST_SOURCES})
 target_include_directories(${TEST} PRIVATE src)
-target_include_directories(${TEST} PRIVATE extern/doctest/doctest)
+target_include_directories(${TEST} PRIVATE extern/doctest/doctest/)
 target_link_libraries(${TEST} stdc++ m ${LIBRARY})
 
 add_executable(${EXE} ${CLI_SOURCES})
