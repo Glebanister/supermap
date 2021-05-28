@@ -4,6 +4,7 @@
 
 #include "exception/IllegalArgumentException.hpp"
 #include "io/SerializeHelper.hpp"
+#include "io/StackMemorySerializer.hpp"
 
 namespace supermap {
 
