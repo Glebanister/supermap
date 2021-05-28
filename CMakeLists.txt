@@ -17,8 +17,10 @@ set(LIBRARY_SOURCES
         src/exception/FileException.cpp
         src/ByteArray.cpp
         src/exception/IteratorException.cpp
-        src/stream/InputStream.cpp
-        src/stream/OutputStream.cpp)
+        src/io/InputStream.cpp
+        src/io/OutputStream.cpp
+        src/io/DiskFileManager.cpp
+        src/io/RamFileManager.cpp)
 
 set(CLI_SOURCES
         cli/main.cpp

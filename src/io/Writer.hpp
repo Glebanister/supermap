@@ -6,17 +6,20 @@
 #include "SerializeHelper.hpp"
 #include "exception/IteratorException.hpp"
 
-namespace supermap::stream {
+namespace supermap::io {
 
 template <typename T, typename = std::enable_if_t<SerializeHelper<T>::isSerializable>>
-class WritingIterator {
+class Writer {
   public:
-    static WritingIterator toFile(const std::string &filename, bool append) {
-        return WritingIterator(std::make_unique<FileOutputStream>(filename, append));
+    explicit Writer(std::unique_ptr<OutputStream> &&os)
+        : os_(std::move(os)) {}
+
+    static Writer toFile(const std::string &filename, bool append) {
+        return Writer(std::make_unique<FileOutputStream>(filename, append));
     }
 
-    static WritingIterator toString(std::string &buffer, bool append) {
-        return WritingIterator(std::make_unique<StringOutputStream>(buffer, append));
+    static Writer toString(std::string &buffer, bool append) {
+        return Writer(std::make_unique<StringOutputStream>(buffer, append));
     }
 
   public:
@@ -35,11 +38,7 @@ class WritingIterator {
         os_->flush();
     }
 
-  private:
-    explicit WritingIterator(std::unique_ptr<OutputStream> &&os)
-        : os_(std::move(os)) {}
-
     std::unique_ptr<OutputStream> os_;
 };
 
-} // supermap::stream
+} // supermap::io

@@ -1,6 +1,6 @@
 #include "OutputStream.hpp"
 
-namespace supermap::stream {
+namespace supermap::io {
 
 FileOutputStream::FileOutputStream(const std::string &filename, bool append)
     : filename_(filename), ofs_(filename, append ? std::ios_base::app : std::ios_base::out) {
@@ -33,4 +33,4 @@ void StringOutputStream::flush() {
     stringStream_.clear();
 }
 
-} // supermap::stream
+} // supermap::io

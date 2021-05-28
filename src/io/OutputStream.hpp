@@ -4,7 +4,7 @@
 #include <sstream>
 #include <exception/FileException.hpp>
 
-namespace supermap::stream {
+namespace supermap::io {
 
 class OutputStream {
   public:
@@ -41,4 +41,4 @@ class StringOutputStream : public OutputStream {
     std::stringstream stringStream_;
 };
 
-} // supermap::stream
+} // supermap::io

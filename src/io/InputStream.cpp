@@ -1,10 +1,11 @@
-#include <iostream>
+#include <filesystem>
+
 #include "InputStream.hpp"
 
-namespace supermap::stream {
+namespace supermap::io {
 
-FileInputStream::FileInputStream(const std::string &filename, std::size_t offset)
-    : filename_(filename), ifs_(filename) {
+FileInputStream::FileInputStream(const std::filesystem::path &filename, std::size_t offset)
+    : ifs_(filename) {
     if (!ifs_.good() || ifs_.bad()) {
         throw FileException(filename, "Unable to open for reading");
     }
@@ -39,4 +40,4 @@ std::size_t StringInputStream::availableBytes() {
     return stringLength_ - curPos;
 }
 
-} // supermap::stream
+} // supermap::io

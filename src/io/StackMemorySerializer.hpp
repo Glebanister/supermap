@@ -2,7 +2,7 @@
 
 #include "SerializeHelper.hpp"
 
-namespace supermap::stream {
+namespace supermap::io {
 
 template <typename T, typename = std::enable_if_t<std::is_default_constructible<T>::value>>
 struct StackMemorySerializer : Serializable<true, sizeof(T)> {
@@ -23,4 +23,4 @@ struct StackMemorySerializer : Serializable<true, sizeof(T)> {
     }
 };
 
-} // supermap
+} // supermap::io

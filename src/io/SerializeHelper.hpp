@@ -4,7 +4,7 @@
 #include <ostream>
 #include <istream>
 
-namespace supermap::stream {
+namespace supermap::io {
 
 template <bool IsSerializable, std::size_t MinimalSize = 1>
 struct Serializable {
@@ -29,4 +29,4 @@ template <typename T, typename = std::enable_if_t<SerializeHelper<T>::isSerializ
 inline T deserialize(std::istream &os) {
     return SerializeHelper<T>::deserialize(os);
 }
-} // supermap::stream
+} // supermap::io
