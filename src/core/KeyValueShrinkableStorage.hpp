@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <vector>
+#include <cassert>
 
 #include "KeyIndex.hpp"
 #include "KeyValue.hpp"
@@ -54,7 +55,10 @@ template <std::size_t KeyLen, std::size_t ValueLen>
 struct DeserializeHelper<StorageValueIgnorer<KeyLen, ValueLen>> : Deserializable<true, KeyLen + ValueLen> {
     static StorageValueIgnorer<KeyLen, ValueLen> deserialize(std::istream &is) {
         StorageValueIgnorer<KeyLen, ValueLen> svi{io::deserialize<Key<KeyLen>>(is)};
-        is.seekg(sizeof(ValueLen), std::ios_base::cur);
+        is.seekg(ValueLen, std::ios_base::cur);
+        if (is.fail()) {
+            throw IOException("StorageValueIgnorer deserialization fail: seekg failed");
+        }
         return svi;
     }
 };

@@ -8,7 +8,7 @@
 
 namespace supermap::io {
 
-template <typename T, typename = std::enable_if_t<SerializeHelper<T>::isSerializable>>
+template <typename T, typename = std::enable_if_t<DeserializeHelper<T>::isDeserializable>>
 class Parser {
   public:
     explicit Parser(std::unique_ptr<InputStream> &&input)

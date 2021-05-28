@@ -40,7 +40,7 @@ inline void serialize(const T &value, std::ostream &os) {
     SerializeHelper<T>::serialize(value, os);
 }
 
-template <typename T, typename = std::enable_if_t<SerializeHelper<T>::isSerializable>>
+template <typename T, typename = std::enable_if_t<DeserializeHelper<T>::isDeserializable>>
 inline T deserialize(std::istream &os) {
     return DeserializeHelper<T>::deserialize(os);
 }

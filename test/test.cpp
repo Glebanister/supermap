@@ -258,3 +258,35 @@ TEST_CASE ("IndexedData KeyValue") {
     }
     CHECK_EQ(keyValues, parsedData);
 }
+
+TEST_CASE ("KeyValueShrinkableStorage") {
+    using namespace supermap;
+    using namespace io;
+
+    auto manager = std::make_shared<RamFileManager>();
+    const std::string filename = "indexed_data.txt";
+    KeyValueShrinkableStorage<2, 4> storage(filename, manager);
+
+    std::vector<KeyValue<2, 4>> keyValues{
+        {Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")},
+        {Key<2>::fromString("cd"), ByteArray<4>::fromString("1831")},
+        {Key<2>::fromString("ef"), ByteArray<4>::fromString("4923")},
+        {Key<2>::fromString("gh"), ByteArray<4>::fromString("3482")},
+    };
+
+    std::vector<Key<2>> initialKeys;
+
+    std::transform(keyValues.begin(), keyValues.end(), std::back_inserter(initialKeys),
+                   [](const KeyValue<2, 4> &kv) { return kv.key; });
+
+    for (std::size_t i = 0; i < keyValues.size(); ++i) {
+        CHECK_EQ(i, storage.add(keyValues[i].key, ByteArray(keyValues[i].value)));
+    }
+
+    std::vector<Key<2>> parsedKeys;
+    auto keyIndexParser = storage.getKeys();
+    while (keyIndexParser.hasNext()) {
+        parsedKeys.push_back(keyIndexParser.next().key);
+    }
+    CHECK_EQ(initialKeys, parsedKeys);
+}
