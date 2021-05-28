@@ -16,7 +16,7 @@ class ByteArray {
     ByteArray()
         : data_(std::make_unique<std::uint8_t[]>(Len)) {}
 
-    ByteArray(const ByteArray<Len> &other) {
+    ByteArray(const ByteArray<Len> &other) : ByteArray() {
         std::memcpy(data_.get(), other.data_.get(), Len);
     }
 
@@ -53,6 +53,10 @@ class ByteArray {
         return str;
     }
 
+    bool operator==(const ByteArray<Len> &other) const {
+        return std::memcmp(getCharsPointer(), other.getCharsPointer(), Len) == 0;
+    }
+
   private:
     std::unique_ptr<std::uint8_t[]> data_;
 };
@@ -61,23 +65,23 @@ namespace io {
 
 template <std::size_t Len>
 struct SerializeHelper<ByteArray<Len>> : Serializable<true> {
-    void serialize(const ByteArray<Len> &ar, std::ostream &os) {
-        if (std::size_t written = os.write(ar.getCharsPointer(), Len); written < Len) {
-            throw IOException(
-                "Unsuccessful serialization, expected to write " + std::to_string(Len) +
-                    " bytes, but written only " + std::to_string(written));
+    static void serialize(const ByteArray<Len> &ar, std::ostream &os) {
+        os.write(ar.getCharsPointer(), Len);
+        if (!os.good()) {
+            throw IOException("Unsuccessful serialization, expected to write " + std::to_string(Len) + " bytes");
         }
     }
 };
 
 template <std::size_t Len>
 struct DeserializeHelper<ByteArray<Len>> : Deserializable<true, Len> {
-    ByteArray<Len> deserialize(std::istream &is) {
+    static ByteArray<Len> deserialize(std::istream &is) {
         ByteArray<Len> ar;
-        if (std::size_t read = is.read(ar.getCharsPointer(), Len); read < Len) {
+        is.read(ar.getCharsPointer(), Len);
+        if (!is.good()) {
             throw IOException(
                 "Unsuccessful deserialization, expected to read " + std::to_string(Len) +
-                    "bytes, but read only " + std::to_string(read));
+                    "bytes, but read only " + std::to_string(is.gcount()));
         }
         return ar;
     }

@@ -18,11 +18,11 @@ class IndexedData {
           dataFileName_(std::move(dataFileName)),
           fileManager_(std::move(manager)) {}
 
-    void append(const T &item) {
+    std::uint64_t append(const T &item) {
         io::Writer<T> writer = fileManager_->template getWriter<T>(dataFileName_, true);
         writer.write(item);
         writer.flush();
-        items_ += 1;
+        return items_++;
     }
 
     T get(std::uint64_t index) {

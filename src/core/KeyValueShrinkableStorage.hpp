@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "KeyIndex.hpp"
+#include "KeyValue.hpp"
 #include "IndexedData.hpp"
 #include "exception/SupermapException.hpp"
 
@@ -17,18 +18,14 @@ struct StorageValueIgnorer {
 template <std::size_t KeyLen, std::size_t ValueLen>
 class KeyValueShrinkableStorage {
   public:
-    struct KeyValue {
-        Key<KeyLen> key;
-        ByteArray<ValueLen> value;
-    };
 
   public:
     explicit KeyValueShrinkableStorage(const std::string &storageFilename,
                                        std::shared_ptr<io::FileManager> manager)
-        : keyValueStorage_(storageFilename, manager) {}
+        : keyValueStorage_(storageFilename, std::move(manager)) {}
 
     std::uint64_t add(const Key<KeyLen> &key, ByteArray<ValueLen> &&value) {
-        keyValueStorage_.append({key, std::move(value)});
+        return keyValueStorage_.append({key, std::move(value)});
     }
 
     ByteArray<ValueLen> getValue(std::uint64_t index) {
@@ -48,7 +45,7 @@ class KeyValueShrinkableStorage {
     }
 
   private:
-    IndexedData<KeyValue> keyValueStorage_;
+    IndexedData<KeyValue<KeyLen, ValueLen>> keyValueStorage_;
 };
 
 namespace io {

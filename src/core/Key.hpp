@@ -3,11 +3,14 @@
 #include <array>
 
 #include "exception/IllegalArgumentException.hpp"
+#include "io/SerializeHelper.hpp"
 
 namespace supermap {
 
 template <std::size_t Len>
 struct Key : std::array<std::uint8_t, Len> {
+    Key() = default;
+
     using std::array<std::uint8_t, Len>::array;
 
     [[nodiscard]] std::string format() const noexcept {
@@ -35,5 +38,15 @@ struct Key : std::array<std::uint8_t, Len> {
         return arrKey;
     }
 };
+
+namespace io {
+
+template <std::size_t KeyLen>
+struct SerializeHelper<Key<KeyLen>> : StackMemorySerializer<Key<KeyLen>> {};
+
+template <std::size_t KeyLen>
+struct DeserializeHelper<Key<KeyLen>> : StackMemoryDeserializer<Key<KeyLen>> {};
+
+} // io
 
 } // supermap

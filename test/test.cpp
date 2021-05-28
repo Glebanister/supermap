@@ -14,6 +14,10 @@
 #include "exception/IllegalArgumentException.hpp"
 
 #include "core/Key.hpp"
+#include "core/ByteArray.hpp"
+#include "core/IndexedData.hpp"
+#include "core/KeyIndex.hpp"
+#include "core/KeyValueShrinkableStorage.hpp"
 
 struct TempFile {
     const std::string filename = ".supermap-test-file";
@@ -54,11 +58,10 @@ struct SerializeHelper<int> : Serializable<true> {
     static void serialize(const int &value, std::ostream &os) {
         os << value << ' ';
     }
-
 };
 
 template <>
-struct DeserializeHelper<int> : Deserializable<true, 1> {
+struct DeserializeHelper<int> : Deserializable<true, 2> {
     static int deserialize(std::istream &is) {
         int value;
         is >> value;
@@ -193,4 +196,65 @@ TEST_CASE ("Key") {
     CHECK_EQ(key6.format(), "123456");
     CHECK_THROWS_AS(supermap::Key<6>::fromString("1234567"), const supermap::IllegalArgumentException &);
     CHECK_THROWS_AS(supermap::Key<6>::fromString("12"), const supermap::IllegalArgumentException &);
+}
+
+TEST_CASE ("ByteArray") {
+    auto key6 = supermap::ByteArray<6>::fromString("123456");
+    CHECK_EQ(key6.toString(), "123456");
+    CHECK_THROWS_AS(supermap::ByteArray<6>::fromString("1234567"), const supermap::IllegalArgumentException &);
+    CHECK_THROWS_AS(supermap::ByteArray<6>::fromString("12"), const supermap::IllegalArgumentException &);
+}
+
+TEST_CASE ("IndexedData KeyIndex") {
+    using namespace supermap;
+    using namespace io;
+
+    auto manager = std::make_shared<RamFileManager>();
+    const std::string filename = "indexed_data.txt";
+    IndexedData<KeyIndex<2>> indexedData(filename, manager);
+
+    std::vector<KeyIndex<2>> keys{
+        {Key<2>::fromString("ab"), 0},
+        {Key<2>::fromString("cd"), 1},
+        {Key<2>::fromString("ef"), 2},
+        {Key<2>::fromString("gh"), 3},
+    };
+
+    for (std::size_t i = 0; i < keys.size(); ++i) {
+        CHECK_EQ(i, indexedData.append(keys[i]));
+    }
+    std::vector<KeyIndex<2>> parsedData;
+    auto keyIndexParser = indexedData.getDataParser();
+    while (keyIndexParser.hasNext()) {
+        parsedData.push_back(keyIndexParser.next());
+    }
+    CHECK_EQ(keys, parsedData);
+}
+
+TEST_CASE ("IndexedData KeyValue") {
+    using namespace supermap;
+    using namespace io;
+
+    using KeyValue = KeyValue<2, 4>;
+
+    auto manager = std::make_shared<RamFileManager>();
+    const std::string filename = "indexed_data.txt";
+    IndexedData<KeyValue> indexedData(filename, manager);
+
+    std::vector<KeyValue> keyValues{
+        {Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")},
+        {Key<2>::fromString("cd"), ByteArray<4>::fromString("1831")},
+        {Key<2>::fromString("ef"), ByteArray<4>::fromString("4923")},
+        {Key<2>::fromString("gh"), ByteArray<4>::fromString("3482")},
+    };
+
+    for (std::size_t i = 0; i < keyValues.size(); ++i) {
+        CHECK_EQ(i, indexedData.append(keyValues[i]));
+    }
+    std::vector<KeyValue> parsedData;
+    auto keyIndexParser = indexedData.getDataParser();
+    while (keyIndexParser.hasNext()) {
+        parsedData.push_back(keyIndexParser.next());
+    }
+    CHECK_EQ(keyValues, parsedData);
 }
