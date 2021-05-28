@@ -1,6 +1,6 @@
 #include "CommandLineInterface.hpp"
 
-namespace supermap {
+namespace supermap::cli {
 
 const std::string &CommandLineInterface::Handler::getInfo() const noexcept {
     return info_;
@@ -20,7 +20,7 @@ const std::unordered_map<std::string,
     return handlers_;
 }
 
-void CommandLineInterface::HelpHandler::handle(const std::vector<std::string> &args, std::ostream &os) {
+void CommandLineInterface::HelpHandler::handle(const std::vector<std::string> &, std::ostream &os) {
     for (auto &[cmd, handler] : interface_.getHandlers()) {
         os << "'" << cmd << "' - " << handler->getInfo() << '\n';
     }
@@ -34,4 +34,4 @@ void CommandLineInterface::StopHandler::handle(const std::vector<std::string> &,
     }
     interface_.stop();
 }
-} // supermap
+} // supermap::cli

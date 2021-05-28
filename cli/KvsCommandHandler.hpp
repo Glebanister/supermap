@@ -4,17 +4,19 @@
 #include <type_traits>
 
 #include "CommandLineInterface.hpp"
-#include "Supermap.hpp"
+#include "core/Supermap.hpp"
 
-namespace supermap {
+namespace supermap::cli {
 
+template <std::size_t KeyLen, std::size_t ValueLen>
 class KvsCommandHandler : public CommandLineInterface::Handler {
   public:
     explicit KvsCommandHandler(const std::string &info,
                                std::size_t argsLen,
-                               std::shared_ptr<KeyValueStorage> kvs);
-
-    static void assertArgsLen(std::size_t len, const std::vector<std::string> &args);
+                               std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs)
+        : CommandLineInterface::Handler(info),
+          kvs_(std::move(kvs)),
+          argsLen_(argsLen) {}
 
     void handle(const std::vector<std::string> &args, std::ostream &os) final {
         try {
@@ -35,36 +37,56 @@ class KvsCommandHandler : public CommandLineInterface::Handler {
     virtual void handleKvs(const std::vector<std::string> &args, std::ostream &os) = 0;
 
   protected:
-    std::shared_ptr<KeyValueStorage> kvs_;
+    std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs_;
     const std::size_t argsLen_;
 };
 
-class AddKeyHandler : public KvsCommandHandler {
+template <std::size_t KeyLen, std::size_t ValueLen>
+class AddKeyHandler : public KvsCommandHandler<KeyLen, ValueLen> {
+    using KvsCommandHandler<KeyLen, ValueLen>::kvs_;
   public:
-    explicit AddKeyHandler(std::shared_ptr<KeyValueStorage> kvs);
+    explicit AddKeyHandler(std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs)
+        : KvsCommandHandler<KeyLen, ValueLen>("Add key to storage", 2, std::move(kvs)) {}
 
-    void handleKvs(const std::vector<std::string> &args, std::ostream &os) override;
+    void handleKvs(const std::vector<std::string> &args, std::ostream &) override {
+        kvs_->add(Key<KeyLen>::fromString(args[0]), ByteArray<ValueLen>::fromString(std::string(args[1])));
+    }
 };
 
-class RemoveKeyHandler : public KvsCommandHandler {
+template <std::size_t KeyLen, std::size_t ValueLen>
+class RemoveKeyHandler : public KvsCommandHandler<KeyLen, ValueLen> {
+    using KvsCommandHandler<KeyLen, ValueLen>::kvs_;
   public:
-    explicit RemoveKeyHandler(std::shared_ptr<KeyValueStorage> kvs);
+    explicit RemoveKeyHandler(std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs)
+        : KvsCommandHandler<KeyLen, ValueLen>("Remove key from storage", 1, std::move(kvs)) {}
 
-    void handleKvs(const std::vector<std::string> &args, std::ostream &os) override;
+    void handleKvs(const std::vector<std::string> &args, std::ostream &) override {
+        kvs_->remove(Key<KeyLen>::fromString(args[0]));
+    }
 };
 
-class ContainsKeyHandler : public KvsCommandHandler {
+template <std::size_t KeyLen, std::size_t ValueLen>
+class ContainsKeyHandler : public KvsCommandHandler<KeyLen, ValueLen> {
+    using KvsCommandHandler<KeyLen, ValueLen>::kvs_;
   public:
-    explicit ContainsKeyHandler(std::shared_ptr<KeyValueStorage> kvs);
+    explicit ContainsKeyHandler(std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs)
+        : KvsCommandHandler<KeyLen, ValueLen>("Check if key in storage", 1, std::move(kvs)) {}
 
-    void handleKvs(const std::vector<std::string> &args, std::ostream &os) override;
+    void handleKvs(const std::vector<std::string> &args, std::ostream &os) override {
+        os << (kvs_->containsKey(Key<KeyLen>::fromString(args[0])) ? "true" : "false") << std::endl;
+    }
 };
 
-class GetValueHandler : public KvsCommandHandler {
+template <std::size_t KeyLen, std::size_t ValueLen>
+class GetValueHandler : public KvsCommandHandler<KeyLen, ValueLen> {
+    using KvsCommandHandler<KeyLen, ValueLen>::kvs_;
   public:
-    explicit GetValueHandler(std::shared_ptr<KeyValueStorage> kvs);
+    explicit GetValueHandler(std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs)
+        : KvsCommandHandler<KeyLen, ValueLen>("Get value of key from storage", 1, std::move(kvs)) {}
 
-    void handleKvs(const std::vector<std::string> &args, std::ostream &os) override;
+    void handleKvs(const std::vector<std::string> &args, std::ostream &os) override {
+        os << kvs_->getValue(Key<KeyLen>::fromString(args[0])).toString() << std::endl;
+    }
 };
 
-} // supermap
+} // supermap::cli

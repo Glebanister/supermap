@@ -2,30 +2,26 @@ cmake_minimum_required(VERSION 3.17)
 project(supermap)
 
 set(CMAKE_CXX_STANDARD 17)
-add_compile_options(-Wall -Wextra -Wshadow -Wpedantic)
+add_compile_options(-Wall -Wextra -Wshadow -Wpedantic -Werror)
 set(LIBRARY supermap)
 set(EXE supermap-cli)
 set(TEST supermap-test)
 
 set(LIBRARY_SOURCES
         src/exception/SupermapException.cpp
-        src/DiskIndex.cpp
-        src/DiskDataStorage.cpp
-        src/BloomFilter.cpp
-        src/MemTable.cpp src/BST.cpp
-        src/Supermap.cpp
+        src/exception/IllegalArgumentException.cpp
         src/exception/FileException.cpp
-        src/ByteArray.cpp
         src/exception/IteratorException.cpp
-        src/io/InputStream.cpp
         src/io/OutputStream.cpp
         src/io/DiskFileManager.cpp
-        src/io/RamFileManager.cpp)
+        src/io/RamFileManager.cpp
+        src/io/InputStream.cpp
+        src/core/BloomFilter.cpp)
 
 set(CLI_SOURCES
         cli/main.cpp
         cli/CommandLineInterface.cpp
-        cli/KvsCommandHandler.cpp)
+        )
 
 set(TEST_SOURCES
         test/test.cpp)

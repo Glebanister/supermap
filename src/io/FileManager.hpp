@@ -11,7 +11,7 @@ namespace supermap::io {
 
 class FileManager {
   public:
-    virtual std::unique_ptr<InputStream> getInputStream(const std::filesystem::path &path, std::size_t offset) = 0;
+    virtual std::unique_ptr<InputStream> getInputStream(const std::filesystem::path &path, std::uint64_t offset) = 0;
 
     virtual std::unique_ptr<OutputStream> getOutputStream(const std::filesystem::path &path, bool append) = 0;
 
@@ -23,7 +23,7 @@ class FileManager {
     }
 
     template <typename T>
-    Parser<T> getParser(const std::filesystem::path &filename, std::size_t offset) {
+    Parser<T> getParser(const std::filesystem::path &filename, std::uint64_t offset) {
         return Parser<T>(getInputStream(filename, offset));
     }
 

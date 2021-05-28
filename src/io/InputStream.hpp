@@ -16,7 +16,7 @@ class InputStream {
 
 class FileInputStream : public InputStream {
   public:
-    explicit FileInputStream(const std::filesystem::path &filename, std::size_t offset);
+    explicit FileInputStream(const std::filesystem::path &filename, std::uint64_t offset);
 
     std::istream &get() override;
 
@@ -29,7 +29,7 @@ class FileInputStream : public InputStream {
 
 class StringInputStream : public InputStream {
   public:
-    explicit StringInputStream(const std::string &str, std::size_t offset);
+    explicit StringInputStream(const std::string &str, std::uint64_t offset);
 
     std::istream &get() override;
 

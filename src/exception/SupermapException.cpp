@@ -9,4 +9,7 @@ SupermapException::SupermapException(const std::exception &e)
 
 NotImplementedException::NotImplementedException()
     : SupermapException("Method is not implemented") {}
+
+IOException::IOException(const std::string &message)
+    : SupermapException("IOException: " + message) {}
 } // supermap

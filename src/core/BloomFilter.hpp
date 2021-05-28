@@ -1,11 +1,11 @@
 #pragma once
 
-#include "StorageFilter.hpp"
+#include "Filter.hpp"
 #include "exception/SupermapException.hpp"
 
 namespace supermap {
 
-class BloomFilter : public StorageFilter {
+class BloomFilter : public Filter {
   public:
     void addKey(const std::string &key) override;
 

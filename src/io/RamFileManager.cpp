@@ -11,7 +11,7 @@ std::deque<RamFileManager::File>::const_iterator RamFileManager::getFileIterator
     return std::find_if(files.begin(), files.end(), [&file](const File &f) { return f.name == file; });
 }
 
-std::unique_ptr<InputStream> RamFileManager::getInputStream(const std::filesystem::path &filename, std::size_t offset) {
+std::unique_ptr<InputStream> RamFileManager::getInputStream(const std::filesystem::path &filename, std::uint64_t offset) {
     auto fileIt = getFileIterator(filename);
     if (fileIt == files.end()) {
         throw FileException(filename, "can not open virtual file: it was not created yet");

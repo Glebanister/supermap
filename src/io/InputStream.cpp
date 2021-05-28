@@ -4,7 +4,7 @@
 
 namespace supermap::io {
 
-FileInputStream::FileInputStream(const std::filesystem::path &filename, std::size_t offset)
+FileInputStream::FileInputStream(const std::filesystem::path &filename, std::uint64_t offset)
     : ifs_(filename) {
     if (!ifs_.good() || ifs_.bad()) {
         throw FileException(filename, "Unable to open for reading");
@@ -22,7 +22,7 @@ std::size_t FileInputStream::availableBytes() {
     return fileSize_ - ifs_.tellg();
 }
 
-StringInputStream::StringInputStream(const std::string &str, std::size_t offset)
+StringInputStream::StringInputStream(const std::string &str, std::uint64_t offset)
     : stringStream_(str.substr(offset)),
       initialPos_(stringStream_.tellg()),
       stringLength_(str.length() - offset) {

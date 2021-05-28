@@ -11,6 +11,10 @@
 #include "io/Writer.hpp"
 #include "io/RamFileManager.hpp"
 
+#include "exception/IllegalArgumentException.hpp"
+
+#include "core/Key.hpp"
+
 struct TempFile {
     const std::string filename = ".supermap-test-file";
 
@@ -43,11 +47,18 @@ template <>
 struct SerializeHelper<MockStruct> : StackMemorySerializer<MockStruct> {};
 
 template <>
+struct DeserializeHelper<MockStruct> : StackMemoryDeserializer<MockStruct> {};
+
+template <>
 struct SerializeHelper<int> : Serializable<true> {
     static void serialize(const int &value, std::ostream &os) {
         os << value << ' ';
     }
 
+};
+
+template <>
+struct DeserializeHelper<int> : Deserializable<true, 1> {
     static int deserialize(std::istream &is) {
         int value;
         is >> value;
@@ -175,4 +186,11 @@ TEST_CASE ("RamFileManager") {
     CHECK_THROWS_AS(manager.getInputStream(root / "non" / "existent" / "path", 0), const supermap::FileException &);
     manager.remove(paths[0]);
     CHECK_THROWS_AS(manager.getInputStream(paths[0], 0), const supermap::FileException &);
+}
+
+TEST_CASE ("Key") {
+    auto key6 = supermap::Key<6>::fromString("123456");
+    CHECK_EQ(key6.format(), "123456");
+    CHECK_THROWS_AS(supermap::Key<6>::fromString("1234567"), const supermap::IllegalArgumentException &);
+    CHECK_THROWS_AS(supermap::Key<6>::fromString("12"), const supermap::IllegalArgumentException &);
 }

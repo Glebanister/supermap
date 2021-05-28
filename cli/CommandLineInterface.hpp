@@ -9,7 +9,7 @@
 #include <sstream>
 #include <iterator>
 
-namespace supermap {
+namespace supermap::cli {
 class CommandLineInterface {
   public:
     class Handler {
@@ -91,4 +91,4 @@ class CommandLineInterface {
     std::unordered_map<std::string, std::shared_ptr<Handler>> handlers_;
     bool running_ = false;
 };
-} // supermap
+} // supermap::cli

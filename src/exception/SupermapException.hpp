@@ -14,4 +14,9 @@ class NotImplementedException : public SupermapException {
   public:
     NotImplementedException();
 };
+
+class IOException : public SupermapException {
+  public:
+    explicit IOException(const std::string &message);
+};
 } // supermap
