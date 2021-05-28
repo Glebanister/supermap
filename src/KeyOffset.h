@@ -10,4 +10,3 @@ struct KeyOffset {
 };
 
 } // supermap
-

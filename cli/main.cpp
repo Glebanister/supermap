@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "cli/CommandLineInterface.hpp"
-#include "cli/KvsCommandHandler.hpp"
+#include "CommandLineInterface.hpp"
+#include "KvsCommandHandler.hpp"
 
 int main(int, const char **) {
     supermap::CommandLineInterface cli("supermap");
@@ -14,4 +14,5 @@ int main(int, const char **) {
     cli.addCommand("get", std::make_shared<supermap::GetValueHandler>(kvs));
 
     cli.run(std::cin, std::cout);
+
 }
