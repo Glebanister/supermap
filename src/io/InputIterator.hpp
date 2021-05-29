@@ -1,16 +1,31 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 
 #include "InputStream.hpp"
 #include "SerializeHelper.hpp"
 #include "exception/IteratorException.hpp"
-#include "Iterator.hpp"
 
 namespace supermap::io {
 
+template <typename T>
+struct Enum {
+    Enum() = delete;
+
+    Enum(T &&e, std::uint32_t i)
+        : elem(std::move(e)), index(i) {}
+
+    T elem;
+    std::uint32_t index{};
+
+    bool operator==(const Enum<T> &other) const {
+        return elem == other.elem && index == other.index;
+    }
+};
+
 template <typename T, typename = std::enable_if_t<DeserializeHelper<T>::isDeserializable>>
-class InputIterator : public Iterator<T> {
+class InputIterator {
   public:
     explicit InputIterator(std::unique_ptr<InputStream> &&input)
         : input_(std::move(input)) {}
@@ -28,15 +43,37 @@ class InputIterator : public Iterator<T> {
     InputIterator(const InputIterator &) = default;
     InputIterator(InputIterator &&) noexcept = default;
 
-    [[nodiscard]] bool hasNext() const noexcept override {
+    [[nodiscard]] bool hasNext() const noexcept {
         return input_->availableBytes() >= DeserializeHelper<T>::minimalDeserializedSize;
     }
 
-    T next() override {
+    T next() {
+        ++index_;
         return deserialize<T>(input_->get());
     }
 
+    template <
+        typename To,
+        typename Functor,
+        typename = std::enable_if_t<std::is_invocable_r_v<To, Functor, T &&>>
+    >
+    std::vector<Enum<To>> collectWith(Functor functor, std::uint32_t collectionSizeLimit = 0) {
+        std::vector<Enum<To>> collection;
+        while (hasNext()) {
+            if (collectionSizeLimit != 0 && collection.size() == collectionSizeLimit) {
+                break;
+            }
+            collection.push_back(Enum{functor(next()), index_ - 1});
+        }
+        return collection;
+    }
+
+    std::vector<Enum<T>> collect(std::uint32_t collectionSizeLimit = 0) {
+        return collectWith([](auto &&x) { return x; }, collectionSizeLimit);
+    }
+
     std::unique_ptr<InputStream> input_;
+    std::uint32_t index_ = 0;
 };
 
 } // supermap::io

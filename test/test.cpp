@@ -317,26 +317,11 @@ TEST_CASE("FunctorIterator") {
     }
 
     auto keyIndexParser = storage.getKeys();
-    auto parsedKeys = keyIndexParser
-        .map<Key<2>>([](StorageValueIgnorer<2, 4> &&svi) { return svi.key; })
-        .collectToVector();
-    CHECK_EQ(initialKeys, parsedKeys);
-}
-
-TEST_CASE ("EnumerationIterator") {
-    using namespace supermap;
-
-    std::string data = "1 2 3 4 5 ";
-    std::vector<io::Enumerated<int>> enumerated = io::InputIterator<int>::fromString(data, 0)
-        .map<int>([](int x) { return x + 1; })
-        .enumerate()
-        .collectToVector();
-
-    CHECK_EQ(enumerated, std::vector{
-        io::Enumerated{2, 0},
-        io::Enumerated{3, 1},
-        io::Enumerated{4, 2},
-        io::Enumerated{5, 3},
-        io::Enumerated{6, 4},
-    });
+    std::vector<io::Enum<Key<2>>> parsedKeys =
+        keyIndexParser.collectWith<Key<2>>([](StorageValueIgnorer<2, 4> &&svi) { return svi.key; });
+    CHECK_EQ(initialKeys.size(), parsedKeys.size());
+    for (std::size_t i = 0; i < initialKeys.size(); ++i) {
+        CHECK_EQ(initialKeys[i], parsedKeys[i].elem);
+        CHECK_EQ(i, parsedKeys[i].index);
+    }
 }
