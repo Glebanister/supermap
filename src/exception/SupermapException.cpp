@@ -7,9 +7,9 @@ SupermapException::SupermapException(const std::string &message)
 SupermapException::SupermapException(const std::exception &e)
     : std::logic_error(std::string("cause: ") + e.what()) {}
 
-NotImplementedException::NotImplementedException()
-    : SupermapException("Method is not implemented") {}
-
 IOException::IOException(const std::string &message)
     : SupermapException("IOException: " + message) {}
+
+NotImplementedException::NotImplementedException(const std::string &message)
+    : SupermapException(std::string() + "NotImplementedException" + (message.empty() ? "" : ": ") + message) {}
 } // supermap

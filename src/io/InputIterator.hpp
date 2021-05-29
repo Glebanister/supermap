@@ -59,6 +59,9 @@ class InputIterator {
     >
     std::vector<Enum<To>> collectWith(Functor functor, std::uint32_t collectionSizeLimit = 0) {
         std::vector<Enum<To>> collection;
+        if (collectionSizeLimit != 0) {
+            collection.reserve(collectionSizeLimit);
+        }
         while (hasNext()) {
             if (collectionSizeLimit != 0 && collection.size() == collectionSizeLimit) {
                 break;

@@ -325,3 +325,11 @@ TEST_CASE("FunctorIterator") {
         CHECK_EQ(i, parsedKeys[i].index);
     }
 }
+
+TEST_CASE("KeyValueShrinkableStorage") {
+    using namespace supermap;
+
+    std::shared_ptr<io::FileManager> manager = std::make_shared<io::RamFileManager>();
+    KeyValueShrinkableStorage<2, 4> storage("storage", manager);
+    CHECK_THROWS_AS(storage.shrink(10, "-s", "store-temp"), const NotImplementedException &);
+}

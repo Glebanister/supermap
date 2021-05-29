@@ -1,6 +1,7 @@
 #pragma once
 
 #include <array>
+#include <cstring>
 
 #include "exception/IllegalArgumentException.hpp"
 #include "io/SerializeHelper.hpp"
@@ -9,8 +10,12 @@
 namespace supermap {
 
 template <std::size_t Len>
-struct Key : std::array<std::uint8_t, Len> {
+struct Key : public std::array<std::uint8_t, Len> {
     Key() = default;
+    Key(const Key &) = default;
+    Key(Key &&) noexcept = default;
+    Key &operator=(const Key &) = default;
+    Key &operator=(Key &&) noexcept = default;
 
     using std::array<std::uint8_t, Len>::array;
 
@@ -37,6 +42,10 @@ struct Key : std::array<std::uint8_t, Len> {
         }
 
         return arrKey;
+    }
+
+    bool operator<(const Key<Len> &other) {
+        return std::memcmp(this->data(), other.data(), Len) < 0;
     }
 };
 

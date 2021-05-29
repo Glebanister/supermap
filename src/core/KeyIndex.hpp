@@ -10,14 +10,23 @@
 namespace supermap {
 
 template <std::size_t KeyLen>
-struct KeyIndex {
+class KeyIndex {
+  public:
     KeyIndex() = default;
+    KeyIndex(const KeyIndex &) = default;
+    KeyIndex(KeyIndex &&) noexcept = default;
+    KeyIndex &operator=(const KeyIndex &) = default;
+    KeyIndex &operator=(KeyIndex &&other) noexcept = default;
 
-    const Key<KeyLen> key{};
-    const std::uint64_t index{};
+    Key<KeyLen> key{};
+    std::uint64_t index{};
 
-    bool operator==(const KeyIndex &other) const {
+    bool operator==(const KeyIndex &other) const noexcept {
         return key == other.key && index == other.index;
+    }
+
+    bool operator<(const KeyIndex &other) const noexcept {
+        return key < other.key;
     }
 };
 

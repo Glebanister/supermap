@@ -12,7 +12,7 @@ class SupermapException : public std::logic_error {
 
 class NotImplementedException : public SupermapException {
   public:
-    NotImplementedException();
+    explicit NotImplementedException(const std::string &message = "");
 };
 
 class IOException : public SupermapException {

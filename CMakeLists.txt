@@ -16,7 +16,7 @@ set(LIBRARY_SOURCES
         src/io/DiskFileManager.cpp
         src/io/RamFileManager.cpp
         src/io/InputStream.cpp
-        src/core/BloomFilter.cpp)
+        src/core/BloomFilter.cpp src/core/SortedIndexedData.hpp)
 
 set(CLI_SOURCES
         cli/main.cpp

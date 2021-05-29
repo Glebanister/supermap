@@ -16,18 +16,32 @@ class IndexedData {
                          std::string dataFileName,
                          std::shared_ptr<io::FileManager> manager)
         : items_(items),
-          dataFileName_(std::move(dataFileName)),
-          fileManager_(std::move(manager)) {}
+          dataFileName_(dataFileName),
+          fileManager_(std::move(manager)) {
+        fileManager_->create(dataFileName);
+    }
 
     explicit IndexedData(std::string dataFileName,
                          std::shared_ptr<io::FileManager> manager)
         : IndexedData(0, std::move(dataFileName), std::move(manager)) {}
+
+    IndexedData<T>(const IndexedData<T> &) = default;
+    IndexedData<T> &operator=(IndexedData<T> &&other) noexcept = default;
 
     std::uint64_t append(const T &item) {
         io::OutputIterator<T> writer = fileManager_->template getOutputIterator<T>(dataFileName_, true);
         writer.write(item);
         writer.flush();
         return items_++;
+    }
+
+    void appendAll(typename std::vector<T>::const_iterator begin, typename std::vector<T>::const_iterator end) {
+        io::OutputIterator<T> writer = fileManager_->template getOutputIterator<T>(dataFileName_, true);
+        for (auto it = begin; it < end; ++it) {
+            writer.write(*it);
+            items_++;
+        }
+        writer.flush();
     }
 
     T get(std::uint64_t index) {
@@ -52,9 +66,19 @@ class IndexedData {
         return items_;
     }
 
+    [[nodiscard]] std::shared_ptr<io::FileManager> getManager() const noexcept {
+        return fileManager_;
+    }
+
+    [[nodiscard]] const std::string &getDataFileName() const noexcept {
+        return dataFileName_;
+    }
+
   private:
     uint64_t items_{};
-    const std::string dataFileName_;
+
+  protected:
+    std::string dataFileName_;
     std::shared_ptr<io::FileManager> fileManager_;
 };
 
