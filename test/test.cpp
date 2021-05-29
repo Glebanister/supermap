@@ -322,3 +322,21 @@ TEST_CASE("FunctorIterator") {
         .collectToVector();
     CHECK_EQ(initialKeys, parsedKeys);
 }
+
+TEST_CASE ("EnumerationIterator") {
+    using namespace supermap;
+
+    std::string data = "1 2 3 4 5 ";
+    std::vector<io::Enumerated<int>> enumerated = io::InputIterator<int>::fromString(data, 0)
+        .map<int>([](int x) { return x + 1; })
+        .enumerate()
+        .collectToVector();
+
+    CHECK_EQ(enumerated, std::vector{
+        io::Enumerated{2, 0},
+        io::Enumerated{3, 1},
+        io::Enumerated{4, 2},
+        io::Enumerated{5, 3},
+        io::Enumerated{6, 4},
+    });
+}

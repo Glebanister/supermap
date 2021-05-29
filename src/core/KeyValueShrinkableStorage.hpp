@@ -36,8 +36,8 @@ class KeyValueShrinkableStorage {
         return keyValueStorage_.template getCustomDataParser<StorageValueIgnorer<KeyLen, ValueLen>>();
     }
 
-//    void shrink(std::uint32_t shrinkBatchSize) {
-//    }
+    void shrink(std::uint32_t shrinkBatchSize) {
+    }
 
     [[nodiscard]] std::uint64_t getKeysCount() const noexcept {
         return keyValueStorage_.getSize();
