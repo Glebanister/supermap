@@ -4,8 +4,8 @@
 
 #include "InputStream.hpp"
 #include "OutputStream.hpp"
-#include "Parser.hpp"
-#include "Writer.hpp"
+#include "InputIterator.hpp"
+#include "OutputIterator.hpp"
 
 namespace supermap::io {
 
@@ -18,13 +18,13 @@ class FileManager {
     virtual void remove(const std::filesystem::path &path) = 0;
 
     template <typename T>
-    Writer<T> getWriter(const std::filesystem::path &filename, bool append) {
-        return Writer<T>(getOutputStream(filename, append));
+    OutputIterator<T> getOutputIterator(const std::filesystem::path &filename, bool append) {
+        return OutputIterator<T>(getOutputStream(filename, append));
     }
 
     template <typename T>
-    Parser<T> getParser(const std::filesystem::path &filename, std::uint64_t offset) {
-        return Parser<T>(getInputStream(filename, offset));
+    InputIterator<T> getInputIterator(const std::filesystem::path &filename, std::uint64_t offset) {
+        return InputIterator<T>(getInputStream(filename, offset));
     }
 
     virtual ~FileManager() = default;

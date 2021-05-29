@@ -5,10 +5,10 @@
 #include <vector>
 
 #include "io/InputStream.hpp"
-#include "io/Parser.hpp"
+#include "io/InputIterator.hpp"
 #include "io/StackMemorySerializer.hpp"
 #include "io/OutputStream.hpp"
-#include "io/Writer.hpp"
+#include "io/OutputIterator.hpp"
 #include "io/RamFileManager.hpp"
 
 #include "exception/IllegalArgumentException.hpp"
@@ -121,8 +121,8 @@ TEST_CASE ("FileInputStream ints with offset") {
     CHECK_EQ(z, 3);
 }
 
-TEST_CASE ("Parser int") {
-    auto intIterator = supermap::io::Parser<int>::fromString("1 2 3", 0);
+TEST_CASE ("InputIterator int") {
+    auto intIterator = supermap::io::InputIterator<int>::fromString("1 2 3", 0);
     std::vector<int> parsed;
     while (intIterator.hasNext()) {
         parsed.push_back(intIterator.next());
@@ -130,7 +130,7 @@ TEST_CASE ("Parser int") {
     CHECK_EQ(std::vector{1, 2, 3}, parsed);
 }
 
-TEST_CASE ("Parser MockStruct") {
+TEST_CASE ("InputIterator MockStruct") {
     std::stringstream ss;
     std::vector<MockStruct> before = {
         {12343, 'a', {312, 0, 1122}},
@@ -140,7 +140,7 @@ TEST_CASE ("Parser MockStruct") {
     for (const auto &s : before) {
         supermap::io::serialize(s, ss);
     }
-    auto intIterator = supermap::io::Parser<MockStruct>::fromString(ss.str());
+    auto intIterator = supermap::io::InputIterator<MockStruct>::fromString(ss.str());
     std::vector<MockStruct> parsed;
     while (intIterator.hasNext()) {
         parsed.push_back(intIterator.next());
@@ -148,25 +148,25 @@ TEST_CASE ("Parser MockStruct") {
     CHECK(before == parsed);
 }
 
-TEST_CASE ("Writer int") {
+TEST_CASE ("OutputIterator int") {
     std::string buffer;
     std::vector<int> ints = {1, 2, 3, 4, 5};
-    auto writeIterator = supermap::io::Writer<int>::toString(buffer, false);
+    auto writeIterator = supermap::io::OutputIterator<int>::toString(buffer, false);
     writeIterator.writeAll(ints);
     writeIterator.flush();
     CHECK_EQ(buffer, "1 2 3 4 5 ");
 }
 
-TEST_CASE ("Writer MockStruct") {
+TEST_CASE ("OutputIterator MockStruct") {
     std::string buffer;
     std::vector<MockStruct> mocks = {{1, 'x', {4, 15, 6}},
                                      {2, 'y', {91, 905, 6}},
                                      {3, 'z', {41012, 5, 236}}};
-    auto writeIterator = supermap::io::Writer<MockStruct>::toString(buffer, false);
+    auto writeIterator = supermap::io::OutputIterator<MockStruct>::toString(buffer, false);
     writeIterator.writeAll(mocks);
     writeIterator.flush();
     std::vector<MockStruct> parsedMocks;
-    auto readIterator = supermap::io::Parser<MockStruct>::fromString(buffer, 0);
+    auto readIterator = supermap::io::InputIterator<MockStruct>::fromString(buffer, 0);
     while (readIterator.hasNext()) {
         parsedMocks.push_back(readIterator.next());
     }
@@ -288,5 +288,37 @@ TEST_CASE ("KeyValueShrinkableStorage") {
     while (keyIndexParser.hasNext()) {
         parsedKeys.push_back(keyIndexParser.next().key);
     }
+    CHECK_EQ(initialKeys, parsedKeys);
+}
+
+TEST_CASE("FunctorIterator") {
+    using namespace supermap;
+    using namespace io;
+
+    auto manager = std::make_shared<RamFileManager>();
+    const std::string filename = "indexed_data.txt";
+    KeyValueShrinkableStorage<2, 4> storage(filename, manager);
+
+    std::vector<KeyValue<2, 4>> keyValues{
+        {Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")},
+        {Key<2>::fromString("cd"), ByteArray<4>::fromString("1831")},
+        {Key<2>::fromString("ef"), ByteArray<4>::fromString("4923")},
+        {Key<2>::fromString("gh"), ByteArray<4>::fromString("3482")},
+    };
+
+    std::vector<Key<2>> initialKeys;
+    std::transform(keyValues.begin(),
+                   keyValues.end(),
+                   std::back_inserter(initialKeys),
+                   [](const KeyValue<2, 4> &kv) { return kv.key; });
+
+    for (std::size_t i = 0; i < keyValues.size(); ++i) {
+        CHECK_EQ(i, storage.add(keyValues[i].key, ByteArray(keyValues[i].value)));
+    }
+
+    auto keyIndexParser = storage.getKeys();
+    auto parsedKeys = keyIndexParser
+        .map<Key<2>>([](StorageValueIgnorer<2, 4> &&svi) { return svi.key; })
+        .collectToVector();
     CHECK_EQ(initialKeys, parsedKeys);
 }

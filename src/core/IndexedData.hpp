@@ -12,14 +12,19 @@ class IndexedData {
     static constexpr std::size_t EACH_SIZE = sizeof(T);
 
   public:
-    explicit IndexedData(std::string dataFileName,
+    explicit IndexedData(std::uint64_t items,
+                         std::string dataFileName,
                          std::shared_ptr<io::FileManager> manager)
-        : items_(0),
+        : items_(items),
           dataFileName_(std::move(dataFileName)),
           fileManager_(std::move(manager)) {}
 
+    explicit IndexedData(std::string dataFileName,
+                         std::shared_ptr<io::FileManager> manager)
+        : IndexedData(0, std::move(dataFileName), std::move(manager)) {}
+
     std::uint64_t append(const T &item) {
-        io::Writer<T> writer = fileManager_->template getWriter<T>(dataFileName_, true);
+        io::OutputIterator<T> writer = fileManager_->template getOutputIterator<T>(dataFileName_, true);
         writer.write(item);
         writer.flush();
         return items_++;
@@ -31,17 +36,16 @@ class IndexedData {
                 "Index " + std::to_string(index) +
                 " is out of IndexedData of size " + std::to_string(items_));
         }
-        io::Parser<T> parser = fileManager_->template getParser<T>(dataFileName_, index * EACH_SIZE);
-        return parser.next();
+        return fileManager_->template getInputIterator<T>(dataFileName_, index * EACH_SIZE).next();
     }
 
-    io::Parser<T> getDataParser() {
-        return fileManager_->template getParser<T>(dataFileName_, 0);
+    io::InputIterator<T> getDataParser() {
+        return fileManager_->template getInputIterator<T>(dataFileName_, 0);
     }
 
     template <typename Out>
-    io::Parser<Out> getCustomDataParser() const {
-        return io::Parser<Out>(fileManager_->getInputStream(dataFileName_, 0));
+    io::InputIterator<Out> getCustomDataParser() const {
+        return io::InputIterator<Out>(fileManager_->getInputStream(dataFileName_, 0));
     }
 
     [[nodiscard]] std::size_t getSize() const noexcept {
@@ -49,7 +53,7 @@ class IndexedData {
     }
 
   private:
-    uint64_t items_;
+    uint64_t items_{};
     const std::string dataFileName_;
     std::shared_ptr<io::FileManager> fileManager_;
 };

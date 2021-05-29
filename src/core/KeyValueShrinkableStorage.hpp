@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <vector>
 #include <cassert>
+#include <unordered_map>
 
 #include "KeyIndex.hpp"
 #include "KeyValue.hpp"
@@ -19,8 +20,6 @@ struct StorageValueIgnorer {
 template <std::size_t KeyLen, std::size_t ValueLen>
 class KeyValueShrinkableStorage {
   public:
-
-  public:
     explicit KeyValueShrinkableStorage(const std::string &storageFilename,
                                        std::shared_ptr<io::FileManager> manager)
         : keyValueStorage_(storageFilename, std::move(manager)) {}
@@ -33,19 +32,26 @@ class KeyValueShrinkableStorage {
         return keyValueStorage_.get(index).value;
     }
 
-    io::Parser<StorageValueIgnorer<KeyLen, ValueLen>> getKeys() {
+    io::InputIterator<StorageValueIgnorer<KeyLen, ValueLen>> getKeys() {
         return keyValueStorage_.template getCustomDataParser<StorageValueIgnorer<KeyLen, ValueLen>>();
     }
 
-    void shrink() {
-        throw NotImplementedException();
-    }
+//    void shrink(std::uint32_t shrinkBatchSize) {
+//    }
 
     [[nodiscard]] std::uint64_t getKeysCount() const noexcept {
         return keyValueStorage_.getSize();
     }
 
   private:
+    explicit KeyValueShrinkableStorage(std::uint64_t containedKeys,
+                                       std::string storageFilename,
+                                       std::shared_ptr<io::FileManager> manager)
+        : keyValueStorage_(containedKeys,
+                           storageFilename,
+                           std::move(storageFilename),
+                           std::move(manager)) {}
+
     IndexedData<KeyValue<KeyLen, ValueLen>> keyValueStorage_;
 };
 

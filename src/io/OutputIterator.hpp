@@ -9,17 +9,17 @@
 namespace supermap::io {
 
 template <typename T, typename = std::enable_if_t<SerializeHelper<T>::isSerializable>>
-class Writer {
+class OutputIterator {
   public:
-    explicit Writer(std::unique_ptr<OutputStream> &&os)
+    explicit OutputIterator(std::unique_ptr<OutputStream> &&os)
         : os_(std::move(os)) {}
 
-    static Writer toFile(const std::string &filename, bool append) {
-        return Writer(std::make_unique<FileOutputStream>(filename, append));
+    static OutputIterator toFile(const std::string &filename, bool append) {
+        return OutputIterator(std::make_unique<FileOutputStream>(filename, append));
     }
 
-    static Writer toString(std::string &buffer, bool append) {
-        return Writer(std::make_unique<StringOutputStream>(buffer, append));
+    static OutputIterator toString(std::string &buffer, bool append) {
+        return OutputIterator(std::make_unique<StringOutputStream>(buffer, append));
     }
 
   public:
