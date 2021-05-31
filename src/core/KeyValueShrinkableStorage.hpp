@@ -19,18 +19,26 @@ struct StorageValueIgnorer {
 };
 
 template <std::size_t KeyLen, std::size_t ValueLen>
-class KeyValueShrinkableStorage {
+class KeyValueShrinkableStorage : public IndexedData<KeyValue<KeyLen, ValueLen>> {
+  public:
+    using IndexedData<KeyValue<KeyLen, ValueLen>>::get;
+    using IndexedData<KeyValue<KeyLen, ValueLen>>::getDataFileName;
+    using IndexedData<KeyValue<KeyLen, ValueLen>>::getManager;
+    using IndexedData<KeyValue<KeyLen, ValueLen>>::getCustomDataParser;
+    using IndexedData<KeyValue<KeyLen, ValueLen>>::getSize;
+    using IndexedData<KeyValue<KeyLen, ValueLen>>::append;
+
   public:
     explicit KeyValueShrinkableStorage(const std::string &storageFilename,
                                        std::shared_ptr<io::FileManager> manager)
-        : keyValueStorage_(storageFilename, manager) {
+        : IndexedData<KeyValue<KeyLen, ValueLen>>(storageFilename, manager) {
     }
 
     explicit KeyValueShrinkableStorage(
-        const KeyValueShrinkableStorage &other, // old storage
+        const KeyValueShrinkableStorage &other,
         const std::string &storageFilename,
-        const IndexedData<Enum<Key<KeyLen>>> &) // actual index
-        : keyValueStorage_(storageFilename, other.keyValueStorage_.getManager()) {
+        const IndexedData<Enum<Key<KeyLen>>> &)
+        : IndexedData<KeyValue<KeyLen, ValueLen>>(storageFilename, other.getManager()) {
         throw NotImplementedException("KeyValueShrinkableStorage shrinking ctor");
     }
 
@@ -39,19 +47,20 @@ class KeyValueShrinkableStorage {
     }
 
     std::uint64_t add(const Key<KeyLen> &key, ByteArray<ValueLen> &&value) {
-        return keyValueStorage_.append({key, std::move(value)});
+        return append({key, std::move(value)});
     }
 
     ByteArray<ValueLen> getValue(std::uint64_t index) {
-        return keyValueStorage_.get(index).value;
+        return get(index).value;
     }
 
     io::InputIterator<StorageValueIgnorer<KeyLen, ValueLen>> getKeys() {
-        return keyValueStorage_.template getCustomDataParser<StorageValueIgnorer<KeyLen, ValueLen>>();
+        return IndexedData<KeyValue<KeyLen, ValueLen>>::template getCustomDataParser<StorageValueIgnorer<KeyLen,
+                                                                                                         ValueLen>>();
     }
 
     std::string getBatchFileName(std::size_t batchId, const std::string &shrinkFileSuffix) {
-        return keyValueStorage_.getDataFileName()
+        return getDataFileName()
             + shrinkFileSuffix
             + std::to_string(batchId);
     }
@@ -61,11 +70,11 @@ class KeyValueShrinkableStorage {
         const std::string &shrinkFileSuffix,
         const std::string &temporaryStorageName) {
 
-        std::size_t batchesCount = (getKeysCount() + shrinkBatchSize - 1) / shrinkBatchSize;
+        std::size_t batchesCount = (getSize() + shrinkBatchSize - 1) / shrinkBatchSize;
         io::InputIterator<StorageValueIgnorer<KeyLen, ValueLen>> keyStream = getKeys();
         std::vector<io::FileManager::TemporaryFile> tempFies;
         std::vector<SortedIndexedData<Enum<Key<KeyLen>>>> sortedBatchKeys;
-        auto fileManager = keyValueStorage_.getManager();
+        auto fileManager = getManager();
 
         tempFies.reserve(batchesCount + 2);
         sortedBatchKeys.reserve(batchesCount);
@@ -90,27 +99,21 @@ class KeyValueShrinkableStorage {
 
         SortedIndexedData<Enum<Key<KeyLen>>> mergedIndex = SortedIndexedData(
             std::move(sortedBatchKeys),
-            keyValueStorage_.getDataFileName() + shrinkFileSuffix,
+            getDataFileName() + shrinkFileSuffix,
             fileManager
         );
         resetStorageWith(KeyValueShrinkableStorage<KeyLen, ValueLen>(*this, temporaryStorageName, mergedIndex));
         return mergedIndex;
     }
 
-    [[nodiscard]] std::uint64_t getKeysCount() const noexcept {
-        return keyValueStorage_.getSize();
-    }
-
   private:
     explicit KeyValueShrinkableStorage(std::uint64_t containedKeys,
                                        std::string storageFilename,
                                        std::shared_ptr<io::FileManager> manager)
-        : keyValueStorage_(containedKeys,
-                           storageFilename,
-                           storageFilename,
-                           manager) {}
-
-    IndexedData<KeyValue<KeyLen, ValueLen>> keyValueStorage_;
+        : IndexedData<KeyValue<KeyLen, ValueLen>>(containedKeys,
+                                                  storageFilename,
+                                                  storageFilename,
+                                                  manager) {}
 };
 
 namespace io {

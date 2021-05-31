@@ -4,7 +4,8 @@
 #include <string>
 #include <vector>
 
-#include "Enum.hpp"
+#include "primitive/Enum.hpp"
+#include "primitive/Key.hpp"
 #include "exception/SupermapException.hpp"
 
 namespace supermap {

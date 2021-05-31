@@ -3,7 +3,7 @@
 #include <string>
 
 #include "ByteArray.hpp"
-#include "Key.hpp"
+#include "primitive/Key.hpp"
 
 namespace supermap {
 

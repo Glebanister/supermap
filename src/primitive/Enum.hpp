@@ -47,6 +47,7 @@ struct DeserializeHelper<Enum<T>>
         };
     }
 };
+
 } // io
 
 } // supermap
