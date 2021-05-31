@@ -35,10 +35,3 @@ jobs:
       - name: Test
         working-directory: ${{github.workspace}}/build
         run: ./supermap-test
-
-      - name: Install Valgrind
-        run: apt-get install valgrind
-
-      - name: Run Valgrind
-        working-directory: ${{github.workspace}}/build
-        run: valgrind ./supermap-test
