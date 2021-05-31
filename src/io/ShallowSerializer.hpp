@@ -5,7 +5,7 @@
 namespace supermap::io {
 
 template <typename T>
-struct StackMemorySerializer : Serializable<true> {
+struct ShallowSerializer : Serializable<true> {
     static void serialize(const T &value, std::ostream &os) {
         for (std::size_t i = 0; i < sizeof(T); ++i) {
             os.put(reinterpret_cast<const std::uint8_t *>(&value)[i]);
@@ -14,7 +14,7 @@ struct StackMemorySerializer : Serializable<true> {
 };
 
 template <typename T, typename = std::enable_if_t<std::is_default_constructible<T>::value>>
-struct StackMemoryDeserializer : Deserializable<true, sizeof(T)> {
+struct ShallowDeserializer : Deserializable<true, sizeof(T)> {
     static T deserialize(std::istream &is) {
         T obj;
         for (std::size_t i = 0; i < sizeof(T); ++i) {

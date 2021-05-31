@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "KeyIndex.hpp"
+#include "Enum.hpp"
 #include "exception/SupermapException.hpp"
 
 namespace supermap {
@@ -12,7 +12,7 @@ namespace supermap {
 template <std::size_t KeyLen>
 class DiskIndex {
   public:
-    explicit DiskIndex(const std::vector<KeyIndex<KeyLen>> &) {
+    explicit DiskIndex(const std::vector<Enum<Key<KeyLen>>> &) {
         throw NotImplementedException();
     }
 
@@ -20,7 +20,7 @@ class DiskIndex {
         throw NotImplementedException();
     }
 
-    void addAll(std::vector<KeyIndex<KeyLen>> &) {
+    void addAll(std::vector<Enum<Key<KeyLen>>> &) {
         throw NotImplementedException();
     }
 

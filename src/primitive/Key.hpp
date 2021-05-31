@@ -5,7 +5,7 @@
 
 #include "exception/IllegalArgumentException.hpp"
 #include "io/SerializeHelper.hpp"
-#include "io/StackMemorySerializer.hpp"
+#include "io/ShallowSerializer.hpp"
 
 namespace supermap {
 
@@ -52,10 +52,10 @@ struct Key : public std::array<std::uint8_t, Len> {
 namespace io {
 
 template <std::size_t KeyLen>
-struct SerializeHelper<Key<KeyLen>> : StackMemorySerializer<Key<KeyLen>> {};
+struct SerializeHelper<Key<KeyLen>> : ShallowSerializer<Key<KeyLen>> {};
 
 template <std::size_t KeyLen>
-struct DeserializeHelper<Key<KeyLen>> : StackMemoryDeserializer<Key<KeyLen>> {};
+struct DeserializeHelper<Key<KeyLen>> : ShallowDeserializer<Key<KeyLen>> {};
 
 } // io
 

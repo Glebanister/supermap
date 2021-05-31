@@ -5,8 +5,8 @@
 #include <cassert>
 #include <unordered_map>
 
-#include "KeyIndex.hpp"
-#include "KeyValue.hpp"
+#include "primitive/Enum.hpp"
+#include "primitive/KeyValue.hpp"
 #include "IndexedData.hpp"
 #include "SortedIndexedData.hpp"
 #include "exception/SupermapException.hpp"
@@ -29,7 +29,7 @@ class KeyValueShrinkableStorage {
     explicit KeyValueShrinkableStorage(
         const KeyValueShrinkableStorage &other, // old storage
         const std::string &storageFilename,
-        const IndexedData<KeyIndex<KeyLen>> &) // actual index
+        const IndexedData<Enum<Key<KeyLen>>> &) // actual index
         : keyValueStorage_(storageFilename, other.keyValueStorage_.getManager()) {
         throw NotImplementedException("KeyValueShrinkableStorage shrinking ctor");
     }
@@ -50,13 +50,13 @@ class KeyValueShrinkableStorage {
         return keyValueStorage_.template getCustomDataParser<StorageValueIgnorer<KeyLen, ValueLen>>();
     }
 
-    std::string getBatchFileName(const std::size_t batchId, const std::string &shrinkFileSuffix) {
+    std::string getBatchFileName(std::size_t batchId, const std::string &shrinkFileSuffix) {
         return keyValueStorage_.getDataFileName()
             + shrinkFileSuffix
             + std::to_string(batchId);
     }
 
-    SortedIndexedData<KeyIndex<KeyLen>> shrink(
+    SortedIndexedData<Enum<Key<KeyLen>>> shrink(
         std::uint32_t shrinkBatchSize,
         const std::string &shrinkFileSuffix,
         const std::string &temporaryStorageName) {
@@ -64,7 +64,7 @@ class KeyValueShrinkableStorage {
         std::size_t batchesCount = (getKeysCount() + shrinkBatchSize - 1) / shrinkBatchSize;
         io::InputIterator<StorageValueIgnorer<KeyLen, ValueLen>> keyStream = getKeys();
         std::vector<io::FileManager::TemporaryFile> tempFies;
-        std::vector<SortedIndexedData<KeyIndex<KeyLen>>> sortedBatchKeys;
+        std::vector<SortedIndexedData<Enum<Key<KeyLen>>>> sortedBatchKeys;
         auto fileManager = keyValueStorage_.getManager();
 
         tempFies.reserve(batchesCount + 2);
@@ -74,23 +74,12 @@ class KeyValueShrinkableStorage {
 
             tempFies.push_back(fileManager->createTemporaryFile(batchFileName));
 
-            std::vector<io::Enum<Key<KeyLen>>> thisBatchKeysRaw =
+            SortedIndexedData<Enum<Key<KeyLen>>> sortedBatch(
                 keyStream.template collectWith<Key<KeyLen>>(
                     [](StorageValueIgnorer<KeyLen, ValueLen> &&svi) {
                         return svi.key;
                     },
-                    shrinkBatchSize);
-            std::vector<KeyIndex<KeyLen>> thisBatchKeys;
-            thisBatchKeys.reserve(thisBatchKeysRaw.size());
-            std::transform(thisBatchKeysRaw.begin(),
-                           thisBatchKeysRaw.end(),
-                           std::back_inserter(thisBatchKeys),
-                           [](const io::Enum<Key<KeyLen>> &raw) {
-                               return KeyIndex<KeyLen>{raw.elem, raw.index};
-                           });
-
-            SortedIndexedData<KeyIndex<KeyLen>> sortedBatch(
-                std::move(thisBatchKeys),
+                    shrinkBatchSize),
                 batchFileName,
                 fileManager
             );
@@ -99,7 +88,7 @@ class KeyValueShrinkableStorage {
             sortedBatchKeys.push_back(std::move(sortedBatch));
         }
 
-        SortedIndexedData<KeyIndex<KeyLen>> mergedIndex = SortedIndexedData(
+        SortedIndexedData<Enum<Key<KeyLen>>> mergedIndex = SortedIndexedData(
             std::move(sortedBatchKeys),
             keyValueStorage_.getDataFileName() + shrinkFileSuffix,
             fileManager

@@ -3,7 +3,7 @@
 #include <array>
 
 #include "io/SerializeHelper.hpp"
-#include "io/StackMemorySerializer.hpp"
+#include "io/ShallowSerializer.hpp"
 
 #include "Key.hpp"
 
@@ -33,10 +33,10 @@ class KeyIndex {
 namespace io {
 
 template <std::size_t KeyLen>
-struct SerializeHelper<KeyIndex<KeyLen>> : StackMemorySerializer<KeyIndex<KeyLen>> {};
+struct SerializeHelper<KeyIndex<KeyLen>> : ShallowSerializer<KeyIndex<KeyLen>> {};
 
 template <std::size_t KeyLen>
-struct DeserializeHelper<KeyIndex<KeyLen>> : StackMemoryDeserializer<KeyIndex<KeyLen>> {};
+struct DeserializeHelper<KeyIndex<KeyLen>> : ShallowDeserializer<KeyIndex<KeyLen>> {};
 
 } // io
 

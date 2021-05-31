@@ -6,23 +6,9 @@
 #include "InputStream.hpp"
 #include "SerializeHelper.hpp"
 #include "exception/IteratorException.hpp"
+#include "primitive/Enum.hpp"
 
 namespace supermap::io {
-
-template <typename T>
-struct Enum {
-    Enum() = delete;
-
-    Enum(T &&e, std::uint32_t i)
-        : elem(std::move(e)), index(i) {}
-
-    T elem;
-    std::uint32_t index{};
-
-    bool operator==(const Enum<T> &other) const {
-        return elem == other.elem && index == other.index;
-    }
-};
 
 template <typename T, typename = std::enable_if_t<DeserializeHelper<T>::isDeserializable>>
 class InputIterator {

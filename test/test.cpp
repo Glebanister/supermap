@@ -6,17 +6,17 @@
 
 #include "io/InputStream.hpp"
 #include "io/InputIterator.hpp"
-#include "io/StackMemorySerializer.hpp"
+#include "io/ShallowSerializer.hpp"
 #include "io/OutputStream.hpp"
 #include "io/OutputIterator.hpp"
 #include "io/RamFileManager.hpp"
 
 #include "exception/IllegalArgumentException.hpp"
 
-#include "core/Key.hpp"
+#include "primitive/Key.hpp"
+#include "primitive/Enum.hpp"
 #include "core/ByteArray.hpp"
 #include "core/IndexedData.hpp"
-#include "core/KeyIndex.hpp"
 #include "core/KeyValueShrinkableStorage.hpp"
 
 struct TempFile {
@@ -48,10 +48,10 @@ struct MockStruct {
 namespace supermap::io {
 
 template <>
-struct SerializeHelper<MockStruct> : StackMemorySerializer<MockStruct> {};
+struct SerializeHelper<MockStruct> : ShallowSerializer<MockStruct> {};
 
 template <>
-struct DeserializeHelper<MockStruct> : StackMemoryDeserializer<MockStruct> {};
+struct DeserializeHelper<MockStruct> : ShallowDeserializer<MockStruct> {};
 
 template <>
 struct SerializeHelper<int> : Serializable<true> {
@@ -211,9 +211,9 @@ TEST_CASE ("IndexedData KeyIndex") {
 
     auto manager = std::make_shared<RamFileManager>();
     const std::string filename = "indexed_data.txt";
-    IndexedData<KeyIndex<2>> indexedData(filename, manager);
+    IndexedData<Enum<Key<2>>> indexedData(filename, manager);
 
-    std::vector<KeyIndex<2>> keys{
+    std::vector<Enum<Key<2>>> keys{
         {Key<2>::fromString("ab"), 0},
         {Key<2>::fromString("cd"), 1},
         {Key<2>::fromString("ef"), 2},
@@ -223,7 +223,7 @@ TEST_CASE ("IndexedData KeyIndex") {
     for (std::size_t i = 0; i < keys.size(); ++i) {
         CHECK_EQ(i, indexedData.append(keys[i]));
     }
-    std::vector<KeyIndex<2>> parsedData;
+    std::vector<Enum<Key<2>>> parsedData;
     auto keyIndexParser = indexedData.getDataParser();
     while (keyIndexParser.hasNext()) {
         parsedData.push_back(keyIndexParser.next());
@@ -317,7 +317,7 @@ TEST_CASE("FunctorIterator") {
     }
 
     auto keyIndexParser = storage.getKeys();
-    std::vector<io::Enum<Key<2>>> parsedKeys =
+    std::vector<Enum<Key<2>>> parsedKeys =
         keyIndexParser.collectWith<Key<2>>([](StorageValueIgnorer<2, 4> &&svi) { return svi.key; });
     CHECK_EQ(initialKeys.size(), parsedKeys.size());
     for (std::size_t i = 0; i < initialKeys.size(); ++i) {
