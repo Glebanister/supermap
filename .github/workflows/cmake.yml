@@ -36,6 +36,9 @@ jobs:
         working-directory: ${{github.workspace}}/build
         run: ./supermap-test
 
-      - name: Check Memory Leak
+      - name: Install Valgrind
+        run: apt-get install valgrind
+
+      - name: Run Valgrind
         working-directory: ${{github.workspace}}/build
         run: valgrind ./supermap-test
