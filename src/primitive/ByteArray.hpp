@@ -24,7 +24,11 @@ class ByteArray {
         : data_(std::move(other.data_)) {}
 
     ByteArray &operator=(const ByteArray<Len> &other) = delete;
-    ByteArray &operator=(ByteArray<Len> &&other) = delete;
+
+    ByteArray &operator=(ByteArray<Len> &&other) noexcept {
+        data_.reset(std::move(other.data_.release()));
+        return *this;
+    }
 
     [[nodiscard]] std::uint8_t *getBytes() const noexcept {
         return data_.get();
@@ -74,7 +78,7 @@ struct SerializeHelper<ByteArray<Len>> : Serializable<true> {
 };
 
 template <std::size_t Len>
-struct DeserializeHelper<ByteArray<Len>> : Deserializable<true, Len> {
+struct DeserializeHelper<ByteArray<Len>> : Deserializable<true> {
     static ByteArray<Len> deserialize(std::istream &is) {
         ByteArray<Len> ar;
         is.read(ar.getCharsPointer(), Len);
@@ -86,6 +90,9 @@ struct DeserializeHelper<ByteArray<Len>> : Deserializable<true, Len> {
         return ar;
     }
 };
+
+template <std::size_t Len>
+struct FixedDeserializedSizeRegister<ByteArray<Len>> : FixedDeserializedSize<Len> {};
 
 } // io
 

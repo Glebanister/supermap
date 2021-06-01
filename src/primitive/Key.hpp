@@ -57,6 +57,9 @@ struct SerializeHelper<Key<KeyLen>> : ShallowSerializer<Key<KeyLen>> {};
 template <std::size_t KeyLen>
 struct DeserializeHelper<Key<KeyLen>> : ShallowDeserializer<Key<KeyLen>> {};
 
+template <std::size_t KeyLen>
+struct FixedDeserializedSizeRegister<Key<KeyLen>> : FixedDeserializedSize<KeyLen> {};
+
 } // io
 
 } // supermap

@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <exception/FileException.hpp>
+#include <filesystem>
 
 namespace supermap::io {
 class InputStream {

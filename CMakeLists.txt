@@ -6,6 +6,7 @@ add_compile_options(-Wall -Wextra -Wshadow -Wpedantic -Werror)
 set(LIBRARY supermap)
 set(EXE supermap-cli)
 set(TEST supermap-test)
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
 
 set(LIBRARY_SOURCES
         src/exception/SupermapException.cpp
@@ -16,7 +17,7 @@ set(LIBRARY_SOURCES
         src/io/DiskFileManager.cpp
         src/io/RamFileManager.cpp
         src/io/InputStream.cpp
-        src/core/BloomFilter.cpp src/core/SortedIndexedData.hpp)
+        src/core/BloomFilter.cpp)
 
 set(CLI_SOURCES
         cli/main.cpp

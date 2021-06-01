@@ -13,11 +13,18 @@ struct Serializable {
     static constexpr bool isSerializable = IsSerializable;
 };
 
-template <bool IsDeserializable, std::size_t MinimalDeserializedSize>
+template <bool IsDeserializable>
 struct Deserializable {
     static constexpr bool isDeserializable = IsDeserializable;
-    static constexpr bool minimalDeserializedSize = MinimalDeserializedSize;
 };
+
+template <std::size_t ExactDeserializedSize>
+struct FixedDeserializedSize {
+    static constexpr std::size_t exactDeserializedSize = ExactDeserializedSize;
+};
+
+template <typename T>
+struct FixedDeserializedSizeRegister {};
 
 template <typename T>
 struct SerializeHelper : Serializable<false> {
@@ -28,7 +35,7 @@ struct SerializeHelper : Serializable<false> {
 };
 
 template <typename T>
-struct DeserializeHelper : Deserializable<false, 1> {
+struct DeserializeHelper : Deserializable<false> {
     T deserialize(std::istream &) {
         // will not be called
         throw NotImplementedException();
@@ -40,8 +47,10 @@ inline void serialize(const T &value, std::ostream &os) {
     SerializeHelper<T>::serialize(value, os);
 }
 
-template <typename T, typename = std::enable_if_t<DeserializeHelper<T>::isDeserializable>>
-inline T deserialize(std::istream &os) {
-    return DeserializeHelper<T>::deserialize(os);
+template <
+    typename T,
+    typename = std::enable_if_t<DeserializeHelper<T>::isDeserializable>>
+inline T deserialize(std::istream &is) {
+    return DeserializeHelper<T>::deserialize(is);
 }
 } // supermap::io

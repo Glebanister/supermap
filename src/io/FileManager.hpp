@@ -13,18 +13,18 @@ class FileManager {
   public:
     class TemporaryFile {
       public:
-        explicit TemporaryFile(const std::filesystem::path &path, FileManager &manager)
-            : path_(path), manager_(manager) {
-            manager_.create(path);
+        explicit TemporaryFile(const std::filesystem::path &path, std::shared_ptr<FileManager> manager)
+            : path_(path), manager_(std::move(manager)) {
+            manager_->create(path);
         }
 
         ~TemporaryFile() {
-            manager_.remove(path_);
+            manager_->remove(path_);
         }
 
       private:
         const std::filesystem::path path_;
-        FileManager &manager_;
+        std::shared_ptr<FileManager> manager_;
     };
 
   public:
@@ -34,13 +34,18 @@ class FileManager {
 
     virtual void remove(const std::filesystem::path &path) = 0;
 
+    virtual void rename(const std::filesystem::path &prevPath, const std::filesystem::path &nextPath) = 0;
+
+    virtual void clear(const std::filesystem::path &path) {
+        remove(path);
+        create(path);
+    }
+
     virtual void create(const std::filesystem::path &path) {
         getOutputStream(path, false)->flush();
     }
 
-    TemporaryFile createTemporaryFile(const std::filesystem::path &path) {
-        return TemporaryFile(path, *this);
-    }
+    virtual void swap(const std::filesystem::path &, const std::filesystem::path &) = 0;
 
     template <typename T>
     OutputIterator<T> getOutputIterator(const std::filesystem::path &filename, bool append) {

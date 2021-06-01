@@ -2,7 +2,7 @@
 
 #include <string>
 
-#include "ByteArray.hpp"
+#include "primitive/ByteArray.hpp"
 #include "primitive/Key.hpp"
 
 namespace supermap {

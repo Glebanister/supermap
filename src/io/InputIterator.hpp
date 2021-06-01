@@ -2,15 +2,19 @@
 
 #include <memory>
 #include <vector>
+#include <cassert>
 
 #include "InputStream.hpp"
 #include "SerializeHelper.hpp"
 #include "exception/IteratorException.hpp"
-#include "primitive/Enum.hpp"
 
 namespace supermap::io {
 
-template <typename T, typename = std::enable_if_t<DeserializeHelper<T>::isDeserializable>>
+template <
+    typename T,
+    std::size_t EachSize = FixedDeserializedSizeRegister<T>::exactDeserializedSize,
+    typename = std::enable_if_t<DeserializeHelper<T>::isDeserializable>
+>
 class InputIterator {
   public:
     explicit InputIterator(std::unique_ptr<InputStream> &&input)
@@ -30,7 +34,7 @@ class InputIterator {
     InputIterator(InputIterator &&) noexcept = default;
 
     [[nodiscard]] bool hasNext() const noexcept {
-        return input_->availableBytes() >= DeserializeHelper<T>::minimalDeserializedSize;
+        return input_->availableBytes() >= EachSize;
     }
 
     T next() {
@@ -39,26 +43,41 @@ class InputIterator {
     }
 
     template <
-        typename To,
         typename Functor,
-        typename = std::enable_if_t<std::is_invocable_r_v<To, Functor, T &&>>
+        typename Result = std::invoke_result_t<Functor, T &&, std::uint32_t>
     >
-    std::vector<Enum<To>> collectWith(Functor functor, std::uint32_t collectionSizeLimit = 0) {
-        std::vector<Enum<To>> collection;
-        if (collectionSizeLimit != 0) {
-            collection.reserve(collectionSizeLimit);
+    std::vector<Result> collectWith(Functor functor, std::size_t collectionSizeLimit = 0) {
+        std::vector<Result> collection;
+        std::size_t objectsInStream;
+        {
+            auto curPos = input_->get().tellg();
+            input_->get().seekg(0, std::ios::end);
+            auto endPos = input_->get().tellg();
+            auto bytes = endPos - curPos;
+            assert(bytes % EachSize == 0);
+            input_->get().seekg(curPos);
+            objectsInStream = bytes / EachSize;
         }
-        while (hasNext()) {
-            if (collectionSizeLimit != 0 && collection.size() == collectionSizeLimit) {
-                break;
-            }
-            collection.push_back(Enum{functor(next()), index_ - 1});
+        std::size_t objectsToRead;
+        if (collectionSizeLimit == 0) {
+            objectsToRead = objectsInStream;
+        } else {
+            objectsToRead = std::min(objectsInStream, collectionSizeLimit);
+        }
+        collection.reserve(objectsToRead);
+        const std::uint64_t bytesToRead = static_cast<std::uint64_t>(objectsToRead) * EachSize;
+        std::unique_ptr<char[]> bytes = std::make_unique<char[]>(bytesToRead + 1);
+        bytes[bytesToRead] = '\0';
+        input_->get().read(bytes.get(), bytesToRead);
+        std::stringstream ss(bytes.get(), std::ios_base::in);
+        for (std::size_t objectI = 0; objectI < objectsToRead; ++objectI) {
+            collection.push_back(functor(deserialize<T>(ss), index_++));
         }
         return collection;
     }
 
-    std::vector<Enum<T>> collect(std::uint32_t collectionSizeLimit = 0) {
-        return collectWith([](auto &&x) { return x; }, collectionSizeLimit);
+    std::vector<T> collect(std::uint32_t collectionSizeLimit = 0) {
+        return collectWith([](auto &&x, std::uint32_t) { return x; }, collectionSizeLimit);
     }
 
     std::unique_ptr<InputStream> input_;

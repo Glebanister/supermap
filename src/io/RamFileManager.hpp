@@ -20,8 +20,16 @@ class RamFileManager : public FileManager {
 
     void remove(const std::filesystem::path &path) override;
 
+    void rename(const std::filesystem::path &prev, const std::filesystem::path &next) override;
+
+    void swap(const std::filesystem::path &, const std::filesystem::path &) override;
+
   private:
-    [[nodiscard]] std::deque<File>::const_iterator getFileIterator(const std::filesystem::path &path) const noexcept;
+    [[nodiscard]] std::deque<File>::const_iterator getFileIterator(const std::filesystem::path &path) const;
+
+    [[nodiscard]] std::deque<File>::const_iterator getFileIteratorNoThrow(const std::filesystem::path &path) const noexcept;
+
+    [[nodiscard]] File &accessFile(const std::deque<File>::const_iterator &it);
 
     std::deque<File> files;
 };

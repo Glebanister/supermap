@@ -19,4 +19,12 @@ void DiskFileManager::remove(const std::filesystem::path &p) {
     }
 }
 
+void DiskFileManager::rename(const std::filesystem::path &prev, const std::filesystem::path &next) {
+    try {
+        std::filesystem::rename(prev, next);
+    } catch (const std::filesystem::filesystem_error &er) {
+        throw FileException(prev, er.what());
+    }
+}
+
 } // supermap::io

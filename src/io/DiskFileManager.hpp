@@ -11,6 +11,8 @@ class DiskFileManager : public FileManager {
     std::unique_ptr<OutputStream> getOutputStream(const std::filesystem::path &filename, bool append) override;
 
     void remove(const std::filesystem::path &) override;
+
+    void rename(const std::filesystem::path &prev, const std::filesystem::path &next) override;
 };
 
 } // supermap::io

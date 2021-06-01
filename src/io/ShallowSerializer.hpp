@@ -14,7 +14,7 @@ struct ShallowSerializer : Serializable<true> {
 };
 
 template <typename T, typename = std::enable_if_t<std::is_default_constructible<T>::value>>
-struct ShallowDeserializer : Deserializable<true, sizeof(T)> {
+struct ShallowDeserializer : Deserializable<true> {
     static T deserialize(std::istream &is) {
         T obj;
         for (std::size_t i = 0; i < sizeof(T); ++i) {
@@ -23,5 +23,8 @@ struct ShallowDeserializer : Deserializable<true, sizeof(T)> {
         return obj;
     }
 };
+
+template <typename T>
+struct ShallowDeserializedSize : FixedDeserializedSize<sizeof(T)> {};
 
 } // supermap::io

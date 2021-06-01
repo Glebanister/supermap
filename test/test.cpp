@@ -15,8 +15,8 @@
 
 #include "primitive/Key.hpp"
 #include "primitive/Enum.hpp"
-#include "core/ByteArray.hpp"
-#include "core/IndexedData.hpp"
+#include "primitive/ByteArray.hpp"
+#include "core/SingleFileIndexedStorage.hpp"
 #include "core/KeyValueShrinkableStorage.hpp"
 
 struct TempFile {
@@ -54,6 +54,9 @@ template <>
 struct DeserializeHelper<MockStruct> : ShallowDeserializer<MockStruct> {};
 
 template <>
+struct FixedDeserializedSizeRegister<MockStruct> : ShallowDeserializedSize<MockStruct> {};
+
+template <>
 struct SerializeHelper<int> : Serializable<true> {
     static void serialize(const int &value, std::ostream &os) {
         os << value << ' ';
@@ -61,13 +64,16 @@ struct SerializeHelper<int> : Serializable<true> {
 };
 
 template <>
-struct DeserializeHelper<int> : Deserializable<true, 2> {
+struct DeserializeHelper<int> : Deserializable<true> {
     static int deserialize(std::istream &is) {
         int value;
         is >> value;
         return value;
     }
 };
+
+template <>
+struct FixedDeserializedSizeRegister<int> : FixedDeserializedSize<2> {};
 
 } // supermap::io
 
@@ -205,13 +211,13 @@ TEST_CASE ("ByteArray") {
     CHECK_THROWS_AS(supermap::ByteArray<6>::fromString("12"), const supermap::IllegalArgumentException &);
 }
 
-TEST_CASE ("IndexedData KeyIndex") {
+TEST_CASE ("SingleFileIndexedStorage KeyIndex") {
     using namespace supermap;
     using namespace io;
 
     auto manager = std::make_shared<RamFileManager>();
     const std::string filename = "indexed_data.txt";
-    IndexedData<Enum<Key<2>>> indexedData(filename, manager);
+    SingleFileIndexedStorage<Enum<Key<2>>> indexedData(filename, manager, 0);
 
     std::vector<Enum<Key<2>>> keys{
         {Key<2>::fromString("ab"), 0},
@@ -224,24 +230,21 @@ TEST_CASE ("IndexedData KeyIndex") {
         CHECK_EQ(i, indexedData.append(keys[i]));
     }
     std::vector<Enum<Key<2>>> parsedData;
-    auto keyIndexParser = indexedData.getDataParser();
+    auto keyIndexParser = indexedData.getDataIterator();
     while (keyIndexParser.hasNext()) {
         parsedData.push_back(keyIndexParser.next());
     }
     CHECK_EQ(keys, parsedData);
 }
 
-TEST_CASE ("IndexedData KeyValue") {
+TEST_CASE ("KeyValueShrinkableStorage notSortedStorage") {
     using namespace supermap;
     using namespace io;
 
-    using KeyValue = KeyValue<2, 4>;
-
     auto manager = std::make_shared<RamFileManager>();
-    const std::string filename = "indexed_data.txt";
-    IndexedData<KeyValue> indexedData(filename, manager);
+    KeyValueShrinkableStorage<2, 4> indexedData("storage-not-sorted", "storage-sorted", manager);
 
-    std::vector<KeyValue> keyValues{
+    std::vector<KeyValue<2, 4>> keyValues{
         {Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")},
         {Key<2>::fromString("cd"), ByteArray<4>::fromString("1831")},
         {Key<2>::fromString("ef"), ByteArray<4>::fromString("4923")},
@@ -251,53 +254,21 @@ TEST_CASE ("IndexedData KeyValue") {
     for (std::size_t i = 0; i < keyValues.size(); ++i) {
         CHECK_EQ(i, indexedData.append(keyValues[i]));
     }
-    std::vector<KeyValue> parsedData;
-    auto keyIndexParser = indexedData.getDataParser();
+    std::vector<KeyValue<2, 4>> parsedData;
+    auto keyIndexParser = indexedData.getNotSortedEntries();
     while (keyIndexParser.hasNext()) {
         parsedData.push_back(keyIndexParser.next());
     }
     CHECK_EQ(keyValues, parsedData);
 }
 
-TEST_CASE ("KeyValueShrinkableStorage") {
+TEST_CASE("collectWith") {
     using namespace supermap;
     using namespace io;
 
     auto manager = std::make_shared<RamFileManager>();
     const std::string filename = "indexed_data.txt";
-    KeyValueShrinkableStorage<2, 4> storage(filename, manager);
-
-    std::vector<KeyValue<2, 4>> keyValues{
-        {Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")},
-        {Key<2>::fromString("cd"), ByteArray<4>::fromString("1831")},
-        {Key<2>::fromString("ef"), ByteArray<4>::fromString("4923")},
-        {Key<2>::fromString("gh"), ByteArray<4>::fromString("3482")},
-    };
-
-    std::vector<Key<2>> initialKeys;
-
-    std::transform(keyValues.begin(), keyValues.end(), std::back_inserter(initialKeys),
-                   [](const KeyValue<2, 4> &kv) { return kv.key; });
-
-    for (std::size_t i = 0; i < keyValues.size(); ++i) {
-        CHECK_EQ(i, storage.add(keyValues[i].key, ByteArray(keyValues[i].value)));
-    }
-
-    std::vector<Key<2>> parsedKeys;
-    auto keyIndexParser = storage.getKeys();
-    while (keyIndexParser.hasNext()) {
-        parsedKeys.push_back(keyIndexParser.next().key);
-    }
-    CHECK_EQ(initialKeys, parsedKeys);
-}
-
-TEST_CASE("FunctorIterator") {
-    using namespace supermap;
-    using namespace io;
-
-    auto manager = std::make_shared<RamFileManager>();
-    const std::string filename = "indexed_data.txt";
-    KeyValueShrinkableStorage<2, 4> storage(filename, manager);
+    SingleFileIndexedStorage<KeyValue<2, 4>> storage(filename, manager, 0);
 
     std::vector<KeyValue<2, 4>> keyValues{
         {Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")},
@@ -313,12 +284,14 @@ TEST_CASE("FunctorIterator") {
                    [](const KeyValue<2, 4> &kv) { return kv.key; });
 
     for (std::size_t i = 0; i < keyValues.size(); ++i) {
-        CHECK_EQ(i, storage.add(keyValues[i].key, ByteArray(keyValues[i].value)));
+        CHECK_EQ(i, storage.append({keyValues[i].key, ByteArray(keyValues[i].value)}));
     }
 
-    auto keyIndexParser = storage.getKeys();
-    std::vector<Enum<Key<2>>> parsedKeys =
-        keyIndexParser.collectWith<Key<2>>([](StorageValueIgnorer<2, 4> &&svi) { return svi.key; });
+    auto keyIndexParser = storage.getCustomDataIterator<StorageValueIgnorer<2, 4>>();
+    std::vector<Enum<Key<2>>> parsedKeys = keyIndexParser.collectWith(
+        [](StorageValueIgnorer<2, 4> &&svi, std::size_t index) {
+            return Enum<Key<2>>(std::move(svi.key), index);
+        });
     CHECK_EQ(initialKeys.size(), parsedKeys.size());
     for (std::size_t i = 0; i < initialKeys.size(); ++i) {
         CHECK_EQ(initialKeys[i], parsedKeys[i].elem);
@@ -326,10 +299,10 @@ TEST_CASE("FunctorIterator") {
     }
 }
 
-TEST_CASE("KeyValueShrinkableStorage") {
+TEST_CASE("KeyValueShrinkableStorage shrink") {
     using namespace supermap;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::RamFileManager>();
-    KeyValueShrinkableStorage<2, 4> storage("storage", manager);
-    CHECK_THROWS_AS(storage.shrink(10, "-s", "store-temp"), const NotImplementedException &);
+    KeyValueShrinkableStorage<2, 4> storage("not-sorted", "sorted", manager);
+    CHECK_NOTHROW(auto newIndex = storage.shrink(10, "new-index"));
 }
