@@ -85,7 +85,7 @@ struct DeserializeHelper<ByteArray<Len>> : Deserializable<true> {
         if (!is.good()) {
             throw IOException(
                 "Unsuccessful deserialization, expected to read " + std::to_string(Len) +
-                    "bytes, but read only " + std::to_string(is.gcount()));
+                    " bytes, but read only " + std::to_string(is.gcount()));
         }
         return ar;
     }

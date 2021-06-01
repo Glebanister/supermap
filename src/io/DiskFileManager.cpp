@@ -14,8 +14,8 @@ std::unique_ptr<OutputStream> DiskFileManager::getOutputStream(const std::filesy
 }
 
 void DiskFileManager::remove(const std::filesystem::path &p) {
-    if (int err = std::filesystem::remove(p); err != 0) {
-        throw FileException(p, std::strerror(err));
+    if (!std::filesystem::remove(p)) {
+        throw FileException(p, "Can not delete file");
     }
 }
 
@@ -25,6 +25,13 @@ void DiskFileManager::rename(const std::filesystem::path &prev, const std::files
     } catch (const std::filesystem::filesystem_error &er) {
         throw FileException(prev, er.what());
     }
+}
+
+void DiskFileManager::swap(const std::filesystem::path &first, const std::filesystem::path &second) {
+    const std::string temp_name = first.string() + "-swap";
+    rename(first, temp_name);
+    rename(second, first);
+    rename(temp_name, second);
 }
 
 } // supermap::io

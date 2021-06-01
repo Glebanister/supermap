@@ -2,6 +2,7 @@
 
 #include "io/InputIterator.hpp"
 #include "io/SerializeHelper.hpp"
+#include "io/TemporaryFile.hpp"
 #include "SortedSingleFileIndexedStorage.hpp"
 #include "primitive/KeyValue.hpp"
 #include "primitive/Enum.hpp"
@@ -46,8 +47,11 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
             );
         std::vector<Enum<Key<KeyLen>>> currentBatchIndex = indexIterator.collect(indexBatchSize);
         while (!currentBatchIndex.empty()) {
-            for (auto &&[key, index] : currentBatchIndex) {
-                keyValueOutputIterator.write(KeyValue{std::move(key), oldStorage.get(index).value});
+            for (std::size_t i = 0; i < currentBatchIndex.size(); ++i) {
+                keyValueOutputIterator.write(KeyValue{
+                    std::move(currentBatchIndex[i].elem),
+                    oldStorage.get(currentBatchIndex[i].index).value
+                });
             }
             currentBatchIndex = indexIterator.collect(indexBatchSize);
         }
@@ -69,7 +73,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
 
     KV get(IndexT index) const override {
         if (index >= sortedStorage_.getItemsCount()) {
-            return notSortedStorage_.get(index);
+            return notSortedStorage_.get(index - sortedStorage_.getItemsCount());
         }
         return sortedStorage_.get(index);
     }
@@ -98,34 +102,26 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
         IndexT shrinkBatchSize,
         const std::string &newIndexFileName
     ) {
-        const std::string shrinkFileSuffix = "-shrink";
-        const std::string temporarySortedIndexFilename
-            = sortedStorage_.getStorageFilePath().string()
-                + "-index"
-                + shrinkFileSuffix;
+        const std::string shrinkFilenamePrefix = "shrink";
+        const std::string tempSortedIndexFilename = shrinkFilenamePrefix + "-sorted-keys";
 
-        if (shrinkFileSuffix.empty()) {
-            throw IllegalArgumentException("Shrink file suffix is empty");
-        }
         std::size_t batchesCount = (getItemsCount() + shrinkBatchSize - 1) / shrinkBatchSize;
         auto notSortedKeysStream =
             io::InputIterator<StorageValueIgnorer<KeyLen, ValueLen>>(
                 notSortedStorage_.getFileManager()->getInputStream(notSortedStorage_.getStorageFilePath(), 0)
             );
-        std::vector<io::FileManager::TemporaryFile> tempFies;
+        std::vector<std::shared_ptr<io::TemporaryFile>> tempFilesLock;
         std::vector<SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>, IndexT>> sortedBatches;
-        tempFies.reserve(batchesCount + 2);
         sortedBatches.reserve(batchesCount + 1);
-        sortedBatches.push_back(exportKeys(shrinkBatchSize, temporarySortedIndexFilename));
-        tempFies.emplace_back(temporarySortedIndexFilename, getFileManager());
+        tempFilesLock.reserve(batchesCount + 1);
+
+        SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>> exportedKeys
+            = exportKeys(shrinkBatchSize, tempSortedIndexFilename);
+        tempFilesLock.template push_back(exportedKeys.shareStorageFile());
+
+        sortedBatches.push_back(std::move(exportedKeys));
         for (std::size_t batchI = 0; batchI < batchesCount; ++batchI) {
-            const std::string batchFileName =
-                notSortedStorage_.getStorageFilePath().string() +
-                    std::to_string(batchI) +
-                    shrinkFileSuffix;
-
-            tempFies.emplace_back(batchFileName, getFileManager());
-
+            const std::string batchFileName = shrinkFilenamePrefix + "-batch-" + std::to_string(batchI);
             SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>, IndexT> sortedBatch(
                 notSortedKeysStream.template collectWith(
                     [](StorageValueIgnorer<KeyLen, ValueLen> &&svi, std::uint32_t index) {
@@ -136,7 +132,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
                 batchFileName,
                 getFileManager()
             );
-
+            tempFilesLock.push_back(sortedBatch.shareStorageFile());
             assert(sortedBatch.getItemsCount() > 0 && "Batch file can not be empty");
             sortedBatches.push_back(std::move(sortedBatch));
         }
@@ -145,11 +141,12 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
             newIndexFileName,
             getFileManager()
         );
+
         resetWith(KeyValueShrinkableStorage(
             *this,
             updatedIndex,
-            notSortedStorage_.getStorageFilePath().string() + shrinkFileSuffix,
-            sortedStorage_.getStorageFilePath().string() + shrinkFileSuffix,
+            shrinkFilenamePrefix + "-new-not-sorted",
+            shrinkFilenamePrefix + "-new-sorted",
             shrinkBatchSize
         ));
         return updatedIndex;
@@ -160,7 +157,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
                                                                  const std::string &keysFilename) {
         SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>> sortedIndex(
             0,
-            sortedStorage_.getStorageFilePath().string() + keysFilename,
+            keysFilename,
             getFileManager()
         );
         auto it = sortedStorage_.template getCustomDataIterator<StorageValueIgnorer<KeyLen, ValueLen>>();

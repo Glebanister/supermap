@@ -53,35 +53,41 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         std::string dataFileName,
         std::shared_ptr<io::FileManager> fileManager
     ) : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), std::move(fileManager), 0) {
-        if (newer.empty()) {
-            throw SupermapException("Can not build SortedSingleFileIndexedStorage from empty newer vector");
-        }
-        SingleFileIndexedStorage<T, IndexT>::fileManager_ = newer[0].getFileManager();
+
         const std::size_t storagesCount = newer.size();
         std::vector<std::size_t> currentFrontPointers(storagesCount);
-        std::vector<T> frontLine;
-        frontLine.reserve(storagesCount);
-        IndexT totalSize = 0;
+        std::vector<std::optional<T>> frontLine(storagesCount, std::nullopt);
+        std::uint64_t totalSize = 0;
         for (std::size_t i = 0; i < storagesCount; ++i) {
             if (newer[i].getItemsCount() > 0) {
-                frontLine.push_back(newer[i].get(0));
+                frontLine[i].emplace(newer[i].get(0));
                 totalSize += newer[i].getItemsCount();
             }
         }
 
-        for (std::size_t elemI = 0; elemI < totalSize; ++elemI) {
-            std::size_t min = storagesCount - 1;
-            for (std::int32_t i = storagesCount - 2; i >= 0; --i) {
-                if (currentFrontPointers[i] == newer[i].getItemsCount()) {
+        for (std::uint64_t elemI = 0; elemI < totalSize; ++elemI) {
+            std::size_t min = 0;
+            bool hasMin = false;
+            for (std::int32_t i = storagesCount - 1; i >= 0; --i) {
+                if (!frontLine[i].has_value()) {
                     continue;
                 }
-                if (frontLine[i] < frontLine[min]) {
+                if (!hasMin) {
+                    hasMin = true;
+                    min = i;
+                    continue;
+                }
+                if (frontLine[i].value() < frontLine[min].value()) {
                     min = i;
                 }
             }
-            assert(currentFrontPointers[min] < newer[min].getItemsCount());
-            T minItem = frontLine[min];
-            frontLine[min] = newer[min].get(++currentFrontPointers[min]);
+            assert(hasMin);
+            T minItem = frontLine[min].value();
+            if (++currentFrontPointers[min] < newer[min].getItemsCount()) {
+                frontLine[min].emplace(newer[min].get(currentFrontPointers[min]));
+            } else {
+                frontLine[min].reset();
+            }
             append(std::move(minItem)); // TODO: appendAll has lesser Write Amplification
         }
     }

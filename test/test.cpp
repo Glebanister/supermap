@@ -10,6 +10,7 @@
 #include "io/OutputStream.hpp"
 #include "io/OutputIterator.hpp"
 #include "io/RamFileManager.hpp"
+#include "io/DiskFileManager.hpp"
 
 #include "exception/IllegalArgumentException.hpp"
 
@@ -57,23 +58,13 @@ template <>
 struct FixedDeserializedSizeRegister<MockStruct> : ShallowDeserializedSize<MockStruct> {};
 
 template <>
-struct SerializeHelper<int> : Serializable<true> {
-    static void serialize(const int &value, std::ostream &os) {
-        os << value << ' ';
-    }
-};
+struct SerializeHelper<char> : ShallowSerializer<char> {};
 
 template <>
-struct DeserializeHelper<int> : Deserializable<true> {
-    static int deserialize(std::istream &is) {
-        int value;
-        is >> value;
-        return value;
-    }
-};
+struct DeserializeHelper<char> : ShallowDeserializer<char> {};
 
 template <>
-struct FixedDeserializedSizeRegister<int> : FixedDeserializedSize<2> {};
+struct FixedDeserializedSizeRegister<char> : ShallowDeserializedSize<char> {};
 
 } // supermap::io
 
@@ -127,15 +118,6 @@ TEST_CASE ("FileInputStream ints with offset") {
     CHECK_EQ(z, 3);
 }
 
-TEST_CASE ("InputIterator int") {
-    auto intIterator = supermap::io::InputIterator<int>::fromString("1 2 3", 0);
-    std::vector<int> parsed;
-    while (intIterator.hasNext()) {
-        parsed.push_back(intIterator.next());
-    }
-    CHECK_EQ(std::vector{1, 2, 3}, parsed);
-}
-
 TEST_CASE ("InputIterator MockStruct") {
     std::stringstream ss;
     std::vector<MockStruct> before = {
@@ -152,15 +134,6 @@ TEST_CASE ("InputIterator MockStruct") {
         parsed.push_back(intIterator.next());
     }
     CHECK(before == parsed);
-}
-
-TEST_CASE ("OutputIterator int") {
-    std::string buffer;
-    std::vector<int> ints = {1, 2, 3, 4, 5};
-    auto writeIterator = supermap::io::OutputIterator<int>::toString(buffer, false);
-    writeIterator.writeAll(ints);
-    writeIterator.flush();
-    CHECK_EQ(buffer, "1 2 3 4 5 ");
 }
 
 TEST_CASE ("OutputIterator MockStruct") {
@@ -299,10 +272,126 @@ TEST_CASE("collectWith") {
     }
 }
 
+TEST_CASE("KeyValueShrinkableStorage shrink smoke test") {
+    using namespace supermap;
+
+    std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
+    KeyValueShrinkableStorage<2, 4> storage(
+        "not-sorted",
+        "sorted",
+        manager);
+    CHECK_NOTHROW(auto newIndex = storage.shrink(10, "new-index"));
+}
+
+TEST_CASE("Enum serialization") {
+    using namespace supermap;
+
+    std::string buffer;
+    io::StringOutputStream out(buffer, false);
+    io::serialize(Enum<char>('a', 1), out.get());
+    io::serialize(Enum<char>('b', 2), out.get());
+    out.flush();
+    io::StringInputStream in(buffer, 0);
+    CHECK_EQ(io::deserialize<Enum<char>>(in.get()), Enum<char>{'a', 1});
+    CHECK_EQ(io::deserialize<Enum<char>>(in.get()), Enum<char>{'b', 2});
+}
+
+TEST_CASE("Enum collect ram") {
+    using namespace supermap;
+
+    std::string buffer;
+    io::StringOutputStream out(buffer, false);
+    io::serialize(Enum<char>('a', 1), out.get());
+    io::serialize(Enum<char>('b', 2), out.get());
+    out.flush();
+    io::InputIterator<Enum<char>> inpIt(std::make_unique<io::StringInputStream>(buffer, 0));
+    std::vector<Enum<char>> enums = inpIt.collect();
+    CHECK_EQ(enums.size(), 2);
+    CHECK_EQ(enums[0], Enum<char>{'a', 1});
+    CHECK_EQ(enums[1], Enum<char>{'b', 2});
+}
+
+TEST_CASE("Enum collect disk") {
+    using namespace supermap;
+
+    TempFile file("test-Enum-collect-disk");
+
+    std::string buffer;
+    io::FileOutputStream out(file.filename, false);
+    io::serialize(Enum<char>('a', 1), out.get());
+    io::serialize(Enum<char>('b', 2), out.get());
+    out.flush();
+    io::InputIterator<Enum<char>> inpIt(std::make_unique<io::FileInputStream>(file.filename, 0));
+    std::vector<Enum<char>> enums = inpIt.collect();
+    CHECK_EQ(enums.size(), 2);
+    CHECK_EQ(enums[0], Enum<char>{'a', 1});
+    CHECK_EQ(enums[1], Enum<char>{'b', 2});
+}
+
+TEST_CASE("Serialize KeyValue Disk") {
+    using namespace supermap;
+
+    std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
+    TempFile file("test-Serialize-KeyValue");
+    auto outIt = manager->getOutputIterator<KeyValue<2, 4>>(file.filename, false);
+    auto kv1 = KeyValue{Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")};
+    auto kv2 = KeyValue{Key<2>::fromString("cd"), ByteArray<4>::fromString("5678")};
+    auto kv3 = KeyValue{Key<2>::fromString("ef"), ByteArray<4>::fromString("1023")};
+    outIt.write(kv1);
+    outIt.write(kv2);
+    outIt.write(kv3);
+    outIt.flush();
+    auto inIt = manager->getInputIterator<KeyValue<2, 4>>(file.filename, 0);
+    auto read = inIt.collectWith([](KeyValue<2, 4> &&kv, std::uint32_t index) {
+        return Enum<KeyValue<2, 4>>(std::move(kv),
+                                    index);
+    });
+    CHECK_EQ(read.size(), 3);
+    CHECK_EQ(read[0].index, 0);
+    CHECK_EQ(read[1].index, 1);
+    CHECK_EQ(read[2].index, 2);
+    CHECK_EQ(read[0].elem, kv1);
+    CHECK_EQ(read[1].elem, kv2);
+    CHECK_EQ(read[2].elem, kv3);
+}
+
 TEST_CASE("KeyValueShrinkableStorage shrink") {
     using namespace supermap;
 
-    std::shared_ptr<io::FileManager> manager = std::make_shared<io::RamFileManager>();
-    KeyValueShrinkableStorage<2, 4> storage("not-sorted", "sorted", manager);
-    CHECK_NOTHROW(auto newIndex = storage.shrink(10, "new-index"));
+    std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
+    KeyValueShrinkableStorage<2, 4> storage(
+        "not-sorted",
+        "sorted",
+        manager
+    );
+    storage.append({Key<2>::fromString("bb"), ByteArray<4>::fromString("1111")});
+    storage.append({Key<2>::fromString("aa"), ByteArray<4>::fromString("2222")});
+    storage.append({Key<2>::fromString("cc"), ByteArray<4>::fromString("3333")});
+    CHECK_EQ(storage.getItemsCount(), 3);
+    {
+        std::vector<Key<2>> notSortedKeys =
+            storage.getNotSortedKeys().collectWith([](StorageValueIgnorer<2, 4> &&kvi, std::uint32_t) {
+                return kvi.key;
+            });
+        CHECK_EQ(notSortedKeys,
+                 std::vector{
+                     Key<2>::fromString("bb"),
+                     Key<2>::fromString("aa"),
+                     Key<2>::fromString("cc"),
+                 });
+    }
+    {
+        std::vector<Key<2>> sortedKeys =
+            storage.getSortedKeys().collectWith([](StorageValueIgnorer<2, 4> &&svi, std::uint32_t) {
+                return svi.key;
+            });
+        CHECK_EQ(sortedKeys, std::vector<Key<2>>{});
+    }
+    SortedSingleFileIndexedStorage<Enum<Key<2>>> newIndex = storage.shrink(
+        1,
+        "new-index"
+    );
+    CHECK_EQ(newIndex.getItemsCount(), 3);
+    CHECK_EQ(newIndex.getStorageFilePath(), "new-index");
+    CHECK_EQ(newIndex.getFileManager(), manager);
 }

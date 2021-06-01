@@ -29,7 +29,7 @@ std::ostream &StringOutputStream::get() {
 }
 
 void StringOutputStream::flush() {
-    buffer_.append(stringStream_.str());
+    buffer_ += stringStream_.str();
     stringStream_.clear();
 }
 

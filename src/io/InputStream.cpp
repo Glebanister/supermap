@@ -9,7 +9,7 @@ FileInputStream::FileInputStream(const std::filesystem::path &filename, std::uin
     if (!ifs_.good() || ifs_.bad()) {
         throw FileException(filename, "Unable to open for reading");
     }
-    ifs_.seekg(std::ios::end);
+    ifs_.seekg(0, std::ios::end);
     fileSize_ = ifs_.tellg();
     ifs_.seekg(static_cast<std::streamoff>(offset));
 }
@@ -23,7 +23,7 @@ std::size_t FileInputStream::availableBytes() {
 }
 
 StringInputStream::StringInputStream(const std::string &str, std::uint64_t offset)
-    : stringStream_(str.substr(offset)),
+    : stringStream_(str.substr(offset, str.size() - offset)),
       initialPos_(stringStream_.tellg()),
       stringLength_(str.length() - offset) {
 }

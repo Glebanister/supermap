@@ -9,7 +9,7 @@ namespace supermap::io {
 class RamFileManager : public FileManager {
   private:
     struct File {
-        std::filesystem::path name;
+        std::string name;
         std::string content;
     };
 

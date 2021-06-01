@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include <cassert>
+#include <iostream>
 
 #include "InputStream.hpp"
 #include "SerializeHelper.hpp"
@@ -50,12 +51,8 @@ class InputIterator {
         std::vector<Result> collection;
         std::size_t objectsInStream;
         {
-            auto curPos = input_->get().tellg();
-            input_->get().seekg(0, std::ios::end);
-            auto endPos = input_->get().tellg();
-            auto bytes = endPos - curPos;
+            auto bytes = input_->availableBytes();
             assert(bytes % EachSize == 0);
-            input_->get().seekg(curPos);
             objectsInStream = bytes / EachSize;
         }
         std::size_t objectsToRead;
@@ -66,12 +63,11 @@ class InputIterator {
         }
         collection.reserve(objectsToRead);
         const std::uint64_t bytesToRead = static_cast<std::uint64_t>(objectsToRead) * EachSize;
-        std::unique_ptr<char[]> bytes = std::make_unique<char[]>(bytesToRead + 1);
-        bytes[bytesToRead] = '\0';
+        std::unique_ptr<char[]> bytes = std::make_unique<char[]>(bytesToRead);
         input_->get().read(bytes.get(), bytesToRead);
-        std::stringstream ss(bytes.get(), std::ios_base::in);
+        std::stringstream iss(std::string(bytes.get(), bytesToRead), std::ios_base::in);
         for (std::size_t objectI = 0; objectI < objectsToRead; ++objectI) {
-            collection.push_back(functor(deserialize<T>(ss), index_++));
+            collection.push_back(functor(deserialize<T>(iss), index_++));
         }
         return collection;
     }

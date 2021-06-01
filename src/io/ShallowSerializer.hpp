@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 #include "SerializeHelper.hpp"
 
 namespace supermap::io {
@@ -7,8 +9,14 @@ namespace supermap::io {
 template <typename T>
 struct ShallowSerializer : Serializable<true> {
     static void serialize(const T &value, std::ostream &os) {
-        for (std::size_t i = 0; i < sizeof(T); ++i) {
-            os.put(reinterpret_cast<const std::uint8_t *>(&value)[i]);
+        auto posBefore = os.tellp();
+        os.write(reinterpret_cast<const char *>(&value), sizeof(T));
+        if (os.tellp() - posBefore != sizeof(T)) {
+            throw IOException(
+                "Attempted to write " + std::to_string(sizeof(T)) +
+                    " bytes, but only " + std::to_string(os.tellp() - posBefore) +
+                    " succeeded"
+            );
         }
     }
 };
@@ -17,9 +25,7 @@ template <typename T, typename = std::enable_if_t<std::is_default_constructible<
 struct ShallowDeserializer : Deserializable<true> {
     static T deserialize(std::istream &is) {
         T obj;
-        for (std::size_t i = 0; i < sizeof(T); ++i) {
-            reinterpret_cast<std::uint8_t *>(&obj)[i] = is.get();
-        }
+        is.read(reinterpret_cast<char *>(&obj), sizeof(T));
         return obj;
     }
 };

@@ -11,23 +11,6 @@ namespace supermap::io {
 
 class FileManager {
   public:
-    class TemporaryFile {
-      public:
-        explicit TemporaryFile(const std::filesystem::path &path, std::shared_ptr<FileManager> manager)
-            : path_(path), manager_(std::move(manager)) {
-            manager_->create(path);
-        }
-
-        ~TemporaryFile() {
-            manager_->remove(path_);
-        }
-
-      private:
-        const std::filesystem::path path_;
-        std::shared_ptr<FileManager> manager_;
-    };
-
-  public:
     virtual std::unique_ptr<InputStream> getInputStream(const std::filesystem::path &path, std::uint64_t offset) = 0;
 
     virtual std::unique_ptr<OutputStream> getOutputStream(const std::filesystem::path &path, bool append) = 0;

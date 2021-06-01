@@ -5,6 +5,7 @@
 #include <utility>
 
 #include "io/FileManager.hpp"
+#include "io/TemporaryFile.hpp"
 #include "IndexedStorage.hpp"
 
 namespace supermap {
@@ -18,25 +19,27 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
     explicit SingleFileIndexedStorage(const std::filesystem::path &storageFilePath,
                                       std::shared_ptr<io::FileManager> fileManager,
                                       IndexT itemsCount)
-        : storageFilePath_(storageFilePath),
-          fileManager_(std::move(fileManager)),
+        : storageFile_(std::make_shared<io::TemporaryFile>(storageFilePath, std::move(fileManager))),
           itemsCount_(itemsCount) {
-        fileManager_->create(storageFilePath);
+        storageFile_->getFileManager()->create(storageFilePath);
     }
 
-    [[nodiscard]] std::filesystem::path getStorageFilePath() const noexcept {
-        return storageFilePath_;
+    [[nodiscard]] std::string getStorageFilePath() const noexcept {
+        return storageFile_->getPath();
     }
 
     [[nodiscard]] std::shared_ptr<io::FileManager> getFileManager() const noexcept override {
-        return fileManager_;
+        return storageFile_->getFileManager();
+    }
+
+    [[nodiscard]] std::shared_ptr<io::TemporaryFile> shareStorageFile() const noexcept {
+        return storageFile_;
     }
 
     void resetWith(SingleFileIndexedStorage<T, IndexT> &&other) noexcept {
         auto thisFileManager = getFileManager();
         assert(other.getFileManager() == thisFileManager);
-        thisFileManager->swap(other.getStorageFilePath(), this->getStorageFilePath());
-        thisFileManager->remove(getStorageFilePath());
+        thisFileManager->swap(other.getStorageFilePath(), getStorageFilePath());
     }
 
     IndexT append(const T &item) override {
@@ -76,7 +79,10 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
                 " is out of SingleFileIndexedStorage of size " +
                 std::to_string(getItemsCount()));
         }
-        return getFileManager()->template getInputIterator<T>(getStorageFilePath(), index * sizeof(T)).next();
+        return getFileManager()->template getInputIterator<T>(
+            getStorageFilePath(),
+            index * io::FixedDeserializedSizeRegister<T>::exactDeserializedSize
+        ).next();
     }
 
     io::InputIterator<T> getDataIterator() const {
@@ -97,8 +103,7 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
         return itemsCount_++;
     }
 
-    std::filesystem::path storageFilePath_;
-    std::shared_ptr<io::FileManager> fileManager_;
+    std::shared_ptr<io::TemporaryFile> storageFile_;
     IndexT itemsCount_;
 };
 

@@ -13,6 +13,8 @@ class DiskFileManager : public FileManager {
     void remove(const std::filesystem::path &) override;
 
     void rename(const std::filesystem::path &prev, const std::filesystem::path &next) override;
+
+    void swap(const std::filesystem::path &first, const std::filesystem::path &second) override;
 };
 
 } // supermap::io
