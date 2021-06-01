@@ -117,7 +117,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
 
         SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>> exportedKeys
             = exportKeys(shrinkBatchSize, tempSortedIndexFilename);
-        tempFilesLock.template push_back(exportedKeys.shareStorageFile());
+        tempFilesLock.push_back(exportedKeys.shareStorageFile());
 
         sortedBatches.push_back(std::move(exportedKeys));
         for (std::size_t batchI = 0; batchI < batchesCount; ++batchI) {
