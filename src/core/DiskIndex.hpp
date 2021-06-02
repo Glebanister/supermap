@@ -10,10 +10,10 @@
 
 namespace supermap {
 
-template <std::size_t KeyLen>
+template <std::size_t KeyLen, typename IndexT>
 class DiskIndex {
   public:
-    explicit DiskIndex(const std::vector<Enum<Key<KeyLen>>> &) {
+    explicit DiskIndex(const std::vector<Enum<Key<KeyLen>, IndexT>> &) {
         throw NotImplementedException();
     }
 
@@ -21,7 +21,7 @@ class DiskIndex {
         throw NotImplementedException();
     }
 
-    void addAll(std::vector<Enum<Key<KeyLen>>> &) {
+    void addAll(std::vector<Enum<Key<KeyLen>, IndexT>> &) {
         throw NotImplementedException();
     }
 

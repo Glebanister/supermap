@@ -8,12 +8,12 @@
 
 namespace supermap {
 
-template <std::size_t KeyLen, std::size_t ValueLen>
+template <std::size_t KeyLen, std::size_t ValueLen, typename IndexT>
 class Supermap : public KeyValueStorage<KeyLen, ValueLen> {
   public:
     explicit Supermap(std::unique_ptr<KeyValueStorage<KeyLen, ValueLen>> &&innerStorage,
-                      std::unique_ptr<KeyValueShrinkableStorage<KeyLen, ValueLen>> &&diskDataStorage,
-                      std::unique_ptr<DiskIndex<KeyLen>> &&diskIndex)
+                      std::unique_ptr<KeyValueShrinkableStorage<KeyLen, ValueLen, IndexT>> &&diskDataStorage,
+                      std::unique_ptr<DiskIndex<KeyLen, IndexT>> &&diskIndex)
         : innerStorage_(std::move(innerStorage)),
           diskDataStorage_(std::move(diskDataStorage)),
           diskIndex_(std::move(diskIndex)) {}
@@ -36,8 +36,8 @@ class Supermap : public KeyValueStorage<KeyLen, ValueLen> {
 
   private:
     std::unique_ptr<KeyValueStorage<KeyLen, ValueLen>> innerStorage_;
-    std::unique_ptr<KeyValueShrinkableStorage<KeyLen, ValueLen>> diskDataStorage_;
-    std::unique_ptr<DiskIndex<KeyLen>> diskIndex_;
+    std::unique_ptr<KeyValueShrinkableStorage<KeyLen, ValueLen, IndexT>> diskDataStorage_;
+    std::unique_ptr<DiskIndex<KeyLen, IndexT>> diskIndex_;
 };
 
 } // supermap
