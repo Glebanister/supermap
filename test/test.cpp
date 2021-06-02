@@ -620,7 +620,7 @@ void shrinkStress(std::uint32_t seed) {
         checkNotSorted();
         checkSorted();
     }
-};
+}
 
 TEST_CASE ("KeyValueShrinkableStorage shrink stress 1") {
     shrinkStress<
