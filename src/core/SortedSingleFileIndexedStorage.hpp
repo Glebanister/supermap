@@ -21,12 +21,15 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), manager, size) {
     }
 
+    template <typename IsLess, typename IsEq>
     explicit SortedSingleFileIndexedStorage(std::vector<T> data,
                                             bool sorted,
                                             std::string dataFileName,
-                                            std::shared_ptr<io::FileManager> manager)
-        : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), manager, 0) {
-        appendAll(data.cbegin(), sorted ? data.cend() : sortedEndIterator(data));
+                                            std::shared_ptr<io::FileManager> manager,
+                                            IsLess isLess,
+                                            IsEq isEq
+    ) : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), manager, 0) {
+        appendAll(data.cbegin(), sorted ? data.cend() : sortedEndIterator(data, isLess, isEq));
     }
 
     SortedSingleFileIndexedStorage fromSorted(
@@ -36,9 +39,18 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         return SortedIndexedStorage(std::move(data), false, dataFileName, manager);
     }
 
-    static typename std::vector<T>::const_iterator sortedEndIterator(std::vector<T> &v) {
-        std::stable_sort(v.begin(), v.end());
-        return std::unique(v.begin(), v.end());
+    template <
+        typename LessComp,
+        typename EqComp
+    >
+    static typename std::vector<T>::const_iterator sortedEndIterator(
+        std::vector<T> &v,
+        LessComp isLess,
+        EqComp isEq
+    ) {
+        std::reverse(v.begin(), v.end());
+        std::stable_sort(v.begin(), v.end(), isLess);
+        return std::unique(v.begin(), v.end(), isEq);
     }
 
     SortedSingleFileIndexedStorage fromNotSorted(
@@ -48,10 +60,13 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         return SortedIndexedStorage(std::move(data), true, dataFileName, manager);
     }
 
+    template <typename IsLess, typename IsEq>
     explicit SortedSingleFileIndexedStorage(
         const std::vector<SortedSingleFileIndexedStorage<T, IndexT>> &newer,
         std::string dataFileName,
-        std::shared_ptr<io::FileManager> fileManager
+        std::shared_ptr<io::FileManager> fileManager,
+        IsLess isLess,
+        IsEq isEq
     ) : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), std::move(fileManager), 0) {
 
         const std::size_t storagesCount = newer.size();
@@ -85,9 +100,9 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
                     min = i;
                     continue;
                 }
-                if (frontLine[i].value() < frontLine[min].value()) {
+                if (isLess(frontLine[i].value(), frontLine[min].value())) {
                     min = i;
-                } else if (frontLine[i].value() == frontLine[min].value()) {
+                } else if (isEq(frontLine[i].value(), frontLine[min].value())) {
                     updateOnce(i);
                 }
             }

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <iostream>
-
 #include "SerializeHelper.hpp"
 
 namespace supermap::io {

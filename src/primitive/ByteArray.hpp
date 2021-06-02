@@ -23,7 +23,10 @@ class ByteArray {
     ByteArray(ByteArray<Len> &&other) noexcept
         : data_(std::move(other.data_)) {}
 
-    ByteArray &operator=(const ByteArray<Len> &other) = delete;
+    ByteArray &operator=(const ByteArray<Len> &other) {
+        std::memcpy(data_.get(), other.data_.get(), Len);
+        return *this;
+    }
 
     ByteArray &operator=(ByteArray<Len> &&other) noexcept {
         data_.reset(std::move(other.data_.release()));

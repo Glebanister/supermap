@@ -33,7 +33,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
         const std::string &sortedStorageFilename,
         std::shared_ptr<io::FileManager> fileManager
     )
-        : sortedStorage_({}, true, sortedStorageFilename, fileManager),
+        : sortedStorage_(0, sortedStorageFilename, fileManager),
           notSortedStorage_(notSortedStorageFilename, fileManager, 0) {
     }
 
@@ -97,6 +97,14 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
         return sortedStorage_.getItemsCount() + notSortedStorage_.getItemsCount();
     }
 
+    [[nodiscard]] IndexT getSortedItemsCount() const noexcept {
+        return sortedStorage_.getItemsCount();
+    }
+
+    [[nodiscard]] IndexT getNotSortedItemsCount() const noexcept {
+        return notSortedStorage_.getItemsCount();
+    }
+
     io::InputIterator<ValueIgnorer, IndexT> getSortedKeys() {
         return sortedStorage_.template getCustomDataIterator<ValueIgnorer>();
     }
@@ -138,10 +146,13 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
                     [sortedStorageSize](ValueIgnorer &&svi, IndexT index) {
                         return KeyIndex{std::move(svi.key), index + sortedStorageSize};
                     },
-                    shrinkBatchSize),
+                    shrinkBatchSize
+                ),
                 false,
                 batchFileName,
-                getFileManager()
+                getFileManager(),
+                [](const KeyIndex &a, const KeyIndex &b) { return a.elem < b.elem; },
+                [](const KeyIndex &a, const KeyIndex &b) { return a.elem == b.elem; }
             );
             tempFilesLock.push_back(sortedBatch.shareStorageFile());
             assert(sortedBatch.getItemsCount() > 0 && "Batch file can not be empty");
@@ -151,7 +162,9 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
         KeyIndexStorage updatedIndex(
             sortedBatches,
             newIndexFileName,
-            getFileManager()
+            getFileManager(),
+            [](const KeyIndex &a, const KeyIndex &b) { return a.elem < b.elem; },
+            [](const KeyIndex &a, const KeyIndex &b) { return a.elem == b.elem; }
         );
 
         resetWith(KeyValueShrinkableStorage(

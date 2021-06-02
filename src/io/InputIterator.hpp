@@ -3,7 +3,6 @@
 #include <memory>
 #include <vector>
 #include <cassert>
-#include <iostream>
 
 #include "InputStream.hpp"
 #include "SerializeHelper.hpp"
@@ -74,7 +73,7 @@ class InputIterator {
     }
 
     std::vector<T> collect(IndexT collectionSizeLimit = 0) {
-        return collectWith([](auto &&x, IndexT) { return x; }, collectionSizeLimit);
+        return collectWith([](auto &&x, IndexT) { return std::move(x); }, collectionSizeLimit);
     }
 
     std::unique_ptr<InputStream> input_;
