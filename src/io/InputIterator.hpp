@@ -13,6 +13,7 @@ namespace supermap::io {
 
 template <
     typename T,
+    typename IndexT,
     std::size_t EachSize = FixedDeserializedSizeRegister<T>::exactDeserializedSize,
     typename = std::enable_if_t<DeserializeHelper<T>::isDeserializable>
 >
@@ -45,17 +46,17 @@ class InputIterator {
 
     template <
         typename Functor,
-        typename Result = std::invoke_result_t<Functor, T &&, std::uint32_t>
+        typename Result = std::invoke_result_t<Functor, T &&, IndexT>
     >
-    std::vector<Result> collectWith(Functor functor, std::size_t collectionSizeLimit = 0) {
+    std::vector<Result> collectWith(Functor functor, IndexT collectionSizeLimit = 0) {
         std::vector<Result> collection;
-        std::size_t objectsInStream;
+        IndexT objectsInStream;
         {
             auto bytes = input_->availableBytes();
             assert(bytes % EachSize == 0);
             objectsInStream = bytes / EachSize;
         }
-        std::size_t objectsToRead;
+        IndexT objectsToRead;
         if (collectionSizeLimit == 0) {
             objectsToRead = objectsInStream;
         } else {
@@ -66,18 +67,18 @@ class InputIterator {
         std::unique_ptr<char[]> bytes = std::make_unique<char[]>(bytesToRead);
         input_->get().read(bytes.get(), bytesToRead);
         std::stringstream iss(std::string(bytes.get(), bytesToRead), std::ios_base::in);
-        for (std::size_t objectI = 0; objectI < objectsToRead; ++objectI) {
+        for (IndexT objectI = 0; objectI < objectsToRead; ++objectI) {
             collection.push_back(functor(deserialize<T>(iss), index_++));
         }
         return collection;
     }
 
-    std::vector<T> collect(std::uint32_t collectionSizeLimit = 0) {
-        return collectWith([](auto &&x, std::uint32_t) { return x; }, collectionSizeLimit);
+    std::vector<T> collect(IndexT collectionSizeLimit = 0) {
+        return collectWith([](auto &&x, IndexT) { return x; }, collectionSizeLimit);
     }
 
     std::unique_ptr<InputStream> input_;
-    std::uint32_t index_ = 0;
+    IndexT index_ = 0;
 };
 
 } // supermap::io

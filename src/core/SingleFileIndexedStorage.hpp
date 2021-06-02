@@ -10,7 +10,7 @@
 
 namespace supermap {
 
-template <typename T, typename IndexT = std::size_t>
+template <typename T, typename IndexT>
 class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
   public:
     using IndexedStorage<T, IndexT>::getFileManager;
@@ -37,6 +37,7 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
     }
 
     void resetWith(SingleFileIndexedStorage<T, IndexT> &&other) noexcept {
+        itemsCount_ = other.itemsCount_;
         auto thisFileManager = getFileManager();
         assert(other.getFileManager() == thisFileManager);
         thisFileManager->swap(other.getStorageFilePath(), getStorageFilePath());
@@ -52,7 +53,8 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
     template <
         typename IteratorT,
         typename Functor,
-        typename Result = std::invoke_result_t<Functor, typename std::iterator_traits<IteratorT>::value_type>
+        typename Result = std::invoke_result_t<Functor, typename std::iterator_traits<IteratorT>::value_type>,
+        typename = std::enable_if_t<std::is_same_v<Result, T>>
     >
     void appendAll(IteratorT begin, IteratorT end, Functor func) {
         io::OutputIterator<Result>
@@ -79,19 +81,19 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
                 " is out of SingleFileIndexedStorage of size " +
                 std::to_string(getItemsCount()));
         }
-        return getFileManager()->template getInputIterator<T>(
+        return getFileManager()->template getInputIterator<T, IndexT>(
             getStorageFilePath(),
             index * io::FixedDeserializedSizeRegister<T>::exactDeserializedSize
         ).next();
     }
 
-    io::InputIterator<T> getDataIterator() const {
-        return getFileManager()->template getInputIterator<T>(getStorageFilePath(), 0);
+    io::InputIterator<T, IndexT> getDataIterator() const {
+        return getFileManager()->template getInputIterator<T, IndexT>(getStorageFilePath(), 0);
     }
 
     template <typename Out>
-    io::InputIterator<Out> getCustomDataIterator() const {
-        return io::InputIterator<Out>(getFileManager()->getInputStream(getStorageFilePath(), 0));
+    io::InputIterator<Out, IndexT> getCustomDataIterator() const {
+        return io::InputIterator<Out, IndexT>(getFileManager()->getInputStream(getStorageFilePath(), 0));
     }
 
     IndexT getItemsCount() const noexcept override {

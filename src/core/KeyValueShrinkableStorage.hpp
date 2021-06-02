@@ -14,11 +14,18 @@ struct StorageValueIgnorer {
     Key<KeyLen> key;
 };
 
-template <std::size_t KeyLen, std::size_t ValueLen, typename KV = KeyValue<KeyLen, ValueLen>>
-class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
-    using IndexT = std::uint64_t;
+template <
+    std::size_t KeyLen,
+    std::size_t ValueLen,
+    typename IndexT,
+    typename KV = KeyValue<KeyLen, ValueLen>
+>
+class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
     using IndexedStorage<KV, IndexT>::getFileManager;
     using IndexedStorage<KV, IndexT>::getItemsCount;
+    using KeyIndex = Enum<Key<KeyLen>, IndexT>;
+    using KeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT>;
+    using ValueIgnorer = StorageValueIgnorer<KeyLen, ValueLen>;
 
   public:
     explicit KeyValueShrinkableStorage(
@@ -31,21 +38,21 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
     }
 
     explicit KeyValueShrinkableStorage(
-        const IndexedStorage<KV, std::uint64_t> &oldStorage,
-        const SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>, IndexT> &actualIndex,
+        const KeyValueShrinkableStorage &oldStorage,
+        const KeyIndexStorage &actualIndex,
         const std::string &notSortedStorageFilename,
         const std::string &sortedStorageFilename,
         std::size_t indexBatchSize
     )
-        : sortedStorage_(oldStorage.getItemsCount(), sortedStorageFilename, oldStorage.getFileManager()),
+        : sortedStorage_(actualIndex.getItemsCount(), sortedStorageFilename, oldStorage.getFileManager()),
           notSortedStorage_(notSortedStorageFilename, oldStorage.getFileManager(), 0) {
         auto indexIterator = actualIndex.getDataIterator();
-        io::OutputIterator<KeyValue<KeyLen, ValueLen>> keyValueOutputIterator
-            = getFileManager()->template getOutputIterator<KeyValue<KeyLen, ValueLen>>(
+        io::OutputIterator<KV> keyValueOutputIterator
+            = getFileManager()->template getOutputIterator<KV>(
                 sortedStorage_.getStorageFilePath(),
                 false
             );
-        std::vector<Enum<Key<KeyLen>>> currentBatchIndex = indexIterator.collect(indexBatchSize);
+        std::vector<KeyIndex> currentBatchIndex = indexIterator.collect(indexBatchSize);
         while (!currentBatchIndex.empty()) {
             for (std::size_t i = 0; i < currentBatchIndex.size(); ++i) {
                 keyValueOutputIterator.write(KeyValue{
@@ -67,6 +74,14 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
         return sortedStorage_.getFileManager();
     }
 
+    [[nodiscard]] std::shared_ptr<io::TemporaryFile> shareSortedStorageFile() const noexcept {
+        return sortedStorage_.shareStorageFile();
+    }
+
+    [[nodiscard]] std::shared_ptr<io::TemporaryFile> shareNotSortedStorageFile() const noexcept {
+        return notSortedStorage_.shareStorageFile();
+    }
+
     IndexT append(const KV &item) override {
         return sortedStorage_.getItemsCount() + notSortedStorage_.append(item);
     }
@@ -82,50 +97,46 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
         return sortedStorage_.getItemsCount() + notSortedStorage_.getItemsCount();
     }
 
-    io::InputIterator<StorageValueIgnorer<KeyLen, ValueLen>> getSortedKeys() {
-        return sortedStorage_.template getCustomDataIterator<StorageValueIgnorer<KeyLen, ValueLen>>();
+    io::InputIterator<ValueIgnorer, IndexT> getSortedKeys() {
+        return sortedStorage_.template getCustomDataIterator<ValueIgnorer>();
     }
 
-    io::InputIterator<StorageValueIgnorer<KeyLen, ValueLen>> getNotSortedKeys() {
-        return notSortedStorage_.template getCustomDataIterator<StorageValueIgnorer<KeyLen, ValueLen>>();
+    io::InputIterator<ValueIgnorer, IndexT> getNotSortedKeys() {
+        return notSortedStorage_.template getCustomDataIterator<ValueIgnorer>();
     }
 
-    io::InputIterator<KeyValue<KeyLen, ValueLen>> getSortedEntries() {
+    io::InputIterator<KV, IndexT> getSortedEntries() {
         return sortedStorage_.getDataIterator();
     }
 
-    io::InputIterator<KeyValue<KeyLen, ValueLen>> getNotSortedEntries() {
+    io::InputIterator<KV, IndexT> getNotSortedEntries() {
         return notSortedStorage_.getDataIterator();
     }
 
-    [[nodiscard]] SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>, IndexT> shrink(
-        IndexT shrinkBatchSize,
-        const std::string &newIndexFileName
-    ) {
+    [[nodiscard]] KeyIndexStorage shrink(IndexT shrinkBatchSize, const std::string &newIndexFileName) {
+
         const std::string shrinkFilenamePrefix = "shrink";
         const std::string tempSortedIndexFilename = shrinkFilenamePrefix + "-sorted-keys";
 
-        std::size_t batchesCount = (getItemsCount() + shrinkBatchSize - 1) / shrinkBatchSize;
-        auto notSortedKeysStream =
-            io::InputIterator<StorageValueIgnorer<KeyLen, ValueLen>>(
-                notSortedStorage_.getFileManager()->getInputStream(notSortedStorage_.getStorageFilePath(), 0)
-            );
+        std::size_t batchesCount = (notSortedStorage_.getItemsCount() + shrinkBatchSize - 1) / shrinkBatchSize;
+        auto notSortedKeysStream = getNotSortedKeys();
         std::vector<std::shared_ptr<io::TemporaryFile>> tempFilesLock;
-        std::vector<SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>, IndexT>> sortedBatches;
+        std::vector<KeyIndexStorage> sortedBatches;
         sortedBatches.reserve(batchesCount + 1);
         tempFilesLock.reserve(batchesCount + 1);
 
-        SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>> exportedKeys
+        KeyIndexStorage exportedKeys
             = exportKeys(shrinkBatchSize, tempSortedIndexFilename);
         tempFilesLock.push_back(exportedKeys.shareStorageFile());
 
         sortedBatches.push_back(std::move(exportedKeys));
+        IndexT sortedStorageSize = sortedStorage_.getItemsCount();
         for (std::size_t batchI = 0; batchI < batchesCount; ++batchI) {
             const std::string batchFileName = shrinkFilenamePrefix + "-batch-" + std::to_string(batchI);
-            SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>, IndexT> sortedBatch(
-                notSortedKeysStream.template collectWith(
-                    [](StorageValueIgnorer<KeyLen, ValueLen> &&svi, std::uint32_t index) {
-                        return Enum<Key<KeyLen>>{std::move(svi.key), index};
+            KeyIndexStorage sortedBatch(
+                notSortedKeysStream.collectWith(
+                    [sortedStorageSize](ValueIgnorer &&svi, IndexT index) {
+                        return KeyIndex{std::move(svi.key), index + sortedStorageSize};
                     },
                     shrinkBatchSize),
                 false,
@@ -136,7 +147,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
             assert(sortedBatch.getItemsCount() > 0 && "Batch file can not be empty");
             sortedBatches.push_back(std::move(sortedBatch));
         }
-        SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>, IndexT> updatedIndex(
+
+        KeyIndexStorage updatedIndex(
             sortedBatches,
             newIndexFileName,
             getFileManager()
@@ -149,30 +161,33 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, std::uint64_t> {
             shrinkFilenamePrefix + "-new-sorted",
             shrinkBatchSize
         ));
+
+        KeyIndexStorage actualExportedKeys
+            = exportKeys(shrinkBatchSize, shrinkFilenamePrefix + "-actual-index");
+        tempFilesLock.push_back(actualExportedKeys.shareStorageFile());
+        updatedIndex.resetWith(std::move(actualExportedKeys));
         return updatedIndex;
     }
 
   private:
-    SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>> exportKeys(IndexT batchSize,
-                                                                 const std::string &keysFilename) {
-        SortedSingleFileIndexedStorage<Enum<Key<KeyLen>>> sortedIndex(
-            0,
-            keysFilename,
-            getFileManager()
-        );
-        auto it = sortedStorage_.template getCustomDataIterator<StorageValueIgnorer<KeyLen, ValueLen>>();
-        auto keys = it.collect(batchSize);
+    KeyIndexStorage exportKeys(IndexT batchSize, const std::string &keysFilename) {
+        KeyIndexStorage sortedIndex(0, keysFilename, getFileManager());
+        auto it = sortedStorage_.template getCustomDataIterator<ValueIgnorer>();
+        auto keys = it.collectWith([](ValueIgnorer &&kvi, IndexT ind) {
+            return KeyIndex{std::move(kvi.key), ind};
+        }, batchSize);
         while (!keys.empty()) {
-            sortedIndex.appendAll(keys.cbegin(),
-                                  keys.cend(),
-                                  [](StorageValueIgnorer<KeyLen, ValueLen> svi) { return svi.key; });
-            keys = it.collect(batchSize);
+            sortedIndex.appendAll(keys.cbegin(), keys.cend());
+
+            keys = it.collectWith([](ValueIgnorer &&kvi, IndexT ind) {
+                return KeyIndex{std::move(kvi.key), ind};
+            }, batchSize);
         }
         return sortedIndex;
     }
 
-    SortedSingleFileIndexedStorage<KV, std::uint64_t> sortedStorage_;
-    SingleFileIndexedStorage<KV, std::uint64_t> notSortedStorage_;
+    SortedSingleFileIndexedStorage<KV, IndexT> sortedStorage_;
+    SingleFileIndexedStorage<KV, IndexT> notSortedStorage_;
 };
 
 namespace io {

@@ -35,9 +35,9 @@ class FileManager {
         return OutputIterator<T>(getOutputStream(filename, append));
     }
 
-    template <typename T>
-    InputIterator<T> getInputIterator(const std::filesystem::path &filename, std::uint64_t offset) {
-        return InputIterator<T>(getInputStream(filename, offset));
+    template <typename T, typename IndexT>
+    InputIterator<T, IndexT> getInputIterator(const std::filesystem::path &filename, std::uint64_t offset) {
+        return InputIterator<T, IndexT>(getInputStream(filename, offset));
     }
 
     virtual ~FileManager() = default;

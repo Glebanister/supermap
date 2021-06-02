@@ -7,7 +7,7 @@
 
 namespace supermap {
 
-template <typename T, typename IndexT = std::size_t>
+template <typename T, typename IndexT>
 class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT> {
   public:
     using SingleFileIndexedStorage<T, IndexT>::getItemsCount;
@@ -65,7 +65,15 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
             }
         }
 
-        for (std::uint64_t elemI = 0; elemI < totalSize; ++elemI) {
+        auto updateOnce = [&](std::int32_t i) {
+            if (++currentFrontPointers[i] < newer[i].getItemsCount()) {
+                frontLine[i].emplace(newer[i].get(currentFrontPointers[i]));
+            } else {
+                frontLine[i].reset();
+            }
+        };
+
+        while (true) {
             std::size_t min = 0;
             bool hasMin = false;
             for (std::int32_t i = storagesCount - 1; i >= 0; --i) {
@@ -79,15 +87,15 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
                 }
                 if (frontLine[i].value() < frontLine[min].value()) {
                     min = i;
+                } else if (frontLine[i].value() == frontLine[min].value()) {
+                    updateOnce(i);
                 }
             }
-            assert(hasMin);
-            T minItem = frontLine[min].value();
-            if (++currentFrontPointers[min] < newer[min].getItemsCount()) {
-                frontLine[min].emplace(newer[min].get(currentFrontPointers[min]));
-            } else {
-                frontLine[min].reset();
+            if (!hasMin) {
+                break;
             }
+            T minItem = frontLine[min].value();
+            updateOnce(min);
             append(std::move(minItem)); // TODO: appendAll has lesser Write Amplification
         }
     }
