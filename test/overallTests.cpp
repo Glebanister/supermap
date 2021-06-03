@@ -71,6 +71,15 @@ template <>
 struct FixedDeserializedSizeRegister<char> : ShallowDeserializedSize<char> {};
 
 template <>
+struct SerializeHelper<int> : ShallowSerializer<int> {};
+
+template <>
+struct DeserializeHelper<int> : ShallowDeserializer<int> {};
+
+template <>
+struct FixedDeserializedSizeRegister<int> : ShallowDeserializedSize<int> {};
+
+template <>
 struct SerializeHelper<IntKV> : ShallowSerializer<IntKV> {};
 
 template <>
@@ -574,5 +583,67 @@ TEST_CASE ("SortEndIterator 2") {
         {3, 5},
         {4, 0},
     });
+}
+
+TEST_CASE("SortedSingleFileIndexedStorage find int") {
+    using namespace supermap;
+
+    std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
+    SortedSingleFileIndexedStorage<int, int> storage(
+        {4, 2, 7, 5, 5, 3, 2, 3, 4},
+        false,
+        "sorted-storage",
+        manager,
+        [](int a, int b) { return a < b; },
+        [](int a, int b) { return a == b; }
+    );
+    auto findElem = [&](int elem) {
+        return storage.find(
+            [elem](const int &x) { return x < elem; },
+            [elem](const int &x) { return x == elem; }
+        );
+    };
+
+    CHECK_EQ(findElem(12), std::nullopt);
+    CHECK_EQ(findElem(4), std::optional{4});
+    CHECK_EQ(findElem(1), std::nullopt);
+    CHECK_EQ(findElem(6), std::nullopt);
+    CHECK_EQ(findElem(3), std::optional{3});
+}
+
+TEST_CASE("SortedSingleFileIndexedStorage find IntKV") {
+    using namespace supermap;
+
+    std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
+    SortedSingleFileIndexedStorage<IntKV, int> storage(
+        {
+            {4, 0},
+            {2, 1},
+            {7, 2},
+            {5, 3},
+            {5, 4},
+            {3, 5},
+            {2, 6},
+            {3, 7},
+            {4, 8},
+        },
+        false,
+        "sorted-storage",
+        manager,
+        [](const IntKV &a, const IntKV &b) { return a.key < b.key; },
+        [](const IntKV &a, const IntKV &b) { return a.key == b.key; }
+    );
+    auto findElem = [&](int elem) {
+        return storage.find(
+            [elem](const IntKV &x) { return x.key < elem; },
+            [elem](const IntKV &x) { return x.key == elem; }
+        );
+    };
+
+    CHECK_EQ(findElem(12), std::nullopt);
+    CHECK_EQ(findElem(4), std::optional{IntKV{4, 8}});
+    CHECK_EQ(findElem(1), std::nullopt);
+    CHECK_EQ(findElem(6), std::nullopt);
+    CHECK_EQ(findElem(3), std::optional{IntKV{3, 7}});
 }
 }

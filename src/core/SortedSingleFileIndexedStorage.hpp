@@ -53,6 +53,34 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         return std::unique(v.begin(), v.end(), isEq);
     }
 
+    template <
+        typename LessUnaryPred,
+        typename EqUnaryPred,
+        typename = std::enable_if_t<std::is_invocable_r_v<bool, LessUnaryPred, const T &>>,
+        typename = std::enable_if_t<std::is_invocable_r_v<bool, EqUnaryPred, const T &>>
+    >
+    std::optional<T> find(LessUnaryPred less, EqUnaryPred equal) {
+        if (getItemsCount() == 0) {
+            return std::nullopt;
+        }
+        IndexT firstLeq = -1;
+        IndexT lastGt = getItemsCount();
+        while (lastGt - firstLeq > 1) {
+            IndexT middle = (firstLeq + lastGt) / 2;
+            T middleElem = get(middle);
+            if (less(middleElem) || equal(middleElem)) {
+                firstLeq = middle;
+            } else {
+                lastGt = middle;
+            }
+        }
+        if (firstLeq >= getItemsCount()) {
+            return std::nullopt;
+        }
+        T firstLeqElem = get(firstLeq);
+        return equal(firstLeqElem) ? std::optional{firstLeqElem} : std::nullopt;
+    }
+
     SortedSingleFileIndexedStorage fromNotSorted(
         std::vector<T> data,
         const std::string &dataFileName,
