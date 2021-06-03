@@ -23,10 +23,10 @@ struct FixedDeserializedSize {
     static constexpr std::size_t exactDeserializedSize = ExactDeserializedSize;
 };
 
-template <typename T>
+template <typename T, typename = void>
 struct FixedDeserializedSizeRegister {};
 
-template <typename T>
+template <typename T, typename = void>
 struct SerializeHelper : Serializable<false> {
     void serialize(const T &, std::ostream &) {
         // will not be called
@@ -34,7 +34,7 @@ struct SerializeHelper : Serializable<false> {
     }
 };
 
-template <typename T>
+template <typename T, typename = void>
 struct DeserializeHelper : Deserializable<false> {
     T deserialize(std::istream &) {
         // will not be called
@@ -53,4 +53,5 @@ template <
 inline T deserialize(std::istream &is) {
     return DeserializeHelper<T>::deserialize(is);
 }
+
 } // supermap::io

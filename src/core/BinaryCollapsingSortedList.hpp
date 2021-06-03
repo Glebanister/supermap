@@ -73,6 +73,19 @@ class BinaryCollapsingSortedList {
         return std::nullopt;
     }
 
+    template <
+        typename Consumer,
+        typename = std::enable_if_t<std::is_invocable_r_v<void, Consumer &, const SortedStorage &>>
+    >
+    void consumeStorages(Consumer &consumer) {
+        std::shared_ptr<ListNode> curNode = head_;
+        while (curNode != nullptr) {
+            assert(curNode->valid());
+            consumer(*curNode->storage);
+            curNode = curNode->next;
+        }
+    }
+
   private:
     std::shared_ptr<ListNode> head_ = nullptr;
 };

@@ -2,9 +2,9 @@
 
 namespace supermap {
 
-template <std::size_t KeyLen, std::size_t ValueLen>
+template <typename Key, typename Value>
 struct KeyValue {
-    KeyValue(Key<KeyLen> key_, ByteArray<ValueLen> value_)
+    KeyValue(Key key_, Value value_)
         : key(std::move(key_)), value(std::move(value_)) {}
 
     KeyValue(const KeyValue &) = default;
@@ -12,41 +12,41 @@ struct KeyValue {
     KeyValue &operator=(const KeyValue &) = default;
     KeyValue &operator=(KeyValue &&) noexcept = default;
 
-    Key<KeyLen> key{};
-    ByteArray<ValueLen> value{};
+    Key key{};
+    Value value{};
 
-    bool operator==(const KeyValue<KeyLen, ValueLen> &other) const {
+    bool equals(const KeyValue<Key, Value> &other) const {
         return key == other.key && value == other.value;
-    }
-
-    bool operator<(const KeyValue<KeyLen, ValueLen> &other) const {
-        return key < other.key;
     }
 };
 
 namespace io {
 
-template <std::size_t KeyLen, std::size_t ValueLen>
-struct SerializeHelper<KeyValue<KeyLen, ValueLen>> : Serializable<true> {
-    static void serialize(const KeyValue<KeyLen, ValueLen> &keyVal, std::ostream &os) {
+template <typename Key, typename Value>
+struct SerializeHelper<KeyValue<Key, Value>> : Serializable<true> {
+    static void serialize(const KeyValue<Key, Value> &keyVal, std::ostream &os) {
         io::serialize(keyVal.key, os);
         io::serialize(keyVal.value, os);
     }
 };
 
-template <std::size_t KeyLen, std::size_t ValueLen>
-struct DeserializeHelper<KeyValue<KeyLen, ValueLen>> : Deserializable<true> {
-    static KeyValue<KeyLen, ValueLen> deserialize(std::istream &is) {
-        return KeyValue<KeyLen, ValueLen>
+template <typename Key, typename Value>
+struct DeserializeHelper<KeyValue<Key, Value>> : Deserializable<true> {
+    static KeyValue<Key, Value> deserialize(std::istream &is) {
+        return KeyValue<Key, Value>
             {
-                io::deserialize<Key<KeyLen>>(is),
-                io::deserialize<ByteArray<ValueLen>>(is)
+                io::deserialize<Key>(is),
+                io::deserialize<Value>(is)
             };
     }
 };
 
-template <std::size_t KeyLen, std::size_t ValueLen>
-struct FixedDeserializedSizeRegister<KeyValue<KeyLen, ValueLen>> : FixedDeserializedSize<KeyLen + ValueLen> {};
+template <typename Key, typename Value>
+struct FixedDeserializedSizeRegister<KeyValue<Key, Value>>
+    : FixedDeserializedSize<
+        FixedDeserializedSizeRegister<Key>::exactDeserializedSize
+            + FixedDeserializedSizeRegister<Value>::exactDeserializedSize> {
+};
 
 } // io
 

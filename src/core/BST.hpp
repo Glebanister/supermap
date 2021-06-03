@@ -2,31 +2,43 @@
 
 #include <map>
 
-#include "KeyValueStorage.hpp"
+#include "ExtractibleKeyValueStorage.hpp"
 
 namespace supermap {
 
-template <std::size_t KeyLen, std::size_t ValueLen>
-class BST : public KeyValueStorage<KeyLen, ValueLen> {
+template <typename Key, typename Value, typename IndexT>
+class BST : public ExtractibleKeyValueStorage<Key, Value, IndexT> {
   public:
-    void add(const Key<KeyLen> &key, ByteArray<ValueLen> &&value) override {
+    void add(const Key &key, Value &&value) override {
         map_[key] = std::move(value);
     }
 
-    void remove(const Key<KeyLen> &key) override {
-        map_.erase(key);
-    }
-
-    bool containsKey(const Key<KeyLen> &key) override {
+    bool containsKey(const Key &key) override {
         return map_.find(key) != map_.end();
     }
 
-    const ByteArray<ValueLen> &getValue(const Key<KeyLen> &key) override {
-        return *map_.find(key);
+    const Value &getValue(const Key &key) override {
+        if (!containsKey(key)) {
+            throw IllegalArgumentException("Key is not in BST");
+        }
+        return map_[key];
+    }
+
+    IndexT getSize() const noexcept override {
+        return static_cast<IndexT>(map_.size());
+    }
+
+    std::vector<KeyValue<Key, Value>> extract() && override {
+        std::vector<KeyValue<Key, Value>> extracted;
+        for (auto &&[k, v] : map_) {
+            extracted.emplace_back(KeyValue(std::move(k), std::move(v)));
+        }
+        map_.clear();
+        return extracted;
     }
 
   private:
-    std::map<Key<KeyLen>, ByteArray<ValueLen>> map_;
+    std::map<Key, Value> map_;
 };
 
 } // supermap

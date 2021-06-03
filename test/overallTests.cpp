@@ -15,7 +15,6 @@
 #include "exception/IllegalArgumentException.hpp"
 
 #include "primitive/Key.hpp"
-#include "primitive/Enum.hpp"
 #include "primitive/ByteArray.hpp"
 #include "core/SingleFileIndexedStorage.hpp"
 #include "core/KeyValueShrinkableStorage.hpp"
@@ -24,6 +23,13 @@
 struct CharKV { char key = 0, value = 0; };
 
 bool operator==(const CharKV &a, const CharKV &b) { return a.key == b.key && a.value == b.value; }
+
+namespace supermap {
+template <typename Key, typename Value>
+bool operator==(const KeyValue<Key, Value> &a, const KeyValue<Key, Value> &b) {
+    return a.key == b.key && a.value == b.value;
+}
+}
 
 struct TempFile {
     const std::string filename = ".supermap-test-file";
@@ -61,24 +67,6 @@ struct DeserializeHelper<MockStruct> : ShallowDeserializer<MockStruct> {};
 
 template <>
 struct FixedDeserializedSizeRegister<MockStruct> : ShallowDeserializedSize<MockStruct> {};
-
-template <>
-struct SerializeHelper<char> : ShallowSerializer<char> {};
-
-template <>
-struct DeserializeHelper<char> : ShallowDeserializer<char> {};
-
-template <>
-struct FixedDeserializedSizeRegister<char> : ShallowDeserializedSize<char> {};
-
-template <>
-struct SerializeHelper<int> : ShallowSerializer<int> {};
-
-template <>
-struct DeserializeHelper<int> : ShallowDeserializer<int> {};
-
-template <>
-struct FixedDeserializedSizeRegister<int> : ShallowDeserializedSize<int> {};
 
 template <>
 struct SerializeHelper<CharKV> : ShallowSerializer<CharKV> {};
@@ -198,22 +186,18 @@ TEST_CASE ("RamFileManager") {
 TEST_CASE ("Key") {
     auto key6 = supermap::Key<6>::fromString("123456");
     CHECK_EQ(key6.format(), "123456");
-    CHECK_THROWS_AS(supermap::Key<6>::fromString("1234567"), const supermap::IllegalArgumentException &);
-    CHECK_THROWS_AS(supermap::Key<6>::fromString("12"), const supermap::IllegalArgumentException &);
 }
 
 TEST_CASE ("ByteArray") {
     auto key6 = supermap::ByteArray<6>::fromString("123456");
     CHECK_EQ(key6.toString(), "123456");
-    CHECK_THROWS_AS(supermap::ByteArray<6>::fromString("1234567"), const supermap::IllegalArgumentException &);
-    CHECK_THROWS_AS(supermap::ByteArray<6>::fromString("12"), const supermap::IllegalArgumentException &);
 }
 
 TEST_CASE ("SingleFileIndexedStorage KeyIndex") {
     using namespace supermap;
     using namespace io;
 
-    using KeyIndex = Enum<Key<2>, std::uint32_t>;
+    using KeyIndex = KeyValue<Key<2>, std::uint32_t>;
 
     auto manager = std::make_shared<RamFileManager>();
     const std::string filename = "indexed_data.txt";
@@ -242,13 +226,13 @@ TEST_CASE ("KeyValueShrinkableStorage notSortedStorage") {
     using namespace io;
 
     auto manager = std::make_shared<RamFileManager>();
-    KeyValueShrinkableStorage<2, 4, std::uint32_t> indexedData(
+    KeyValueShrinkableStorage<Key<2>, ByteArray<4>, std::uint32_t> indexedData(
         "keys-not-sorted",
         "keys-sorted",
         manager
     );
 
-    std::vector<KeyValue<2, 4>> keyValues{
+    std::vector<KeyValue<Key<2>, ByteArray<4>>> keyValues{
         {Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")},
         {Key<2>::fromString("cd"), ByteArray<4>::fromString("1831")},
         {Key<2>::fromString("ef"), ByteArray<4>::fromString("4923")},
@@ -258,7 +242,7 @@ TEST_CASE ("KeyValueShrinkableStorage notSortedStorage") {
     for (std::size_t i = 0; i < keyValues.size(); ++i) {
         CHECK_EQ(i, indexedData.append(keyValues[i]));
     }
-    std::vector<KeyValue<2, 4>> parsedData;
+    std::vector<KeyValue<Key<2>, ByteArray<4>>> parsedData;
     auto keyIndexParser = indexedData.getNotSortedEntries();
     while (keyIndexParser.hasNext()) {
         parsedData.push_back(keyIndexParser.next());
@@ -270,13 +254,13 @@ TEST_CASE("collectWith") {
     using namespace supermap;
     using namespace io;
 
-    using KeyIndex = Enum<Key<2>, std::uint32_t>;
+    using KeyIndex = KeyValue<Key<2>, std::uint32_t>;
 
     auto manager = std::make_shared<RamFileManager>();
     const std::string filename = "indexed_data.txt";
-    SingleFileIndexedStorage<KeyValue<2, 4>, std::uint32_t> storage(filename, manager, 0);
+    SingleFileIndexedStorage<KeyValue<Key<2>, ByteArray<4>>, std::uint32_t> storage(filename, manager, 0);
 
-    std::vector<KeyValue<2, 4>> keyValues{
+    std::vector<KeyValue<Key<2>, ByteArray<4>>> keyValues{
         {Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")},
         {Key<2>::fromString("cd"), ByteArray<4>::fromString("1831")},
         {Key<2>::fromString("ef"), ByteArray<4>::fromString("4923")},
@@ -287,21 +271,21 @@ TEST_CASE("collectWith") {
     std::transform(keyValues.begin(),
                    keyValues.end(),
                    std::back_inserter(initialKeys),
-                   [](const KeyValue<2, 4> &kv) { return kv.key; });
+                   [](const KeyValue<Key<2>, ByteArray<4>> &kv) { return kv.key; });
 
     for (std::size_t i = 0; i < keyValues.size(); ++i) {
         CHECK_EQ(i, storage.append({keyValues[i].key, ByteArray(keyValues[i].value)}));
     }
 
-    auto keyIndexParser = storage.getCustomDataIterator<StorageValueIgnorer<2, 4>>();
+    auto keyIndexParser = storage.getCustomDataIterator<StorageValueIgnorer<Key<2>, ByteArray<4>>>();
     std::vector<KeyIndex> parsedKeys = keyIndexParser.collectWith(
-        [](StorageValueIgnorer<2, 4> &&svi, std::size_t index) {
+        [](StorageValueIgnorer<Key<2>, ByteArray<4>> &&svi, std::size_t index) {
             return KeyIndex(std::move(svi.key), index);
         });
     CHECK_EQ(initialKeys.size(), parsedKeys.size());
     for (std::size_t i = 0; i < initialKeys.size(); ++i) {
-        CHECK_EQ(initialKeys[i], parsedKeys[i].elem);
-        CHECK_EQ(i, parsedKeys[i].index);
+        CHECK_EQ(initialKeys[i], parsedKeys[i].key);
+        CHECK_EQ(i, parsedKeys[i].value);
     }
 }
 
@@ -309,7 +293,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink smoke test") {
     using namespace supermap;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
-    KeyValueShrinkableStorage<2, 4, std::uint32_t> storage(
+    KeyValueShrinkableStorage<Key<2>, ByteArray<4>, std::uint32_t> storage(
         "not-sorted",
         "sorted",
         manager);
@@ -319,7 +303,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink smoke test") {
 TEST_CASE("Enum serialization") {
     using namespace supermap;
 
-    using KeyIndex = Enum<char, std::uint32_t>;
+    using KeyIndex = KeyValue<char, std::uint32_t>;
 
     std::string buffer;
     io::StringOutputStream out(buffer, false);
@@ -334,7 +318,7 @@ TEST_CASE("Enum serialization") {
 TEST_CASE("Enum collect ram") {
     using namespace supermap;
 
-    using KeyIndex = Enum<char, std::uint32_t>;
+    using KeyIndex = KeyValue<char, std::uint32_t>;
 
     std::string buffer;
     io::StringOutputStream out(buffer, false);
@@ -351,7 +335,7 @@ TEST_CASE("Enum collect ram") {
 TEST_CASE("Enum collect disk") {
     using namespace supermap;
 
-    using KeyIndex = Enum<char, std::uint32_t>;
+    using KeyIndex = KeyValue<char, std::uint32_t>;
 
     TempFile file("test-Enum-collect-disk");
 
@@ -372,7 +356,7 @@ TEST_CASE("Serialize KeyValue Disk") {
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
     TempFile file("test-Serialize-KeyValue");
-    auto outIt = manager->getOutputIterator<KeyValue<2, 4>>(file.filename, false);
+    auto outIt = manager->getOutputIterator<KeyValue<Key<2>, ByteArray<4>>>(file.filename, false);
     auto kv1 = KeyValue{Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")};
     auto kv2 = KeyValue{Key<2>::fromString("cd"), ByteArray<4>::fromString("5678")};
     auto kv3 = KeyValue{Key<2>::fromString("ef"), ByteArray<4>::fromString("1023")};
@@ -380,27 +364,27 @@ TEST_CASE("Serialize KeyValue Disk") {
     outIt.write(kv2);
     outIt.write(kv3);
     outIt.flush();
-    auto inIt = manager->getInputIterator<KeyValue<2, 4>, std::uint32_t>(file.filename, 0);
-    auto read = inIt.collectWith([](KeyValue<2, 4> &&kv, std::uint32_t index) {
-        return Enum<KeyValue<2, 4>, std::uint32_t>(std::move(kv),
-                                                   index);
+    auto inIt = manager->getInputIterator<KeyValue<Key<2>, ByteArray<4>>, std::uint32_t>(file.filename, 0);
+    auto read = inIt.collectWith([](KeyValue<Key<2>, ByteArray<4>> &&kv, std::uint32_t index) {
+        return KeyValue<KeyValue<Key<2>, ByteArray<4>>, std::uint32_t>(std::move(kv),
+                                                                       index);
     });
     CHECK_EQ(read.size(), 3);
-    CHECK_EQ(read[0].index, 0);
-    CHECK_EQ(read[1].index, 1);
-    CHECK_EQ(read[2].index, 2);
-    CHECK_EQ(read[0].elem, kv1);
-    CHECK_EQ(read[1].elem, kv2);
-    CHECK_EQ(read[2].elem, kv3);
+    CHECK_EQ(read[0].value, 0);
+    CHECK_EQ(read[1].value, 1);
+    CHECK_EQ(read[2].value, 2);
+    CHECK_EQ(read[0].key, kv1);
+    CHECK_EQ(read[1].key, kv2);
+    CHECK_EQ(read[2].key, kv3);
 }
 
 TEST_CASE("KeyValueShrinkableStorage shrink simple") {
     using namespace supermap;
 
-    using KeyIndex = Enum<Key<2>, std::uint32_t>;
+    using KeyIndex = KeyValue<Key<2>, std::uint32_t>;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
-    KeyValueShrinkableStorage<2, 4, std::uint32_t> storage(
+    KeyValueShrinkableStorage<Key<2>, ByteArray<4>, std::uint32_t> storage(
         "not-sorted",
         "sorted",
         manager
@@ -411,7 +395,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink simple") {
     CHECK_EQ(storage.getItemsCount(), 3);
     {
         std::vector<Key<2>> notSortedKeys =
-            storage.getNotSortedKeys().collectWith([](StorageValueIgnorer<2, 4> &&kvi, std::uint32_t) {
+            storage.getNotSortedKeys().collectWith([](StorageValueIgnorer<Key<2>, ByteArray<4>> &&kvi, std::uint32_t) {
                 return kvi.key;
             });
         CHECK_EQ(notSortedKeys,
@@ -423,7 +407,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink simple") {
     }
     {
         std::vector<Key<2>> sortedKeys =
-            storage.getSortedKeys().collectWith([](StorageValueIgnorer<2, 4> &&svi, std::uint32_t) {
+            storage.getSortedKeys().collectWith([](StorageValueIgnorer<Key<2>, ByteArray<4>> &&svi, std::uint32_t) {
                 return svi.key;
             });
         CHECK_EQ(sortedKeys, std::vector<Key<2>>{});
@@ -441,7 +425,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
     using namespace supermap;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
-    KeyValueShrinkableStorage<1, 1, std::uint32_t> storage(
+    KeyValueShrinkableStorage<Key<1>, ByteArray<1>, std::uint32_t> storage(
         "keys-not-sorted",
         "keys-sorted",
         manager
@@ -452,11 +436,11 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
     };
 
     auto keyIndex = [&](const std::string &k, int i) {
-        return Enum<Key<1>, std::uint32_t>(Key<1>::fromString(k), i);
+        return KeyValue<Key<1>, std::uint32_t>(Key<1>::fromString(k), i);
     };
 
     auto keyVal = [&](const std::string &k, const std::string &v) {
-        return KeyValue<1, 1>{Key<1>::fromString(k), ByteArray<1>::fromString(v)};
+        return KeyValue<Key<1>, ByteArray<1>>{Key<1>::fromString(k), ByteArray<1>::fromString(v)};
     };
 
     append("5", "a");
@@ -465,7 +449,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
     append("2", "t");
 
     {
-        SortedSingleFileIndexedStorage<Enum<Key<1>, std::uint32_t>, std::uint32_t> newIndex = storage.shrink(
+        SortedSingleFileIndexedStorage<KeyValue<Key<1>, std::uint32_t>, std::uint32_t> newIndex = storage.shrink(
             1,
             "keys-new-index"
         );
@@ -478,7 +462,6 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
         CHECK_EQ(storage.get(0), keyVal("2", "t"));
         CHECK_EQ(storage.get(1), keyVal("3", "x"));
         CHECK_EQ(storage.get(2), keyVal("5", "a"));
-        CHECK_THROWS_AS(storage.get(3), const IllegalArgumentException &);
     }
 
     append("5", "x");
@@ -494,7 +477,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
     append("3", "p");
 
     {
-        SortedSingleFileIndexedStorage<Enum<Key<1>, std::uint32_t>, std::uint32_t> newIndex = storage.shrink(
+        SortedSingleFileIndexedStorage<KeyValue<Key<1>, std::uint32_t>, std::uint32_t> newIndex = storage.shrink(
             2,
             "new-index"
         );
@@ -705,8 +688,8 @@ TEST_CASE("BinaryCollapsingSortedList") {
 
     auto find = [&](char x) {
         return list.find(
-            [x](const CharKV &a) { return  a.key < x; },
-            [x](const CharKV &a) { return x == a.key ; }
+            [x](const CharKV &a) { return a.key < x; },
+            [x](const CharKV &a) { return x == a.key; }
         );
     };
 

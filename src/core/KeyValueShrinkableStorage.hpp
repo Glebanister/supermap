@@ -5,27 +5,26 @@
 #include "io/TemporaryFile.hpp"
 #include "SortedSingleFileIndexedStorage.hpp"
 #include "primitive/KeyValue.hpp"
-#include "primitive/Enum.hpp"
 
 namespace supermap {
 
-template <std::size_t KeyLen, std::size_t ValueLen>
+template <typename Key, typename ValueLen>
 struct StorageValueIgnorer {
-    Key<KeyLen> key;
+    Key key;
 };
 
 template <
-    std::size_t KeyLen,
-    std::size_t ValueLen,
+    typename Key,
+    typename Value,
     typename IndexT,
-    typename KV = KeyValue<KeyLen, ValueLen>
+    typename KV = KeyValue<Key, Value>
 >
 class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
     using IndexedStorage<KV, IndexT>::getFileManager;
     using IndexedStorage<KV, IndexT>::getItemsCount;
-    using KeyIndex = Enum<Key<KeyLen>, IndexT>;
+    using KeyIndex = KeyValue<Key, IndexT>;
     using KeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT>;
-    using ValueIgnorer = StorageValueIgnorer<KeyLen, ValueLen>;
+    using ValueIgnorer = StorageValueIgnorer<Key, Value>;
 
   public:
     explicit KeyValueShrinkableStorage(
@@ -56,8 +55,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
         while (!currentBatchIndex.empty()) {
             for (std::size_t i = 0; i < currentBatchIndex.size(); ++i) {
                 keyValueOutputIterator.write(KeyValue{
-                    std::move(currentBatchIndex[i].elem),
-                    oldStorage.get(currentBatchIndex[i].index).value
+                    std::move(currentBatchIndex[i].key),
+                    oldStorage.get(currentBatchIndex[i].value).value
                 });
             }
             currentBatchIndex = indexIterator.collect(indexBatchSize);
@@ -153,8 +152,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
                 false,
                 batchFileName,
                 getFileManager(),
-                [](const KeyIndex &a, const KeyIndex &b) { return a.elem < b.elem; },
-                [](const KeyIndex &a, const KeyIndex &b) { return a.elem == b.elem; }
+                [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
+                [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
             );
             tempFilesLock.push_back(sortedBatch.shareStorageFile());
             assert(sortedBatch.getItemsCount() > 0 && "Batch file can not be empty");
@@ -165,8 +164,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
             sortedBatches,
             newIndexFileName,
             getFileManager(),
-            [](const KeyIndex &a, const KeyIndex &b) { return a.elem < b.elem; },
-            [](const KeyIndex &a, const KeyIndex &b) { return a.elem == b.elem; }
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
         );
 
         resetWith(KeyValueShrinkableStorage(
@@ -207,11 +206,11 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
 
 namespace io {
 
-template <std::size_t KeyLen, std::size_t ValueLen>
-struct DeserializeHelper<StorageValueIgnorer<KeyLen, ValueLen>> : Deserializable<true> {
-    static StorageValueIgnorer<KeyLen, ValueLen> deserialize(std::istream &is) {
-        StorageValueIgnorer<KeyLen, ValueLen> svi{io::deserialize<Key<KeyLen>>(is)};
-        is.seekg(ValueLen, std::ios_base::cur);
+template <typename Key, typename Value>
+struct DeserializeHelper<StorageValueIgnorer<Key, Value>> : Deserializable<true> {
+    static StorageValueIgnorer<Key, Value> deserialize(std::istream &is) {
+        StorageValueIgnorer<Key, Value> svi{io::deserialize<Key>(is)};
+        is.seekg(FixedDeserializedSizeRegister<Value>::exactDeserializedSize, std::ios_base::cur);
         if (is.fail()) {
             throw IOException("StorageValueIgnorer deserialization fail: seekg failed");
         }
@@ -219,9 +218,10 @@ struct DeserializeHelper<StorageValueIgnorer<KeyLen, ValueLen>> : Deserializable
     }
 };
 
-template <std::size_t KeyLen, std::size_t ValueLen>
-struct FixedDeserializedSizeRegister<StorageValueIgnorer<KeyLen, ValueLen>>
-    : FixedDeserializedSize<KeyLen + ValueLen> {
+template <typename Key, typename Value>
+struct FixedDeserializedSizeRegister<StorageValueIgnorer<Key, Value>>
+    : FixedDeserializedSize<FixedDeserializedSizeRegister<Key>::exactDeserializedSize
+                                + FixedDeserializedSizeRegister<Value>::exactDeserializedSize> {
 };
 
 } // io

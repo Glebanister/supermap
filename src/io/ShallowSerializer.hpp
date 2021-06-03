@@ -31,4 +31,13 @@ struct ShallowDeserializer : Deserializable<true> {
 template <typename T>
 struct ShallowDeserializedSize : FixedDeserializedSize<sizeof(T)> {};
 
+template <typename T>
+struct SerializeHelper<T, std::enable_if_t<std::is_integral_v<T>>> : ShallowSerializer<T> {};
+
+template <typename T>
+struct DeserializeHelper<T, std::enable_if_t<std::is_integral_v<T>>> : ShallowDeserializer<T> {};
+
+template <typename T>
+struct FixedDeserializedSizeRegister<T, std::enable_if_t<std::is_integral_v<T>>> : ShallowDeserializedSize<T> {};
+
 } // supermap::io

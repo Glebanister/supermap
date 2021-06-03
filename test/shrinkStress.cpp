@@ -12,6 +12,14 @@ std::uint32_t timeSeed() {
     return std::chrono::steady_clock::now().time_since_epoch().count();
 }
 
+namespace supermap {
+template <typename Key, typename Value>
+bool operator==(const KeyValue<Key, Value> &a, const KeyValue<Key, Value> &b) {
+    return a.key == b.key && a.value == b.value;
+}
+}
+
+
 template <
     std::size_t KeyLen,
     std::size_t ValueLen,
@@ -26,13 +34,13 @@ void shrinkStress(std::uint32_t seed) {
     using namespace supermap;
     using K = Key<KeyLen>;
     using V = ByteArray<ValueLen>;
-    using KV = KeyValue<KeyLen, ValueLen>;
-    using KI = Enum<K, IndexT>;
+    using KV = KeyValue<Key<KeyLen>, ByteArray<ValueLen>>;
+    using KI = KeyValue<K, IndexT>;
 
     const std::string NEW_INDEX_FILENAME = "new-index";
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
-    KeyValueShrinkableStorage<KeyLen, ValueLen, IndexT> storage(
+    KeyValueShrinkableStorage<K, V, IndexT> storage(
         "keys-not-sorted",
         "keys-sorted",
         manager
@@ -115,8 +123,8 @@ void shrinkStress(std::uint32_t seed) {
         auto sortedSize = expectedSortedStorage.size();
         CHECK_EQ(newIndexSize, sortedSize);
         for (IndexT i = 0; i < expectedSortedStorage.size(); ++i) {
-            IndexT curInd = newIndex.get(i).index;
-            K curKey = newIndex.get(i).elem;
+            IndexT curInd = newIndex.get(i).value;
+            K curKey = newIndex.get(i).key;
             K expectedKey = expectedSortedStorage[i].key;
             CHECK_EQ(curInd, i);
             CHECK_EQ(curKey, expectedKey);

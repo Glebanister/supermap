@@ -29,7 +29,10 @@ struct Key : public std::array<std::uint8_t, Len> {
     }
 
     static Key<Len> fromString(const std::string &strKey) {
-        assert(strKey.length() == Len);
+        if (strKey.length() != Len) {
+            throw IllegalArgumentException(
+                "String key length can not be greater than template size parameter");
+        }
 
         Key<Len> arrKey;
         for (std::size_t i = 0; i < strKey.length(); ++i) {
