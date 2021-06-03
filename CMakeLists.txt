@@ -21,10 +21,11 @@ set(LIBRARY_SOURCES
 
 set(CLI_SOURCES
         cli/main.cpp
-        cli/CommandLineInterface.cpp
-        )
+        cli/CommandLineInterface.cpp)
 
 set(TEST_SOURCES
+        test/overallTests.cpp
+        test/shrinkStress.cpp
         test/test.cpp)
 
 add_library(${LIBRARY} SHARED ${LIBRARY_SOURCES})
