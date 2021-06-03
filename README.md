@@ -2,7 +2,7 @@
 
 [![CMake](https://github.com/Glebanister/supermap/actions/workflows/cmake.yml/badge.svg)](https://github.com/Glebanister/supermap/actions/workflows/cmake.yml)
 
-Key-value storage implementation.
+Key-value keys implementation.
 
 ## Installation
 
@@ -22,10 +22,10 @@ $ cmake ...
 ```bash
 $ ./build/supermap 
 supermap> help
-'get' - Get value of key from storage
-'remove' - Remove key from storage
-'add' - Add key to storage
-'contains' - Check if key in storage
+'get' - Get value of key from keys
+'remove' - Remove key from keys
+'add' - Add key to keys
+'contains' - Check if key in keys
 'stop' - Stop interface
 'help' - Get help
 supermap> 

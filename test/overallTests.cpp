@@ -19,6 +19,7 @@
 #include "primitive/ByteArray.hpp"
 #include "core/SingleFileIndexedStorage.hpp"
 #include "core/KeyValueShrinkableStorage.hpp"
+#include "core/BinaryCollapsingIndexSortedList.hpp"
 
 struct IntKV { int key = 0, value = 0; };
 
@@ -242,8 +243,8 @@ TEST_CASE ("KeyValueShrinkableStorage notSortedStorage") {
 
     auto manager = std::make_shared<RamFileManager>();
     KeyValueShrinkableStorage<2, 4, std::uint32_t> indexedData(
-        "storage-not-sorted",
-        "storage-sorted",
+        "keys-not-sorted",
+        "keys-sorted",
         manager
     );
 
@@ -441,8 +442,8 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
     KeyValueShrinkableStorage<1, 1, std::uint32_t> storage(
-        "storage-not-sorted",
-        "storage-sorted",
+        "keys-not-sorted",
+        "keys-sorted",
         manager
     );
 
@@ -466,7 +467,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
     {
         SortedSingleFileIndexedStorage<Enum<Key<1>, std::uint32_t>, std::uint32_t> newIndex = storage.shrink(
             1,
-            "storage-new-index"
+            "keys-new-index"
         );
 
         CHECK_EQ(newIndex.getItemsCount(), 3);
@@ -528,7 +529,8 @@ TEST_CASE ("SortEndIterator 1") {
 
     entries.erase(
         SortedSingleFileIndexedStorage<IntKV, int>::sortedEndIterator(
-            entries,
+            entries.begin(),
+            entries.end(),
             [](const IntKV &a, const IntKV &b) { return a.key < b.key; },
             [](const IntKV &a, const IntKV &b) { return a.key == b.key; }),
         entries.end()
@@ -570,7 +572,8 @@ TEST_CASE ("SortEndIterator 2") {
 
     entries.erase(
         SortedSingleFileIndexedStorage<IntKV, int>::sortedEndIterator(
-            entries,
+            entries.begin(),
+            entries.end(),
             [](const IntKV &a, const IntKV &b) { return a.key < b.key; },
             [](const IntKV &a, const IntKV &b) { return a.key == b.key; }),
         entries.end()
@@ -589,10 +592,12 @@ TEST_CASE("SortedSingleFileIndexedStorage find int") {
     using namespace supermap;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
+    std::vector<int> items = {4, 2, 7, 5, 5, 3, 2, 3, 4};
     SortedSingleFileIndexedStorage<int, int> storage(
-        {4, 2, 7, 5, 5, 3, 2, 3, 4},
+        items.begin(),
+        items.end(),
         false,
-        "sorted-storage",
+        "sorted-keys",
         manager,
         [](int a, int b) { return a < b; },
         [](int a, int b) { return a == b; }
@@ -615,20 +620,24 @@ TEST_CASE("SortedSingleFileIndexedStorage find IntKV") {
     using namespace supermap;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
+
+    std::vector<IntKV> items = {
+        {4, 0},
+        {2, 1},
+        {7, 2},
+        {5, 3},
+        {5, 4},
+        {3, 5},
+        {2, 6},
+        {3, 7},
+        {4, 8},
+    };
+
     SortedSingleFileIndexedStorage<IntKV, int> storage(
-        {
-            {4, 0},
-            {2, 1},
-            {7, 2},
-            {5, 3},
-            {5, 4},
-            {3, 5},
-            {2, 6},
-            {3, 7},
-            {4, 8},
-        },
+        items.begin(),
+        items.end(),
         false,
-        "sorted-storage",
+        "sorted-keys",
         manager,
         [](const IntKV &a, const IntKV &b) { return a.key < b.key; },
         [](const IntKV &a, const IntKV &b) { return a.key == b.key; }
@@ -645,5 +654,10 @@ TEST_CASE("SortedSingleFileIndexedStorage find IntKV") {
     CHECK_EQ(findElem(1), std::nullopt);
     CHECK_EQ(findElem(6), std::nullopt);
     CHECK_EQ(findElem(3), std::optional{IntKV{3, 7}});
+}
+
+TEST_CASE("BinaryCollapsingIndexSortedList") {
+    using namespace supermap;
+
 }
 }

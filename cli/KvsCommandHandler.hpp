@@ -46,7 +46,7 @@ class AddKeyHandler : public KvsCommandHandler<KeyLen, ValueLen> {
     using KvsCommandHandler<KeyLen, ValueLen>::kvs_;
   public:
     explicit AddKeyHandler(std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs)
-        : KvsCommandHandler<KeyLen, ValueLen>("Add key to storage", 2, std::move(kvs)) {}
+        : KvsCommandHandler<KeyLen, ValueLen>("Add key to keys", 2, std::move(kvs)) {}
 
     void handleKvs(const std::vector<std::string> &args, std::ostream &) override {
         kvs_->add(Key<KeyLen>::fromString(args[0]), ByteArray<ValueLen>::fromString(std::string(args[1])));
@@ -58,7 +58,7 @@ class RemoveKeyHandler : public KvsCommandHandler<KeyLen, ValueLen> {
     using KvsCommandHandler<KeyLen, ValueLen>::kvs_;
   public:
     explicit RemoveKeyHandler(std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs)
-        : KvsCommandHandler<KeyLen, ValueLen>("Remove key from storage", 1, std::move(kvs)) {}
+        : KvsCommandHandler<KeyLen, ValueLen>("Remove key from keys", 1, std::move(kvs)) {}
 
     void handleKvs(const std::vector<std::string> &args, std::ostream &) override {
         kvs_->remove(Key<KeyLen>::fromString(args[0]));
@@ -70,7 +70,7 @@ class ContainsKeyHandler : public KvsCommandHandler<KeyLen, ValueLen> {
     using KvsCommandHandler<KeyLen, ValueLen>::kvs_;
   public:
     explicit ContainsKeyHandler(std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs)
-        : KvsCommandHandler<KeyLen, ValueLen>("Check if key in storage", 1, std::move(kvs)) {}
+        : KvsCommandHandler<KeyLen, ValueLen>("Check if key in keys", 1, std::move(kvs)) {}
 
     void handleKvs(const std::vector<std::string> &args, std::ostream &os) override {
         os << (kvs_->containsKey(Key<KeyLen>::fromString(args[0])) ? "true" : "false") << std::endl;
@@ -82,7 +82,7 @@ class GetValueHandler : public KvsCommandHandler<KeyLen, ValueLen> {
     using KvsCommandHandler<KeyLen, ValueLen>::kvs_;
   public:
     explicit GetValueHandler(std::shared_ptr<KeyValueStorage<KeyLen, ValueLen>> kvs)
-        : KvsCommandHandler<KeyLen, ValueLen>("Get value of key from storage", 1, std::move(kvs)) {}
+        : KvsCommandHandler<KeyLen, ValueLen>("Get value of key from keys", 1, std::move(kvs)) {}
 
     void handleKvs(const std::vector<std::string> &args, std::ostream &os) override {
         os << kvs_->getValue(Key<KeyLen>::fromString(args[0])).toString() << std::endl;

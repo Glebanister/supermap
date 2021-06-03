@@ -21,36 +21,37 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), manager, size) {
     }
 
-    template <typename IsLess, typename IsEq>
-    explicit SortedSingleFileIndexedStorage(std::vector<T> data,
+    template <
+        typename Iterator,
+        typename IsLess,
+        typename IsEq
+    >
+    explicit SortedSingleFileIndexedStorage(Iterator begin,
+                                            Iterator end,
                                             bool sorted,
                                             std::string dataFileName,
                                             std::shared_ptr<io::FileManager> manager,
                                             IsLess isLess,
                                             IsEq isEq
     ) : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), manager, 0) {
-        appendAll(data.cbegin(), sorted ? data.cend() : sortedEndIterator(data, isLess, isEq));
-    }
-
-    SortedSingleFileIndexedStorage fromSorted(
-        std::vector<T> data,
-        const std::string &dataFileName,
-        std::shared_ptr<io::FileManager> manager) {
-        return SortedIndexedStorage(std::move(data), false, dataFileName, manager);
+        appendAll(begin, sorted ? end : sortedEndIterator(begin, end, isLess, isEq));
     }
 
     template <
         typename LessComp,
-        typename EqComp
+        typename EqComp,
+        typename Iterator,
+        typename = std::enable_if_t<std::is_same_v<T, typename std::iterator_traits<Iterator>::value_type>>
     >
-    static typename std::vector<T>::const_iterator sortedEndIterator(
-        std::vector<T> &v,
+    static Iterator sortedEndIterator(
+        Iterator begin,
+        Iterator end,
         LessComp isLess,
         EqComp isEq
     ) {
-        std::reverse(v.begin(), v.end());
-        std::stable_sort(v.begin(), v.end(), isLess);
-        return std::unique(v.begin(), v.end(), isEq);
+        std::reverse(begin, end);
+        std::stable_sort(begin, end, isLess);
+        return std::unique(begin, end, isEq);
     }
 
     template <

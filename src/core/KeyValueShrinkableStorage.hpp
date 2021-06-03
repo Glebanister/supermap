@@ -141,13 +141,15 @@ class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
         IndexT sortedStorageSize = sortedStorage_.getItemsCount();
         for (std::size_t batchI = 0; batchI < batchesCount; ++batchI) {
             const std::string batchFileName = shrinkFilenamePrefix + "-batch-" + std::to_string(batchI);
+            std::vector<KeyIndex> notSortedKeys = notSortedKeysStream.collectWith(
+                [sortedStorageSize](ValueIgnorer &&svi, IndexT index) {
+                    return KeyIndex{std::move(svi.key), index + sortedStorageSize};
+                },
+                shrinkBatchSize
+            );
             KeyIndexStorage sortedBatch(
-                notSortedKeysStream.collectWith(
-                    [sortedStorageSize](ValueIgnorer &&svi, IndexT index) {
-                        return KeyIndex{std::move(svi.key), index + sortedStorageSize};
-                    },
-                    shrinkBatchSize
-                ),
+                notSortedKeys.begin(),
+                notSortedKeys.end(),
                 false,
                 batchFileName,
                 getFileManager(),

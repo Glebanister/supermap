@@ -33,8 +33,8 @@ void shrinkStress(std::uint32_t seed) {
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
     KeyValueShrinkableStorage<KeyLen, ValueLen, IndexT> storage(
-        "storage-not-sorted",
-        "storage-sorted",
+        "keys-not-sorted",
+        "keys-sorted",
         manager
     );
 
@@ -72,7 +72,8 @@ void shrinkStress(std::uint32_t seed) {
             newSorted.push_back(std::move(*notSortedIt));
         }
         auto newSortedEnd = SortedSingleFileIndexedStorage<KV, IndexT>::sortedEndIterator(
-            newSorted,
+            newSorted.begin(),
+            newSorted.end(),
             [](const KV &a, const KV &b) { return a.key < b.key; },
             [](const KV &a, const KV &b) { return a.key == b.key; }
         );
