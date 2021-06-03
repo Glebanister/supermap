@@ -45,8 +45,8 @@ class BinaryCollapsingSortedList {
             }
             assert(curNode->valid());
             assert(nextNode->valid());
-            SortedSingleFileIndexedStorage<T, IndexT> mergedKeys(
-                std::vector{*nextNode->storage, *curNode->storage},
+            SortedStorage mergedKeys(
+                std::vector<SortedStorage>{*nextNode->storage, *curNode->storage},
                 "collapse",
                 curNode->storage->getFileManager(),
                 less,
