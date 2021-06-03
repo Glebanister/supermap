@@ -54,17 +54,11 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         return std::unique(begin, end, isEq);
     }
 
-    template <
-        typename LessUnaryPred,
-        typename EqUnaryPred,
-        typename = std::enable_if_t<std::is_invocable_r_v<bool, LessUnaryPred, const T &>>,
-        typename = std::enable_if_t<std::is_invocable_r_v<bool, EqUnaryPred, const T &>>
-    >
-    std::optional<T> find(LessUnaryPred less, EqUnaryPred equal) {
+    virtual std::optional<T> find(std::function<bool(const T &)> less, std::function<bool(const T &)> equal) {
         if (getItemsCount() == 0) {
             return std::nullopt;
         }
-        IndexT firstLeq = -1;
+        IndexT firstLeq = 0;
         IndexT lastGt = getItemsCount();
         while (lastGt - firstLeq > 1) {
             IndexT middle = (firstLeq + lastGt) / 2;
@@ -99,7 +93,7 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
     ) : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), std::move(fileManager), 0) {
 
         const std::size_t storagesCount = newer.size();
-        std::vector<std::size_t> currentFrontPointers(storagesCount);
+        std::vector<IndexT> currentFrontPointers(storagesCount);
         std::vector<std::optional<T>> frontLine(storagesCount, std::nullopt);
         std::uint64_t totalSize = 0;
         for (std::size_t i = 0; i < storagesCount; ++i) {

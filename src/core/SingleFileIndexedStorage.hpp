@@ -75,12 +75,7 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
     }
 
     [[nodiscard]] T get(IndexT index) const override {
-        if (index >= getItemsCount()) {
-            throw IllegalArgumentException(std::string() +
-                "Index " + std::to_string(index) +
-                " is out of SingleFileIndexedStorage of size " +
-                std::to_string(getItemsCount()));
-        }
+        assert(index < getItemsCount());
         return getFileManager()->template getInputIterator<T, IndexT>(
             getStorageFilePath(),
             index * io::FixedDeserializedSizeRegister<T>::exactDeserializedSize

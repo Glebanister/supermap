@@ -19,11 +19,11 @@
 #include "primitive/ByteArray.hpp"
 #include "core/SingleFileIndexedStorage.hpp"
 #include "core/KeyValueShrinkableStorage.hpp"
-#include "core/BinaryCollapsingIndexSortedList.hpp"
+#include "core/BinaryCollapsingSortedList.hpp"
 
-struct IntKV { int key = 0, value = 0; };
+struct CharKV { char key = 0, value = 0; };
 
-bool operator==(const IntKV &a, const IntKV &b) { return a.key == b.key && a.value == b.value; }
+bool operator==(const CharKV &a, const CharKV &b) { return a.key == b.key && a.value == b.value; }
 
 struct TempFile {
     const std::string filename = ".supermap-test-file";
@@ -81,13 +81,13 @@ template <>
 struct FixedDeserializedSizeRegister<int> : ShallowDeserializedSize<int> {};
 
 template <>
-struct SerializeHelper<IntKV> : ShallowSerializer<IntKV> {};
+struct SerializeHelper<CharKV> : ShallowSerializer<CharKV> {};
 
 template <>
-struct DeserializeHelper<IntKV> : ShallowDeserializer<IntKV> {};
+struct DeserializeHelper<CharKV> : ShallowDeserializer<CharKV> {};
 
 template <>
-struct FixedDeserializedSizeRegister<IntKV> : ShallowDeserializedSize<IntKV> {};
+struct FixedDeserializedSizeRegister<CharKV> : ShallowDeserializedSize<CharKV> {};
 
 } // supermap::io
 
@@ -517,7 +517,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
 TEST_CASE ("SortEndIterator 1") {
     using namespace supermap;
 
-    std::vector<IntKV> entries = {
+    std::vector<CharKV> entries = {
         {1, 3},
         {2, 9},
         {1, 4},
@@ -528,15 +528,15 @@ TEST_CASE ("SortEndIterator 1") {
     };
 
     entries.erase(
-        SortedSingleFileIndexedStorage<IntKV, int>::sortedEndIterator(
+        SortedSingleFileIndexedStorage<CharKV, int>::sortedEndIterator(
             entries.begin(),
             entries.end(),
-            [](const IntKV &a, const IntKV &b) { return a.key < b.key; },
-            [](const IntKV &a, const IntKV &b) { return a.key == b.key; }),
+            [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
+            [](const CharKV &a, const CharKV &b) { return a.key == b.key; }),
         entries.end()
     );
 
-    CHECK_EQ(entries, std::vector<IntKV>{
+    CHECK_EQ(entries, std::vector<CharKV>{
         {1, 2},
         {2, 8},
         {3, 3},
@@ -547,7 +547,7 @@ TEST_CASE ("SortEndIterator 1") {
 TEST_CASE ("SortEndIterator 2") {
     using namespace supermap;
 
-    std::vector<IntKV> entries = {
+    std::vector<CharKV> entries = {
         {2, 5},
         {0, 2},
         {1, 5},
@@ -571,15 +571,15 @@ TEST_CASE ("SortEndIterator 2") {
     };
 
     entries.erase(
-        SortedSingleFileIndexedStorage<IntKV, int>::sortedEndIterator(
+        SortedSingleFileIndexedStorage<CharKV, int>::sortedEndIterator(
             entries.begin(),
             entries.end(),
-            [](const IntKV &a, const IntKV &b) { return a.key < b.key; },
-            [](const IntKV &a, const IntKV &b) { return a.key == b.key; }),
+            [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
+            [](const CharKV &a, const CharKV &b) { return a.key == b.key; }),
         entries.end()
     );
 
-    CHECK_EQ(entries, std::vector<IntKV>{
+    CHECK_EQ(entries, std::vector<CharKV>{
         {0, 0},
         {1, 4},
         {2, 1},
@@ -616,12 +616,12 @@ TEST_CASE("SortedSingleFileIndexedStorage find int") {
     CHECK_EQ(findElem(3), std::optional{3});
 }
 
-TEST_CASE("SortedSingleFileIndexedStorage find IntKV") {
+TEST_CASE("SortedSingleFileIndexedStorage find CharKV") {
     using namespace supermap;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
 
-    std::vector<IntKV> items = {
+    std::vector<CharKV> items = {
         {4, 0},
         {2, 1},
         {7, 2},
@@ -633,31 +633,88 @@ TEST_CASE("SortedSingleFileIndexedStorage find IntKV") {
         {4, 8},
     };
 
-    SortedSingleFileIndexedStorage<IntKV, int> storage(
+    SortedSingleFileIndexedStorage<CharKV, int> storage(
         items.begin(),
         items.end(),
         false,
         "sorted-keys",
         manager,
-        [](const IntKV &a, const IntKV &b) { return a.key < b.key; },
-        [](const IntKV &a, const IntKV &b) { return a.key == b.key; }
+        [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
+        [](const CharKV &a, const CharKV &b) { return a.key == b.key; }
     );
     auto findElem = [&](int elem) {
         return storage.find(
-            [elem](const IntKV &x) { return x.key < elem; },
-            [elem](const IntKV &x) { return x.key == elem; }
+            [elem](const CharKV &x) { return x.key < elem; },
+            [elem](const CharKV &x) { return x.key == elem; }
         );
     };
 
     CHECK_EQ(findElem(12), std::nullopt);
-    CHECK_EQ(findElem(4), std::optional{IntKV{4, 8}});
+    CHECK_EQ(findElem(4), std::optional{CharKV{4, 8}});
     CHECK_EQ(findElem(1), std::nullopt);
     CHECK_EQ(findElem(6), std::nullopt);
-    CHECK_EQ(findElem(3), std::optional{IntKV{3, 7}});
+    CHECK_EQ(findElem(3), std::optional{CharKV{3, 7}});
 }
 
-TEST_CASE("BinaryCollapsingIndexSortedList") {
+TEST_CASE("BinaryCollapsingSortedList") {
     using namespace supermap;
 
+    std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
+
+    std::vector<CharKV> firstBlockElements = {
+        {1, 1},
+        {2, 1},
+        {3, 0},
+    };
+    std::vector<CharKV> secondBlockElements = {
+        {1, 2},
+        {2, 1},
+        {4, 2},
+    };
+    auto oldBlock = std::make_unique<SortedSingleFileIndexedStorage<CharKV, char>>(
+        firstBlockElements.begin(),
+        firstBlockElements.end(),
+        true,
+        "block-1",
+        manager,
+        [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
+        [](const CharKV &a, const CharKV &b) { return a.key == b.key; }
+    );
+
+    auto newBlock = std::make_unique<SortedSingleFileIndexedStorage<CharKV, char>>(
+        secondBlockElements.begin(),
+        secondBlockElements.end(),
+        true,
+        "block-2",
+        manager,
+        [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
+        [](const CharKV &a, const CharKV &b) { return a.key == b.key; }
+    );
+
+    BinaryCollapsingSortedList<CharKV, char, 2> list;
+    list.pushFront(
+        std::move(oldBlock),
+        [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
+        [](const CharKV &a, const CharKV &b) { return a.key == b.key; }
+    );
+    list.pushFront(
+        std::move(newBlock),
+        [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
+        [](const CharKV &a, const CharKV &b) { return a.key == b.key; }
+    );
+
+    auto find = [&](char x) {
+        return list.find(
+            [x](const CharKV &a) { return  a.key < x; },
+            [x](const CharKV &a) { return x == a.key ; }
+        );
+    };
+
+    CHECK_EQ(find(1), std::optional{CharKV{1, 2}});
+    CHECK_EQ(find(2), std::optional{CharKV{2, 1}});
+    CHECK_EQ(find(3), std::optional{CharKV{3, 0}});
+    CHECK_EQ(find(4), std::optional{CharKV{4, 2}});
+    CHECK_EQ(find(0), std::nullopt);
+    CHECK_EQ(find(5), std::nullopt);
 }
 }

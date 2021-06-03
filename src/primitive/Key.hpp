@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cstring>
+#include <cassert>
 
 #include "exception/IllegalArgumentException.hpp"
 #include "io/SerializeHelper.hpp"
@@ -28,10 +29,7 @@ struct Key : public std::array<std::uint8_t, Len> {
     }
 
     static Key<Len> fromString(const std::string &strKey) {
-        if (strKey.length() != Len) {
-            throw IllegalArgumentException(
-                "String key length can not be greater than template size parameter");
-        }
+        assert(strKey.length() == Len);
 
         Key<Len> arrKey;
         for (std::size_t i = 0; i < strKey.length(); ++i) {

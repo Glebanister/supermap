@@ -42,9 +42,7 @@ class ByteArray {
     }
 
     static ByteArray<Len> fromString(const std::string &str) {
-        if (str.length() != Len) {
-            throw IllegalArgumentException("String length can not be longer than byte array length");
-        }
+        assert(str.length() == Len);
         ByteArray<Len> arr;
         for (std::size_t i = 0; i < str.length(); ++i) {
             arr.getCharsPointer()[i] = str[i];
