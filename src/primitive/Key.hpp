@@ -20,7 +20,7 @@ struct Key : public std::array<std::uint8_t, Len> {
 
     using std::array<std::uint8_t, Len>::array;
 
-    [[nodiscard]] std::string format() const noexcept {
+    [[nodiscard]] std::string toString() const noexcept {
         std::string result;
         for (std::size_t i = 0; i < Len; ++i) {
             result += (*this)[i];

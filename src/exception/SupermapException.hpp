@@ -19,4 +19,9 @@ class IOException : public SupermapException {
   public:
     explicit IOException(const std::string &message);
 };
+
+class KeyException : public SupermapException {
+  public:
+    explicit KeyException(const std::string &key, const std::string &message);
+};
 } // supermap

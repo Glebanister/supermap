@@ -12,7 +12,18 @@ class TemporaryFile {
     }
 
     TemporaryFile(TemporaryFile &&) = default;
-    TemporaryFile &operator=(TemporaryFile &&) = default;
+    TemporaryFile(const TemporaryFile &) = delete;
+    TemporaryFile &operator=(const TemporaryFile &) = delete;
+
+    TemporaryFile &operator=(TemporaryFile &&other) noexcept {
+        if (!canceledDeletion_) {
+            manager_->remove(other.path_);
+        }
+        path_ = std::move(other.path_);
+        manager_ = std::move(other.manager_);
+        canceledDeletion_ = other.canceledDeletion_;
+        return *this;
+    }
 
     void cancelDeletion() noexcept {
         canceledDeletion_ = true;

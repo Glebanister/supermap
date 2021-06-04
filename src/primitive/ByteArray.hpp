@@ -5,13 +5,13 @@
 #include <cstring>
 
 #include "io/SerializeHelper.hpp"
-
+#include "Formattable.hpp"
 #include "exception/IllegalArgumentException.hpp"
 
 namespace supermap {
 
 template <std::size_t Len>
-class ByteArray {
+class ByteArray : public Formattable {
   public:
     ByteArray()
         : data_(std::make_unique<std::uint8_t[]>(Len)) {}
@@ -52,7 +52,7 @@ class ByteArray {
         return arr;
     }
 
-    [[nodiscard]] std::string toString() const noexcept {
+    [[nodiscard]] std::string toString() const override {
         std::string str;
         for (std::size_t i = 0; i < Len; ++i) {
             str += getCharsPointer()[i];

@@ -9,8 +9,8 @@ int main(int, const char **) {
     supermap::cli::CommandLineInterface cli("supermap");
 
     using MySupermap = supermap::Supermap<
-        supermap::Key<2>,
-        supermap::ByteArray<4>,
+        supermap::Key<1>,
+        supermap::ByteArray<1>,
         std::uint32_t,
         4
     >;
@@ -38,8 +38,8 @@ int main(int, const char **) {
             "storage-sorted",
             fileManager
         ),
-        [](MySupermap::IndexType notSortedSize, MySupermap::IndexType totalSize) {
-            return notSortedSize >= totalSize * 0.2;
+        [](MySupermap::IndexType notSortedSize, MySupermap::IndexType) {
+            return notSortedSize >= 3;
         },
         []() {
             return std::make_unique<MySupermap::IndexList>();

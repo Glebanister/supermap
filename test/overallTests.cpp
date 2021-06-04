@@ -11,6 +11,7 @@
 #include "io/OutputIterator.hpp"
 #include "io/RamFileManager.hpp"
 #include "io/DiskFileManager.hpp"
+#include "io/EncapsulatedFileManager.hpp"
 
 #include "exception/IllegalArgumentException.hpp"
 
@@ -19,6 +20,8 @@
 #include "core/SingleFileIndexedStorage.hpp"
 #include "core/KeyValueShrinkableStorage.hpp"
 #include "core/BinaryCollapsingSortedList.hpp"
+#include "core/Supermap.hpp"
+#include "core/BST.hpp"
 
 struct CharKV { char key = 0, value = 0; };
 
@@ -42,6 +45,18 @@ struct TempFile {
 
     ~TempFile() {
         std::filesystem::remove(filename);
+    }
+};
+
+struct TempDir {
+    const std::string folderName = "test-folder";
+
+    TempDir() {
+        std::filesystem::create_directory(folderName);
+    }
+
+    ~TempDir() {
+        std::filesystem::remove(folderName);
     }
 };
 
@@ -185,7 +200,7 @@ TEST_CASE ("RamFileManager") {
 
 TEST_CASE ("Key") {
     auto key6 = supermap::Key<6>::fromString("123456");
-    CHECK_EQ(key6.format(), "123456");
+    CHECK_EQ(key6.toString(), "123456");
 }
 
 TEST_CASE ("ByteArray") {
@@ -258,13 +273,13 @@ TEST_CASE("collectWith") {
 
     auto manager = std::make_shared<RamFileManager>();
     const std::string filename = "indexed_data.txt";
-    SingleFileIndexedStorage<KeyValue<Key<2>, ByteArray<4>>, std::uint32_t> storage(filename, manager, 0);
+    SingleFileIndexedStorage<KeyValue<Key<2>, ByteArray<4>>, char> storage(filename, manager, 0);
 
     std::vector<KeyValue<Key<2>, ByteArray<4>>> keyValues{
-        {Key<2>::fromString("ab"), ByteArray<4>::fromString("1234")},
-        {Key<2>::fromString("cd"), ByteArray<4>::fromString("1831")},
-        {Key<2>::fromString("ef"), ByteArray<4>::fromString("4923")},
-        {Key<2>::fromString("gh"), ByteArray<4>::fromString("3482")},
+        {Key<2>::fromString("ab"), ByteArray<4>::fromString("xxxx")},
+        {Key<2>::fromString("cd"), ByteArray<4>::fromString("yyyy")},
+        {Key<2>::fromString("ef"), ByteArray<4>::fromString("zzzz")},
+        {Key<2>::fromString("gh"), ByteArray<4>::fromString("tttt")},
     };
 
     std::vector<Key<2>> initialKeys;
@@ -699,5 +714,82 @@ TEST_CASE("BinaryCollapsingSortedList") {
     CHECK_EQ(find(4), std::optional{CharKV{4, 2}});
     CHECK_EQ(find(0), std::nullopt);
     CHECK_EQ(find(5), std::nullopt);
+}
+
+template <
+    std::size_t KeyLen,
+    std::size_t ValueLen,
+    std::size_t MaxRamLoad,
+    std::size_t MaxNotSortedSize,
+    std::size_t KeyIndexBatchSize
+>
+auto makeSupermap() {
+    using MySupermap = supermap::Supermap<
+        supermap::Key<KeyLen>,
+        supermap::ByteArray<ValueLen>,
+        std::size_t,
+        MaxRamLoad
+    >;
+    using RamType = supermap::BST<typename MySupermap::KeyType,
+                                  typename MySupermap::IndexType,
+                                  typename MySupermap::IndexType>;
+    using SupermapKvs = supermap::KeyValueStorage<typename MySupermap::KeyType,
+                                                  typename MySupermap::ValueType,
+                                                  typename MySupermap::BoundsType>;
+
+    std::shared_ptr<supermap::io::FileManager> fileManager
+        = std::make_shared<supermap::io::EncapsulatedFileManager>(
+            std::make_shared<supermap::io::TemporaryFolder>("test-folder", true),
+            std::make_unique<supermap::io::DiskFileManager>()
+        );
+
+    std::shared_ptr<SupermapKvs> kvs = std::make_shared<MySupermap>(
+        std::make_unique<RamType>(),
+        std::make_unique<typename MySupermap::DiskStorage>(
+            "storage-not-sorted",
+            "storage-sorted",
+            fileManager
+        ),
+        [](typename MySupermap::IndexType notSortedSize, typename MySupermap::IndexType) {
+            return notSortedSize >= MaxNotSortedSize;
+        },
+        []() {
+            return std::make_unique<typename MySupermap::IndexList>();
+        },
+        KeyIndexBatchSize
+    );
+
+    return kvs;
+}
+
+TEST_CASE ("Supermap simple") {
+    using namespace supermap;
+
+    auto superMap = makeSupermap<2, 3, 4, 2, 2>();
+    auto key = [](const std::string &s) {
+        return Key<2>::fromString(s);
+    };
+    auto value = [](const std::string &s) {
+        return ByteArray<3>::fromString(s);
+    };
+    CHECK_EQ(superMap->containsKey(key("aa")), false);
+    superMap->add(key("aa"), value("111"));
+    CHECK_EQ(superMap->containsKey(key("aa")), true);
+    superMap->add(key("ab"), value("123"));
+    CHECK_EQ(superMap->getValue(key("ab")), value("123"));
+    CHECK_EQ(superMap->getValue(key("aa")), value("111"));
+    superMap->add(key("bb"), value("222"));
+    superMap->add(key("cc"), value("333"));
+    superMap->add(key("dd"), value("444"));
+    superMap->add(key("ee"), value("555"));
+    superMap->add(key("ff"), value("666"));
+    CHECK_EQ(superMap->getValue(key("aa")), value("111"));
+    CHECK_EQ(superMap->getValue(key("ab")), value("123"));
+    CHECK_EQ(superMap->getValue(key("bb")), value("222"));
+    CHECK_EQ(superMap->getValue(key("cc")), value("333"));
+    CHECK_EQ(superMap->getValue(key("dd")), value("444"));
+    CHECK_EQ(superMap->getValue(key("ee")), value("555"));
+    CHECK_EQ(superMap->getValue(key("ff")), value("666"));
+    CHECK_LE(superMap->getSize().max, 9);
 }
 }

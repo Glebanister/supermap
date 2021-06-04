@@ -16,10 +16,10 @@ struct StorageValueIgnorer {
 template <
     typename Key,
     typename Value,
-    typename IndexT,
-    typename KV = KeyValue<Key, Value>
+    typename IndexT
 >
-class KeyValueShrinkableStorage : public IndexedStorage<KV, IndexT> {
+class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, IndexT> {
+    using KV = KeyValue<Key, Value>;
     using IndexedStorage<KV, IndexT>::getFileManager;
     using IndexedStorage<KV, IndexT>::getItemsCount;
     using KeyIndex = KeyValue<Key, IndexT>;

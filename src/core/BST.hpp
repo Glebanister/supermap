@@ -17,7 +17,7 @@ class BST : public ExtractibleKeyValueStorage<Key, Value, IndexT> {
         return map_.find(key) != map_.end();
     }
 
-    const Value &getValue(const Key &key) override {
+    Value getValue(const Key &key) override {
         if (!containsKey(key)) {
             throw IllegalArgumentException("Key is not in BST");
         }

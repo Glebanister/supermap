@@ -21,7 +21,6 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     using IndexList = BinaryCollapsingSortedList<KeyValue<Key, IndexT>, IndexT, MaxRamLoad>;
     using RamStorage = ExtractibleKeyValueStorage<Key, IndexT, IndexT>;
     using DiskStorage = KeyValueShrinkableStorage<Key, Value, IndexT>;
-    using KeyVal = KeyValue<Key, Value>;
     using KeyIndex = KeyValue<Key, IndexT>;
     using SortedKeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT>;
     using KeyType = Key;
@@ -95,12 +94,31 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
         }
     }
 
-    bool containsKey(const Key &) override {
-        throw NotImplementedException();
+    bool containsKey(const Key &k) override {
+        if (innerStorage_->containsKey(k)) {
+            return true;
+        }
+        return diskIndex_->find(
+            [&](const KeyIndex &ki) { return ki.key < k; },
+            [&](const KeyIndex &ki) { return ki.key == k; }
+        ).has_value();
     }
 
-    const Value &getValue(const Key &) override {
-        throw NotImplementedException();
+    Value getValue(const Key &k) override {
+        IndexT index;
+        if (innerStorage_->containsKey(k)) {
+            index = innerStorage_->getValue(k);
+        } else {
+            std::optional<KeyIndex> foundOnDisk = diskIndex_->find(
+                [&](const KeyIndex &ki) { return ki.key < k; },
+                [&](const KeyIndex &ki) { return ki.key == k; }
+            );
+            if (!foundOnDisk.has_value()) {
+                throw KeyException(k.toString(), "Not Found");
+            }
+            index = foundOnDisk.value().value;
+        }
+        return diskDataStorage_->get(index).value;
     }
 
     Bounds<IndexT> getSize() const noexcept override {

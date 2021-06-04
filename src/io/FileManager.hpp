@@ -19,12 +19,12 @@ class FileManager {
 
     virtual void rename(const std::filesystem::path &prevPath, const std::filesystem::path &nextPath) = 0;
 
-    virtual void clear(const std::filesystem::path &path) {
+    void clear(const std::filesystem::path &path) {
         remove(path);
         create(path);
     }
 
-    virtual void create(const std::filesystem::path &path) {
+    void create(const std::filesystem::path &path) {
         getOutputStream(path, false)->flush();
     }
 
