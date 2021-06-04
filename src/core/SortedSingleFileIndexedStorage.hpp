@@ -7,6 +7,12 @@
 
 namespace supermap {
 
+/**
+ * @brief Single file storage where objects are sorted in increasing order,
+ * defined by comparator.
+ * @tparam T Stored objects type.
+ * @tparam IndexT Storage index type.
+ */
 template <typename T, typename IndexT>
 class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT> {
   public:
@@ -15,12 +21,31 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
     using SingleFileIndexedStorage<T, IndexT>::append;
     using SingleFileIndexedStorage<T, IndexT>::appendAll;
 
+    /**
+     * @brief Creates a sorted storage instance of size @p size.
+     * @param size Size of items in storage file.
+     * @param dataFileName Name of file where storage is placed.
+     * @param manager Shared access to the file manager.
+     */
     explicit SortedSingleFileIndexedStorage(IndexT size,
                                             std::string dataFileName,
                                             std::shared_ptr<io::FileManager> manager)
         : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), manager, size) {
     }
 
+    /**
+     * @brief Creates new sorted storage from objects collection.
+     * @tparam Iterator Collections iterator type.
+     * @tparam IsLess Less comparator type.
+     * @tparam IsEq Equal comparator type
+     * @param begin Collection begin iterator.
+     * @param end Collection end iterator.
+     * @param sorted Flag if data in collection is sorted.
+     * @param dataFileName File where storage will take place.
+     * @param manager Shared access to the file manager.
+     * @param isLess Comparator which returns if first argument is less then second.
+     * @param isEq Comparator which returns if second argument equal to the second.
+     */
     template <
         typename Iterator,
         typename IsLess,
@@ -37,6 +62,20 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         appendAll(begin, sorted ? end : sortedEndIterator(begin, end, isLess, isEq));
     }
 
+    /**
+     * @brief Sorts and uniques collection between @p begin and @p end.
+     * The closer object to the end of collection, then it is more relevant.
+     * After execution, there are unique, sorted and the most relevant objects
+     * in collections.
+     * @tparam LessComp Type of @p isLess comparator.
+     * @tparam EqComp Type of @p isEq comparator.
+     * @tparam Iterator Type of collection iterator.
+     * @param begin Collection begin iterator.
+     * @param end Collection end iterator.
+     * @param isLess Comparator which returns if the first argument is less than the second.
+     * @param isEq Comparator which returns if the first argument equals to the second.
+     * @return Collection new end iterator.
+     */
     template <
         typename LessComp,
         typename EqComp,
@@ -54,6 +93,13 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         return std::unique(begin, end, isEq);
     }
 
+    /**
+     * @brief Finds an objects, that fulfills @p equal unary predicate.
+     * @param less Unary predicate which indicates if an argument is less than the one required.
+     * @param equal Unary predicate which indicates if an argument equals to the one required.
+     * @return @p std::nullopt if there is no element, which fulfills predicate.
+     * Not empty @p std::optional<T> is returned otherwise.
+     */
     virtual std::optional<T> find(std::function<bool(const T &)> less, std::function<bool(const T &)> equal) {
         if (getItemsCount() == 0) {
             return std::nullopt;
@@ -76,13 +122,17 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         return equal(firstLeqElem) ? std::optional{firstLeqElem} : std::nullopt;
     }
 
-    SortedSingleFileIndexedStorage fromNotSorted(
-        std::vector<T> data,
-        const std::string &dataFileName,
-        std::shared_ptr<io::FileManager> manager) {
-        return SortedIndexedStorage(std::move(data), true, dataFileName, manager);
-    }
-
+    /**
+     * @brief Creates merged sorted storage from all @p newer sorted storages.
+     * @tparam IsLess @p isLess comparator type.
+     * @tparam IsEq @p isEq comparator type.
+     * @param newer Sorted storages, which are ordered from least to the most relevant.
+     * @param dataFileName New storage file name.
+     * @param fileManager Shared access to the file manager.
+     * @param isLess Comparator which returns if the first argument is less then the second one.
+     * @param isEq Comparator which return if the first argument equals to the second one.
+     * @param batchSize The size of the batch of @p T objects that are simultaneously stored in RAM.
+     */
     template <typename IsLess, typename IsEq>
     explicit SortedSingleFileIndexedStorage(
         const std::vector<SortedSingleFileIndexedStorage<T, IndexT>> &newer,

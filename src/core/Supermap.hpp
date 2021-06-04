@@ -12,6 +12,15 @@
 
 namespace supermap {
 
+/**
+ * @brief Key-value storage.
+ * Stores all values on disk. The index is partially stored in RAM.
+ * When the index in RAM overflows, it is reset to an index on disk, where it is stored as a binary collapsible list.
+ * @tparam Key Type of key.
+ * @tparam Value Type of value.
+ * @tparam IndexT Type of Bounds.
+ * @tparam MaxRamLoad The largest size of an index that can reside in RAM.
+ */
 template <
     typename Key,
     typename Value,
@@ -31,6 +40,17 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     using BoundsType = Bounds<IndexT>;
 
   public:
+    /**
+     * @brief Creates an empty Supermap instance.
+     * @param innerStorage Implementation of internal (RAM) storage.
+     * @param diskDataStorage Implementation of disk storage.
+     * @param shouldShrinkChecker A predicate that takes two parameters:
+     * the size of the unsorted part of the disk storage and the total size of the storage.
+     * The predicate should tell whether shrink should be done.
+     * @param indexListSupplier Producer of index lists.
+     * @param keyIndexBatchSize BatchSize The size of the batch
+     * of @p KeyValue<T,IndexT> objects that are simultaneously stored in RAM.
+     */
     explicit Supermap(std::unique_ptr<RamStorage> &&innerStorage,
                       std::unique_ptr<DiskStorage> &&diskDataStorage,
                       std::function<bool(IndexT, IndexT)> shouldShrinkChecker,
@@ -46,6 +66,9 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
           random(std::chrono::steady_clock::now().time_since_epoch().count()) {
     }
 
+    /**
+     * @return Number of blocks in collapsing list.
+     */
     IndexT getCollapsingBlocksListLength() const {
         struct Counter {
             IndexT count = 0;
@@ -55,19 +78,11 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
         return counter.count;
     }
 
-    [[nodiscard]] std::string addRandomString(std::string s, std::size_t len = 8) const {
-        assert(len != 0);
-        s += '-';
-        for (std::size_t i = 0; i < len; ++i) {
-            s += static_cast<char>(random() % ('z' - 'a' + 1) + 'a');
-        }
-        return s;
-    }
-
-    [[nodiscard]] std::string getNewBlockName() const {
-        return addRandomString(indexFilesPrefix + "block-" + std::to_string(getCollapsingBlocksListLength()));
-    }
-
+    /**
+     * @brief Adds new key-value pair to the storage.
+     * @param key Key to add.
+     * @param value Associated value.
+     */
     void add(const Key &key, Value &&value) override {
         IndexT valueIndex = diskDataStorage_->append(KeyValue{key, std::move(value)});
         innerStorage_->add(key, IndexT(valueIndex));
@@ -83,6 +98,9 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
         }
     }
 
+    /**
+     * @return If @k is in the storage.
+     */
     bool containsKey(const Key &k) override {
         if (innerStorage_->containsKey(k)) {
             return true;
@@ -93,6 +111,10 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
         ).has_value();
     }
 
+    /**
+     * @return Object of type @p Value which corresponds to given key @p k.
+     * @throws KeyException If key is not in the storage.
+     */
     Value getValue(const Key &k) override {
         IndexT index;
         if (innerStorage_->containsKey(k)) {
@@ -110,6 +132,9 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
         return diskDataStorage_->get(index).value;
     }
 
+    /**
+     * @return Bounds of number of the unique keys in the storage.
+     */
     Bounds<IndexT> getSize() const noexcept override {
         return {
             diskDataStorage_->getSortedItemsCount(),
@@ -118,6 +143,27 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     }
 
   private:
+    /**
+     * @param s Initial string.
+     * @param len Number of random characters.
+     * @return Initial string concatenated with @p len random characters.
+     */
+    [[nodiscard]] std::string addRandomString(std::string s, std::size_t len = 8) const {
+        assert(len != 0);
+        s += '-';
+        for (std::size_t i = 0; i < len; ++i) {
+            s += static_cast<char>(random() % ('z' - 'a' + 1) + 'a');
+        }
+        return s;
+    }
+
+    /**
+     * @return New collapsing index block name.
+     */
+    [[nodiscard]] std::string getNewBlockName() const {
+        return addRandomString(indexFilesPrefix + "block-" + std::to_string(getCollapsingBlocksListLength()));
+    }
+
     void dropRamIndexToDisk() {
         if (innerStorage_->getSize() == 0) {
             return;

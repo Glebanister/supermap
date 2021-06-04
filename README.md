@@ -17,10 +17,19 @@ $ cd build
 $ cmake ...
 ```
 
+## Testing
+
+All functions are unit and stress tested.
+Optionally, you can run tests locally by running
+
+```bash
+$ ./build/supermap-test
+```
+
 ## Usage
 
 ```bash
-$ ./build/supermap 
+$ ./build/supermap-cli
 supermap> help
 'get' - Get value of key from keys
 'remove' - Remove key from keys
@@ -30,3 +39,8 @@ supermap> help
 'help' - Get help
 supermap> 
 ```
+
+## Documentation
+
+The repository has a Doxyfile from which you can generate
+documentation yourself if you have `doxygen`: `doxygen -g Doxyfile`.

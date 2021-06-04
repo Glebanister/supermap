@@ -6,6 +6,12 @@
 
 namespace supermap {
 
+/**
+ * @brief Implementation of Binary Search Tree with @p std::map.
+ * @tparam Key key type.
+ * @tparam Value value type.
+ * @tparam IndexT storage index type.
+ */
 template <typename Key, typename Value, typename IndexT>
 class BST : public ExtractibleKeyValueStorage<Key, Value, IndexT> {
   public:

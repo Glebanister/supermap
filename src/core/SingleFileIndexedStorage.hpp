@@ -10,12 +10,23 @@
 
 namespace supermap {
 
+/**
+ * @brief Indexed storage that stores all items in the single file.
+ * @tparam T Contained objects type.
+ * @tparam IndexT Contained objects index.
+ */
 template <typename T, typename IndexT>
 class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
   public:
     using IndexedStorage<T, IndexT>::getFileManager;
     using IndexedStorage<T, IndexT>::getItemsCount;
 
+    /**
+     * @brief Creates storage instance for its reading.
+     * @param storageFilePath Path of the storage file.
+     * @param fileManager Shared access to the file manager.
+     * @param itemsCount Number of items in the target storage.
+     */
     explicit SingleFileIndexedStorage(const std::filesystem::path &storageFilePath,
                                       std::shared_ptr<io::FileManager> fileManager,
                                       IndexT itemsCount)
@@ -24,18 +35,32 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
         storageFile_->getFileManager()->create(storageFilePath);
     }
 
+    /**
+     * @return Path of the file, associated with this storage.
+     */
     [[nodiscard]] std::string getStorageFilePath() const noexcept {
         return storageFile_->getPath();
     }
 
+    /**
+     * @return Shared access to the file system manager.
+     */
     [[nodiscard]] std::shared_ptr<io::FileManager> getFileManager() const noexcept override {
         return storageFile_->getFileManager();
     }
 
+    /**
+     * @return The file, associated with this storage.
+     */
     [[nodiscard]] std::shared_ptr<io::TemporaryFile> shareStorageFile() const noexcept {
         return storageFile_;
     }
 
+    /**
+     * @brief Resets this storage with other. Storage file contents
+     * are being replaced with each other.
+     * @param other Storage to reset with.
+     */
     void resetWith(SingleFileIndexedStorage<T, IndexT> &&other) noexcept {
         itemsCount_ = other.itemsCount_;
         auto thisFileManager = getFileManager();
@@ -43,6 +68,11 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
         thisFileManager->swap(other.getStorageFilePath(), getStorageFilePath());
     }
 
+    /**
+     * @brief Appends an item to the end of storage.
+     * @param item New object to be added.
+     * @return Index of added item in this storage.
+     */
     IndexT append(const T &item) override {
         io::OutputIterator<T> writer = getFileManager()->template getOutputIterator<T>(getStorageFilePath(), true);
         writer.write(item);
@@ -50,6 +80,15 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
         return increaseItemsCount();
     }
 
+    /**
+     * @brief Appends all items from @p begin to the @p end to this storage.
+     * @tparam IteratorT Type of iterator.
+     * @tparam Functor Type of @p func.
+     * @tparam Result Type of @p func application to the @p *it. Must be the same as @p T.
+     * @param begin Collection begin iterator.
+     * @param end Collections end iterator.
+     * @param func Functor which is applied to the every item in collection.
+     */
     template <
         typename IteratorT,
         typename Functor,
@@ -64,6 +103,12 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
         writer.flush();
     }
 
+    /**
+     * @brief Appends all items from @p begin to the @p end.
+     * @tparam IteratorT Iterator type.
+     * @param begin Collection begin iterator.
+     * @param end Collection end iterator.
+     */
     template <
         typename IteratorT,
         typename = std::enable_if_t<std::is_same_v<T, typename std::iterator_traits<IteratorT>::value_type>>
@@ -72,6 +117,9 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
         appendAll(begin, end, [](auto x) { return x; });
     }
 
+    /**
+     * @return Element contained by index @p index.
+     */
     [[nodiscard]] T get(IndexT index) const override {
         assert(index < getItemsCount());
         return getFileManager()->template getInputIterator<T, IndexT>(
@@ -80,20 +128,32 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
         ).next();
     }
 
+    /**
+     * @return Associated storage elements input iterator over type @p T.
+     */
     io::InputIterator<T, IndexT> getDataIterator() const {
         return getFileManager()->template getInputIterator<T, IndexT>(getStorageFilePath(), 0);
     }
 
+    /**
+     * @return Associated storage elements input iterator over type @p Out.
+     */
     template <typename Out>
     io::InputIterator<Out, IndexT> getCustomDataIterator() const {
         return io::InputIterator<Out, IndexT>(getFileManager()->getInputStream(getStorageFilePath(), 0));
     }
 
+    /**
+     * @return Number of elements in collection.
+     */
     IndexT getItemsCount() const noexcept override {
         return itemsCount_;
     }
 
   protected:
+    /**
+     * @return Increase elements counter.
+     */
     IndexT increaseItemsCount() noexcept {
         return itemsCount_++;
     }
