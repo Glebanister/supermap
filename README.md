@@ -42,7 +42,7 @@ supermap>
 
 ## Documentation
 
-Available at [https://glebanister.github.io/supermap/](glebanister.github.io/supermap/)
+Available at [glebanister.github.io/supermap](https://glebanister.github.io/supermap/)
 
 The repository has a Doxyfile from which you can generate
 documentation yourself if you have `doxygen`.
