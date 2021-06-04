@@ -42,5 +42,11 @@ supermap>
 
 ## Documentation
 
+Available at [https://glebanister.github.io/supermap/](glebanister.github.io/supermap/)
+
 The repository has a Doxyfile from which you can generate
-documentation yourself if you have `doxygen`: `doxygen -g Doxyfile`.
+documentation yourself if you have `doxygen`.
+
+```bash
+doxygen Doxyfile
+```
