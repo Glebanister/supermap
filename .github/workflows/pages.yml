@@ -19,5 +19,4 @@ jobs:
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v2.5.0
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/html/
+          build_dir: ./docs/html/
