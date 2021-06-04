@@ -1,0 +1,4 @@
+<map id="supermap::io::InputIterator&lt; T, IndexT, EachSize, typename &gt;" name="supermap::io::InputIterator&lt; T, IndexT, EachSize, typename &gt;">
+<area shape="rect" id="node1" title="Iterator which allows to read continuous objects of type T from input stream." alt="" coords="5,109,228,151"/>
+<area shape="rect" id="node2" title=" " alt="" coords="29,5,204,47"/>
+</map>

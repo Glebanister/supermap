@@ -1,0 +1,4 @@
+<map id="supermap::io::StringInputStream" name="supermap::io::StringInputStream">
+<area shape="rect" id="node1" title="Specialization of InputStream which encapsulates work with std::stringstream. Dedicated to work with ..." alt="" coords="9,80,173,121"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1io_1_1InputStream.html" title="Abstract input stream. Only a wrapper to std::istream." alt="" coords="5,5,177,32"/>
+</map>

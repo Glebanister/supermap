@@ -1,0 +1,4 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1Serializable.html" title=" " alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1SerializeHelper.html" title="Container for serialize function. Must be declared for any type that wants to be serialized." alt="" coords="220,5,408,47"/>
+</map>
