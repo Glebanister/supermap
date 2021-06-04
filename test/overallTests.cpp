@@ -170,7 +170,7 @@ TEST_CASE ("OutputIterator MockStruct") {
                                      {2, 'y', {91, 905, 6}},
                                      {3, 'z', {41012, 5, 236}}};
     auto writeIterator = supermap::io::OutputIterator<MockStruct>::toString(buffer, false);
-    writeIterator.writeAll(mocks);
+    writeIterator.writeAll(mocks.begin(), mocks.end(), [](auto &&x) { return std::forward<decltype(x)>(x); });
     writeIterator.flush();
     std::vector<MockStruct> parsedMocks;
     auto readIterator = supermap::io::InputIterator<MockStruct, std::uint32_t>::fromString(buffer, 0);
@@ -693,12 +693,14 @@ TEST_CASE("BinaryCollapsingSortedList") {
     list.pushFront(
         std::move(oldBlock),
         [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
-        [](const CharKV &a, const CharKV &b) { return a.key == b.key; }
+        [](const CharKV &a, const CharKV &b) { return a.key == b.key; },
+        2
     );
     list.pushFront(
         std::move(newBlock),
         [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
-        [](const CharKV &a, const CharKV &b) { return a.key == b.key; }
+        [](const CharKV &a, const CharKV &b) { return a.key == b.key; },
+        3
     );
 
     auto find = [&](char x) {

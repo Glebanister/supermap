@@ -27,11 +27,20 @@ class OutputIterator {
         serialize(obj, os_->get());
     }
 
-    template <typename CollectionT>
-    void writeAll(const CollectionT &collection) {
-        for (const T &obj : collection) {
-            serialize(obj, os_->get());
+    template <
+        typename Iterator,
+        typename Functor,
+        typename = std::enable_if_t<
+            std::is_same_v<T,
+                           std::invoke_result_t<Functor,
+                                                typename std::iterator_traits<Iterator>::value_type>>>
+    >
+    void writeAll(Iterator begin, Iterator end, Functor f) {
+        std::stringstream stringStream;
+        for (auto it = begin; it < end; ++it) {
+            serialize(f(*it), stringStream);
         }
+        os_->get() << stringStream.rdbuf();
     }
 
     void flush() {

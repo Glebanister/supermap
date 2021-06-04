@@ -33,7 +33,7 @@ class BinaryCollapsingSortedList {
 
   public:
     template <typename Less, typename Equal>
-    void pushFront(std::unique_ptr<SortedStorage> &&storage, Less less, Equal equal) {
+    void pushFront(std::unique_ptr<SortedStorage> &&storage, Less less, Equal equal, IndexT batchSize) {
         assert(storage != nullptr);
         head_ = std::make_shared<ListNode>(std::move(storage), std::move(head_));
         std::shared_ptr<ListNode> curNode = head_;
@@ -50,7 +50,8 @@ class BinaryCollapsingSortedList {
                 "collapse",
                 curNode->storage->getFileManager(),
                 less,
-                equal
+                equal,
+                batchSize
             );
             nextNode->storage->resetWith(std::move(mergedKeys));
             head_ = nextNode;

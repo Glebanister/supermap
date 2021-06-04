@@ -190,4 +190,16 @@ TEST_CASE("Supermap Stress 7") {
     >(10000, timeSeed());
 }
 
+TEST_CASE("Supermap Stress 8") {
+    stressTestSupermap<
+        171,  // Key
+        1031, // Value
+        212,  // RamLoad
+        72,   // MaxNotSortedSize,
+        13,   // KeyIndexBatchSize,
+        'a',  // AlphabetBegin
+        'z'   // AlphabetEnd
+    >(10000, timeSeed());
+}
+
 }

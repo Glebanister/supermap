@@ -165,7 +165,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
             newIndexFileName,
             getFileManager(),
             [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; },
+            shrinkBatchSize
         );
 
         resetWith(KeyValueShrinkableStorage(

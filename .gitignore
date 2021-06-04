@@ -5,3 +5,5 @@ cmake-build-release/
 /cmake-build-debug-gcc-10/
 /cmake-build-release-clang-10/
 /cmake-build-release-gcc-10/
+/venv/
+/cmake-build-release-gcc-10-coverage/

@@ -89,7 +89,8 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         std::string dataFileName,
         std::shared_ptr<io::FileManager> fileManager,
         IsLess isLess,
-        IsEq isEq
+        IsEq isEq,
+        IndexT batchSize
     ) : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), std::move(fileManager), 0) {
 
         const std::size_t storagesCount = newer.size();
@@ -109,6 +110,15 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
             } else {
                 frontLine[i].reset();
             }
+        };
+
+        std::vector<T> writeBuffer;
+        writeBuffer.reserve(batchSize);
+
+        auto dropWriteBuffer = [&]() {
+            appendAll(writeBuffer.begin(), writeBuffer.end());
+            writeBuffer.clear();
+            writeBuffer.reserve(batchSize);
         };
 
         while (true) {
@@ -134,8 +144,12 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
             }
             T minItem = frontLine[min].value();
             updateOnce(min);
-            append(std::move(minItem)); // TODO: appendAll has lesser Write Amplification
+            writeBuffer.push_back(std::move(minItem));
+            if (static_cast<IndexT>(writeBuffer.size()) >= batchSize) {
+                dropWriteBuffer();
+            }
         }
+        dropWriteBuffer();
     }
 };
 

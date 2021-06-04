@@ -59,10 +59,8 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
     void appendAll(IteratorT begin, IteratorT end, Functor func) {
         io::OutputIterator<Result>
             writer = getFileManager()->template getOutputIterator<Result>(getStorageFilePath(), true);
-        for (auto it = begin; it < end; ++it) {
-            writer.write(func(*it));
-            increaseItemsCount();
-        }
+        writer.writeAll(begin, end, func);
+        itemsCount_ += std::distance(begin, end);
         writer.flush();
     }
 

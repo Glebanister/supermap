@@ -135,7 +135,8 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
         diskIndex_->pushFront(
             std::move(newBlock),
             [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; },
+            keyIndexBatchSize_
         );
     }
 
@@ -149,7 +150,8 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
         newIndexList->pushFront(
             std::move(actualIndex),
             [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; },
+            keyIndexBatchSize_
         );
         diskIndex_ = std::move(newIndexList);
     }
