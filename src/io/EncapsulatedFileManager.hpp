@@ -7,36 +7,20 @@ namespace supermap::io {
 
 class EncapsulatedFileManager : public FileManager {
   public:
-    explicit EncapsulatedFileManager(std::shared_ptr<TemporaryFolder> root, std::unique_ptr<FileManager> &&innerManager)
-        : root_(std::move(root)), innerManager_(std::move(innerManager)) {
-    }
+    explicit EncapsulatedFileManager(std::shared_ptr<TemporaryFolder> root,
+                                     std::unique_ptr<FileManager> &&innerManager);
 
-    std::filesystem::path makeRootPath(const std::filesystem::path &p) {
-        if (!p.is_relative()) {
-            throw FileException(p.string(), "Is not relative");
-        }
-        return std::filesystem::path(root_->getPath()) / p;
-    }
+    std::filesystem::path makeRootPath(const std::filesystem::path &p);
 
-    std::unique_ptr<InputStream> getInputStream(const std::filesystem::path &path, std::uint64_t offset) override {
-        return innerManager_->getInputStream(makeRootPath(path), offset);
-    }
+    std::unique_ptr<InputStream> getInputStream(const std::filesystem::path &path, std::uint64_t offset) override;
 
-    std::unique_ptr<OutputStream> getOutputStream(const std::filesystem::path &path, bool append) override {
-        return innerManager_->getOutputStream(makeRootPath(path), append);
-    }
+    std::unique_ptr<OutputStream> getOutputStream(const std::filesystem::path &path, bool append) override;
 
-    void remove(const std::filesystem::path &path) override {
-        innerManager_->remove(makeRootPath(path));
-    }
+    void remove(const std::filesystem::path &path) override;
 
-    void rename(const std::filesystem::path &prevPath, const std::filesystem::path &nextPath) override {
-        innerManager_->rename(makeRootPath(prevPath), makeRootPath(nextPath));
-    }
+    void rename(const std::filesystem::path &prevPath, const std::filesystem::path &nextPath) override;
 
-    void swap(const std::filesystem::path &a, const std::filesystem::path &b) override {
-        innerManager_->swap(makeRootPath(a), makeRootPath(b));
-    }
+    void swap(const std::filesystem::path &a, const std::filesystem::path &b) override;
 
   private:
     std::shared_ptr<TemporaryFolder> root_;
