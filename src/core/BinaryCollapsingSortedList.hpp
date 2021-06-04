@@ -27,7 +27,7 @@ class BinaryCollapsingSortedList {
             assert(valid());
             IndexT size = storage->getItemsCount();
             assert(size != 0);
-            return std::log2((storage->getItemsCount() + RankOneSize - 1) / RankOneSize);
+            return std::log2((size + RankOneSize - 1) / RankOneSize);
         }
     };
 
