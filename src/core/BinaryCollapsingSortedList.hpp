@@ -24,10 +24,10 @@ class BinaryCollapsingSortedList {
         }
 
         IndexT getRank() {
-            if (!valid()) {
-                throw SupermapException("Unable to getRank: 'keys' is nullptr");
-            }
-            return std::log2(storage->getItemsCount() / RankOneSize);
+            assert(valid());
+            IndexT size = storage->getItemsCount();
+            assert(size != 0);
+            return std::log2((storage->getItemsCount() + RankOneSize - 1) / RankOneSize);
         }
     };
 

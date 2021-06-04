@@ -1,6 +1,8 @@
 #pragma once
 
+#include <chrono>
 #include <memory>
+#include <random>
 
 #include "primitive/Bounds.hpp"
 #include "KeyValueStorage.hpp"
@@ -40,7 +42,8 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
           diskIndex_(indexListSupplier()),
           shouldShrinkChecker_(std::move(shouldShrinkChecker)),
           keyIndexBatchSize_(std::move(keyIndexBatchSize)),
-          indexListSupplier_(std::move(indexListSupplier)) {
+          indexListSupplier_(std::move(indexListSupplier)),
+          random(std::chrono::steady_clock::now().time_since_epoch().count()) {
     }
 
     IndexT getCollapsingBlocksListLength() const {
@@ -52,45 +55,31 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
         return counter.count;
     }
 
+    [[nodiscard]] std::string addRandomString(std::string s, std::size_t len = 8) const {
+        assert(len != 0);
+        s += '-';
+        for (std::size_t i = 0; i < len; ++i) {
+            s += static_cast<char>(random() % ('z' - 'a' + 1) + 'a');
+        }
+        return s;
+    }
+
     [[nodiscard]] std::string getNewBlockName() const {
-        return indexFilesPrefix + "block-" + std::to_string(getCollapsingBlocksListLength());
+        return addRandomString(indexFilesPrefix + "block-" + std::to_string(getCollapsingBlocksListLength()));
     }
 
     void add(const Key &key, Value &&value) override {
         IndexT valueIndex = diskDataStorage_->append(KeyValue{key, std::move(value)});
         innerStorage_->add(key, IndexT(valueIndex));
         if (innerStorage_->getSize() >= MaxRamLoad) {
-            std::vector<KeyIndex> newBlockKeyIndex = std::move(*innerStorage_).extract();
-            auto newBlock = std::make_unique<SortedKeyIndexStorage>(
-                newBlockKeyIndex.begin(),
-                newBlockKeyIndex.end(),
-                true,
-                getNewBlockName(),
-                diskDataStorage_->getFileManager(),
-                [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-                [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
-            );
-            diskIndex_->pushFront(
-                std::move(newBlock),
-                [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-                [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
-            );
+            dropRamIndexToDisk();
         }
         if (shouldShrinkChecker_(
             diskDataStorage_->getNotSortedItemsCount(),
             diskDataStorage_->getSortedItemsCount() + diskDataStorage_->getNotSortedItemsCount())) {
-            auto actualIndex = std::make_unique<SortedKeyIndexStorage>(
-                diskDataStorage_->shrink(
-                    keyIndexBatchSize_,
-                    indexFilesPrefix + "new-keys=" + std::to_string(getSize().max)
-                ));
-            std::unique_ptr<IndexList> newIndexList = indexListSupplier_();
-            newIndexList->pushFront(
-                std::move(actualIndex),
-                [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-                [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
-            );
-            diskIndex_ = std::move(newIndexList);
+
+            dropRamIndexToDisk();
+            shrinkDataStorage();
         }
     }
 
@@ -129,6 +118,42 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     }
 
   private:
+    void dropRamIndexToDisk() {
+        if (innerStorage_->getSize() == 0) {
+            return;
+        }
+        std::vector<KeyIndex> newBlockKeyIndex = std::move(*innerStorage_).extract();
+        auto newBlock = std::make_unique<SortedKeyIndexStorage>(
+            newBlockKeyIndex.begin(),
+            newBlockKeyIndex.end(),
+            true,
+            getNewBlockName(),
+            diskDataStorage_->getFileManager(),
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
+        );
+        diskIndex_->pushFront(
+            std::move(newBlock),
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
+        );
+    }
+
+    void shrinkDataStorage() {
+        auto actualIndex = std::make_unique<SortedKeyIndexStorage>(
+            diskDataStorage_->shrink(
+                keyIndexBatchSize_,
+                addRandomString(indexFilesPrefix + "new-keys=" + std::to_string(getSize().max))
+            ));
+        std::unique_ptr<IndexList> newIndexList = indexListSupplier_();
+        newIndexList->pushFront(
+            std::move(actualIndex),
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
+        );
+        diskIndex_ = std::move(newIndexList);
+    }
+
     std::unique_ptr<RamStorage> innerStorage_;
     std::unique_ptr<DiskStorage> diskDataStorage_;
     std::unique_ptr<IndexList> diskIndex_;
@@ -136,6 +161,7 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     const IndexT keyIndexBatchSize_;
     std::function<std::unique_ptr<IndexList>()> indexListSupplier_;
     const std::string indexFilesPrefix = "index-";
+    mutable std::mt19937 random;
 };
 
 } // supermap

@@ -8,9 +8,7 @@
 #include "io/DiskFileManager.hpp"
 #include "core/KeyValueShrinkableStorage.hpp"
 
-std::uint32_t timeSeed() {
-    return std::chrono::steady_clock::now().time_since_epoch().count();
-}
+extern std::uint32_t timeSeed();
 
 namespace supermap {
 template <typename Key, typename Value>
