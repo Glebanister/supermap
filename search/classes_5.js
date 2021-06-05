@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['key_177',['Key',['../structsupermap_1_1Key.html',1,'supermap']]],
-  ['keyexception_178',['KeyException',['../classsupermap_1_1KeyException.html',1,'supermap']]],
-  ['keyvalue_179',['KeyValue',['../structsupermap_1_1KeyValue.html',1,'supermap']]],
-  ['keyvalueshrinkablestorage_180',['KeyValueShrinkableStorage',['../classsupermap_1_1KeyValueShrinkableStorage.html',1,'supermap']]],
-  ['keyvaluestorage_181',['KeyValueStorage',['../classsupermap_1_1KeyValueStorage.html',1,'supermap']]],
-  ['keyvaluestorage_3c_20key_2c_20value_2c_20bounds_3c_20indext_20_3e_20_3e_182',['KeyValueStorage&lt; Key, Value, Bounds&lt; IndexT &gt; &gt;',['../classsupermap_1_1KeyValueStorage.html',1,'supermap']]]
+  ['illegalargumentexception_192',['IllegalArgumentException',['../classsupermap_1_1IllegalArgumentException.html',1,'supermap']]],
+  ['indexedstorage_193',['IndexedStorage',['../classsupermap_1_1IndexedStorage.html',1,'supermap']]],
+  ['indexedstorage_3c_20keyvalue_3c_20key_2c_20value_20_3e_2c_20indext_2c_20voidregister_3c_20keyvalue_3c_20key_2c_20value_20_3e_20_3e_20_3e_194',['IndexedStorage&lt; KeyValue&lt; Key, Value &gt;, IndexT, VoidRegister&lt; KeyValue&lt; Key, Value &gt; &gt; &gt;',['../classsupermap_1_1IndexedStorage.html',1,'supermap']]],
+  ['inputiterator_195',['InputIterator',['../classsupermap_1_1io_1_1InputIterator.html',1,'supermap::io']]],
+  ['inputstream_196',['InputStream',['../classsupermap_1_1io_1_1InputStream.html',1,'supermap::io']]],
+  ['ioexception_197',['IOException',['../classsupermap_1_1IOException.html',1,'supermap']]],
+  ['iteratorexception_198',['IteratorException',['../classsupermap_1_1IteratorException.html',1,'supermap']]]
 ];

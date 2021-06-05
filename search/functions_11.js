@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['write_284',['write',['../classsupermap_1_1io_1_1OutputIterator.html#ae2d05b620776f8d8666d5804487909e5',1,'supermap::io::OutputIterator']]],
-  ['writeall_285',['writeAll',['../classsupermap_1_1io_1_1OutputIterator.html#a1154cc4a45967e5fa7dbd4bc3e5f0158',1,'supermap::io::OutputIterator']]]
+  ['_7etemporaryfile_322',['~TemporaryFile',['../classsupermap_1_1io_1_1TemporaryFile.html#a3d0f82603a057279e3a6ae82c1a8b343',1,'supermap::io::TemporaryFile']]],
+  ['_7etemporaryfolder_323',['~TemporaryFolder',['../classsupermap_1_1io_1_1TemporaryFolder.html#a6173d2f3096198a06276b6f469fae0c9',1,'supermap::io::TemporaryFolder']]]
 ];

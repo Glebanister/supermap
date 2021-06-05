@@ -1,0 +1,5 @@
+<map id="supermap::SortedStoragesList&lt; T, IndexT, EachStorageRegisterType, SortedStorage, StoragesRegister &gt;" name="supermap::SortedStoragesList&lt; T, IndexT, EachStorageRegisterType, SortedStorage, StoragesRegister &gt;">
+<area shape="rect" id="node1" title="Abstract list of single file sorted storages." alt="" coords="376,23,568,94"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1Findable.html" title="An abstract storage where element of type T can be found." alt="" coords="85,5,249,32"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1OrderedStorage.html" title=" " alt="" coords="5,56,328,141"/>
+</map>

@@ -76,29 +76,20 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;io/FileManager.hpp&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>supermap {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> IndexT&gt;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classsupermap_1_1IndexedStorage.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1IndexedStorage.html">IndexedStorage</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classsupermap_1_1IndexedStorage.html#a8b91d13298a55931285058637467fa87">   22</a></span>&#160;    [[nodiscard]] <span class="keyword">virtual</span> std::shared_ptr&lt;io::FileManager&gt; <a class="code" href="classsupermap_1_1IndexedStorage.html#a8b91d13298a55931285058637467fa87">getFileManager</a>() const noexcept = 0;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classsupermap_1_1IndexedStorage.html#a01a1d8087459d3f429f56bfd830f0a50">   29</a></span>&#160;    virtual IndexT <a class="code" href="classsupermap_1_1IndexedStorage.html#a01a1d8087459d3f429f56bfd830f0a50">append</a>(const T &amp;item) = 0;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classsupermap_1_1IndexedStorage.html#ad3429628fc84a71d9f45f6426c74adfd">   34</a></span>&#160;    virtual T <a class="code" href="classsupermap_1_1IndexedStorage.html#ad3429628fc84a71d9f45f6426c74adfd">get</a>(IndexT index) const = 0;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classsupermap_1_1IndexedStorage.html#afffdb519aab9feae89ce895dd7e35232">   39</a></span>&#160;    virtual IndexT <a class="code" href="classsupermap_1_1IndexedStorage.html#afffdb519aab9feae89ce895dd7e35232">getItemsCount</a>() const noexcept = 0;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    virtual ~<a class="code" href="classsupermap_1_1IndexedStorage.html">IndexedStorage</a>() = default;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// supermap</span></div>
-<div class="ttc" id="aclasssupermap_1_1IndexedStorage_html"><div class="ttname"><a href="classsupermap_1_1IndexedStorage.html">supermap::IndexedStorage</a></div><div class="ttdoc">A storage that represents something from which you can take an element by index and add an element to...</div><div class="ttdef"><b>Definition:</b> IndexedStorage.hpp:17</div></div>
-<div class="ttc" id="aclasssupermap_1_1IndexedStorage_html_a01a1d8087459d3f429f56bfd830f0a50"><div class="ttname"><a href="classsupermap_1_1IndexedStorage.html#a01a1d8087459d3f429f56bfd830f0a50">supermap::IndexedStorage::append</a></div><div class="ttdeci">virtual IndexT append(const T &amp;item)=0</div><div class="ttdoc">Adds new item to the end of storage. Hence, its index must be greatest in the collection.</div></div>
-<div class="ttc" id="aclasssupermap_1_1IndexedStorage_html_a8b91d13298a55931285058637467fa87"><div class="ttname"><a href="classsupermap_1_1IndexedStorage.html#a8b91d13298a55931285058637467fa87">supermap::IndexedStorage::getFileManager</a></div><div class="ttdeci">virtual std::shared_ptr&lt; io::FileManager &gt; getFileManager() const noexcept=0</div></div>
-<div class="ttc" id="aclasssupermap_1_1IndexedStorage_html_ad3429628fc84a71d9f45f6426c74adfd"><div class="ttname"><a href="classsupermap_1_1IndexedStorage.html#ad3429628fc84a71d9f45f6426c74adfd">supermap::IndexedStorage::get</a></div><div class="ttdeci">virtual T get(IndexT index) const =0</div></div>
-<div class="ttc" id="aclasssupermap_1_1IndexedStorage_html_afffdb519aab9feae89ce895dd7e35232"><div class="ttname"><a href="classsupermap_1_1IndexedStorage.html#afffdb519aab9feae89ce895dd7e35232">supermap::IndexedStorage::getItemsCount</a></div><div class="ttdeci">virtual IndexT getItemsCount() const noexcept=0</div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;OrderedStorage.hpp&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>supermap {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> IndexT, <span class="keyword">typename</span> RegisterType&gt;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classsupermap_1_1IndexedStorage.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1IndexedStorage.html">IndexedStorage</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1OrderedStorage.html">OrderedStorage</a>&lt;T, IndexT, RegisterType&gt; {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classsupermap_1_1IndexedStorage.html#a80a364e2e09a1e503931a3b797873dfd">   24</a></span>&#160;    <span class="keyword">virtual</span> T <a class="code" href="classsupermap_1_1IndexedStorage.html#a80a364e2e09a1e503931a3b797873dfd">get</a>(IndexT index) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="ttc" id="aclasssupermap_1_1IndexedStorage_html"><div class="ttname"><a href="classsupermap_1_1IndexedStorage.html">supermap::IndexedStorage</a></div><div class="ttdoc">A storage that represents something from which you can take an element by index and add an element to...</div><div class="ttdef"><b>Definition:</b> IndexedStorage.hpp:19</div></div>
+<div class="ttc" id="aclasssupermap_1_1IndexedStorage_html_a80a364e2e09a1e503931a3b797873dfd"><div class="ttname"><a href="classsupermap_1_1IndexedStorage.html#a80a364e2e09a1e503931a3b797873dfd">supermap::IndexedStorage::get</a></div><div class="ttdeci">virtual T get(IndexT index) const =0</div></div>
+<div class="ttc" id="aclasssupermap_1_1OrderedStorage_html"><div class="ttname"><a href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a></div><div class="ttdoc">An abstract storage, where elements has particular order. Element added later is of lower order.</div><div class="ttdef"><b>Definition:</b> OrderedStorage.hpp:15</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

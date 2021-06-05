@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Supermap: supermap::SingleFileIndexedStorage&lt; T, IndexT &gt; Class Template Reference</title>
+<title>Supermap: supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,11 +68,10 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classsupermap_1_1SingleFileIndexedStorage-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">supermap::SingleFileIndexedStorage&lt; T, IndexT &gt; Class Template Reference</div>  </div>
+<div class="title">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -81,101 +80,111 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="SingleFileIndexedStorage_8hpp_source.html">SingleFileIndexedStorage.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for supermap::SingleFileIndexedStorage&lt; T, IndexT &gt;:</div>
+Inheritance diagram for supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1SingleFileIndexedStorage__inherit__graph.png" border="0" usemap="#asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_01_4_inherit__map" id="asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_01_4_inherit__map">
-<area shape="rect" title="Indexed storage that stores all items in the single file." alt="" coords="6,95,193,136"/>
-<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="5,184,193,225"/>
-<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="12,5,187,47"/>
+<div class="center"><img src="classsupermap_1_1SingleFileIndexedStorage__inherit__graph.png" border="0" usemap="#asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_inherit__map" id="asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_inherit__map">
+<area shape="rect" title="Indexed storage that stores all items in the single file." alt="" coords="5,184,232,225"/>
+<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="28,273,209,329"/>
+<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="28,95,209,136"/>
+<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="28,5,209,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for supermap::SingleFileIndexedStorage&lt; T, IndexT &gt;:</div>
+Collaboration diagram for supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1SingleFileIndexedStorage__coll__graph.png" border="0" usemap="#asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_01_4_coll__map" id="asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_01_4_coll__map">
-<area shape="rect" title="Indexed storage that stores all items in the single file." alt="" coords="303,39,489,80"/>
-<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="5,5,180,47"/>
-<area shape="rect" title=" " alt="" coords="5,71,180,112"/>
+<div class="center"><img src="classsupermap_1_1SingleFileIndexedStorage__coll__graph.png" border="0" usemap="#asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_coll__map" id="asupermap_1_1SingleFileIndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_coll__map">
+<area shape="rect" title="Indexed storage that stores all items in the single file." alt="" coords="540,53,767,95"/>
+<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="236,5,417,47"/>
+<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,187,47"/>
+<area shape="rect" title=" " alt="" coords="239,71,414,112"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a01a03c0494c730cafd22fb0a343b2d06"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a01a03c0494c730cafd22fb0a343b2d06">SingleFileIndexedStorage</a> (const std::filesystem::path &amp;storageFilePath, std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt; fileManager, IndexT itemsCount)</td></tr>
-<tr class="memdesc:a01a03c0494c730cafd22fb0a343b2d06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates storage instance for its reading.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#a01a03c0494c730cafd22fb0a343b2d06">More...</a><br /></td></tr>
-<tr class="separator:a01a03c0494c730cafd22fb0a343b2d06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aabc414590f97666df292e432df62a9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a4aabc414590f97666df292e432df62a9">getStorageFilePath</a> () const noexcept</td></tr>
-<tr class="separator:a4aabc414590f97666df292e432df62a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d7a61d2a434771cea51ef7897976813"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a9d7a61d2a434771cea51ef7897976813">getFileManager</a> () const noexcept override</td></tr>
-<tr class="separator:a9d7a61d2a434771cea51ef7897976813"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0236fc84f18177e83107bd2cb8d1f3c3"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a0236fc84f18177e83107bd2cb8d1f3c3">shareStorageFile</a> () const noexcept</td></tr>
-<tr class="separator:a0236fc84f18177e83107bd2cb8d1f3c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af999fc98d99a7472f6a0b73796b827fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#af999fc98d99a7472f6a0b73796b827fd">resetWith</a> (<a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">SingleFileIndexedStorage</a>&lt; T, IndexT &gt; &amp;&amp;other) noexcept</td></tr>
-<tr class="memdesc:af999fc98d99a7472f6a0b73796b827fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets this storage with other. Storage file contents are being replaced with each other.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#af999fc98d99a7472f6a0b73796b827fd">More...</a><br /></td></tr>
-<tr class="separator:af999fc98d99a7472f6a0b73796b827fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa99d726034ad80c56037150ab960b138"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#aa99d726034ad80c56037150ab960b138">append</a> (const T &amp;item) override</td></tr>
-<tr class="memdesc:aa99d726034ad80c56037150ab960b138"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends an item to the end of storage.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#aa99d726034ad80c56037150ab960b138">More...</a><br /></td></tr>
-<tr class="separator:aa99d726034ad80c56037150ab960b138"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5d490ddf9f02f1d9995a2569d346abb"><td class="memTemplParams" colspan="2">template&lt;typename IteratorT , typename Functor , typename Result  = std::invoke_result_t&lt;Functor, typename std::iterator_traits&lt;IteratorT&gt;::value_type&gt;, typename  = std::enable_if_t&lt;std::is_same_v&lt;Result, T&gt;&gt;&gt; </td></tr>
-<tr class="memitem:ae5d490ddf9f02f1d9995a2569d346abb"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ae5d490ddf9f02f1d9995a2569d346abb">appendAll</a> (IteratorT begin, IteratorT end, Functor func)</td></tr>
-<tr class="memdesc:ae5d490ddf9f02f1d9995a2569d346abb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends all items from <code>begin</code> to the <code>end</code> to this storage.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#ae5d490ddf9f02f1d9995a2569d346abb">More...</a><br /></td></tr>
-<tr class="separator:ae5d490ddf9f02f1d9995a2569d346abb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a423fdbcbb9b516e1328229232d29c224"><td class="memTemplParams" colspan="2">template&lt;typename IteratorT , typename  = std::enable_if_t&lt;std::is_same_v&lt;T, typename std::iterator_traits&lt;IteratorT&gt;::value_type&gt;&gt;&gt; </td></tr>
-<tr class="memitem:a423fdbcbb9b516e1328229232d29c224"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a423fdbcbb9b516e1328229232d29c224">appendAll</a> (IteratorT begin, IteratorT end)</td></tr>
-<tr class="memdesc:a423fdbcbb9b516e1328229232d29c224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends all items from <code>begin</code> to the <code>end</code>.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#a423fdbcbb9b516e1328229232d29c224">More...</a><br /></td></tr>
-<tr class="separator:a423fdbcbb9b516e1328229232d29c224"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29b16b3e3841ee901a505c011f6c4ea7"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a29b16b3e3841ee901a505c011f6c4ea7">get</a> (IndexT index) const override</td></tr>
-<tr class="separator:a29b16b3e3841ee901a505c011f6c4ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a933fab2edd0860e717019f6d9a87efc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; T, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a933fab2edd0860e717019f6d9a87efc1">getDataIterator</a> () const</td></tr>
-<tr class="separator:a933fab2edd0860e717019f6d9a87efc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a132694cd50147026fb111eca994114e4"><td class="memTemplParams" colspan="2">template&lt;typename Out &gt; </td></tr>
-<tr class="memitem:a132694cd50147026fb111eca994114e4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; Out, IndexT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a132694cd50147026fb111eca994114e4">getCustomDataIterator</a> () const</td></tr>
-<tr class="separator:a132694cd50147026fb111eca994114e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ac4ca17af288fd06dd3c9b914e438b1"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a9ac4ca17af288fd06dd3c9b914e438b1">getItemsCount</a> () const noexcept override</td></tr>
-<tr class="separator:a9ac4ca17af288fd06dd3c9b914e438b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:ab344e2bc6085663e8cce3c5355b14c4b"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ab344e2bc6085663e8cce3c5355b14c4b">increaseItemsCount</a> () noexcept</td></tr>
-<tr class="separator:ab344e2bc6085663e8cce3c5355b14c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2665d4e1b0845ea0506da4976eca8f5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ab2665d4e1b0845ea0506da4976eca8f5">SingleFileIndexedStorage</a> (const std::filesystem::path &amp;storageFilePath, std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt; fileManager)</td></tr>
+<tr class="memdesc:ab2665d4e1b0845ea0506da4976eca8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty storage.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#ab2665d4e1b0845ea0506da4976eca8f5">More...</a><br /></td></tr>
+<tr class="separator:ab2665d4e1b0845ea0506da4976eca8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60d1e3a6e1bfd29cfb026d3b2c0a47c7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a60d1e3a6e1bfd29cfb026d3b2c0a47c7">getStorageFilePath</a> () const noexcept</td></tr>
+<tr class="separator:a60d1e3a6e1bfd29cfb026d3b2c0a47c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3b7291875e0d1bf58996013b6b646cb"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ae3b7291875e0d1bf58996013b6b646cb">getFileManager</a> () const noexcept</td></tr>
+<tr class="separator:ae3b7291875e0d1bf58996013b6b646cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae381657beb0d2def7a3266c828ae962c"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ae381657beb0d2def7a3266c828ae962c">shareStorageFile</a> () const noexcept</td></tr>
+<tr class="separator:ae381657beb0d2def7a3266c828ae962c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8db1128dfb7f42fd534be12a5a40034"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ad8db1128dfb7f42fd534be12a5a40034">resetWith</a> (<a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt; &amp;&amp;other) noexcept</td></tr>
+<tr class="memdesc:ad8db1128dfb7f42fd534be12a5a40034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets this storage with other. Storage file contents are being replaced with each other.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#ad8db1128dfb7f42fd534be12a5a40034">More...</a><br /></td></tr>
+<tr class="separator:ad8db1128dfb7f42fd534be12a5a40034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabce5a4a2d5c141cddf3ed4e5608dd3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#aabce5a4a2d5c141cddf3ed4e5608dd3d">append</a> (std::unique_ptr&lt; T &gt; &amp;&amp;item) override</td></tr>
+<tr class="memdesc:aabce5a4a2d5c141cddf3ed4e5608dd3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends an item to the end of storage.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#aabce5a4a2d5c141cddf3ed4e5608dd3d">More...</a><br /></td></tr>
+<tr class="separator:aabce5a4a2d5c141cddf3ed4e5608dd3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bf9b054a8d3320e9f55015c86e4760b"><td class="memTemplParams" colspan="2">template&lt;typename IteratorT , typename Functor , typename Result  = std::invoke_result_t&lt;Functor, typename std::iterator_traits&lt;IteratorT&gt;::value_type&gt;, typename  = std::enable_if_t&lt;std::is_same_v&lt;Result, T&gt;&gt;&gt; </td></tr>
+<tr class="memitem:a7bf9b054a8d3320e9f55015c86e4760b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a7bf9b054a8d3320e9f55015c86e4760b">appendAll</a> (IteratorT begin, IteratorT end, Functor func)</td></tr>
+<tr class="memdesc:a7bf9b054a8d3320e9f55015c86e4760b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends all items from <code>begin</code> to the <code>end</code> to this storage.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#a7bf9b054a8d3320e9f55015c86e4760b">More...</a><br /></td></tr>
+<tr class="separator:a7bf9b054a8d3320e9f55015c86e4760b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d271642422866f2dc0aa9a91efe1a84"><td class="memTemplParams" colspan="2">template&lt;typename IteratorT , typename  = std::enable_if_t&lt;std::is_same_v&lt;T, typename std::iterator_traits&lt;IteratorT&gt;::value_type&gt;&gt;&gt; </td></tr>
+<tr class="memitem:a1d271642422866f2dc0aa9a91efe1a84"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a1d271642422866f2dc0aa9a91efe1a84">appendAll</a> (IteratorT begin, IteratorT end)</td></tr>
+<tr class="memdesc:a1d271642422866f2dc0aa9a91efe1a84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends all items from <code>begin</code> to the <code>end</code>.  <a href="classsupermap_1_1SingleFileIndexedStorage.html#a1d271642422866f2dc0aa9a91efe1a84">More...</a><br /></td></tr>
+<tr class="separator:a1d271642422866f2dc0aa9a91efe1a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e6d7561bb09d238f55088d38155eb77"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a9e6d7561bb09d238f55088d38155eb77">get</a> (IndexT index) const override</td></tr>
+<tr class="separator:a9e6d7561bb09d238f55088d38155eb77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada88fa48923a29e6fe607bb0d43e1c3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; T, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ada88fa48923a29e6fe607bb0d43e1c3d">getDataIterator</a> () const</td></tr>
+<tr class="separator:ada88fa48923a29e6fe607bb0d43e1c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8084e5d561c1b8ab566b9ea5bd027dec"><td class="memTemplParams" colspan="2">template&lt;typename Out &gt; </td></tr>
+<tr class="memitem:a8084e5d561c1b8ab566b9ea5bd027dec"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; Out, IndexT &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a8084e5d561c1b8ab566b9ea5bd027dec">getCustomDataIterator</a> () const</td></tr>
+<tr class="separator:a8084e5d561c1b8ab566b9ea5bd027dec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a></td></tr>
+<tr class="memitem:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="ab7741ad1a746cd6e8badb8a5b224f7c3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#ab7741ad1a746cd6e8badb8a5b224f7c3">appendCopy</a> (T elem)</td></tr>
+<tr class="memdesc:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add copy of an element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex()</a></code>. <br /></td></tr>
+<tr class="separator:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a876c3fcdaa0e07e5f07faf5e425014d4 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">virtual IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a876c3fcdaa0e07e5f07faf5e425014d4">getItemsCount</a> () const noexcept</td></tr>
+<tr class="separator:a876c3fcdaa0e07e5f07faf5e425014d4 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7467cb0a77057464037ad4fddf693a50 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex</a> () const noexcept</td></tr>
+<tr class="separator:a7467cb0a77057464037ad4fddf693a50 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79c65797187c7cfdbe8b6e1fc41bb058 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a79c65797187c7cfdbe8b6e1fc41bb058">getRegisterInfo</a> () noexcept</td></tr>
+<tr class="separator:a79c65797187c7cfdbe8b6e1fc41bb058 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a859f5efd06e3e437828d06963d0d66f6"><td class="memItemLeft" align="right" valign="top"><a id="a859f5efd06e3e437828d06963d0d66f6"></a>
+<tr class="memitem:a8ba7c0e7283c259138700175d5d907f8"><td class="memItemLeft" align="right" valign="top"><a id="a8ba7c0e7283c259138700175d5d907f8"></a>
 std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>storageFile_</b></td></tr>
-<tr class="separator:a859f5efd06e3e437828d06963d0d66f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b55327aea800288afb59c7be6a94954"><td class="memItemLeft" align="right" valign="top"><a id="a6b55327aea800288afb59c7be6a94954"></a>
-IndexT&#160;</td><td class="memItemRight" valign="bottom"><b>itemsCount_</b></td></tr>
-<tr class="separator:a6b55327aea800288afb59c7be6a94954"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a8ba7c0e7283c259138700175d5d907f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a></td></tr>
+<tr class="memitem:afb7c9992c6acb5c1c8f7e0309460456c inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterType &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#afb7c9992c6acb5c1c8f7e0309460456c">getRegister</a> ()</td></tr>
+<tr class="separator:afb7c9992c6acb5c1c8f7e0309460456c inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename IndexT&gt;<br />
-class supermap::SingleFileIndexedStorage&lt; T, IndexT &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, typename IndexT, typename RegisterType&gt;<br />
+class supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</h3>
 
 <p>Indexed storage that stores all items in the single file. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Contained objects type. </td></tr>
     <tr><td class="paramname">IndexT</td><td>Contained objects index. </td></tr>
+    <tr><td class="paramname">RegisterType</td><td>Type of inner item register. </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a01a03c0494c730cafd22fb0a343b2d06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01a03c0494c730cafd22fb0a343b2d06">&#9670;&nbsp;</a></span>SingleFileIndexedStorage()</h2>
+<a id="ab2665d4e1b0845ea0506da4976eca8f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2665d4e1b0845ea0506da4976eca8f5">&#9670;&nbsp;</a></span>SingleFileIndexedStorage()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::<a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">SingleFileIndexedStorage</a> </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::<a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">SingleFileIndexedStorage</a> </td>
           <td>(</td>
           <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
           <td class="paramname"><em>storageFilePath</em>, </td>
@@ -184,13 +193,7 @@ template&lt;typename T , typename IndexT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt;&#160;</td>
-          <td class="paramname"><em>fileManager</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">IndexT&#160;</td>
-          <td class="paramname"><em>itemsCount</em>&#160;</td>
+          <td class="paramname"><em>fileManager</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -205,12 +208,12 @@ template&lt;typename T , typename IndexT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Creates storage instance for its reading. </p>
+<p>Creates an empty storage. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">storageFilePath</td><td>Path of the storage file. </td></tr>
     <tr><td class="paramname">fileManager</td><td>Shared access to the file manager. </td></tr>
-    <tr><td class="paramname">itemsCount</td><td>Number of items in the target storage. </td></tr>
+    <tr><td class="paramname">reg</td><td>Item register. </td></tr>
   </table>
   </dd>
 </dl>
@@ -218,21 +221,21 @@ template&lt;typename T , typename IndexT &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa99d726034ad80c56037150ab960b138"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa99d726034ad80c56037150ab960b138">&#9670;&nbsp;</a></span>append()</h2>
+<a id="aabce5a4a2d5c141cddf3ed4e5608dd3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabce5a4a2d5c141cddf3ed4e5608dd3d">&#9670;&nbsp;</a></span>append()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">IndexT <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::append </td>
+          <td class="memname">void <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::append </td>
           <td>(</td>
-          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramtype">std::unique_ptr&lt; T &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>item</em></td><td>)</td>
           <td></td>
         </tr>
@@ -253,17 +256,17 @@ template&lt;typename T , typename IndexT &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Index of added item in this storage. </dd></dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1IndexedStorage.html#a01a1d8087459d3f429f56bfd830f0a50">supermap::IndexedStorage&lt; T, IndexT &gt;</a>.</p>
+<p>Implements <a class="el" href="classsupermap_1_1OrderedStorage.html#a3a7739d40bcd55b850ffecca73dc7102">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a423fdbcbb9b516e1328229232d29c224"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a423fdbcbb9b516e1328229232d29c224">&#9670;&nbsp;</a></span>appendAll() <span class="overload">[1/2]</span></h2>
+<a id="a1d271642422866f2dc0aa9a91efe1a84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d271642422866f2dc0aa9a91efe1a84">&#9670;&nbsp;</a></span>appendAll() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <div class="memtemplate">
 template&lt;typename IteratorT , typename  = std::enable_if_t&lt;std::is_same_v&lt;T, typename std::iterator_traits&lt;IteratorT&gt;::value_type&gt;&gt;&gt; </div>
 <table class="mlabels">
@@ -271,7 +274,7 @@ template&lt;typename IteratorT , typename  = std::enable_if_t&lt;std::is_same_v&
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::appendAll </td>
+          <td class="memname">void <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::appendAll </td>
           <td>(</td>
           <td class="paramtype">IteratorT&#160;</td>
           <td class="paramname"><em>begin</em>, </td>
@@ -312,13 +315,13 @@ template&lt;typename IteratorT , typename  = std::enable_if_t&lt;std::is_same_v&
 
 </div>
 </div>
-<a id="ae5d490ddf9f02f1d9995a2569d346abb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5d490ddf9f02f1d9995a2569d346abb">&#9670;&nbsp;</a></span>appendAll() <span class="overload">[2/2]</span></h2>
+<a id="a7bf9b054a8d3320e9f55015c86e4760b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bf9b054a8d3320e9f55015c86e4760b">&#9670;&nbsp;</a></span>appendAll() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <div class="memtemplate">
 template&lt;typename IteratorT , typename Functor , typename Result  = std::invoke_result_t&lt;Functor, typename std::iterator_traits&lt;IteratorT&gt;::value_type&gt;, typename  = std::enable_if_t&lt;std::is_same_v&lt;Result, T&gt;&gt;&gt; </div>
 <table class="mlabels">
@@ -326,7 +329,7 @@ template&lt;typename IteratorT , typename Functor , typename Result  = std::invo
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::appendAll </td>
+          <td class="memname">void <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::appendAll </td>
           <td>(</td>
           <td class="paramtype">IteratorT&#160;</td>
           <td class="paramname"><em>begin</em>, </td>
@@ -376,19 +379,19 @@ template&lt;typename IteratorT , typename Functor , typename Result  = std::invo
 
 </div>
 </div>
-<a id="a29b16b3e3841ee901a505c011f6c4ea7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a29b16b3e3841ee901a505c011f6c4ea7">&#9670;&nbsp;</a></span>get()</h2>
+<a id="a9e6d7561bb09d238f55088d38155eb77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e6d7561bb09d238f55088d38155eb77">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::get </td>
+          <td class="memname">T <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::get </td>
           <td>(</td>
           <td class="paramtype">IndexT&#160;</td>
           <td class="paramname"><em>index</em></td><td>)</td>
@@ -403,17 +406,17 @@ template&lt;typename T , typename IndexT &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Element contained by index <code>index</code>. </dd></dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1IndexedStorage.html#ad3429628fc84a71d9f45f6426c74adfd">supermap::IndexedStorage&lt; T, IndexT &gt;</a>.</p>
+<p>Implements <a class="el" href="classsupermap_1_1IndexedStorage.html#a80a364e2e09a1e503931a3b797873dfd">supermap::IndexedStorage&lt; T, IndexT, RegisterType &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a132694cd50147026fb111eca994114e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a132694cd50147026fb111eca994114e4">&#9670;&nbsp;</a></span>getCustomDataIterator()</h2>
+<a id="a8084e5d561c1b8ab566b9ea5bd027dec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8084e5d561c1b8ab566b9ea5bd027dec">&#9670;&nbsp;</a></span>getCustomDataIterator()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <div class="memtemplate">
 template&lt;typename Out &gt; </div>
 <table class="mlabels">
@@ -421,7 +424,7 @@ template&lt;typename Out &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;Out, IndexT&gt; <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::getCustomDataIterator </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;Out, IndexT&gt; <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::getCustomDataIterator </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -437,19 +440,19 @@ template&lt;typename Out &gt; </div>
 
 </div>
 </div>
-<a id="a933fab2edd0860e717019f6d9a87efc1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a933fab2edd0860e717019f6d9a87efc1">&#9670;&nbsp;</a></span>getDataIterator()</h2>
+<a id="ada88fa48923a29e6fe607bb0d43e1c3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada88fa48923a29e6fe607bb0d43e1c3d">&#9670;&nbsp;</a></span>getDataIterator()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;T, IndexT&gt; <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::getDataIterator </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;T, IndexT&gt; <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::getDataIterator </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -465,19 +468,19 @@ template&lt;typename T , typename IndexT &gt; </div>
 
 </div>
 </div>
-<a id="a9d7a61d2a434771cea51ef7897976813"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d7a61d2a434771cea51ef7897976813">&#9670;&nbsp;</a></span>getFileManager()</h2>
+<a id="ae3b7291875e0d1bf58996013b6b646cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3b7291875e0d1bf58996013b6b646cb">&#9670;&nbsp;</a></span>getFileManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a>&gt; <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::getFileManager </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a>&gt; <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::getFileManager </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -485,59 +488,27 @@ template&lt;typename T , typename IndexT &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Shared access to the file system manager. </dd></dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1IndexedStorage.html#a8b91d13298a55931285058637467fa87">supermap::IndexedStorage&lt; T, IndexT &gt;</a>.</p>
-
 </div>
 </div>
-<a id="a9ac4ca17af288fd06dd3c9b914e438b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ac4ca17af288fd06dd3c9b914e438b1">&#9670;&nbsp;</a></span>getItemsCount()</h2>
+<a id="a60d1e3a6e1bfd29cfb026d3b2c0a47c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60d1e3a6e1bfd29cfb026d3b2c0a47c7">&#9670;&nbsp;</a></span>getStorageFilePath()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">IndexT <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::getItemsCount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Number of elements in collection. </dd></dl>
-
-<p>Implements <a class="el" href="classsupermap_1_1IndexedStorage.html#afffdb519aab9feae89ce895dd7e35232">supermap::IndexedStorage&lt; T, IndexT &gt;</a>.</p>
-
-</div>
-</div>
-<a id="a4aabc414590f97666df292e432df62a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4aabc414590f97666df292e432df62a9">&#9670;&nbsp;</a></span>getStorageFilePath()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::getStorageFilePath </td>
+          <td class="memname">std::string <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::getStorageFilePath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -553,56 +524,28 @@ template&lt;typename T , typename IndexT &gt; </div>
 
 </div>
 </div>
-<a id="ab344e2bc6085663e8cce3c5355b14c4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab344e2bc6085663e8cce3c5355b14c4b">&#9670;&nbsp;</a></span>increaseItemsCount()</h2>
+<a id="ad8db1128dfb7f42fd534be12a5a40034"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8db1128dfb7f42fd534be12a5a40034">&#9670;&nbsp;</a></span>resetWith()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">IndexT <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::increaseItemsCount </td>
+          <td class="memname">virtual void <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::resetWith </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Increase elements counter. </dd></dl>
-
-</div>
-</div>
-<a id="af999fc98d99a7472f6a0b73796b827fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af999fc98d99a7472f6a0b73796b827fd">&#9670;&nbsp;</a></span>resetWith()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::resetWith </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">SingleFileIndexedStorage</a>&lt; T, IndexT &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -617,19 +560,19 @@ template&lt;typename T , typename IndexT &gt; </div>
 
 </div>
 </div>
-<a id="a0236fc84f18177e83107bd2cb8d1f3c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0236fc84f18177e83107bd2cb8d1f3c3">&#9670;&nbsp;</a></span>shareStorageFile()</h2>
+<a id="ae381657beb0d2def7a3266c828ae962c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae381657beb0d2def7a3266c828ae962c">&#9670;&nbsp;</a></span>shareStorageFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a>&gt; <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT &gt;::shareStorageFile </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a>&gt; <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html">supermap::SingleFileIndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::shareStorageFile </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

@@ -1,5 +1,6 @@
-<map id="supermap::SingleFileIndexedStorage&lt; T, IndexT &gt;" name="supermap::SingleFileIndexedStorage&lt; T, IndexT &gt;">
-<area shape="rect" id="node1" title="Indexed storage that stores all items in the single file." alt="" coords="6,95,193,136"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="5,184,193,225"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="12,5,187,47"/>
+<map id="supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;" name="supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;">
+<area shape="rect" id="node1" title="Indexed storage that stores all items in the single file." alt="" coords="5,184,232,225"/>
+<area shape="rect" id="node4" href="$classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="28,273,209,329"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="28,95,209,136"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="28,5,209,47"/>
 </map>
