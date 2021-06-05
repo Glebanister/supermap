@@ -46,11 +46,6 @@ class VoidRegister : public StorageItemRegister<T, void> {
     void getRegisteredItemsInfo() const noexcept override {}
 };
 
-template <typename T>
-auto makeVoidRegister() {
-    return std::make_unique<VoidRegister<T>>();
-};
-
 /**
  * @brief Storage item register which counts every added element to the storage.
  * @tparam T Storage content type.
