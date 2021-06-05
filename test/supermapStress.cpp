@@ -28,7 +28,8 @@ void stressTestSupermap(std::size_t iterations, std::size_t seed) {
         Key<KeyLen>,
         ByteArray<ValueLen>,
         std::size_t,
-        MaxRamLoad
+        MaxRamLoad,
+        VoidRegister<KeyValue<Key<KeyLen>, std::size_t>>
     >;
     using RamType = BST<typename MySupermap::KeyType,
                         typename MySupermap::IndexType,
@@ -36,6 +37,7 @@ void stressTestSupermap(std::size_t iterations, std::size_t seed) {
     using SupermapKvs = KeyValueStorage<typename MySupermap::KeyType,
                                         typename MySupermap::ValueType,
                                         typename MySupermap::BoundsType>;
+    using IndexList = typename MySupermap::DefaultIndexList;
 
     std::shared_ptr<io::FileManager> fileManager
         = std::make_shared<io::EncapsulatedFileManager>(
@@ -54,7 +56,9 @@ void stressTestSupermap(std::size_t iterations, std::size_t seed) {
             return notSortedSize >= MaxNotSortedSize;
         },
         []() {
-            return std::make_unique<typename MySupermap::IndexList>();
+            return std::make_unique<IndexList>(
+                KeyIndexBatchSize
+            );
         },
         KeyIndexBatchSize
     );

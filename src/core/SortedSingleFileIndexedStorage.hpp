@@ -1,9 +1,9 @@
 #pragma once
 
 #include <algorithm>
-#include <optional>
 
 #include "SingleFileIndexedStorage.hpp"
+#include "Findable.hpp"
 
 namespace supermap {
 
@@ -12,26 +12,17 @@ namespace supermap {
  * defined by comparator.
  * @tparam T Stored objects type.
  * @tparam IndexT Storage index type.
+ * @tparam RegisterType Inner register type.
  */
-template <typename T, typename IndexT>
-class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT> {
+template <typename T, typename IndexT, typename RegisterType>
+class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT, RegisterType>, public Findable<T> {
   public:
-    using SingleFileIndexedStorage<T, IndexT>::getItemsCount;
-    using SingleFileIndexedStorage<T, IndexT>::get;
-    using SingleFileIndexedStorage<T, IndexT>::append;
-    using SingleFileIndexedStorage<T, IndexT>::appendAll;
+    using SingleFileIndexedStorage<T, IndexT, RegisterType>::getItemsCount;
+    using SingleFileIndexedStorage<T, IndexT, RegisterType>::get;
+    using SingleFileIndexedStorage<T, IndexT, RegisterType>::append;
+    using SingleFileIndexedStorage<T, IndexT, RegisterType>::appendAll;
 
-    /**
-     * @brief Creates a sorted storage instance of size @p size.
-     * @param size Size of items in storage file.
-     * @param dataFileName Name of file where storage is placed.
-     * @param manager Shared access to the file manager.
-     */
-    explicit SortedSingleFileIndexedStorage(IndexT size,
-                                            std::string dataFileName,
-                                            std::shared_ptr<io::FileManager> manager)
-        : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), manager, size) {
-    }
+    using SingleFileIndexedStorage<T, IndexT, RegisterType>::SingleFileIndexedStorage;
 
     /**
      * @brief Creates new sorted storage from objects collection.
@@ -58,7 +49,7 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
                                             std::shared_ptr<io::FileManager> manager,
                                             IsLess isLess,
                                             IsEq isEq
-    ) : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), manager, 0) {
+    ) : SingleFileIndexedStorage<T, IndexT, RegisterType>(std::move(dataFileName), manager) {
         appendAll(begin, sorted ? end : sortedEndIterator(begin, end, isLess, isEq));
     }
 
@@ -100,7 +91,7 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
      * @return @p std::nullopt if there is no element, which fulfills predicate.
      * Not empty @p std::optional<T> is returned otherwise.
      */
-    virtual std::optional<T> find(std::function<bool(const T &)> less, std::function<bool(const T &)> equal) {
+    std::optional<T> find(std::function<bool(const T &)> less, std::function<bool(const T &)> equal) override {
         if (getItemsCount() == 0) {
             return std::nullopt;
         }
@@ -124,8 +115,6 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
 
     /**
      * @brief Creates merged sorted storage from all @p newer sorted storages.
-     * @tparam IsLess @p isLess comparator type.
-     * @tparam IsEq @p isEq comparator type.
      * @param newer Sorted storages, which are ordered from least to the most relevant.
      * @param dataFileName New storage file name.
      * @param fileManager Shared access to the file manager.
@@ -133,16 +122,12 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
      * @param isEq Comparator which return if the first argument equals to the second one.
      * @param batchSize The size of the batch of @p T objects that are simultaneously stored in RAM.
      */
-    template <typename IsLess, typename IsEq>
     explicit SortedSingleFileIndexedStorage(
-        const std::vector<SortedSingleFileIndexedStorage<T, IndexT>> &newer,
+        const std::vector<SortedSingleFileIndexedStorage<T, IndexT, RegisterType>> &newer,
         std::string dataFileName,
         std::shared_ptr<io::FileManager> fileManager,
-        IsLess isLess,
-        IsEq isEq,
         IndexT batchSize
-    ) : SingleFileIndexedStorage<T, IndexT>(std::move(dataFileName), std::move(fileManager), 0) {
-
+    ) : SingleFileIndexedStorage<T, IndexT, RegisterType>(std::move(dataFileName), std::move(fileManager)) {
         const std::size_t storagesCount = newer.size();
         std::vector<IndexT> currentFrontPointers(storagesCount);
         std::vector<std::optional<T>> frontLine(storagesCount, std::nullopt);
@@ -183,9 +168,9 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
                     min = i;
                     continue;
                 }
-                if (isLess(frontLine[i].value(), frontLine[min].value())) {
+                if (frontLine[i].value() < frontLine[min].value()) {
                     min = i;
-                } else if (isEq(frontLine[i].value(), frontLine[min].value())) {
+                } else if (frontLine[i].value() == frontLine[min].value()) {
                     updateOnce(i);
                 }
             }

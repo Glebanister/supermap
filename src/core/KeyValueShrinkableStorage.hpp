@@ -29,14 +29,18 @@ struct StorageValueIgnorer {
 template <
     typename Key,
     typename Value,
-    typename IndexT
+    typename IndexT,
+    typename IndexRegisterInfo
 >
-class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, IndexT> {
+class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
+                                                        IndexT,
+                                                        VoidRegister<KeyValue<Key, Value>>> {
     using KV = KeyValue<Key, Value>;
-    using IndexedStorage<KV, IndexT>::getFileManager;
-    using IndexedStorage<KV, IndexT>::getItemsCount;
+    using KVS = IndexedStorage<KV, IndexT, VoidRegister<KV>>;
+    using KVS::getItemsCount;
+    using KVS::getRegister;
     using KeyIndex = KeyValue<Key, IndexT>;
-    using KeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT>;
+    using KeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT, IndexRegisterInfo>;
     using ValueIgnorer = StorageValueIgnorer<Key, Value>;
 
   public:
@@ -50,9 +54,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
         const std::string &notSortedStorageFilename,
         const std::string &sortedStorageFilename,
         std::shared_ptr<io::FileManager> fileManager
-    )
-        : sortedStorage_(0, sortedStorageFilename, fileManager),
-          notSortedStorage_(notSortedStorageFilename, fileManager, 0) {
+    ) : sortedStorage_(sortedStorageFilename, fileManager),
+        notSortedStorage_(notSortedStorageFilename, fileManager) {
     }
 
     /**
@@ -74,9 +77,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
         const std::string &notSortedStorageFilename,
         const std::string &sortedStorageFilename,
         std::size_t indexBatchSize
-    )
-        : sortedStorage_(actualIndex.getItemsCount(), sortedStorageFilename, oldStorage.getFileManager()),
-          notSortedStorage_(notSortedStorageFilename, oldStorage.getFileManager(), 0) {
+    ) : sortedStorage_(sortedStorageFilename, oldStorage.getFileManager()),
+        notSortedStorage_(notSortedStorageFilename, oldStorage.getFileManager()) {
         auto indexIterator = actualIndex.getDataIterator();
         io::OutputIterator<KV> keyValueOutputIterator
             = getFileManager()->template getOutputIterator<KV>(
@@ -85,12 +87,16 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
             );
         std::vector<KeyIndex> currentBatchIndex = indexIterator.collect(indexBatchSize);
         while (!currentBatchIndex.empty()) {
-            for (std::size_t i = 0; i < currentBatchIndex.size(); ++i) {
-                keyValueOutputIterator.write(KeyValue{
-                    std::move(currentBatchIndex[i].key),
-                    oldStorage.get(currentBatchIndex[i].value).value
-                });
-            }
+            sortedStorage_.appendAll(
+                currentBatchIndex.begin(),
+                currentBatchIndex.end(),
+                [&](const KeyIndex &keyIndex) {
+                    return KeyValue{
+                        keyIndex.key,
+                        oldStorage.get(keyIndex.value).value
+                    };
+                }
+            );
             currentBatchIndex = indexIterator.collect(indexBatchSize);
         }
         keyValueOutputIterator.flush();
@@ -108,7 +114,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
     /**
      * @return Shared with this storage file manager access.
      */
-    [[nodiscard]] std::shared_ptr<io::FileManager> getFileManager() const noexcept override {
+    [[nodiscard]] std::shared_ptr<io::FileManager> getFileManager() const noexcept {
         return sortedStorage_.getFileManager();
     }
 
@@ -131,10 +137,9 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
      * to the sorted storage, hence, it is being appended to the not sorted storage.
      * New value is considered to be the most relevant for key.
      * @param item Object to append.
-     * @return Index of @p item in storage.
      */
-    IndexT append(const KV &item) override {
-        return sortedStorage_.getItemsCount() + notSortedStorage_.append(item);
+    void append(std::unique_ptr<KV> &&item) override {
+        notSortedStorage_.append(std::move(item));
     }
 
     /**
@@ -253,8 +258,6 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
             sortedBatches,
             newIndexFileName,
             getFileManager(),
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; },
             shrinkBatchSize
         );
 
@@ -282,14 +285,13 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
      * @return Storage instance.
      */
     KeyIndexStorage exportKeys(IndexT batchSize, const std::string &keysFilename) {
-        KeyIndexStorage sortedIndex(0, keysFilename, getFileManager());
+        KeyIndexStorage sortedIndex(keysFilename, getFileManager());
         auto it = sortedStorage_.template getCustomDataIterator<ValueIgnorer>();
         auto keys = it.collectWith([](ValueIgnorer &&kvi, IndexT ind) {
             return KeyIndex{std::move(kvi.key), ind};
         }, batchSize);
         while (!keys.empty()) {
             sortedIndex.appendAll(keys.cbegin(), keys.cend());
-
             keys = it.collectWith([](ValueIgnorer &&kvi, IndexT ind) {
                 return KeyIndex{std::move(kvi.key), ind};
             }, batchSize);
@@ -297,8 +299,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
         return sortedIndex;
     }
 
-    SortedSingleFileIndexedStorage<KV, IndexT> sortedStorage_;
-    SingleFileIndexedStorage<KV, IndexT> notSortedStorage_;
+    SortedSingleFileIndexedStorage<KV, IndexT, VoidRegister<KV>> sortedStorage_;
+    SingleFileIndexedStorage<KV, IndexT, VoidRegister<KV>> notSortedStorage_;
 };
 
 namespace io {

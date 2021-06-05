@@ -28,6 +28,20 @@ struct KeyValue {
     bool equals(const KeyValue<Key, Value> &other) const {
         return key == other.key && value == other.value;
     }
+
+    /**
+     * @return If keys are equal.
+     */
+    bool operator==(const KeyValue<Key, Value> &other) const {
+        return key == other.key;
+    }
+
+    /**
+     * @return If this key less then other key.
+     */
+    bool operator<(const KeyValue<Key, Value> &other) const {
+        return key < other.key;
+    }
 };
 
 namespace io {

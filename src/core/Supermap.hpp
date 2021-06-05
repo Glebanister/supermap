@@ -7,8 +7,9 @@
 #include "primitive/Bounds.hpp"
 #include "KeyValueStorage.hpp"
 #include "KeyValueShrinkableStorage.hpp"
-#include "BinaryCollapsingSortedList.hpp"
+#include "SortedStoragesList.hpp"
 #include "ExtractibleKeyValueStorage.hpp"
+#include "BinaryCollapsingSortedStoragesList.hpp"
 
 namespace supermap {
 
@@ -20,24 +21,28 @@ namespace supermap {
  * @tparam Value Type of value.
  * @tparam IndexT Type of Bounds.
  * @tparam MaxRamLoad The largest size of an index that can reside in RAM.
+ * @tparam EachIndexRegType Each index storage register.
  */
 template <
     typename Key,
     typename Value,
     typename IndexT,
-    IndexT MaxRamLoad
+    IndexT MaxRamLoad,
+    typename EachIndexRegType
 >
 class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
   public:
-    using IndexList = BinaryCollapsingSortedList<KeyValue<Key, IndexT>, IndexT, MaxRamLoad>;
-    using RamStorage = ExtractibleKeyValueStorage<Key, IndexT, IndexT>;
-    using DiskStorage = KeyValueShrinkableStorage<Key, Value, IndexT>;
+    using KeyVal = KeyValue<Key, Value>;
     using KeyIndex = KeyValue<Key, IndexT>;
-    using SortedKeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT>;
+    using IndexList = SortedStoragesList<KeyIndex, IndexT, EachIndexRegType>;
+    using RamStorage = ExtractibleKeyValueStorage<Key, IndexT, IndexT>;
+    using DiskStorage = KeyValueShrinkableStorage<Key, Value, IndexT, EachIndexRegType>;
+    using SortedKeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT, EachIndexRegType>;
     using KeyType = Key;
     using ValueType = Value;
     using IndexType = IndexT;
     using BoundsType = Bounds<IndexT>;
+    using DefaultIndexList = BinaryCollapsingSortedStoragesList<KeyIndex, IndexT, MaxRamLoad, EachIndexRegType>;
 
   public:
     /**
@@ -70,12 +75,7 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
      * @return Number of blocks in collapsing list.
      */
     IndexT getCollapsingBlocksListLength() const {
-        struct Counter {
-            IndexT count = 0;
-            void operator()(const SortedKeyIndexStorage &) { ++count; }
-        } counter;
-        diskIndex_->consumeStorages(counter);
-        return counter.count;
+        return diskIndex_->getItemsCount();
     }
 
     /**
@@ -84,8 +84,8 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
      * @param value Associated value.
      */
     void add(const Key &key, Value &&value) override {
-        IndexT valueIndex = diskDataStorage_->append(KeyValue{key, std::move(value)});
-        innerStorage_->add(key, IndexT(valueIndex));
+        diskDataStorage_->append(std::make_unique<KeyVal>(key, value));
+        innerStorage_->add(key, diskDataStorage_->getLastElementIndex());
         if (innerStorage_->getSize() >= MaxRamLoad) {
             dropRamIndexToDisk();
         }
@@ -178,12 +178,7 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
             [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
             [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
         );
-        diskIndex_->pushFront(
-            std::move(newBlock),
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; },
-            keyIndexBatchSize_
-        );
+        diskIndex_->append(std::move(newBlock));
     }
 
     void shrinkDataStorage() {
@@ -193,12 +188,7 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
                 addRandomString(indexFilesPrefix + "new-keys=" + std::to_string(getSize().max))
             ));
         std::unique_ptr<IndexList> newIndexList = indexListSupplier_();
-        newIndexList->pushFront(
-            std::move(actualIndex),
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; },
-            keyIndexBatchSize_
-        );
+        newIndexList->append(std::move(actualIndex));
         diskIndex_ = std::move(newIndexList);
     }
 

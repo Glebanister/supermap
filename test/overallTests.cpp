@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <vector>
 #include <chrono>
+#include <functional>
 
 #include "io/InputStream.hpp"
 #include "io/InputIterator.hpp"
@@ -19,13 +20,11 @@
 #include "primitive/ByteArray.hpp"
 #include "core/SingleFileIndexedStorage.hpp"
 #include "core/KeyValueShrinkableStorage.hpp"
-#include "core/BinaryCollapsingSortedList.hpp"
+#include "core/BinaryCollapsingSortedStoragesList.hpp"
 #include "core/Supermap.hpp"
 #include "core/BST.hpp"
 
-struct CharKV { char key = 0, value = 0; };
-
-bool operator==(const CharKV &a, const CharKV &b) { return a.key == b.key && a.value == b.value; }
+using CharKV = supermap::KeyValue<char, char>;
 
 namespace supermap {
 template <typename Key, typename Value>
@@ -82,15 +81,6 @@ struct DeserializeHelper<MockStruct> : ShallowDeserializer<MockStruct> {};
 
 template <>
 struct FixedDeserializedSizeRegister<MockStruct> : ShallowDeserializedSize<MockStruct> {};
-
-template <>
-struct SerializeHelper<CharKV> : ShallowSerializer<CharKV> {};
-
-template <>
-struct DeserializeHelper<CharKV> : ShallowDeserializer<CharKV> {};
-
-template <>
-struct FixedDeserializedSizeRegister<CharKV> : ShallowDeserializedSize<CharKV> {};
 
 } // supermap::io
 
@@ -216,7 +206,10 @@ TEST_CASE ("SingleFileIndexedStorage KeyIndex") {
 
     auto manager = std::make_shared<RamFileManager>();
     const std::string filename = "indexed_data.txt";
-    SingleFileIndexedStorage<KeyIndex, std::uint32_t> indexedData(filename, manager, 0);
+    SingleFileIndexedStorage<KeyIndex, std::uint32_t, VoidRegister<KeyIndex>> indexedData(
+        filename,
+        manager
+    );
 
     std::vector<KeyIndex> keys{
         {Key<2>::fromString("ab"), 0},
@@ -226,7 +219,8 @@ TEST_CASE ("SingleFileIndexedStorage KeyIndex") {
     };
 
     for (std::size_t i = 0; i < keys.size(); ++i) {
-        CHECK_EQ(i, indexedData.append(keys[i]));
+        indexedData.appendCopy(keys[i]);
+        CHECK_EQ(i, indexedData.getLastElementIndex());
     }
     std::vector<KeyIndex> parsedData;
     auto keyIndexParser = indexedData.getDataIterator();
@@ -241,7 +235,12 @@ TEST_CASE ("KeyValueShrinkableStorage notSortedStorage") {
     using namespace io;
 
     auto manager = std::make_shared<RamFileManager>();
-    KeyValueShrinkableStorage<Key<2>, ByteArray<4>, std::uint32_t> indexedData(
+    KeyValueShrinkableStorage<
+        Key<2>,
+        ByteArray<4>,
+        std::uint32_t,
+        VoidRegister<KeyValue<Key<2>, std::uint32_t>>
+    > indexedData(
         "keys-not-sorted",
         "keys-sorted",
         manager
@@ -255,7 +254,8 @@ TEST_CASE ("KeyValueShrinkableStorage notSortedStorage") {
     };
 
     for (std::size_t i = 0; i < keyValues.size(); ++i) {
-        CHECK_EQ(i, indexedData.append(keyValues[i]));
+        indexedData.appendCopy(keyValues[i]);
+        CHECK_EQ(i, indexedData.getLastElementIndex());
     }
     std::vector<KeyValue<Key<2>, ByteArray<4>>> parsedData;
     auto keyIndexParser = indexedData.getNotSortedEntries();
@@ -270,10 +270,14 @@ TEST_CASE("collectWith") {
     using namespace io;
 
     using KeyIndex = KeyValue<Key<2>, std::uint32_t>;
+    using KeyVal = KeyValue<Key<2>, ByteArray<4>>;
 
     auto manager = std::make_shared<RamFileManager>();
     const std::string filename = "indexed_data.txt";
-    SingleFileIndexedStorage<KeyValue<Key<2>, ByteArray<4>>, char> storage(filename, manager, 0);
+    SingleFileIndexedStorage<KeyVal, char, VoidRegister<KeyVal>> storage(
+        filename,
+        manager
+    );
 
     std::vector<KeyValue<Key<2>, ByteArray<4>>> keyValues{
         {Key<2>::fromString("ab"), ByteArray<4>::fromString("xxxx")},
@@ -289,7 +293,9 @@ TEST_CASE("collectWith") {
                    [](const KeyValue<Key<2>, ByteArray<4>> &kv) { return kv.key; });
 
     for (std::size_t i = 0; i < keyValues.size(); ++i) {
-        CHECK_EQ(i, storage.append({keyValues[i].key, ByteArray(keyValues[i].value)}));
+        storage.appendCopy({keyValues[i].key, ByteArray(keyValues[i].value)});
+        CHECK_EQ(i, storage.getLastElementIndex());
+        CHECK_EQ(i, storage.getItemsCount() - 1);
     }
 
     auto keyIndexParser = storage.getCustomDataIterator<StorageValueIgnorer<Key<2>, ByteArray<4>>>();
@@ -308,10 +314,17 @@ TEST_CASE("KeyValueShrinkableStorage shrink smoke test") {
     using namespace supermap;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
-    KeyValueShrinkableStorage<Key<2>, ByteArray<4>, std::uint32_t> storage(
+
+    KeyValueShrinkableStorage<
+        Key<2>,
+        ByteArray<4>,
+        std::uint32_t,
+        VoidRegister<KeyValue<Key<2>, std::uint32_t>>
+    > storage(
         "not-sorted",
         "sorted",
-        manager);
+        manager
+    );
     CHECK_NOTHROW(auto newIndex = storage.shrink(10, "new-index"));
 }
 
@@ -399,14 +412,19 @@ TEST_CASE("KeyValueShrinkableStorage shrink simple") {
     using KeyIndex = KeyValue<Key<2>, std::uint32_t>;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
-    KeyValueShrinkableStorage<Key<2>, ByteArray<4>, std::uint32_t> storage(
+    KeyValueShrinkableStorage<
+        Key<2>,
+        ByteArray<4>,
+        std::uint32_t,
+        VoidRegister<KeyValue<Key<2>, std::uint32_t>>
+    > storage(
         "not-sorted",
         "sorted",
         manager
     );
-    storage.append({Key<2>::fromString("bb"), ByteArray<4>::fromString("1111")});
-    storage.append({Key<2>::fromString("aa"), ByteArray<4>::fromString("2222")});
-    storage.append({Key<2>::fromString("cc"), ByteArray<4>::fromString("3333")});
+    storage.appendCopy({Key<2>::fromString("bb"), ByteArray<4>::fromString("1111")});
+    storage.appendCopy({Key<2>::fromString("aa"), ByteArray<4>::fromString("2222")});
+    storage.appendCopy({Key<2>::fromString("cc"), ByteArray<4>::fromString("3333")});
     CHECK_EQ(storage.getItemsCount(), 3);
     {
         std::vector<Key<2>> notSortedKeys =
@@ -427,7 +445,7 @@ TEST_CASE("KeyValueShrinkableStorage shrink simple") {
             });
         CHECK_EQ(sortedKeys, std::vector<Key<2>>{});
     }
-    SortedSingleFileIndexedStorage<KeyIndex, std::uint32_t> newIndex = storage.shrink(
+    SortedSingleFileIndexedStorage<KeyIndex, std::uint32_t, VoidRegister<KeyIndex>> newIndex = storage.shrink(
         1,
         "new-index"
     );
@@ -440,14 +458,19 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
     using namespace supermap;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
-    KeyValueShrinkableStorage<Key<1>, ByteArray<1>, std::uint32_t> storage(
+    KeyValueShrinkableStorage<
+        Key<1>,
+        ByteArray<1>,
+        std::uint32_t,
+        VoidRegister<KeyValue<Key<1>, std::uint32_t>>
+    > storage(
         "keys-not-sorted",
         "keys-sorted",
         manager
     );
 
     auto append = [&](const std::string &k, const std::string &v) {
-        storage.append({Key<1>::fromString(k), ByteArray<1>::fromString(v)});
+        storage.appendCopy({Key<1>::fromString(k), ByteArray<1>::fromString(v)});
     };
 
     auto keyIndex = [&](const std::string &k, int i) {
@@ -464,7 +487,11 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
     append("2", "t");
 
     {
-        SortedSingleFileIndexedStorage<KeyValue<Key<1>, std::uint32_t>, std::uint32_t> newIndex = storage.shrink(
+        SortedSingleFileIndexedStorage<
+            KeyValue<Key<1>, std::uint32_t>,
+            std::uint32_t,
+            VoidRegister<KeyValue<Key<1>, std::uint32_t>>
+        > newIndex = storage.shrink(
             1,
             "keys-new-index"
         );
@@ -492,7 +519,11 @@ TEST_CASE("KeyValueShrinkableStorage shrink advanced") {
     append("3", "p");
 
     {
-        SortedSingleFileIndexedStorage<KeyValue<Key<1>, std::uint32_t>, std::uint32_t> newIndex = storage.shrink(
+        SortedSingleFileIndexedStorage<
+            KeyValue<Key<1>, std::uint32_t>,
+            std::uint32_t,
+            VoidRegister<KeyValue<Key<1>, std::uint32_t>>
+        > newIndex = storage.shrink(
             2,
             "new-index"
         );
@@ -526,7 +557,7 @@ TEST_CASE ("SortEndIterator 1") {
     };
 
     entries.erase(
-        SortedSingleFileIndexedStorage<CharKV, int>::sortedEndIterator(
+        SortedSingleFileIndexedStorage<CharKV, int, VoidRegister<CharKV>>::sortedEndIterator(
             entries.begin(),
             entries.end(),
             [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
@@ -569,7 +600,7 @@ TEST_CASE ("SortEndIterator 2") {
     };
 
     entries.erase(
-        SortedSingleFileIndexedStorage<CharKV, int>::sortedEndIterator(
+        SortedSingleFileIndexedStorage<CharKV, int, VoidRegister<CharKV>>::sortedEndIterator(
             entries.begin(),
             entries.end(),
             [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
@@ -591,7 +622,7 @@ TEST_CASE("SortedSingleFileIndexedStorage find int") {
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
     std::vector<int> items = {4, 2, 7, 5, 5, 3, 2, 3, 4};
-    SortedSingleFileIndexedStorage<int, int> storage(
+    SortedSingleFileIndexedStorage<int, int, VoidRegister<int>> storage(
         items.begin(),
         items.end(),
         false,
@@ -631,7 +662,7 @@ TEST_CASE("SortedSingleFileIndexedStorage find CharKV") {
         {4, 8},
     };
 
-    SortedSingleFileIndexedStorage<CharKV, int> storage(
+    SortedSingleFileIndexedStorage<CharKV, int, VoidRegister<CharKV>> storage(
         items.begin(),
         items.end(),
         false,
@@ -654,7 +685,7 @@ TEST_CASE("SortedSingleFileIndexedStorage find CharKV") {
     CHECK_EQ(findElem(3), std::optional{CharKV{3, 7}});
 }
 
-TEST_CASE("BinaryCollapsingSortedList") {
+TEST_CASE("BinaryCollapsingSortedStoragesList") {
     using namespace supermap;
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
@@ -669,7 +700,7 @@ TEST_CASE("BinaryCollapsingSortedList") {
         {2, 1},
         {4, 2},
     };
-    auto oldBlock = std::make_unique<SortedSingleFileIndexedStorage<CharKV, char>>(
+    auto oldBlock = std::make_unique<SortedSingleFileIndexedStorage<CharKV, char, VoidRegister<CharKV>>>(
         firstBlockElements.begin(),
         firstBlockElements.end(),
         true,
@@ -679,7 +710,7 @@ TEST_CASE("BinaryCollapsingSortedList") {
         [](const CharKV &a, const CharKV &b) { return a.key == b.key; }
     );
 
-    auto newBlock = std::make_unique<SortedSingleFileIndexedStorage<CharKV, char>>(
+    auto newBlock = std::make_unique<SortedSingleFileIndexedStorage<CharKV, char, VoidRegister<CharKV>>>(
         secondBlockElements.begin(),
         secondBlockElements.end(),
         true,
@@ -689,19 +720,9 @@ TEST_CASE("BinaryCollapsingSortedList") {
         [](const CharKV &a, const CharKV &b) { return a.key == b.key; }
     );
 
-    BinaryCollapsingSortedList<CharKV, char, 2> list;
-    list.pushFront(
-        std::move(oldBlock),
-        [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
-        [](const CharKV &a, const CharKV &b) { return a.key == b.key; },
-        2
-    );
-    list.pushFront(
-        std::move(newBlock),
-        [](const CharKV &a, const CharKV &b) { return a.key < b.key; },
-        [](const CharKV &a, const CharKV &b) { return a.key == b.key; },
-        3
-    );
+    BinaryCollapsingSortedStoragesList<CharKV, char, 2, VoidRegister<CharKV>> list(2);
+    list.append(std::move(oldBlock));
+    list.append(std::move(newBlock));
 
     auto find = [&](char x) {
         return list.find(
@@ -726,11 +747,14 @@ template <
     std::size_t KeyIndexBatchSize
 >
 auto makeSupermap() {
+    using namespace supermap;
+
     using MySupermap = supermap::Supermap<
         supermap::Key<KeyLen>,
         supermap::ByteArray<ValueLen>,
         std::size_t,
-        MaxRamLoad
+        MaxRamLoad,
+        VoidRegister<KeyValue<Key<KeyLen>, std::size_t>>
     >;
     using RamType = supermap::BST<typename MySupermap::KeyType,
                                   typename MySupermap::IndexType,
@@ -738,12 +762,17 @@ auto makeSupermap() {
     using SupermapKvs = supermap::KeyValueStorage<typename MySupermap::KeyType,
                                                   typename MySupermap::ValueType,
                                                   typename MySupermap::BoundsType>;
+    using IndexList = typename MySupermap::DefaultIndexList;
 
     std::shared_ptr<supermap::io::FileManager> fileManager
         = std::make_shared<supermap::io::EncapsulatedFileManager>(
             std::make_shared<supermap::io::TemporaryFolder>("test-folder", true),
             std::make_unique<supermap::io::DiskFileManager>()
         );
+
+    std::function<std::unique_ptr<typename MySupermap::IndexList>()> indexListSupplier = []() {
+        return std::make_unique<IndexList>(KeyIndexBatchSize);
+    };
 
     std::shared_ptr<SupermapKvs> kvs = std::make_shared<MySupermap>(
         std::make_unique<RamType>(),
@@ -755,9 +784,7 @@ auto makeSupermap() {
         [](typename MySupermap::IndexType notSortedSize, typename MySupermap::IndexType) {
             return notSortedSize >= MaxNotSortedSize;
         },
-        []() {
-            return std::make_unique<typename MySupermap::IndexList>();
-        },
+        indexListSupplier,
         KeyIndexBatchSize
     );
 

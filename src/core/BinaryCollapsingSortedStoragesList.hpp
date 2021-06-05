@@ -3,7 +3,7 @@
 #include <cmath>
 
 #include "primitive/Key.hpp"
-#include "SortedSingleFileIndexedStorage.hpp"
+#include "SortedStoragesList.hpp"
 
 namespace supermap {
 
@@ -14,11 +14,18 @@ namespace supermap {
  * @tparam T Type of storage content.
  * @tparam IndexT Type of storage content index.
  * @tparam RankOneSize Size of block which have rank 1.
+ * @tparam EachStorageRegister This list storages register.
  */
-template <typename T, typename IndexT, IndexT RankOneSize>
-class BinaryCollapsingSortedList {
+template <
+    typename T,
+    typename IndexT,
+    IndexT RankOneSize,
+    typename EachStorageRegister
+>
+class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, EachStorageRegister> {
   private:
-    using SortedStorage = SortedSingleFileIndexedStorage<T, IndexT>;
+    using SortedStorage = SortedSingleFileIndexedStorage<T, IndexT, EachStorageRegister>;
+    using BinaryPredicate = std::function<bool(const KeyValue<T, IndexT> &, KeyValue<T, IndexT> &)>;
 
     struct ListNode {
         explicit ListNode(std::unique_ptr<SortedStorage> &&s, std::shared_ptr<ListNode> n)
@@ -41,17 +48,20 @@ class BinaryCollapsingSortedList {
 
   public:
     /**
-     * @brief Accepts ownership of another storage.
-     * @tparam Less Type of less functor.
-     * @tparam Equal Type of equal functor.
-     * @param storage New storage ownership. Its rank must be 1.
-     * @param less Functor compares storage elements. Returns if first received object is less then the second.
-     * @param equal Functor compares storage elements. Returns if first received object is equal to the second.
+     * @brief Creates BinaryCollapsingSortedStoragesList.
+     * @param predLess Binary predicate, returns if the first argument is less then second.
+     * @param predEq Binary predicate, returns if the first argument equals to the second.
      * @param batchSize The size of the batch of @p T objects that are simultaneously stored in RAM.
      */
-    template <typename Less, typename Equal>
-    void pushFront(std::unique_ptr<SortedStorage> &&storage, Less less, Equal equal, IndexT batchSize) {
-        assert(storage != nullptr);
+    explicit BinaryCollapsingSortedStoragesList(IndexT batchSize)
+        : head_(nullptr),
+          batchSize_(batchSize) {}
+
+    /**
+     * @brief Add storage with the largest order to list.
+     * @param storage New storage. Its rank must be 0.
+     */
+    void append(std::unique_ptr<SortedStorage> &&storage) override {
         head_ = std::make_shared<ListNode>(std::move(storage), std::move(head_));
         std::shared_ptr<ListNode> curNode = head_;
         std::shared_ptr<ListNode> nextNode = curNode->next;
@@ -66,9 +76,7 @@ class BinaryCollapsingSortedList {
                 std::vector<SortedStorage>{*nextNode->storage, *curNode->storage},
                 "collapse",
                 curNode->storage->getFileManager(),
-                less,
-                equal,
-                batchSize
+                batchSize_
             );
             nextNode->storage->resetWith(std::move(mergedKeys));
             head_ = nextNode;
@@ -80,15 +88,12 @@ class BinaryCollapsingSortedList {
     /**
      * @brief Searches for the fulfillment of the predicate @p equal in all storages,
      * starting from the last added storages.
-     * @tparam Less Type of less unary predicate.
-     * @tparam Equal Type of equal unary predicate.
      * @param less Predicate, accepts object from storage, returns if it is less than the one required.
      * @param equal Predicate, accepts object from storage, returns if this is the one.
      * @return @p std::nullopt iff object predicate is not fulfilled by any object in all storages,
      * non-empty @p std::optional<T> otherwise.
      */
-    template <typename Less, typename Equal>
-    std::optional<T> find(Less less, Equal equal) {
+    std::optional<T> find(std::function<bool(const T &)> less, std::function<bool(const T &)> equal) override {
         std::shared_ptr<ListNode> curNode = head_;
         while (curNode != nullptr) {
             assert(curNode->valid());
@@ -121,6 +126,7 @@ class BinaryCollapsingSortedList {
 
   private:
     std::shared_ptr<ListNode> head_ = nullptr;
+    IndexT batchSize_;
 };
 
 } // supermap

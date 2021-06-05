@@ -6,13 +6,16 @@
 #include "io/DiskFileManager.hpp"
 
 int main(int, const char **) {
+    using namespace supermap;
+
     supermap::cli::CommandLineInterface cli("supermap");
 
     using MySupermap = supermap::Supermap<
         supermap::Key<1>,
         supermap::ByteArray<1>,
         std::uint32_t,
-        4
+        4,
+        supermap::VoidRegister<KeyValue<Key<1>, std::uint32_t>>
     >;
     using RamType = supermap::BST<MySupermap::KeyType, MySupermap::IndexType, MySupermap::IndexType>;
     using SupermapKvs = supermap::KeyValueStorage<MySupermap::KeyType,
@@ -42,7 +45,7 @@ int main(int, const char **) {
             return notSortedSize >= 3;
         },
         []() {
-            return std::make_unique<MySupermap::IndexList>();
+            return std::make_unique<MySupermap::DefaultIndexList>(4);
         },
         4
     );

@@ -17,7 +17,6 @@ bool operator==(const KeyValue<Key, Value> &a, const KeyValue<Key, Value> &b) {
 }
 }
 
-
 template <
     std::size_t KeyLen,
     std::size_t ValueLen,
@@ -34,11 +33,12 @@ void shrinkStress(std::uint32_t seed) {
     using V = ByteArray<ValueLen>;
     using KV = KeyValue<Key<KeyLen>, ByteArray<ValueLen>>;
     using KI = KeyValue<K, IndexT>;
+    using REG = VoidRegister<KI>;
 
     const std::string NEW_INDEX_FILENAME = "new-index";
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
-    KeyValueShrinkableStorage<K, V, IndexT> storage(
+    KeyValueShrinkableStorage<K, V, IndexT, REG> storage(
         "keys-not-sorted",
         "keys-sorted",
         manager
@@ -77,7 +77,7 @@ void shrinkStress(std::uint32_t seed) {
              ++notSortedIt) {
             newSorted.push_back(std::move(*notSortedIt));
         }
-        auto newSortedEnd = SortedSingleFileIndexedStorage<KV, IndexT>::sortedEndIterator(
+        auto newSortedEnd = SortedSingleFileIndexedStorage<KV, IndexT, REG>::sortedEndIterator(
             newSorted.begin(),
             newSorted.end(),
             [](const KV &a, const KV &b) { return a.key < b.key; },
@@ -116,7 +116,7 @@ void shrinkStress(std::uint32_t seed) {
         }
     };
 
-    auto checkNewIndex = [&](const SortedSingleFileIndexedStorage<KI, IndexT> &newIndex) {
+    auto checkNewIndex = [&](const SortedSingleFileIndexedStorage<KI, IndexT, VoidRegister<KI>> &newIndex) {
         auto newIndexSize = newIndex.getItemsCount();
         auto sortedSize = expectedSortedStorage.size();
         CHECK_EQ(newIndexSize, sortedSize);
@@ -133,7 +133,7 @@ void shrinkStress(std::uint32_t seed) {
         for (std::size_t step = 0; step < IterationLen; ++step) {
             KV randKV(randKey(), randValue());
             appendToExpected(randKV);
-            storage.append(randKV);
+            storage.appendCopy(randKV);
         }
         shrinkExpected();
         checkNewIndex(storage.shrink(BatchSize, NEW_INDEX_FILENAME));

@@ -14,24 +14,23 @@ namespace supermap {
  * @brief Indexed storage that stores all items in the single file.
  * @tparam T Contained objects type.
  * @tparam IndexT Contained objects index.
+ * @tparam RegisterType Type of inner item register.
  */
-template <typename T, typename IndexT>
-class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
+template <typename T, typename IndexT, typename RegisterType>
+class SingleFileIndexedStorage : public IndexedStorage<T, IndexT, RegisterType> {
   public:
-    using IndexedStorage<T, IndexT>::getFileManager;
-    using IndexedStorage<T, IndexT>::getItemsCount;
+    using OrderedStorage<T, IndexT, RegisterType>::getItemsCount;
+    using OrderedStorage<T, IndexT, RegisterType>::getRegister;
 
     /**
-     * @brief Creates storage instance for its reading.
+     * @brief Creates an empty storage.
      * @param storageFilePath Path of the storage file.
      * @param fileManager Shared access to the file manager.
-     * @param itemsCount Number of items in the target storage.
+     * @param reg Item register.
      */
     explicit SingleFileIndexedStorage(const std::filesystem::path &storageFilePath,
-                                      std::shared_ptr<io::FileManager> fileManager,
-                                      IndexT itemsCount)
-        : storageFile_(std::make_shared<io::TemporaryFile>(storageFilePath, std::move(fileManager))),
-          itemsCount_(itemsCount) {
+                                      std::shared_ptr<io::FileManager> fileManager)
+        : storageFile_(std::make_shared<io::TemporaryFile>(storageFilePath, std::move(fileManager))) {
         storageFile_->getFileManager()->create(storageFilePath);
     }
 
@@ -45,7 +44,7 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
     /**
      * @return Shared access to the file system manager.
      */
-    [[nodiscard]] std::shared_ptr<io::FileManager> getFileManager() const noexcept override {
+    [[nodiscard]] std::shared_ptr<io::FileManager> getFileManager() const noexcept {
         return storageFile_->getFileManager();
     }
 
@@ -61,8 +60,8 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
      * are being replaced with each other.
      * @param other Storage to reset with.
      */
-    void resetWith(SingleFileIndexedStorage<T, IndexT> &&other) noexcept {
-        itemsCount_ = other.itemsCount_;
+    virtual void resetWith(SingleFileIndexedStorage<T, IndexT, RegisterType> &&other) noexcept {
+        getRegister() = std::move(other.getRegister());
         auto thisFileManager = getFileManager();
         assert(other.getFileManager() == thisFileManager);
         thisFileManager->swap(other.getStorageFilePath(), getStorageFilePath());
@@ -73,11 +72,11 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
      * @param item New object to be added.
      * @return Index of added item in this storage.
      */
-    IndexT append(const T &item) override {
+    void append(std::unique_ptr<T> &&item) override {
         io::OutputIterator<T> writer = getFileManager()->template getOutputIterator<T>(getStorageFilePath(), true);
-        writer.write(item);
+        writer.write(*item);
         writer.flush();
-        return increaseItemsCount();
+        getRegister().registerItem(*item);
     }
 
     /**
@@ -96,10 +95,13 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
         typename = std::enable_if_t<std::is_same_v<Result, T>>
     >
     void appendAll(IteratorT begin, IteratorT end, Functor func) {
-        io::OutputIterator<Result>
-            writer = getFileManager()->template getOutputIterator<Result>(getStorageFilePath(), true);
-        writer.writeAll(begin, end, func);
-        itemsCount_ += std::distance(begin, end);
+        io::OutputIterator<Result> writer
+            = getFileManager()->template getOutputIterator<Result>(getStorageFilePath(), true);
+        writer.writeAll(begin, end, [&](const auto &obj) {
+            auto fObj = func(obj);
+            getRegister().registerItem(fObj);
+            return fObj;
+        });
         writer.flush();
     }
 
@@ -143,23 +145,8 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT> {
         return io::InputIterator<Out, IndexT>(getFileManager()->getInputStream(getStorageFilePath(), 0));
     }
 
-    /**
-     * @return Number of elements in collection.
-     */
-    IndexT getItemsCount() const noexcept override {
-        return itemsCount_;
-    }
-
   protected:
-    /**
-     * @return Increase elements counter.
-     */
-    IndexT increaseItemsCount() noexcept {
-        return itemsCount_++;
-    }
-
     std::shared_ptr<io::TemporaryFile> storageFile_;
-    IndexT itemsCount_;
 };
 
 } // supermap
