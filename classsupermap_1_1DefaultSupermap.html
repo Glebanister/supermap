@@ -77,9 +77,6 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a11832df3b7dd7d76f00b840af5633a21"><td class="memItemLeft" align="right" valign="top"><a id="a11832df3b7dd7d76f00b840af5633a21"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>Default</b> = <a class="el" href="classsupermap_1_1Supermap.html">supermap::Supermap</a>&lt; <a class="el" href="structsupermap_1_1Key.html">supermap::Key</a>&lt; KeyLen &gt;, <a class="el" href="classsupermap_1_1ByteArray.html">supermap::ByteArray</a>&lt; ValueLen &gt;, std::size_t, MaxRamLoad &gt;</td></tr>
-<tr class="separator:a11832df3b7dd7d76f00b840af5633a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9459b77bcbec569c6c6a02a0d2fe492b"><td class="memItemLeft" align="right" valign="top"><a id="a9459b77bcbec569c6c6a02a0d2fe492b"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>K</b> = <a class="el" href="structsupermap_1_1Key.html">Key</a>&lt; KeyLen &gt;</td></tr>
 <tr class="separator:a9459b77bcbec569c6c6a02a0d2fe492b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -89,12 +86,18 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>I</b> = std::size_t<
 <tr class="memitem:a3567733c1904f59f9a26aad084193b23"><td class="memItemLeft" align="right" valign="top"><a id="a3567733c1904f59f9a26aad084193b23"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>V</b> = <a class="el" href="classsupermap_1_1ByteArray.html">ByteArray</a>&lt; ValueLen &gt;</td></tr>
 <tr class="separator:a3567733c1904f59f9a26aad084193b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11e799eb5553f750564a1f466fbf6f99"><td class="memItemLeft" align="right" valign="top"><a id="a11e799eb5553f750564a1f466fbf6f99"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>MV</b> = <a class="el" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue</a>&lt; <a class="el" href="classsupermap_1_1ByteArray.html">V</a> &gt;</td></tr>
+<tr class="separator:a11e799eb5553f750564a1f466fbf6f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1cc7ad6e57774710cc3b3382c2a8b25"><td class="memItemLeft" align="right" valign="top"><a id="ae1cc7ad6e57774710cc3b3382c2a8b25"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>KI</b> = <a class="el" href="structsupermap_1_1KeyValue.html">KeyValue</a>&lt; <a class="el" href="structsupermap_1_1Key.html">K</a>, I &gt;</td></tr>
 <tr class="separator:ae1cc7ad6e57774710cc3b3382c2a8b25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a413fce038d894f1adb5e1d99cb24e02b"><td class="memItemLeft" align="right" valign="top"><a id="a413fce038d894f1adb5e1d99cb24e02b"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>B</b> = <a class="el" href="structsupermap_1_1Bounds.html">Bounds</a>&lt; I &gt;</td></tr>
 <tr class="separator:a413fce038d894f1adb5e1d99cb24e02b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f47ddbf471f7bd2905ed78805ca1ec7"><td class="memItemLeft" align="right" valign="top"><a id="a6f47ddbf471f7bd2905ed78805ca1ec7"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>Default</b> = <a class="el" href="classsupermap_1_1Supermap.html">Supermap</a>&lt; <a class="el" href="structsupermap_1_1Key.html">K</a>, <a class="el" href="structsupermap_1_1MaybeRemovedValue.html">MV</a>, I, MaxRamLoad &gt;</td></tr>
+<tr class="separator:a6f47ddbf471f7bd2905ed78805ca1ec7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5acb588af7afc56ab37aac6aee7b257d"><td class="memItemLeft" align="right" valign="top"><a id="a5acb588af7afc56ab37aac6aee7b257d"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>RamType</b> = <a class="el" href="classsupermap_1_1BST.html">supermap::BST</a>&lt; <a class="el" href="structsupermap_1_1Key.html">K</a>, I, I &gt;</td></tr>
 <tr class="separator:a5acb588af7afc56ab37aac6aee7b257d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,9 +122,9 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>DefaultBinaryCollaps
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a343b91f5925d4360175f38fb51f6015a"><td class="memItemLeft" align="right" valign="top"><a id="a343b91f5925d4360175f38fb51f6015a"></a>
-static auto&#160;</td><td class="memItemRight" valign="bottom"><b>make</b> ()</td></tr>
-<tr class="separator:a343b91f5925d4360175f38fb51f6015a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa10b5e54baf40a70beff7d7ff1e63b83"><td class="memItemLeft" align="right" valign="top"><a id="aa10b5e54baf40a70beff7d7ff1e63b83"></a>
+static std::shared_ptr&lt; <a class="el" href="classsupermap_1_1RemovableKvs.html">RemovableKvs</a>&lt; <a class="el" href="structsupermap_1_1Key.html">K</a>, <a class="el" href="classsupermap_1_1ByteArray.html">V</a>, <a class="el" href="structsupermap_1_1Bounds.html">B</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>make</b> ()</td></tr>
+<tr class="separator:aa10b5e54baf40a70beff7d7ff1e63b83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/core/<a class="el" href="DefaultSupermap_8hpp_source.html">DefaultSupermap.hpp</a></li>

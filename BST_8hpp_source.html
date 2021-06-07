@@ -85,44 +85,38 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        map_[key] = std::move(value);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b">   30</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b">containsKey</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">return</span> map_.find(key) != map_.end();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classsupermap_1_1BST.html#a601ba28bd32c3370d6ef1019c7419bda">   37</a></span>&#160;    Value <a class="code" href="classsupermap_1_1BST.html#a601ba28bd32c3370d6ef1019c7419bda">getValue</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (!<a class="code" href="classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b">containsKey</a>(key)) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">throw</span> <a class="code" href="classsupermap_1_1IllegalArgumentException.html">IllegalArgumentException</a>(<span class="stringliteral">&quot;Key is not in BST&quot;</span>);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> map_[key];</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classsupermap_1_1BST.html#aed8b4e7aabb6371e17f3a3880eb91185">   30</a></span>&#160;    std::optional&lt;Value&gt; <a class="code" href="classsupermap_1_1BST.html#aed8b4e7aabb6371e17f3a3880eb91185">getValue</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (map_.find(key) == map_.end()) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> std::optional{map_[key]};</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">   40</a></span>&#160;    IndexT <a class="code" href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">getSize</a>() const noexcept<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>IndexT<span class="keyword">&gt;</span>(map_.size());</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">   47</a></span>&#160;    IndexT <a class="code" href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">getSize</a>() const noexcept<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>IndexT<span class="keyword">&gt;</span>(map_.size());</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">   54</a></span>&#160;    std::vector&lt;KeyValue &lt; Key, Value&gt;&gt; <a class="code" href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">extract</a>() &amp;&amp; <span class="keyword">override</span> {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        std::vector&lt;KeyValue &lt; Key, Value&gt;&gt;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        extracted;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;&amp;[k, v] : map_) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            extracted.emplace_back(<a class="code" href="structsupermap_1_1KeyValue.html">KeyValue</a>(std::move(k), std::move(v)));</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        map_.clear();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span> extracted;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    std::map&lt;Key, Value&gt; map_;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">   47</a></span>&#160;    std::vector&lt;KeyValue &lt; Key, Value&gt;&gt; <a class="code" href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">extract</a>() &amp;&amp; <span class="keyword">override</span> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        std::vector&lt;KeyValue &lt; Key, Value&gt;&gt;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        extracted;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;&amp;[k, v] : map_) {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            extracted.emplace_back(<a class="code" href="structsupermap_1_1KeyValue.html">KeyValue</a>(std::move(k), std::move(v)));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        map_.clear();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> extracted;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::map&lt;Key, Value&gt; map_;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// supermap</span></div>
 <div class="ttc" id="aclasssupermap_1_1BST_html"><div class="ttname"><a href="classsupermap_1_1BST.html">supermap::BST</a></div><div class="ttdoc">Implementation of Binary Search Tree with std::map.</div><div class="ttdef"><b>Definition:</b> BST.hpp:16</div></div>
-<div class="ttc" id="aclasssupermap_1_1BST_html_a074f057468b0d76709e633dbf98b352a"><div class="ttname"><a href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">supermap::BST::getSize</a></div><div class="ttdeci">IndexT getSize() const noexcept override</div><div class="ttdef"><b>Definition:</b> BST.hpp:47</div></div>
-<div class="ttc" id="aclasssupermap_1_1BST_html_a601ba28bd32c3370d6ef1019c7419bda"><div class="ttname"><a href="classsupermap_1_1BST.html#a601ba28bd32c3370d6ef1019c7419bda">supermap::BST::getValue</a></div><div class="ttdeci">Value getValue(const Key &amp;key) override</div><div class="ttdef"><b>Definition:</b> BST.hpp:37</div></div>
-<div class="ttc" id="aclasssupermap_1_1BST_html_a8dd230e2b2a6567b6c24433bd1261d27"><div class="ttname"><a href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">supermap::BST::extract</a></div><div class="ttdeci">std::vector&lt; KeyValue&lt; Key, Value &gt; &gt; extract() &amp;&amp;override</div><div class="ttdoc">Move all key-value pairs to the vector, emptying the BST itself.</div><div class="ttdef"><b>Definition:</b> BST.hpp:54</div></div>
+<div class="ttc" id="aclasssupermap_1_1BST_html_a074f057468b0d76709e633dbf98b352a"><div class="ttname"><a href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">supermap::BST::getSize</a></div><div class="ttdeci">IndexT getSize() const noexcept override</div><div class="ttdef"><b>Definition:</b> BST.hpp:40</div></div>
+<div class="ttc" id="aclasssupermap_1_1BST_html_a8dd230e2b2a6567b6c24433bd1261d27"><div class="ttname"><a href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">supermap::BST::extract</a></div><div class="ttdeci">std::vector&lt; KeyValue&lt; Key, Value &gt; &gt; extract() &amp;&amp;override</div><div class="ttdoc">Move all key-value pairs to the vector, emptying the BST itself.</div><div class="ttdef"><b>Definition:</b> BST.hpp:47</div></div>
 <div class="ttc" id="aclasssupermap_1_1BST_html_ad1c724ddef50829f256d0800bdd19ba3"><div class="ttname"><a href="classsupermap_1_1BST.html#ad1c724ddef50829f256d0800bdd19ba3">supermap::BST::add</a></div><div class="ttdeci">void add(const Key &amp;key, Value &amp;&amp;value) override</div><div class="ttdoc">Add key-value pair to BST.</div><div class="ttdef"><b>Definition:</b> BST.hpp:23</div></div>
-<div class="ttc" id="aclasssupermap_1_1BST_html_adbb21ce915286b51c864fe84d967d21b"><div class="ttname"><a href="classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b">supermap::BST::containsKey</a></div><div class="ttdeci">bool containsKey(const Key &amp;key) override</div><div class="ttdef"><b>Definition:</b> BST.hpp:30</div></div>
-<div class="ttc" id="aclasssupermap_1_1ExtractibleKeyValueStorage_html"><div class="ttname"><a href="classsupermap_1_1ExtractibleKeyValueStorage.html">supermap::ExtractibleKeyValueStorage</a></div><div class="ttdoc">KeyValueStorage that can be extracted to the vector.</div><div class="ttdef"><b>Definition:</b> ExtractibleKeyValueStorage.hpp:14</div></div>
-<div class="ttc" id="aclasssupermap_1_1IllegalArgumentException_html"><div class="ttname"><a href="classsupermap_1_1IllegalArgumentException.html">supermap::IllegalArgumentException</a></div><div class="ttdoc">Thrown when some illegal argument is passed.</div><div class="ttdef"><b>Definition:</b> IllegalArgumentException.hpp:10</div></div>
+<div class="ttc" id="aclasssupermap_1_1BST_html_aed8b4e7aabb6371e17f3a3880eb91185"><div class="ttname"><a href="classsupermap_1_1BST.html#aed8b4e7aabb6371e17f3a3880eb91185">supermap::BST::getValue</a></div><div class="ttdeci">std::optional&lt; Value &gt; getValue(const Key &amp;key) override</div><div class="ttdef"><b>Definition:</b> BST.hpp:30</div></div>
+<div class="ttc" id="aclasssupermap_1_1ExtractibleKeyValueStorage_html"><div class="ttname"><a href="classsupermap_1_1ExtractibleKeyValueStorage.html">supermap::ExtractibleKeyValueStorage</a></div><div class="ttdoc">KeyValueStorage that can be extracted to the vector.</div><div class="ttdef"><b>Definition:</b> ExtractibleKeyValueStorage.hpp:15</div></div>
 <div class="ttc" id="astructsupermap_1_1KeyValue_html"><div class="ttname"><a href="structsupermap_1_1KeyValue.html">supermap::KeyValue</a></div><div class="ttdoc">Pair of key and value.</div><div class="ttdef"><b>Definition:</b> KeyValue.hpp:11</div></div>
 <div class="ttc" id="astructsupermap_1_1Key_html"><div class="ttname"><a href="structsupermap_1_1Key.html">supermap::Key</a></div><div class="ttdoc">An array which contains Len bytes in-place (not in the heap memory).</div><div class="ttdef"><b>Definition:</b> Key.hpp:18</div></div>
 </div><!-- fragment --></div><!-- contents -->

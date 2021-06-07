@@ -94,14 +94,17 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8ea1d9026377d64b51d269555f33b823"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueStorage.html#a8ea1d9026377d64b51d269555f33b823">add</a> (const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;key, Value &amp;&amp;value)=0</td></tr>
 <tr class="memdesc:a8ea1d9026377d64b51d269555f33b823"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add file to the storage. More relevant key value overwrites less relevant.  <a href="classsupermap_1_1KeyValueStorage.html#a8ea1d9026377d64b51d269555f33b823">More...</a><br /></td></tr>
 <tr class="separator:a8ea1d9026377d64b51d269555f33b823"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab57adee95980670a1d0862cf635dd8a7"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueStorage.html#ab57adee95980670a1d0862cf635dd8a7">containsKey</a> (const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;key)=0</td></tr>
-<tr class="memdesc:ab57adee95980670a1d0862cf635dd8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if storage contains <code>key</code>.  <a href="classsupermap_1_1KeyValueStorage.html#ab57adee95980670a1d0862cf635dd8a7">More...</a><br /></td></tr>
-<tr class="separator:ab57adee95980670a1d0862cf635dd8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cd13604da8fc692706dc74d965d3777"><td class="memItemLeft" align="right" valign="top">virtual Value&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueStorage.html#a8cd13604da8fc692706dc74d965d3777">getValue</a> (const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;key)=0</td></tr>
-<tr class="memdesc:a8cd13604da8fc692706dc74d965d3777"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads value associated with the given <code>key</code>. If there is no value associated with <code>key</code>, behavior is undefined.  <a href="classsupermap_1_1KeyValueStorage.html#a8cd13604da8fc692706dc74d965d3777">More...</a><br /></td></tr>
-<tr class="separator:a8cd13604da8fc692706dc74d965d3777"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14d7f2623b97d0414ca66873a3ea854e"><td class="memItemLeft" align="right" valign="top">virtual IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueStorage.html#a14d7f2623b97d0414ca66873a3ea854e">getSize</a> () const noexcept=0</td></tr>
-<tr class="separator:a14d7f2623b97d0414ca66873a3ea854e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab885c7fe4b5000fd701cf78c294604fa"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; Value &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueStorage.html#ab885c7fe4b5000fd701cf78c294604fa">getValue</a> (const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;key)=0</td></tr>
+<tr class="memdesc:ab885c7fe4b5000fd701cf78c294604fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads value associated with the given <code>key</code>. If there is no value associated with <code>key</code>, <code>std::nullopt</code> is returned.  <a href="classsupermap_1_1KeyValueStorage.html#ab885c7fe4b5000fd701cf78c294604fa">More...</a><br /></td></tr>
+<tr class="separator:ab885c7fe4b5000fd701cf78c294604fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53afb1598b6884f25c89837883c7bd62"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueStorage.html#a53afb1598b6884f25c89837883c7bd62">contains</a> (const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;key)</td></tr>
+<tr class="memdesc:a53afb1598b6884f25c89837883c7bd62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if storage contains <code>key</code>.  <a href="classsupermap_1_1KeyValueStorage.html#a53afb1598b6884f25c89837883c7bd62">More...</a><br /></td></tr>
+<tr class="separator:a53afb1598b6884f25c89837883c7bd62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2384bab815c25b53b9fde3fe0db8386"><td class="memItemLeft" align="right" valign="top"><a id="ac2384bab815c25b53b9fde3fe0db8386"></a>
+Value&#160;</td><td class="memItemRight" valign="bottom"><b>getValueNonSafe</b> (const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;key)</td></tr>
+<tr class="separator:ac2384bab815c25b53b9fde3fe0db8386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a672851bf084c53eb911d9dbb9be7d360"><td class="memItemLeft" align="right" valign="top">virtual IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueStorage.html#a672851bf084c53eb911d9dbb9be7d360">getSize</a> () const =0</td></tr>
+<tr class="separator:a672851bf084c53eb911d9dbb9be7d360"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename Key, typename Value, typename IndexT&gt;<br />
@@ -162,12 +165,12 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="classsupermap_1_1Supermap.html#a8c2f73008e3db86bb47bc2f2b27d563f">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>, and <a class="el" href="classsupermap_1_1BST.html#ad1c724ddef50829f256d0800bdd19ba3">supermap::BST&lt; Key, Value, IndexT &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsupermap_1_1Supermap.html#a8c2f73008e3db86bb47bc2f2b27d563f">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>, <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#a508a08410fbdf1a61663acd781f93939">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>, and <a class="el" href="classsupermap_1_1BST.html#ad1c724ddef50829f256d0800bdd19ba3">supermap::BST&lt; Key, Value, IndexT &gt;</a>.</p>
 
 </div>
 </div>
-<a id="ab57adee95980670a1d0862cf635dd8a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab57adee95980670a1d0862cf635dd8a7">&#9670;&nbsp;</a></span>containsKey()</h2>
+<a id="a53afb1598b6884f25c89837883c7bd62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53afb1598b6884f25c89837883c7bd62">&#9670;&nbsp;</a></span>contains()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,7 +181,7 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool <a class="el" href="classsupermap_1_1KeyValueStorage.html">supermap::KeyValueStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT &gt;::containsKey </td>
+          <td class="memname">bool <a class="el" href="classsupermap_1_1KeyValueStorage.html">supermap::KeyValueStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT &gt;::contains </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
@@ -187,7 +190,7 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -201,12 +204,10 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If there is any value associated with the given key. </dd></dl>
 
-<p>Implemented in <a class="el" href="classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b">supermap::BST&lt; Key, Value, IndexT &gt;</a>, and <a class="el" href="classsupermap_1_1Supermap.html#a19af6149f3dce7fc201788b3fdd945b8">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>.</p>
-
 </div>
 </div>
-<a id="a14d7f2623b97d0414ca66873a3ea854e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14d7f2623b97d0414ca66873a3ea854e">&#9670;&nbsp;</a></span>getSize()</h2>
+<a id="a672851bf084c53eb911d9dbb9be7d360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a672851bf084c53eb911d9dbb9be7d360">&#9670;&nbsp;</a></span>getSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,18 +226,18 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Size of the storage. </dd></dl>
 
-<p>Implemented in <a class="el" href="classsupermap_1_1Supermap.html#aabe8646b6645363c0bad5593e9bb0212">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>, and <a class="el" href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">supermap::BST&lt; Key, Value, IndexT &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#acc99807d276b5b9f8c6aa4af498eee06">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>, <a class="el" href="classsupermap_1_1Supermap.html#aabe8646b6645363c0bad5593e9bb0212">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>, and <a class="el" href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">supermap::BST&lt; Key, Value, IndexT &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a8cd13604da8fc692706dc74d965d3777"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cd13604da8fc692706dc74d965d3777">&#9670;&nbsp;</a></span>getValue()</h2>
+<a id="ab885c7fe4b5000fd701cf78c294604fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab885c7fe4b5000fd701cf78c294604fa">&#9670;&nbsp;</a></span>getValue()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -247,7 +248,7 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual Value <a class="el" href="classsupermap_1_1KeyValueStorage.html">supermap::KeyValueStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT &gt;::getValue </td>
+          <td class="memname">virtual std::optional&lt;Value&gt; <a class="el" href="classsupermap_1_1KeyValueStorage.html">supermap::KeyValueStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT &gt;::getValue </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
@@ -261,16 +262,16 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Reads value associated with the given <code>key</code>. If there is no value associated with <code>key</code>, behavior is undefined. </p>
+<p>Reads value associated with the given <code>key</code>. If there is no value associated with <code>key</code>, <code>std::nullopt</code> is returned. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">key</td><td><a class="el" href="structsupermap_1_1Key.html" title="An array which contains Len bytes in-place (not in the heap memory).">Key</a> to get value. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Value associated with the given <code>key</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Non-empty <code>std::optional&lt;Value&gt;</code> is value associated with the given <code>key</code> exists, <code>std::nullopt</code> otherwise. </dd></dl>
 
-<p>Implemented in <a class="el" href="classsupermap_1_1BST.html#a601ba28bd32c3370d6ef1019c7419bda">supermap::BST&lt; Key, Value, IndexT &gt;</a>, and <a class="el" href="classsupermap_1_1Supermap.html#ac8f98793e1790efb784407453bb05f6a">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#ae6f252d2491fea3a11ada229b3948381">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>, <a class="el" href="classsupermap_1_1BST.html#aed8b4e7aabb6371e17f3a3880eb91185">supermap::BST&lt; Key, Value, IndexT &gt;</a>, and <a class="el" href="classsupermap_1_1Supermap.html#a12203886e1ed1cb5877d3b04f6d51119">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>.</p>
 
 </div>
 </div>

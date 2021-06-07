@@ -68,6 +68,7 @@ $(function() {
 <li>add()
 : <a class="el" href="classsupermap_1_1BloomFilter.html#a5bd8f5f3c3da38a2f8ad1729fab9587c">supermap::BloomFilter&lt; T &gt;</a>
 , <a class="el" href="classsupermap_1_1BST.html#ad1c724ddef50829f256d0800bdd19ba3">supermap::BST&lt; Key, Value, IndexT &gt;</a>
+, <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#a508a08410fbdf1a61663acd781f93939">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>
 , <a class="el" href="classsupermap_1_1Filter.html#acb59309c969af9cc7ea9d7e896b7dfe4">supermap::Filter&lt; ToAdd, ToContain &gt;</a>
 , <a class="el" href="classsupermap_1_1KeyValueStorage.html#a8ea1d9026377d64b51d269555f33b823">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1MockFilter.html#aeb078c0feba069cc53446a485f4692b5">supermap::MockFilter&lt; ToAdd, ToContain &gt;</a>
@@ -123,10 +124,8 @@ $(function() {
 <li>collectWith()
 : <a class="el" href="classsupermap_1_1io_1_1InputIterator.html#ac5f59e040e1c304801f6d5d524ddc511">supermap::io::InputIterator&lt; T, IndexT, EachSize, typename &gt;</a>
 </li>
-<li>containsKey()
-: <a class="el" href="classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b">supermap::BST&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1KeyValueStorage.html#ab57adee95980670a1d0862cf635dd8a7">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1Supermap.html#a19af6149f3dce7fc201788b3fdd945b8">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>
+<li>contains()
+: <a class="el" href="classsupermap_1_1KeyValueStorage.html#a53afb1598b6884f25c89837883c7bd62">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
 </li>
 <li>CountingStorageItemRegister()
 : <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#acbaddbd18078c8c0dae4e26610eabf29">supermap::CountingStorageItemRegister&lt; T, IndexT, AdditionalInfo &gt;</a>
@@ -156,7 +155,7 @@ $(function() {
 </li>
 <li>extract()
 : <a class="el" href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">supermap::BST&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1ExtractibleKeyValueStorage.html#ac8145050221007c3adb8cac26c115ee6">supermap::ExtractibleKeyValueStorage&lt; Key, Value, IndexT &gt;</a>
+, <a class="el" href="classsupermap_1_1ExtractibleKeyValueStorage.html#a0bd5252523d0a73494b2278c18dd1bb6">supermap::ExtractibleKeyValueStorage&lt; Key, Value, IndexT &gt;</a>
 </li>
 </ul>
 
@@ -190,6 +189,7 @@ $(function() {
 : <a class="el" href="classsupermap_1_1ByteArray.html#adf4f1cc18d9bd24b17f540c1d4bf18e1">supermap::ByteArray&lt; Len &gt;</a>
 , <a class="el" href="classsupermap_1_1io_1_1InputIterator.html#aadd545e0116d643cef3b499683c76b98">supermap::io::InputIterator&lt; T, IndexT, EachSize, typename &gt;</a>
 , <a class="el" href="structsupermap_1_1Key.html#ad9efcf3b6029ed77d2b8209c0657ccb2">supermap::Key&lt; Len &gt;</a>
+, <a class="el" href="structsupermap_1_1MaybeRemovedValue.html#a86dfbf5aaab4fed837c5eb5db7a0ac84">supermap::MaybeRemovedValue&lt; Value &gt;</a>
 </li>
 </ul>
 
@@ -277,7 +277,8 @@ $(function() {
 </li>
 <li>getSize()
 : <a class="el" href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">supermap::BST&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1KeyValueStorage.html#a14d7f2623b97d0414ca66873a3ea854e">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
+, <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#acc99807d276b5b9f8c6aa4af498eee06">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>
+, <a class="el" href="classsupermap_1_1KeyValueStorage.html#a672851bf084c53eb911d9dbb9be7d360">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1Supermap.html#aabe8646b6645363c0bad5593e9bb0212">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>
 </li>
 <li>getSortedEntries()
@@ -293,9 +294,10 @@ $(function() {
 : <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ad41427e9680d561d2fb12c3b40455f26">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getValue()
-: <a class="el" href="classsupermap_1_1BST.html#a601ba28bd32c3370d6ef1019c7419bda">supermap::BST&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1KeyValueStorage.html#a8cd13604da8fc692706dc74d965d3777">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1Supermap.html#ac8f98793e1790efb784407453bb05f6a">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>
+: <a class="el" href="classsupermap_1_1BST.html#aed8b4e7aabb6371e17f3a3880eb91185">supermap::BST&lt; Key, Value, IndexT &gt;</a>
+, <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#ae6f252d2491fea3a11ada229b3948381">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>
+, <a class="el" href="classsupermap_1_1KeyValueStorage.html#ab885c7fe4b5000fd701cf78c294604fa">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
+, <a class="el" href="classsupermap_1_1Supermap.html#a12203886e1ed1cb5877d3b04f6d51119">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>
 </li>
 </ul>
 
@@ -368,10 +370,12 @@ $(function() {
 , <a class="el" href="classsupermap_1_1VoidRegister.html#a01441f68b45aefd9d81379c17fdddef5">supermap::VoidRegister&lt; T &gt;</a>
 </li>
 <li>remove()
-: <a class="el" href="classsupermap_1_1io_1_1DiskFileManager.html#a12ac9c36e3df7369f11ffe4841898e5b">supermap::io::DiskFileManager</a>
+: <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#a40b65cce113eb22a7734170908f9d686">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>
+, <a class="el" href="classsupermap_1_1io_1_1DiskFileManager.html#a12ac9c36e3df7369f11ffe4841898e5b">supermap::io::DiskFileManager</a>
 , <a class="el" href="classsupermap_1_1io_1_1EncapsulatedFileManager.html#ae387bcca58f0d76659d442fb14762463">supermap::io::EncapsulatedFileManager</a>
 , <a class="el" href="classsupermap_1_1io_1_1FileManager.html#ad45d5e6b61090edb3ae094ecc9f652af">supermap::io::FileManager</a>
 , <a class="el" href="classsupermap_1_1io_1_1RamFileManager.html#abcd9e1d0bfafbea2a8f663c45c53adb8">supermap::io::RamFileManager</a>
+, <a class="el" href="classsupermap_1_1RemovableKvs.html#a873177fcc19d5a776db1cfaf238fbfee">supermap::RemovableKvs&lt; Key, Value, Size &gt;</a>
 </li>
 <li>rename()
 : <a class="el" href="classsupermap_1_1io_1_1DiskFileManager.html#a6d7e6f7f5800389dec380ec8282d62dc">supermap::io::DiskFileManager</a>

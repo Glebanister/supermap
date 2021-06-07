@@ -8,7 +8,7 @@ var searchData=
   ['cloneable_3c_20storageitemregister_3c_20t_2c_20info_20_3e_20_3e_15',['Cloneable&lt; StorageItemRegister&lt; T, Info &gt; &gt;',['../classsupermap_1_1Cloneable.html',1,'supermap']]],
   ['collect_16',['collect',['../classsupermap_1_1io_1_1InputIterator.html#a4615bb042b27a2d0a8f66ac4024ea002',1,'supermap::io::InputIterator']]],
   ['collectwith_17',['collectWith',['../classsupermap_1_1io_1_1InputIterator.html#ac5f59e040e1c304801f6d5d524ddc511',1,'supermap::io::InputIterator']]],
-  ['containskey_18',['containsKey',['../classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b',1,'supermap::BST::containsKey()'],['../classsupermap_1_1KeyValueStorage.html#ab57adee95980670a1d0862cf635dd8a7',1,'supermap::KeyValueStorage::containsKey()'],['../classsupermap_1_1Supermap.html#a19af6149f3dce7fc201788b3fdd945b8',1,'supermap::Supermap::containsKey()']]],
+  ['contains_18',['contains',['../classsupermap_1_1KeyValueStorage.html#a53afb1598b6884f25c89837883c7bd62',1,'supermap::KeyValueStorage']]],
   ['countingstorageinfo_19',['CountingStorageInfo',['../structsupermap_1_1CountingStorageInfo.html',1,'supermap']]],
   ['countingstorageinfo_3c_20indext_2c_20void_20_3e_20',['CountingStorageInfo&lt; IndexT, void &gt;',['../structsupermap_1_1CountingStorageInfo_3_01IndexT_00_01void_01_4.html',1,'supermap']]],
   ['countingstorageitemregister_21',['CountingStorageItemRegister',['../classsupermap_1_1CountingStorageItemRegister.html#acbaddbd18078c8c0dae4e26610eabf29',1,'supermap::CountingStorageItemRegister::CountingStorageItemRegister()'],['../classsupermap_1_1CountingStorageItemRegister.html',1,'supermap::CountingStorageItemRegister&lt; T, IndexT, AdditionalInfo &gt;']]],
