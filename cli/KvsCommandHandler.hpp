@@ -4,7 +4,7 @@
 #include <type_traits>
 
 #include "CommandLineInterface.hpp"
-#include "core/Supermap.hpp"
+#include "core/RemovableKvs.hpp"
 #include "primitive/Key.hpp"
 #include "primitive/ByteArray.hpp"
 
@@ -15,7 +15,7 @@ class KvsCommandHandler : public CommandLineInterface::Handler {
   public:
     explicit KvsCommandHandler(const std::string &info,
                                std::size_t argsLen,
-                               std::shared_ptr<KeyValueStorage<Key, Value, Index>> kvs)
+                               std::shared_ptr<RemovableKvs<Key, Value, Index>> kvs)
         : CommandLineInterface::Handler(info),
           kvs_(std::move(kvs)),
           argsLen_(argsLen) {}
@@ -39,7 +39,7 @@ class KvsCommandHandler : public CommandLineInterface::Handler {
     virtual void handleKvs(const std::vector<std::string> &args, std::ostream &os) = 0;
 
   protected:
-    std::shared_ptr<KeyValueStorage<Key, Value, Index>> kvs_;
+    std::shared_ptr<RemovableKvs<Key, Value, Index>> kvs_;
     const std::size_t argsLen_;
 };
 
@@ -48,7 +48,7 @@ class AddKeyHandler : public KvsCommandHandler<Key, Value, Index> {
     using KvsCommandHandler<Key, Value, Index>::kvs_;
 
   public:
-    explicit AddKeyHandler(std::shared_ptr<KeyValueStorage<Key, Value, Index>> kvs)
+    explicit AddKeyHandler(std::shared_ptr<RemovableKvs<Key, Value, Index>> kvs)
         : KvsCommandHandler<Key, Value, Index>("Add key to keys", 2, std::move(kvs)) {}
 
     void handleKvs(const std::vector<std::string> &args, std::ostream &) override {
@@ -56,29 +56,29 @@ class AddKeyHandler : public KvsCommandHandler<Key, Value, Index> {
     }
 };
 
-//template <typename Key, typename Value, typename Index>
-//class RemoveKeyHandler : public KvsCommandHandler<Key, Value, Index> {
-//    using KvsCommandHandler<Key, Value, Index>::kvs_;
-//
-//  public:
-//    explicit RemoveKeyHandler(std::shared_ptr<KeyValueStorage<Key, Value, Index>> kvs)
-//        : KvsCommandHandler<Key, Value, Index>("Remove key from keys", 1, std::move(kvs)) {}
-//
-//    void handleKvs(const std::vector<std::string> &args, std::ostream &) override {
-//        kvs_->remove(Key::fromString(args[0]));
-//    }
-//};
+template <typename Key, typename Value, typename Index>
+class RemoveKeyHandler : public KvsCommandHandler<Key, Value, Index> {
+    using KvsCommandHandler<Key, Value, Index>::kvs_;
+
+  public:
+    explicit RemoveKeyHandler(std::shared_ptr<RemovableKvs<Key, Value, Index>> kvs)
+        : KvsCommandHandler<Key, Value, Index>("Remove key from keys", 1, std::move(kvs)) {}
+
+    void handleKvs(const std::vector<std::string> &args, std::ostream &) override {
+        kvs_->remove(Key::fromString(args[0]));
+    }
+};
 
 template <typename Key, typename Value, typename Index>
 class ContainsKeyHandler : public KvsCommandHandler<Key, Value, Index> {
     using KvsCommandHandler<Key, Value, Index>::kvs_;
 
   public:
-    explicit ContainsKeyHandler(std::shared_ptr<KeyValueStorage<Key, Value, Index>> kvs)
+    explicit ContainsKeyHandler(std::shared_ptr<RemovableKvs<Key, Value, Index>> kvs)
         : KvsCommandHandler<Key, Value, Index>("Check if key in keys", 1, std::move(kvs)) {}
 
     void handleKvs(const std::vector<std::string> &args, std::ostream &os) override {
-        os << (kvs_->containsKey(Key::fromString(args[0])) ? "true" : "false") << std::endl;
+        os << (kvs_->contains(Key::fromString(args[0])) ? "true" : "false") << std::endl;
     }
 };
 
@@ -87,11 +87,11 @@ class GetValueHandler : public KvsCommandHandler<Key, Value, Index> {
     using KvsCommandHandler<Key, Value, Index>::kvs_;
 
   public:
-    explicit GetValueHandler(std::shared_ptr<KeyValueStorage<Key, Value, Index>> kvs)
+    explicit GetValueHandler(std::shared_ptr<RemovableKvs<Key, Value, Index>> kvs)
         : KvsCommandHandler<Key, Value, Index>("Get value of key from keys", 1, std::move(kvs)) {}
 
     void handleKvs(const std::vector<std::string> &args, std::ostream &os) override {
-        os << kvs_->getValue(Key::fromString(args[0])).toString() << std::endl;
+        os << kvs_->getValueNonSafe(Key::fromString(args[0])).toString() << std::endl;
     }
 };
 

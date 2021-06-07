@@ -59,7 +59,7 @@ void stressTestSupermap(std::size_t iterations, std::size_t seed) {
             case 1: {
                 auto key = randKey();
                 bool expectedContains = expectedMap.find(key) != expectedMap.end();
-                CHECK_EQ(expectedContains, kvs->containsKey(key));
+                CHECK_EQ(expectedContains, kvs->contains(key));
                 if (expectedContains) {
                     CHECK_EQ(expectedMap[key], kvs->getValue(key));
                 }
@@ -67,7 +67,7 @@ void stressTestSupermap(std::size_t iterations, std::size_t seed) {
                 break;
             case 2: {
                 auto key = randKey();
-                CHECK_EQ((expectedMap.find(key) != expectedMap.end()), kvs->containsKey(key));
+                CHECK_EQ((expectedMap.find(key) != expectedMap.end()), kvs->contains(key));
             }
                 break;
             default: break;

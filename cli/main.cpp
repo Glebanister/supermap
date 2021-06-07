@@ -13,14 +13,14 @@ int main(int, const char **) {
 
     using K = typename SupermapType::K;
     using V = typename SupermapType::V;
-    using I = typename SupermapType::B;
+    using B = typename SupermapType::B;
 
-    std::shared_ptr<supermap::KeyValueStorage<K, V, I>> kvs = SupermapType::make();
+    std::shared_ptr<supermap::RemovableKvs<K, V, B>> kvs = SupermapType::make();
 
-    cli.addCommand("add", std::make_shared<supermap::cli::AddKeyHandler<K, V, I>>(kvs));
-//    cli.addCommand("remove", std::make_shared<supermap::cli::RemoveKeyHandler<4, 100>>(kvs));
-    cli.addCommand("contains", std::make_shared<supermap::cli::ContainsKeyHandler<K, V, I>>(kvs));
-    cli.addCommand("get", std::make_shared<supermap::cli::GetValueHandler<K, V, I>>(kvs));
+    cli.addCommand("add", std::make_shared<supermap::cli::AddKeyHandler<K, V, B>>(kvs));
+    cli.addCommand("remove", std::make_shared<supermap::cli::RemoveKeyHandler<K, V, B>>(kvs));
+    cli.addCommand("contains", std::make_shared<supermap::cli::ContainsKeyHandler<K, V, B>>(kvs));
+    cli.addCommand("get", std::make_shared<supermap::cli::GetValueHandler<K, V, B>>(kvs));
 
     cli.run(std::cin, std::cout);
 }

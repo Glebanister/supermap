@@ -3,6 +3,7 @@
 #include "Supermap.hpp"
 #include "io/EncapsulatedFileManager.hpp"
 #include "MockFilter.hpp"
+#include "DefaultRemovableKvs.hpp"
 
 namespace supermap {
 
@@ -15,18 +16,13 @@ template <
 >
 class DefaultSupermap {
   public:
-    using Default = supermap::Supermap<
-        supermap::Key<KeyLen>,
-        supermap::ByteArray<ValueLen>,
-        std::size_t,
-        MaxRamLoad
-    >;
-
     using K = Key<KeyLen>;
     using I = std::size_t;
     using V = ByteArray<ValueLen>;
+    using MV = MaybeRemovedValue<V>;
     using KI = KeyValue<K, I>;
     using B = Bounds<I>;
+    using Default = Supermap<K, MV, I, MaxRamLoad>;
 
     using RamType = supermap::BST<K, I, I>;
     using IndexStorageListBase = typename Default::IndexStorageListBase;
@@ -36,7 +32,7 @@ class DefaultSupermap {
     using Register = typename Default::Register;
     using DefaultBinaryCollapsingList = BinaryCollapsingSortedStoragesList<KI, I, MaxRamLoad, RegisterInfo, K>;
 
-    static auto make() {
+    static std::shared_ptr<RemovableKvs<K, V, B>> make() {
         using MyBinaryCollapsingList = BinaryCollapsingSortedStoragesList<KI, I, MaxRamLoad, RegisterInfo, K>;
 
         std::shared_ptr<supermap::io::FileManager> fileManager
@@ -78,7 +74,7 @@ class DefaultSupermap {
                     );
             };
 
-        std::shared_ptr<KeyValueStorage<K, V, Bounds<I>>> kvs = std::make_shared<Default>(
+        std::unique_ptr<KeyValueStorage<K, MV, B>> kvs = std::make_unique<Default>(
             std::make_unique<RamType>(),
             std::make_unique<DiskStorage>(
                 "storage-not-sorted",
@@ -100,7 +96,7 @@ class DefaultSupermap {
             KeyIndexBatchSize
         );
 
-        return kvs;
+        return std::make_shared<DefaultRemovableKvs<K, V, B>>(std::move(kvs));
     }
 };
 

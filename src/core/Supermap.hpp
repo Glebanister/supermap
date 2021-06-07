@@ -83,27 +83,13 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     }
 
     /**
-     * @return If @k is in the storage.
-     */
-    bool containsKey(const Key &k) override {
-        if (innerStorage_->containsKey(k)) {
-            return true;
-        }
-        return diskIndex_->find(
-            k,
-            [](const KeyIndex &ki, const Key &key) { return ki.key < key; },
-            [](const KeyIndex &ki, const Key &key) { return ki.key == key; }
-        ).has_value();
-    }
-
-    /**
      * @return Object of type @p Value which corresponds to given key @p k.
      * @throws KeyException If key is not in the storage.
      */
-    Value getValue(const Key &k) override {
+    std::optional<Value> getValue(const Key &k) override {
         IndexT index;
-        if (innerStorage_->containsKey(k)) {
-            index = innerStorage_->getValue(k);
+        if (auto optIndex = innerStorage_->getValue(k); optIndex.has_value()) {
+            index = optIndex.value();
         } else {
             std::optional<KeyIndex> foundOnDisk = diskIndex_->find(
                 k,
@@ -111,11 +97,11 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
                 [](const KeyIndex &ki, const Key &key) { return ki.key == key; }
             );
             if (!foundOnDisk.has_value()) {
-                throw KeyException(k.toString(), "Not Found");
+                return std::nullopt;
             }
             index = foundOnDisk.value().value;
         }
-        return diskDataStorage_->get(index).value;
+        return std::optional{diskDataStorage_->get(index).value};
     }
 
     /**

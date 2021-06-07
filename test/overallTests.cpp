@@ -772,9 +772,9 @@ TEST_CASE ("Supermap simple") {
     auto value = [](const std::string &s) {
         return ByteArray<3>::fromString(s);
     };
-    CHECK_EQ(superMap->containsKey(key("aa")), false);
+    CHECK_EQ(superMap->contains(key("aa")), false);
     superMap->add(key("aa"), value("111"));
-    CHECK_EQ(superMap->containsKey(key("aa")), true);
+    CHECK_EQ(superMap->contains(key("aa")), true);
     superMap->add(key("ab"), value("123"));
     CHECK_EQ(superMap->getValue(key("ab")), value("123"));
     CHECK_EQ(superMap->getValue(key("aa")), value("111"));

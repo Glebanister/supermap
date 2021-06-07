@@ -25,20 +25,13 @@ class BST : public ExtractibleKeyValueStorage<Key, Value, IndexT> {
     }
 
     /**
-     * @return If BST contains @p key.
-     */
-    bool containsKey(const Key &key) override {
-        return map_.find(key) != map_.end();
-    }
-
-    /**
      * @return The most relevant @p Value associated with @p key.
      */
-    Value getValue(const Key &key) override {
-        if (!containsKey(key)) {
-            throw IllegalArgumentException("Key is not in BST");
+    std::optional<Value> getValue(const Key &key) override {
+        if (map_.find(key) == map_.end()) {
+            return std::nullopt;
         }
-        return map_[key];
+        return std::optional{map_[key]};
     }
 
     /**

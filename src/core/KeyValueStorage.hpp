@@ -1,6 +1,8 @@
 #pragma once
 
-#include <string>
+#include "exception/SupermapException.hpp"
+
+#include <optional>
 
 namespace supermap {
 
@@ -24,24 +26,35 @@ class KeyValueStorage {
     virtual void add(const Key &key, Value &&value) = 0;
 
     /**
+     * @brief Reads value associated with the given @p key.
+     * If there is no value associated with @p key, @p std::nullopt is returned.
+     * @param key Key to get value.
+     * @return Non-empty @p std::optional<Value> is value associated with the given @p key
+     * exists, @p std::nullopt otherwise.
+     */
+    virtual std::optional<Value> getValue(const Key &key) = 0;
+
+    /**
      * @brief Checks if storage contains @p key.
      * @param key Key to find.
      * @return If there is any value associated with the given key.
      */
-    virtual bool containsKey(const Key &key) = 0;
+    bool contains(const Key &key) {
+        return getValue(key).has_value();
+    }
 
-    /**
-     * @brief Reads value associated with the given @p key.
-     * If there is no value associated with @p key, behavior is undefined.
-     * @param key Key to get value.
-     * @return Value associated with the given @p key.
-     */
-    virtual Value getValue(const Key &key) = 0;
+    Value getValueNonSafe(const Key &key) {
+        std::optional<Value> optValue = getValue(key);
+        if (!optValue.has_value()) {
+            throw KeyException(key.toString(), "Not found");
+        }
+        return optValue.value();
+    }
 
     /**
      * @return Size of the storage.
      */
-    virtual IndexT getSize() const noexcept = 0;
+    virtual IndexT getSize() const = 0;
 
     virtual ~KeyValueStorage() = default;
 };
