@@ -38,10 +38,11 @@ void shrinkStress(std::uint32_t seed) {
     const std::string NEW_INDEX_FILENAME = "new-index";
 
     std::shared_ptr<io::FileManager> manager = std::make_shared<io::DiskFileManager>();
-    KeyValueShrinkableStorage<K, V, IndexT, REG> storage(
+    KeyValueShrinkableStorage<K, V, IndexT, void> storage(
         "keys-not-sorted",
         "keys-sorted",
-        manager
+        manager,
+        []() { return std::make_unique<REG>(); }
     );
 
     std::mt19937 rand(seed);
@@ -77,7 +78,7 @@ void shrinkStress(std::uint32_t seed) {
              ++notSortedIt) {
             newSorted.push_back(std::move(*notSortedIt));
         }
-        auto newSortedEnd = SortedSingleFileIndexedStorage<KV, IndexT, REG>::sortedEndIterator(
+        auto newSortedEnd = SortedSingleFileIndexedStorage<KV, IndexT, REG, K>::sortedEndIterator(
             newSorted.begin(),
             newSorted.end(),
             [](const KV &a, const KV &b) { return a.key < b.key; },
@@ -116,7 +117,7 @@ void shrinkStress(std::uint32_t seed) {
         }
     };
 
-    auto checkNewIndex = [&](const SortedSingleFileIndexedStorage<KI, IndexT, VoidRegister<KI>> &newIndex) {
+    auto checkNewIndex = [&](const SortedSingleFileIndexedStorage<KI, IndexT, void, K> &newIndex) {
         auto newIndexSize = newIndex.getItemsCount();
         auto sortedSize = expectedSortedStorage.size();
         CHECK_EQ(newIndexSize, sortedSize);

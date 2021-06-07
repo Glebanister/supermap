@@ -12,17 +12,23 @@ namespace supermap {
  * defined by comparator.
  * @tparam T Stored objects type.
  * @tparam IndexT Storage index type.
- * @tparam RegisterType Inner register type.
+ * @tparam RegisterInfo Inner register info type.
  */
-template <typename T, typename IndexT, typename RegisterType>
-class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT, RegisterType>, public Findable<T> {
+template <
+    typename T,
+    typename IndexT,
+    typename RegisterInfo,
+    typename FindPattern
+>
+class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT, RegisterInfo>,
+                                       public Findable<T, FindPattern> {
   public:
-    using SingleFileIndexedStorage<T, IndexT, RegisterType>::getItemsCount;
-    using SingleFileIndexedStorage<T, IndexT, RegisterType>::get;
-    using SingleFileIndexedStorage<T, IndexT, RegisterType>::append;
-    using SingleFileIndexedStorage<T, IndexT, RegisterType>::appendAll;
-
-    using SingleFileIndexedStorage<T, IndexT, RegisterType>::SingleFileIndexedStorage;
+    using SingleFileIndexedStorage<T, IndexT, RegisterInfo>::getItemsCount;
+    using SingleFileIndexedStorage<T, IndexT, RegisterInfo>::get;
+    using SingleFileIndexedStorage<T, IndexT, RegisterInfo>::append;
+    using SingleFileIndexedStorage<T, IndexT, RegisterInfo>::appendAll;
+    using SingleFileIndexedStorage<T, IndexT, RegisterInfo>::SingleFileIndexedStorage;
+    using InnerRegisterSupplier = typename SingleFileIndexedStorage<T, IndexT, RegisterInfo>::InnerRegisterSupplier;
 
     /**
      * @brief Creates new sorted storage from objects collection.
@@ -48,8 +54,11 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
                                             std::string dataFileName,
                                             std::shared_ptr<io::FileManager> manager,
                                             IsLess isLess,
-                                            IsEq isEq
-    ) : SingleFileIndexedStorage<T, IndexT, RegisterType>(std::move(dataFileName), manager) {
+                                            IsEq isEq,
+                                            InnerRegisterSupplier registerSupplier
+    ) : SingleFileIndexedStorage<T, IndexT, RegisterInfo>(std::move(dataFileName),
+                                                          manager,
+                                                          std::move(registerSupplier)) {
         appendAll(begin, sorted ? end : sortedEndIterator(begin, end, isLess, isEq));
     }
 
@@ -85,13 +94,19 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
     }
 
     /**
-     * @brief Finds an objects, that fulfills @p equal unary predicate.
-     * @param less Unary predicate which indicates if an argument is less than the one required.
-     * @param equal Unary predicate which indicates if an argument equals to the one required.
-     * @return @p std::nullopt if there is no element, which fulfills predicate.
-     * Not empty @p std::optional<T> is returned otherwise.
+     * @brief Searches for the fulfillment of the predicate @p equal in all storages,
+     * starting from the last added storages.
+     * @param pattern Find pattern
+     * @param less Predicate, accepts object from storage and pattern, returns if object is less then pattern.
+     * @param equal Predicate, accepts object from storage and pattern, returns if this is equals to pattern.
+     * @return @p std::nullopt iff object predicate is not fulfilled by any object in all storages,
+     * non-empty @p std::optional<T> otherwise.
      */
-    std::optional<T> find(std::function<bool(const T &)> less, std::function<bool(const T &)> equal) override {
+    std::optional<T> find(
+        const FindPattern &pattern,
+        std::function<bool(const T &, const FindPattern &)> less,
+        std::function<bool(const T &, const FindPattern &)> equal
+    ) override {
         if (getItemsCount() == 0) {
             return std::nullopt;
         }
@@ -100,7 +115,7 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
         while (lastGt - firstLeq > 1) {
             IndexT middle = (firstLeq + lastGt) / 2;
             T middleElem = get(middle);
-            if (less(middleElem) || equal(middleElem)) {
+            if (less(middleElem, pattern) || equal(middleElem, pattern)) {
                 firstLeq = middle;
             } else {
                 lastGt = middle;
@@ -110,7 +125,7 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
             return std::nullopt;
         }
         T firstLeqElem = get(firstLeq);
-        return equal(firstLeqElem) ? std::optional{firstLeqElem} : std::nullopt;
+        return equal(firstLeqElem, pattern) ? std::optional{firstLeqElem} : std::nullopt;
     }
 
     /**
@@ -123,11 +138,16 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
      * @param batchSize The size of the batch of @p T objects that are simultaneously stored in RAM.
      */
     explicit SortedSingleFileIndexedStorage(
-        const std::vector<SortedSingleFileIndexedStorage<T, IndexT, RegisterType>> &newer,
+        const std::vector<SortedSingleFileIndexedStorage<T, IndexT, RegisterInfo, FindPattern>> &newer,
         std::string dataFileName,
         std::shared_ptr<io::FileManager> fileManager,
-        IndexT batchSize
-    ) : SingleFileIndexedStorage<T, IndexT, RegisterType>(std::move(dataFileName), std::move(fileManager)) {
+        IndexT batchSize,
+        InnerRegisterSupplier registerSupplier
+    ) : SingleFileIndexedStorage<T, IndexT, RegisterInfo>(
+        std::move(dataFileName),
+        std::move(fileManager),
+        std::move(registerSupplier)
+    ) {
         const std::size_t storagesCount = newer.size();
         std::vector<IndexT> currentFrontPointers(storagesCount);
         std::vector<std::optional<T>> frontLine(storagesCount, std::nullopt);

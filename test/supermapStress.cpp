@@ -9,6 +9,10 @@
 #include "io/EncapsulatedFileManager.hpp"
 #include "io/TemporaryFolder.hpp"
 #include "io/DiskFileManager.hpp"
+#include "core/MockFilter.hpp"
+#include "core/FilteringRegister.hpp"
+#include "core/FilteredStorage.hpp"
+#include "core/DefaultSupermap.hpp"
 
 extern std::uint32_t timeSeed();
 
@@ -24,44 +28,7 @@ template <
 void stressTestSupermap(std::size_t iterations, std::size_t seed) {
     using namespace supermap;
 
-    using MySupermap = Supermap<
-        Key<KeyLen>,
-        ByteArray<ValueLen>,
-        std::size_t,
-        MaxRamLoad,
-        VoidRegister<KeyValue<Key<KeyLen>, std::size_t>>
-    >;
-    using RamType = BST<typename MySupermap::KeyType,
-                        typename MySupermap::IndexType,
-                        typename MySupermap::IndexType>;
-    using SupermapKvs = KeyValueStorage<typename MySupermap::KeyType,
-                                        typename MySupermap::ValueType,
-                                        typename MySupermap::BoundsType>;
-    using IndexList = typename MySupermap::DefaultIndexList;
-
-    std::shared_ptr<io::FileManager> fileManager
-        = std::make_shared<io::EncapsulatedFileManager>(
-            std::make_shared<io::TemporaryFolder>("test-folder", true),
-            std::make_unique<io::DiskFileManager>()
-        );
-
-    std::shared_ptr<SupermapKvs> kvs = std::make_shared<MySupermap>(
-        std::make_unique<RamType>(),
-        std::make_unique<typename MySupermap::DiskStorage>(
-            "storage-not-sorted",
-            "storage-sorted",
-            fileManager
-        ),
-        [](typename MySupermap::IndexType notSortedSize, typename MySupermap::IndexType) {
-            return notSortedSize >= MaxNotSortedSize;
-        },
-        []() {
-            return std::make_unique<IndexList>(
-                KeyIndexBatchSize
-            );
-        },
-        KeyIndexBatchSize
-    );
+    auto kvs = DefaultSupermap<KeyLen, ValueLen, MaxRamLoad, MaxNotSortedSize, KeyIndexBatchSize>::make();
 
     std::map<Key<KeyLen>, ByteArray<ValueLen>> expectedMap;
     std::mt19937 rand(seed);

@@ -4,57 +4,23 @@
 #include "KvsCommandHandler.hpp"
 #include "core/BST.hpp"
 #include "io/DiskFileManager.hpp"
+#include "core/DefaultSupermap.hpp"
 
 int main(int, const char **) {
-    using namespace supermap;
-
     supermap::cli::CommandLineInterface cli("supermap");
 
-    using MySupermap = supermap::Supermap<
-        supermap::Key<1>,
-        supermap::ByteArray<1>,
-        std::uint32_t,
-        4,
-        supermap::VoidRegister<KeyValue<Key<1>, std::uint32_t>>
-    >;
-    using RamType = supermap::BST<MySupermap::KeyType, MySupermap::IndexType, MySupermap::IndexType>;
-    using SupermapKvs = supermap::KeyValueStorage<MySupermap::KeyType,
-                                                  MySupermap::ValueType,
-                                                  MySupermap::BoundsType>;
+    using SupermapType = supermap::DefaultSupermap<1, 1, 10, 4, 3>;
 
-    using AddHandler = supermap::cli::AddKeyHandler<MySupermap::KeyType,
-                                                    MySupermap::ValueType,
-                                                    MySupermap::BoundsType>;
-    using ContainsKeyHandler = supermap::cli::ContainsKeyHandler<MySupermap::KeyType,
-                                                                 MySupermap::ValueType,
-                                                                 MySupermap::BoundsType>;
-    using GetValueHandler = supermap::cli::GetValueHandler<MySupermap::KeyType,
-                                                           MySupermap::ValueType,
-                                                           MySupermap::BoundsType>;
+    using K = typename SupermapType::K;
+    using V = typename SupermapType::V;
+    using I = typename SupermapType::B;
 
-    std::shared_ptr<supermap::io::FileManager> fileManager = std::make_shared<supermap::io::DiskFileManager>();
+    std::shared_ptr<supermap::KeyValueStorage<K, V, I>> kvs = SupermapType::make();
 
-    std::shared_ptr<SupermapKvs> kvs = std::make_shared<MySupermap>(
-        std::make_unique<RamType>(),
-        std::make_unique<MySupermap::DiskStorage>(
-            "storage-not-sorted",
-            "storage-sorted",
-            fileManager
-        ),
-        [](MySupermap::IndexType notSortedSize, MySupermap::IndexType) {
-            return notSortedSize >= 3;
-        },
-        []() {
-            return std::make_unique<MySupermap::DefaultIndexList>(4);
-        },
-        4
-    );
-
-    cli.addCommand("add", std::make_shared<AddHandler>(kvs));
+    cli.addCommand("add", std::make_shared<supermap::cli::AddKeyHandler<K, V, I>>(kvs));
 //    cli.addCommand("remove", std::make_shared<supermap::cli::RemoveKeyHandler<4, 100>>(kvs));
-    cli.addCommand("contains", std::make_shared<ContainsKeyHandler>(kvs));
-    cli.addCommand("get", std::make_shared<GetValueHandler>(kvs));
+    cli.addCommand("contains", std::make_shared<supermap::cli::ContainsKeyHandler<K, V, I>>(kvs));
+    cli.addCommand("get", std::make_shared<supermap::cli::GetValueHandler<K, V, I>>(kvs));
 
     cli.run(std::cin, std::cout);
-
 }

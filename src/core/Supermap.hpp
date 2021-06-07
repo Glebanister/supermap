@@ -10,6 +10,8 @@
 #include "SortedStoragesList.hpp"
 #include "ExtractibleKeyValueStorage.hpp"
 #include "BinaryCollapsingSortedStoragesList.hpp"
+#include "FilteringRegister.hpp"
+#include "FilteredStorage.hpp"
 
 namespace supermap {
 
@@ -21,62 +23,44 @@ namespace supermap {
  * @tparam Value Type of value.
  * @tparam IndexT Type of Bounds.
  * @tparam MaxRamLoad The largest size of an index that can reside in RAM.
- * @tparam EachIndexRegType Each index storage register.
  */
 template <
     typename Key,
     typename Value,
     typename IndexT,
-    IndexT MaxRamLoad,
-    typename EachIndexRegType
+    IndexT MaxRamLoad
 >
 class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
   public:
     using KeyVal = KeyValue<Key, Value>;
     using KeyIndex = KeyValue<Key, IndexT>;
-    using IndexList = SortedStoragesList<KeyIndex, IndexT, EachIndexRegType>;
-    using RamStorage = ExtractibleKeyValueStorage<Key, IndexT, IndexT>;
-    using DiskStorage = KeyValueShrinkableStorage<Key, Value, IndexT, EachIndexRegType>;
-    using SortedKeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT, EachIndexRegType>;
-    using KeyType = Key;
-    using ValueType = Value;
-    using IndexType = IndexT;
-    using BoundsType = Bounds<IndexT>;
-    using DefaultIndexList = BinaryCollapsingSortedStoragesList<KeyIndex, IndexT, MaxRamLoad, EachIndexRegType>;
+    using Register = FilteringRegister<KeyIndex, Key>;
+    using FilterType = Filter<KeyIndex, Key>;
+    using RegisterInfo = typename Register::ItemsInfo;
+    using FilterSupplier = std::function<std::unique_ptr<FilterType>()>;
+
+    using IndexStorageListBase = SortedStoragesList<KeyIndex, IndexT, RegisterInfo, Key>;
+    using IndexStorageBase = SortedSingleFileIndexedStorage<KeyIndex, IndexT, RegisterInfo, Key>;
+    using RamStorageBase = ExtractibleKeyValueStorage<Key, IndexT, IndexT>;
+    using DiskStorage = KeyValueShrinkableStorage<Key, Value, IndexT, RegisterInfo>;
 
   public:
-    /**
-     * @brief Creates an empty Supermap instance.
-     * @param innerStorage Implementation of internal (RAM) storage.
-     * @param diskDataStorage Implementation of disk storage.
-     * @param shouldShrinkChecker A predicate that takes two parameters:
-     * the size of the unsorted part of the disk storage and the total size of the storage.
-     * The predicate should tell whether shrink should be done.
-     * @param indexListSupplier Producer of index lists.
-     * @param keyIndexBatchSize BatchSize The size of the batch
-     * of @p KeyValue<T,IndexT> objects that are simultaneously stored in RAM.
-     */
-    explicit Supermap(std::unique_ptr<RamStorage> &&innerStorage,
+    explicit Supermap(std::unique_ptr<RamStorageBase> &&innerStorage,
                       std::unique_ptr<DiskStorage> &&diskDataStorage,
                       std::function<bool(IndexT, IndexT)> shouldShrinkChecker,
-                      std::function<std::unique_ptr<IndexList>()> indexListSupplier,
-                      IndexT keyIndexBatchSize
-    )
+                      std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)> keyIndexStorageSupplier,
+                      std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier,
+                      std::function<std::unique_ptr<FilterType>()> filerSupplier,
+                      IndexT keyIndexBatchSize)
         : innerStorage_(std::move(innerStorage)),
           diskDataStorage_(std::move(diskDataStorage)),
           diskIndex_(indexListSupplier()),
           shouldShrinkChecker_(std::move(shouldShrinkChecker)),
-          keyIndexBatchSize_(std::move(keyIndexBatchSize)),
+          keyIndexStorageSupplier_(std::move(keyIndexStorageSupplier)),
           indexListSupplier_(std::move(indexListSupplier)),
-          random(std::chrono::steady_clock::now().time_since_epoch().count()) {
-    }
-
-    /**
-     * @return Number of blocks in collapsing list.
-     */
-    IndexT getCollapsingBlocksListLength() const {
-        return diskIndex_->getItemsCount();
-    }
+          filerSupplier_(std::move(filerSupplier)),
+          keyIndexBatchSize_(keyIndexBatchSize),
+          random(std::chrono::steady_clock::now().time_since_epoch().count()) {}
 
     /**
      * @brief Adds new key-value pair to the storage.
@@ -106,8 +90,9 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
             return true;
         }
         return diskIndex_->find(
-            [&](const KeyIndex &ki) { return ki.key < k; },
-            [&](const KeyIndex &ki) { return ki.key == k; }
+            k,
+            [](const KeyIndex &ki, const Key &key) { return ki.key < key; },
+            [](const KeyIndex &ki, const Key &key) { return ki.key == key; }
         ).has_value();
     }
 
@@ -121,8 +106,9 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
             index = innerStorage_->getValue(k);
         } else {
             std::optional<KeyIndex> foundOnDisk = diskIndex_->find(
-                [&](const KeyIndex &ki) { return ki.key < k; },
-                [&](const KeyIndex &ki) { return ki.key == k; }
+                k,
+                [](const KeyIndex &ki, const Key &key) { return ki.key < key; },
+                [](const KeyIndex &ki, const Key &key) { return ki.key == key; }
             );
             if (!foundOnDisk.has_value()) {
                 throw KeyException(k.toString(), "Not Found");
@@ -161,7 +147,7 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
      * @return New collapsing index block name.
      */
     [[nodiscard]] std::string getNewBlockName() const {
-        return addRandomString(indexFilesPrefix + "block-" + std::to_string(getCollapsingBlocksListLength()));
+        return addRandomString(indexFilesPrefix + "block-" + std::to_string(diskIndex_->getItemsCount()));
     }
 
     void dropRamIndexToDisk() {
@@ -169,35 +155,39 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
             return;
         }
         std::vector<KeyIndex> newBlockKeyIndex = std::move(*innerStorage_).extract();
-        auto newBlock = std::make_unique<SortedKeyIndexStorage>(
+        auto newBlock = IndexStorageBase(
             newBlockKeyIndex.begin(),
             newBlockKeyIndex.end(),
             true,
             getNewBlockName(),
             diskDataStorage_->getFileManager(),
             [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
+            [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; },
+            [filer = filerSupplier_]() { return std::make_unique<Register>(filer); }
         );
-        diskIndex_->append(std::move(newBlock));
+        diskIndex_->append(keyIndexStorageSupplier_(std::move(newBlock)));
     }
 
     void shrinkDataStorage() {
-        auto actualIndex = std::make_unique<SortedKeyIndexStorage>(
+        auto actualIndex = keyIndexStorageSupplier_(
             diskDataStorage_->shrink(
                 keyIndexBatchSize_,
                 addRandomString(indexFilesPrefix + "new-keys=" + std::to_string(getSize().max))
             ));
-        std::unique_ptr<IndexList> newIndexList = indexListSupplier_();
+        std::unique_ptr<IndexStorageListBase> newIndexList = indexListSupplier_();
         newIndexList->append(std::move(actualIndex));
         diskIndex_ = std::move(newIndexList);
     }
 
-    std::unique_ptr<RamStorage> innerStorage_;
+    std::unique_ptr<RamStorageBase> innerStorage_;
     std::unique_ptr<DiskStorage> diskDataStorage_;
-    std::unique_ptr<IndexList> diskIndex_;
+    std::unique_ptr<IndexStorageListBase> diskIndex_;
     std::function<bool(IndexT, IndexT)> shouldShrinkChecker_;
+    std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)>
+        keyIndexStorageSupplier_;
+    std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier_;
+    FilterSupplier filerSupplier_;
     const IndexT keyIndexBatchSize_;
-    std::function<std::unique_ptr<IndexList>()> indexListSupplier_;
     const std::string indexFilesPrefix = "index-";
     mutable std::mt19937 random;
 };

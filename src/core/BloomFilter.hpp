@@ -5,11 +5,16 @@
 
 namespace supermap {
 
-class BloomFilter : public Filter {
+template <typename T>
+class BloomFilter : public Filter<T> {
   public:
-    void addKey(const std::string &key) override;
+    void add(const T &elem) override {
+        throw NotImplementedException("Add key to bloom filter");
+    }
 
-    [[nodiscard]] bool mightContain(const std::string &key) const override;
+    [[nodiscard]] bool mightContain(const T &elem) const override {
+        throw NotImplementedException("Might contain key in bloom filter");
+    }
 };
 
 } // supermap

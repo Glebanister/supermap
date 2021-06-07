@@ -9,6 +9,9 @@ namespace supermap {
  */
 template <typename Key, typename Value>
 struct KeyValue {
+    using KeyType = Key;
+    using ValueType = Value;
+
     KeyValue(Key key_, Value value_)
         : key(std::move(key_)), value(std::move(value_)) {}
 

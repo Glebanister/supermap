@@ -44,6 +44,13 @@ class VoidRegister : public StorageItemRegister<T, void> {
      * @brief Nothing to return since it is a void storage.
      */
     void getRegisteredItemsInfo() const noexcept override {}
+
+    /**
+     * @return Cloned version of void register.
+     */
+    std::unique_ptr<StorageItemRegister<T, void>> clone() const override {
+        return std::make_unique<VoidRegister<T>>();
+    }
 };
 
 /**
@@ -55,25 +62,28 @@ class VoidRegister : public StorageItemRegister<T, void> {
 template <
     typename T,
     typename IndexT,
-    typename InnerStorageRegister,
-    typename AdditionalInfo = typename InnerStorageRegister::ItemsInfo
+    typename AdditionalInfo
 >
 class CountingStorageItemRegister
-    : public StorageItemRegister<T, CountingStorageInfo<IndexT, typename InnerStorageRegister::ItemsInfo>> {
+    : public StorageItemRegister<T, CountingStorageInfo<IndexT, AdditionalInfo>> {
+
   public:
+    using InnerRegister = StorageItemRegister<T, AdditionalInfo>;
+    using InnerRegisterSupplier = std::function<std::unique_ptr<InnerRegister>()>;
+
     /**
      * @brief Creates new empty counting register.
      */
-    explicit CountingStorageItemRegister()
-        : innerRegister_(std::make_unique<InnerStorageRegister>()) {}
+    explicit CountingStorageItemRegister(InnerRegisterSupplier innerStorageSupplier)
+        : innerRegister_(innerStorageSupplier()) {}
 
     CountingStorageItemRegister(const CountingStorageItemRegister &other)
         : count_(other.count_),
-          innerRegister_(std::make_unique<InnerStorageRegister>(*(other.innerRegister_))) {}
+          innerRegister_(other.innerRegister_->clone()) {}
 
     CountingStorageItemRegister &operator=(const CountingStorageItemRegister &other) {
         count_ = other.count_;
-        innerRegister_ = std::make_unique<InnerStorageRegister>(*(other.innerRegister_));
+        innerRegister_ = other.innerRegister_->clone();
     }
 
     CountingStorageItemRegister(CountingStorageItemRegister &&other) noexcept = default;
@@ -98,9 +108,24 @@ class CountingStorageItemRegister
         }
     }
 
+    /**
+     * @return Ownership of counting storage with the same count and inner storage state.
+     */
+    std::unique_ptr<StorageItemRegister<T, CountingStorageInfo<IndexT, AdditionalInfo>>>
+    clone() const override {
+        return std::unique_ptr<CountingStorageItemRegister<T, IndexT, AdditionalInfo>>(
+            new CountingStorageItemRegister(count_,
+                                            innerRegister_->clone())
+        );
+    }
+
   private:
+    explicit CountingStorageItemRegister(IndexT count,
+                                         std::unique_ptr<StorageItemRegister<T, AdditionalInfo>> &&innerRegister)
+        : count_(count), innerRegister_(std::move(innerRegister)) {}
+
     IndexT count_ = 0;
-    std::unique_ptr<InnerStorageRegister> innerRegister_;
+    std::unique_ptr<StorageItemRegister<T, AdditionalInfo>> innerRegister_;
 };
 
 } // supermap

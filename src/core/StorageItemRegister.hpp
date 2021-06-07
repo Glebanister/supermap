@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Cloneable.hpp"
+
 namespace supermap {
 
 /**
@@ -9,8 +11,9 @@ namespace supermap {
  * @tparam Info Registration information type.
  */
 template <typename T, typename Info>
-class StorageItemRegister {
+class StorageItemRegister : public Cloneable<StorageItemRegister<T, Info>> {
   public:
+    using ToRegister = T;
     using ItemsInfo = Info;
 
     /**

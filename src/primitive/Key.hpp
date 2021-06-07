@@ -45,7 +45,7 @@ struct Key : public std::array<std::uint8_t, Len> {
     static Key<Len> fromString(const std::string &strKey) {
         if (strKey.length() != Len) {
             throw IllegalArgumentException(
-                "String key length can not be greater than template size parameter");
+                "String key length can not be greater than template size parameter, expected: " + std::to_string(Len));
         }
 
         Key<Len> arrKey;

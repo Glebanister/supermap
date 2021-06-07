@@ -14,23 +14,27 @@ namespace supermap {
  * @brief Indexed storage that stores all items in the single file.
  * @tparam T Contained objects type.
  * @tparam IndexT Contained objects index.
- * @tparam RegisterType Type of inner item register.
+ * @tparam RegisterInfo Type of inner item register info.
  */
-template <typename T, typename IndexT, typename RegisterType>
-class SingleFileIndexedStorage : public IndexedStorage<T, IndexT, RegisterType> {
+template <typename T, typename IndexT, typename RegisterInfo>
+class SingleFileIndexedStorage : public IndexedStorage<T, IndexT, RegisterInfo> {
   public:
-    using OrderedStorage<T, IndexT, RegisterType>::getItemsCount;
-    using OrderedStorage<T, IndexT, RegisterType>::getRegister;
+    using OrdStorage = OrderedStorage<T, IndexT, RegisterInfo>;
+    using InnerRegisterSupplier = typename OrdStorage::CountingRegister::InnerRegisterSupplier;
+    using OrdStorage::getItemsCount;
+    using OrdStorage::getRegister;
 
     /**
      * @brief Creates an empty storage.
      * @param storageFilePath Path of the storage file.
      * @param fileManager Shared access to the file manager.
-     * @param reg Item register.
+     * @param registerSupplier Register supplier.
      */
     explicit SingleFileIndexedStorage(const std::filesystem::path &storageFilePath,
-                                      std::shared_ptr<io::FileManager> fileManager)
-        : storageFile_(std::make_shared<io::TemporaryFile>(storageFilePath, std::move(fileManager))) {
+                                      std::shared_ptr<io::FileManager> fileManager,
+                                      InnerRegisterSupplier registerSupplier)
+        : IndexedStorage<T, IndexT, RegisterInfo>(std::move(registerSupplier)),
+          storageFile_(std::make_shared<io::TemporaryFile>(storageFilePath, std::move(fileManager))) {
         storageFile_->getFileManager()->create(storageFilePath);
     }
 
@@ -60,7 +64,7 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT, RegisterType> 
      * are being replaced with each other.
      * @param other Storage to reset with.
      */
-    virtual void resetWith(SingleFileIndexedStorage<T, IndexT, RegisterType> &&other) noexcept {
+    virtual void resetWith(SingleFileIndexedStorage<T, IndexT, RegisterInfo> &&other) noexcept {
         getRegister() = std::move(other.getRegister());
         auto thisFileManager = getFileManager();
         assert(other.getFileManager() == thisFileManager);

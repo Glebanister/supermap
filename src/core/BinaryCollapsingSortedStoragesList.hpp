@@ -14,19 +14,23 @@ namespace supermap {
  * @tparam T Type of storage content.
  * @tparam IndexT Type of storage content index.
  * @tparam RankOneSize Size of block which have rank 1.
- * @tparam EachStorageRegister This list storages register.
+ * @tparam InnerRegisterInfo This list storages registers info.
  */
 template <
     typename T,
     typename IndexT,
     IndexT RankOneSize,
-    typename EachStorageRegister
+    typename InnerRegisterInfo,
+    typename FindPatternType
 >
-class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, EachStorageRegister> {
+class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, InnerRegisterInfo, FindPatternType> {
   private:
-    using SortedStorage = SortedSingleFileIndexedStorage<T, IndexT, EachStorageRegister>;
-    using BinaryPredicate = std::function<bool(const KeyValue<T, IndexT> &, KeyValue<T, IndexT> &)>;
+    using SortedStorage = SortedSingleFileIndexedStorage<T, IndexT, InnerRegisterInfo, FindPatternType>;
+    using InnerRegisterSupplier = typename SortedStorage::InnerRegisterSupplier;
 
+    /**
+     * @brief A node in linked list of storages.
+     */
     struct ListNode {
         explicit ListNode(std::unique_ptr<SortedStorage> &&s, std::shared_ptr<ListNode> n)
             : storage(std::move(s)), next(std::move(n)) {}
@@ -34,10 +38,16 @@ class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, 
         std::unique_ptr<SortedStorage> storage;
         std::shared_ptr<ListNode> next;
 
+        /**
+         * @return If node's storage is initialized.
+         */
         bool valid() {
             return storage != nullptr;
         }
 
+        /**
+         * @return Rank of corresponding storage.
+         */
         IndexT getRank() {
             assert(valid());
             IndexT size = storage->getItemsCount();
@@ -49,13 +59,13 @@ class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, 
   public:
     /**
      * @brief Creates BinaryCollapsingSortedStoragesList.
-     * @param predLess Binary predicate, returns if the first argument is less then second.
-     * @param predEq Binary predicate, returns if the first argument equals to the second.
      * @param batchSize The size of the batch of @p T objects that are simultaneously stored in RAM.
+     * @param innerRegisterSupplier Supplier of registers for all inner storages.
      */
-    explicit BinaryCollapsingSortedStoragesList(IndexT batchSize)
+    explicit BinaryCollapsingSortedStoragesList(IndexT batchSize, InnerRegisterSupplier innerRegisterSupplier)
         : head_(nullptr),
-          batchSize_(batchSize) {}
+          batchSize_(batchSize),
+          innerRegisterSupplier_(std::move(innerRegisterSupplier)) {}
 
     /**
      * @brief Add storage with the largest order to list.
@@ -76,7 +86,8 @@ class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, 
                 std::vector<SortedStorage>{*nextNode->storage, *curNode->storage},
                 "collapse",
                 curNode->storage->getFileManager(),
-                batchSize_
+                batchSize_,
+                innerRegisterSupplier_
             );
             nextNode->storage->resetWith(std::move(mergedKeys));
             head_ = nextNode;
@@ -88,16 +99,21 @@ class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, 
     /**
      * @brief Searches for the fulfillment of the predicate @p equal in all storages,
      * starting from the last added storages.
-     * @param less Predicate, accepts object from storage, returns if it is less than the one required.
-     * @param equal Predicate, accepts object from storage, returns if this is the one.
+     * @param pattern Find pattern.
+     * @param less Predicate, accepts object from storage and pattern, returns if object is less then pattern.
+     * @param equal Predicate, accepts object from storage and pattern, returns if this is equals to pattern.
      * @return @p std::nullopt iff object predicate is not fulfilled by any object in all storages,
      * non-empty @p std::optional<T> otherwise.
      */
-    std::optional<T> find(std::function<bool(const T &)> less, std::function<bool(const T &)> equal) override {
+    std::optional<T> find(
+        const FindPatternType &pattern,
+        std::function<bool(const T &, const FindPatternType &)> less,
+        std::function<bool(const T &, const FindPatternType &)> equal
+    ) override {
         std::shared_ptr<ListNode> curNode = head_;
         while (curNode != nullptr) {
             assert(curNode->valid());
-            std::optional<T> found = curNode->storage->find(less, equal);
+            std::optional<T> found = curNode->storage->find(pattern, less, equal);
             if (found.has_value()) {
                 return found;
             }
@@ -106,27 +122,10 @@ class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, 
         return std::nullopt;
     }
 
-    /**
-     * @brief Traverses through all storages with given consumer.
-     * @tparam Consumer Type of consumer.
-     * @param consumer Consumer which is applicable for @p const @p &T.
-     */
-    template <
-        typename Consumer,
-        typename = std::enable_if_t<std::is_invocable_r_v<void, Consumer &, const SortedStorage &>>
-    >
-    void consumeStorages(Consumer &consumer) {
-        std::shared_ptr<ListNode> curNode = head_;
-        while (curNode != nullptr) {
-            assert(curNode->valid());
-            consumer(*curNode->storage);
-            curNode = curNode->next;
-        }
-    }
-
   private:
     std::shared_ptr<ListNode> head_ = nullptr;
     IndexT batchSize_;
+    InnerRegisterSupplier innerRegisterSupplier_;
 };
 
 } // supermap

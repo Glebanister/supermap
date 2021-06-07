@@ -25,23 +25,24 @@ struct StorageValueIgnorer {
  * @tparam Key key type.
  * @tparam Value value type.
  * @tparam IndexT type of storage index.
+ * @tparam KeyIndexRegisterInfo Type of index storages information.
+ * @tparam IndexFindPatternType Find pattern of index storages.
  */
 template <
     typename Key,
     typename Value,
     typename IndexT,
-    typename IndexRegisterInfo
+    typename KeyIndexRegisterInfo
 >
-class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
-                                                        IndexT,
-                                                        VoidRegister<KeyValue<Key, Value>>> {
+class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, IndexT, void> {
     using KV = KeyValue<Key, Value>;
-    using KVS = IndexedStorage<KV, IndexT, VoidRegister<KV>>;
+    using KVS = IndexedStorage<KV, IndexT, void>;
     using KVS::getItemsCount;
     using KVS::getRegister;
     using KeyIndex = KeyValue<Key, IndexT>;
-    using KeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT, IndexRegisterInfo>;
+    using KeyIndexStorage = SortedSingleFileIndexedStorage<KeyIndex, IndexT, KeyIndexRegisterInfo, Key>;
     using ValueIgnorer = StorageValueIgnorer<Key, Value>;
+    using InnerRegisterSupplier = typename KeyIndexStorage::InnerRegisterSupplier;
 
   public:
     /**
@@ -53,9 +54,16 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
     explicit KeyValueShrinkableStorage(
         const std::string &notSortedStorageFilename,
         const std::string &sortedStorageFilename,
-        std::shared_ptr<io::FileManager> fileManager
-    ) : sortedStorage_(sortedStorageFilename, fileManager),
-        notSortedStorage_(notSortedStorageFilename, fileManager) {
+        std::shared_ptr<io::FileManager> fileManager,
+        InnerRegisterSupplier innerRegisterSupplier
+    ) : IndexedStorage<KeyValue<Key, Value>, IndexT, void>([]() { return std::make_unique<VoidRegister<KV>>(); }),
+        sortedStorage_(sortedStorageFilename,
+                       fileManager,
+                       []() { return std::make_unique<VoidRegister<KV>>(); }),
+        notSortedStorage_(notSortedStorageFilename,
+                          fileManager,
+                          []() { return std::make_unique<VoidRegister<KV>>(); }),
+        innerRegisterSupplier_(std::move(innerRegisterSupplier)) {
     }
 
     /**
@@ -77,8 +85,14 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
         const std::string &notSortedStorageFilename,
         const std::string &sortedStorageFilename,
         std::size_t indexBatchSize
-    ) : sortedStorage_(sortedStorageFilename, oldStorage.getFileManager()),
-        notSortedStorage_(notSortedStorageFilename, oldStorage.getFileManager()) {
+    ) : IndexedStorage<KeyValue<Key, Value>, IndexT, void>([]() { return std::make_unique<VoidRegister<KV>>(); }),
+        sortedStorage_(sortedStorageFilename,
+                       oldStorage.getFileManager(),
+                       []() { return std::make_unique<VoidRegister<KV>>(); }),
+        notSortedStorage_(notSortedStorageFilename,
+                          oldStorage.getFileManager(),
+                          []() { return std::make_unique<VoidRegister<KV>>(); }),
+        innerRegisterSupplier_(oldStorage.innerRegisterSupplier_) {
         auto indexIterator = actualIndex.getDataIterator();
         io::OutputIterator<KV> keyValueOutputIterator
             = getFileManager()->template getOutputIterator<KV>(
@@ -109,6 +123,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
     void resetWith(KeyValueShrinkableStorage &&other) {
         sortedStorage_.resetWith(std::move(other.sortedStorage_));
         notSortedStorage_.resetWith(std::move(other.notSortedStorage_));
+        innerRegisterSupplier_ = std::move(other.innerRegisterSupplier_);
     }
 
     /**
@@ -226,8 +241,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
         sortedBatches.reserve(batchesCount + 1);
         tempFilesLock.reserve(batchesCount + 1);
 
-        KeyIndexStorage exportedKeys
-            = exportKeys(shrinkBatchSize, tempSortedIndexFilename);
+        KeyIndexStorage exportedKeys = exportKeys(shrinkBatchSize, tempSortedIndexFilename);
         tempFilesLock.push_back(exportedKeys.shareStorageFile());
 
         sortedBatches.push_back(std::move(exportedKeys));
@@ -247,7 +261,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
                 batchFileName,
                 getFileManager(),
                 [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
-                [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; }
+                [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; },
+                innerRegisterSupplier_
             );
             tempFilesLock.push_back(sortedBatch.shareStorageFile());
             assert(sortedBatch.getItemsCount() > 0 && "Batch file can not be empty");
@@ -258,7 +273,8 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
             sortedBatches,
             newIndexFileName,
             getFileManager(),
-            shrinkBatchSize
+            shrinkBatchSize,
+            innerRegisterSupplier_
         );
 
         resetWith(KeyValueShrinkableStorage(
@@ -285,7 +301,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
      * @return Storage instance.
      */
     KeyIndexStorage exportKeys(IndexT batchSize, const std::string &keysFilename) {
-        KeyIndexStorage sortedIndex(keysFilename, getFileManager());
+        KeyIndexStorage sortedIndex(keysFilename, getFileManager(), innerRegisterSupplier_);
         auto it = sortedStorage_.template getCustomDataIterator<ValueIgnorer>();
         auto keys = it.collectWith([](ValueIgnorer &&kvi, IndexT ind) {
             return KeyIndex{std::move(kvi.key), ind};
@@ -299,8 +315,9 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>,
         return sortedIndex;
     }
 
-    SortedSingleFileIndexedStorage<KV, IndexT, VoidRegister<KV>> sortedStorage_;
-    SingleFileIndexedStorage<KV, IndexT, VoidRegister<KV>> notSortedStorage_;
+    SortedSingleFileIndexedStorage<KV, IndexT, void, Key> sortedStorage_;
+    SingleFileIndexedStorage<KV, IndexT, void> notSortedStorage_;
+    InnerRegisterSupplier innerRegisterSupplier_;
 };
 
 namespace io {

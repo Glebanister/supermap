@@ -9,11 +9,19 @@ namespace supermap {
  * Element added later is of lower order.
  * @tparam T Storage content type.
  * @tparam IndexT Storage order type.
- * @tparam RegisterType Storage register type.
+ * @tparam RegisterInfo Storage register info type.
  */
-template <typename T, typename IndexT, typename RegisterType>
+template <typename T, typename IndexT, typename RegisterInfo>
 class OrderedStorage {
   public:
+    using CountingRegister = CountingStorageItemRegister<T, IndexT, RegisterInfo>;
+
+    /**
+     * @param registerSupplier Supplier that creates storage items register.
+     */
+    explicit OrderedStorage(typename CountingRegister::InnerRegisterSupplier registerSupplier)
+        : register_(std::move(registerSupplier)) {}
+
     /**
      * @brief Add element to the end of storage (which will have the greatest order).
      * Order of added element is @p getLastElementIndex().
@@ -47,7 +55,7 @@ class OrderedStorage {
     /**
      * @return Registered items information.
      */
-    const auto &getRegisterInfo() noexcept {
+    auto getRegisterInfo() noexcept {
         return getRegister().getRegisteredItemsInfo();
     }
 
@@ -57,12 +65,12 @@ class OrderedStorage {
     /**
      * @return Reference on associated storage item register.
      */
-    CountingStorageItemRegister<T, IndexT, RegisterType> &getRegister() {
+    CountingStorageItemRegister<T, IndexT, RegisterInfo> &getRegister() {
         return register_;
     }
 
   private:
-    CountingStorageItemRegister<T, IndexT, RegisterType> register_;
+    CountingStorageItemRegister<T, IndexT, RegisterInfo> register_;
 };
 
 } // supermap
