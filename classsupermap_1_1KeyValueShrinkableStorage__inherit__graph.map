@@ -1,5 +1,5 @@
-<map id="supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;" name="supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;">
-<area shape="rect" id="node1" title="Storage, which contains keys and associated values. Consists of two parts: the one,..." alt="" coords="477,13,679,69"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1IndexedStorage.html" title=" " alt="" coords="235,5,429,76"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,20,187,61"/>
+<map id="supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;" name="supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;">
+<area shape="rect" id="node1" title="Storage, which contains keys and associated values. Consists of two parts: the one,..." alt="" coords="5,199,207,255"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1IndexedStorage.html" title=" " alt="" coords="19,95,193,151"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="18,5,194,47"/>
 </map>

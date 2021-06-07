@@ -72,21 +72,28 @@ $(function() {
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Cloneable.hpp&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>supermap {</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classsupermap_1_1Filter.html">    7</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1Filter.html">Filter</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> addKey(<span class="keyword">const</span> std::string &amp;key) = 0;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">bool</span> mightContain(<span class="keyword">const</span> std::string &amp;key) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">virtual</span> ~<a class="code" href="classsupermap_1_1Filter.html">Filter</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;};</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// supermap</span></div>
-<div class="ttc" id="aclasssupermap_1_1Filter_html"><div class="ttname"><a href="classsupermap_1_1Filter.html">supermap::Filter</a></div><div class="ttdef"><b>Definition:</b> Filter.hpp:7</div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>supermap {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> ToAdd, <span class="keyword">typename</span> ToContain&gt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classsupermap_1_1Filter.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1Filter.html">Filter</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1Cloneable.html">Cloneable</a>&lt;Filter&lt;ToAdd, ToContain&gt;&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">using</span> AddType = ToAdd;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">using</span> ContainType = ToContain;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classsupermap_1_1Filter.html#acb59309c969af9cc7ea9d7e896b7dfe4">   25</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1Filter.html#acb59309c969af9cc7ea9d7e896b7dfe4">add</a>(<span class="keyword">const</span> ToAdd &amp;elem) = 0;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classsupermap_1_1Filter.html#a8e5410866034a706d87c57f8992e1a4c">   34</a></span>&#160;    [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classsupermap_1_1Filter.html#a8e5410866034a706d87c57f8992e1a4c">mightContain</a>(<span class="keyword">const</span> ToContain &amp;elem) <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="ttc" id="aclasssupermap_1_1Cloneable_html"><div class="ttname"><a href="classsupermap_1_1Cloneable.html">supermap::Cloneable</a></div><div class="ttdoc">Object which can produce cloned versions.</div><div class="ttdef"><b>Definition:</b> Cloneable.hpp:12</div></div>
+<div class="ttc" id="aclasssupermap_1_1Filter_html"><div class="ttname"><a href="classsupermap_1_1Filter.html">supermap::Filter</a></div><div class="ttdoc">Filter, which can add elements to self and tell which elements are certainly were not added to filter...</div><div class="ttdef"><b>Definition:</b> Filter.hpp:16</div></div>
+<div class="ttc" id="aclasssupermap_1_1Filter_html_a8e5410866034a706d87c57f8992e1a4c"><div class="ttname"><a href="classsupermap_1_1Filter.html#a8e5410866034a706d87c57f8992e1a4c">supermap::Filter::mightContain</a></div><div class="ttdeci">virtual bool mightContain(const ToContain &amp;elem) const =0</div><div class="ttdoc">Check if key could be added to filter. It means, that false positive result has place to be,...</div></div>
+<div class="ttc" id="aclasssupermap_1_1Filter_html_acb59309c969af9cc7ea9d7e896b7dfe4"><div class="ttname"><a href="classsupermap_1_1Filter.html#acb59309c969af9cc7ea9d7e896b7dfe4">supermap::Filter::add</a></div><div class="ttdeci">virtual void add(const ToAdd &amp;elem)=0</div><div class="ttdoc">Add elem to filter.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Supermap: supermap::IndexedStorage&lt; T, IndexT, RegisterType &gt; Class Template Reference</title>
+<title>Supermap: supermap::IndexedStorage&lt; T, IndexT, RegisterInfo &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classsupermap_1_1IndexedStorage-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">supermap::IndexedStorage&lt; T, IndexT, RegisterType &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">supermap::IndexedStorage&lt; T, IndexT, RegisterInfo &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -79,81 +79,89 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="IndexedStorage_8hpp_source.html">IndexedStorage.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for supermap::IndexedStorage&lt; T, IndexT, RegisterType &gt;:</div>
+Inheritance diagram for supermap::IndexedStorage&lt; T, IndexT, RegisterInfo &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1IndexedStorage__inherit__graph.png" border="0" usemap="#asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_inherit__map" id="asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_inherit__map">
-<area shape="rect" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="235,64,416,105"/>
-<area shape="rect" href="classsupermap_1_1SingleFileIndexedStorage.html" title=" " alt="" coords="473,8,681,79"/>
-<area shape="rect" href="classsupermap_1_1SingleFileIndexedStorage.html" title="Indexed storage that stores all items in the single file." alt="" coords="464,104,691,145"/>
-<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,64,187,105"/>
-<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="739,5,992,76"/>
-<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="775,101,956,157"/>
+<div class="center"><img src="classsupermap_1_1IndexedStorage__inherit__graph.png" border="0" usemap="#asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterInfo_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterInfo_01_4_inherit__map" id="asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterInfo_01_4_inherit__map">
+<area shape="rect" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="229,79,404,120"/>
+<area shape="rect" href="classsupermap_1_1SingleFileIndexedStorage.html" title=" " alt="" coords="462,25,662,81"/>
+<area shape="rect" href="classsupermap_1_1SingleFileIndexedStorage.html" title="Indexed storage that stores all items in the single file." alt="" coords="452,115,672,156"/>
+<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,79,181,120"/>
+<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="721,5,901,76"/>
+<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="721,100,901,171"/>
+<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="720,195,901,251"/>
+<area shape="rect" href="classsupermap_1_1FilteredStorage.html" title="Sorted single file indexed storage with filter as a additional register." alt="" coords="949,107,1152,163"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for supermap::IndexedStorage&lt; T, IndexT, RegisterType &gt;:</div>
+Collaboration diagram for supermap::IndexedStorage&lt; T, IndexT, RegisterInfo &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1IndexedStorage__coll__graph.png" border="0" usemap="#asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_coll__map" id="asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_coll__map">
-<area shape="rect" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="5,95,187,136"/>
-<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,187,47"/>
+<div class="center"><img src="classsupermap_1_1IndexedStorage__coll__graph.png" border="0" usemap="#asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterInfo_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterInfo_01_4_coll__map" id="asupermap_1_1IndexedStorage_3_01T_00_01IndexT_00_01RegisterInfo_01_4_coll__map">
+<area shape="rect" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="6,95,181,136"/>
+<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,181,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a80a364e2e09a1e503931a3b797873dfd"><td class="memItemLeft" align="right" valign="top">virtual T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1IndexedStorage.html#a80a364e2e09a1e503931a3b797873dfd">get</a> (IndexT index) const =0</td></tr>
-<tr class="separator:a80a364e2e09a1e503931a3b797873dfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a></td></tr>
-<tr class="memitem:a3a7739d40bcd55b850ffecca73dc7102 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="a3a7739d40bcd55b850ffecca73dc7102"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a3a7739d40bcd55b850ffecca73dc7102">append</a> (std::unique_ptr&lt; T &gt; &amp;&amp;)=0</td></tr>
-<tr class="memdesc:a3a7739d40bcd55b850ffecca73dc7102 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex()</a></code>. <br /></td></tr>
-<tr class="separator:a3a7739d40bcd55b850ffecca73dc7102 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="ab7741ad1a746cd6e8badb8a5b224f7c3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#ab7741ad1a746cd6e8badb8a5b224f7c3">appendCopy</a> (T elem)</td></tr>
-<tr class="memdesc:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add copy of an element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex()</a></code>. <br /></td></tr>
-<tr class="separator:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a876c3fcdaa0e07e5f07faf5e425014d4 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">virtual IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a876c3fcdaa0e07e5f07faf5e425014d4">getItemsCount</a> () const noexcept</td></tr>
-<tr class="separator:a876c3fcdaa0e07e5f07faf5e425014d4 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7467cb0a77057464037ad4fddf693a50 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex</a> () const noexcept</td></tr>
-<tr class="separator:a7467cb0a77057464037ad4fddf693a50 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79c65797187c7cfdbe8b6e1fc41bb058 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a79c65797187c7cfdbe8b6e1fc41bb058">getRegisterInfo</a> () noexcept</td></tr>
-<tr class="separator:a79c65797187c7cfdbe8b6e1fc41bb058 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a129c394bb6cc2d7543db42f94b325277"><td class="memItemLeft" align="right" valign="top">virtual T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1IndexedStorage.html#a129c394bb6cc2d7543db42f94b325277">get</a> (IndexT index) const =0</td></tr>
+<tr class="separator:a129c394bb6cc2d7543db42f94b325277"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a></td></tr>
+<tr class="memitem:a0c307adc31ad7cd7744a2da97d3b8113 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a0c307adc31ad7cd7744a2da97d3b8113">OrderedStorage</a> (typename CountingRegister::InnerRegisterSupplier registerSupplier)</td></tr>
+<tr class="separator:a0c307adc31ad7cd7744a2da97d3b8113 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb6aa97832a3b49e96e2f90aa7bfe6be inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="aeb6aa97832a3b49e96e2f90aa7bfe6be"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#aeb6aa97832a3b49e96e2f90aa7bfe6be">append</a> (std::unique_ptr&lt; T &gt; &amp;&amp;)=0</td></tr>
+<tr class="memdesc:aeb6aa97832a3b49e96e2f90aa7bfe6be inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex()</a></code>. <br /></td></tr>
+<tr class="separator:aeb6aa97832a3b49e96e2f90aa7bfe6be inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63602bf8048399de13719b19966906af inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="a63602bf8048399de13719b19966906af"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a63602bf8048399de13719b19966906af">appendCopy</a> (T elem)</td></tr>
+<tr class="memdesc:a63602bf8048399de13719b19966906af inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add copy of an element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex()</a></code>. <br /></td></tr>
+<tr class="separator:a63602bf8048399de13719b19966906af inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa164c190bb40c9ff5d96e02a5647dd7a inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">virtual IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#aa164c190bb40c9ff5d96e02a5647dd7a">getItemsCount</a> () const noexcept</td></tr>
+<tr class="separator:aa164c190bb40c9ff5d96e02a5647dd7a inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c897292491b06f99238ed137feeedc inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex</a> () const noexcept</td></tr>
+<tr class="separator:a76c897292491b06f99238ed137feeedc inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c0d9724d1ffd9a8543e6ba17954625 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a98c0d9724d1ffd9a8543e6ba17954625">getRegisterInfo</a> () noexcept</td></tr>
+<tr class="separator:a98c0d9724d1ffd9a8543e6ba17954625 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a></td></tr>
-<tr class="memitem:afb7c9992c6acb5c1c8f7e0309460456c inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterType &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#afb7c9992c6acb5c1c8f7e0309460456c">getRegister</a> ()</td></tr>
-<tr class="separator:afb7c9992c6acb5c1c8f7e0309460456c inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a></td></tr>
+<tr class="memitem:ad04da464c5e2395a062ef0c0ca39e8dd inherit pub_types_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="ad04da464c5e2395a062ef0c0ca39e8dd"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>CountingRegister</b> = <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterInfo &gt;</td></tr>
+<tr class="separator:ad04da464c5e2395a062ef0c0ca39e8dd inherit pub_types_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a></td></tr>
+<tr class="memitem:acf6833d7bbb51a7f78f57a269c544394 inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterInfo &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#acf6833d7bbb51a7f78f57a269c544394">getRegister</a> ()</td></tr>
+<tr class="separator:acf6833d7bbb51a7f78f57a269c544394 inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename IndexT, typename RegisterType&gt;<br />
-class supermap::IndexedStorage&lt; T, IndexT, RegisterType &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, typename IndexT, typename RegisterInfo&gt;<br />
+class supermap::IndexedStorage&lt; T, IndexT, RegisterInfo &gt;</h3>
 
 <p>A storage that represents something from which you can take an element by index and add an element to the end. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Type of contained objects. </td></tr>
     <tr><td class="paramname">IndexT</td><td>Type of storage index. </td></tr>
-    <tr><td class="paramname">RegisterType</td><td>Inner register type. </td></tr>
+    <tr><td class="paramname">RegisterInfo</td><td>Inner register info type. </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a80a364e2e09a1e503931a3b797873dfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80a364e2e09a1e503931a3b797873dfd">&#9670;&nbsp;</a></span>get()</h2>
+<a id="a129c394bb6cc2d7543db42f94b325277"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a129c394bb6cc2d7543db42f94b325277">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual T <a class="el" href="classsupermap_1_1IndexedStorage.html">supermap::IndexedStorage</a>&lt; T, IndexT, RegisterType &gt;::get </td>
+          <td class="memname">virtual T <a class="el" href="classsupermap_1_1IndexedStorage.html">supermap::IndexedStorage</a>&lt; T, IndexT, RegisterInfo &gt;::get </td>
           <td>(</td>
           <td class="paramtype">IndexT&#160;</td>
           <td class="paramname"><em>index</em></td><td>)</td>
@@ -168,7 +176,7 @@ template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>object <code>T</code> which has index <code>index</code>. </dd></dl>
 
-<p>Implemented in <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a9e6d7561bb09d238f55088d38155eb77">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a9e6d7561bb09d238f55088d38155eb77">supermap::SingleFileIndexedStorage&lt; supermap::KeyValue, IndexT, supermap::VoidRegister&lt; supermap::KeyValue &gt; &gt;</a>, and <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a8b3c90cffa16f435948c040aadb99041">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ad0750fbe31aa5da2ba767e6eea9e8a35">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ad0750fbe31aa5da2ba767e6eea9e8a35">supermap::SingleFileIndexedStorage&lt; supermap::KeyValue, IndexT, void &gt;</a>, and <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a326b37880d402f7cc940e0b05775b3b4">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>.</p>
 
 </div>
 </div>

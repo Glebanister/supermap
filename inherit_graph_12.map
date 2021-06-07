@@ -1,4 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1FixedDeserializedSize.html" title=" " alt="" coords="5,5,208,47"/>
-<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1FixedDeserializedSizeRegister_3_01Key_3_01KeyLen_01_4_01_4.html" title=" " alt="" coords="256,5,461,47"/>
+<area shape="rect" id="node1" href="$classsupermap_1_1io_1_1FileManager.html" title="File system explorer." alt="" coords="5,64,177,91"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1io_1_1DiskFileManager.html" title="Actual file system manager." alt="" coords="225,5,424,32"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1io_1_1EncapsulatedFileManager.html" title="Capsule for other FileManager. Isolates all inner FileManager activity in the root." alt="" coords="235,57,414,98"/>
+<area shape="rect" id="node4" href="$classsupermap_1_1io_1_1RamFileManager.html" title="Virtual file manager. None of actions are affecting real file system. All changes are stored in opera..." alt="" coords="225,123,424,149"/>
 </map>

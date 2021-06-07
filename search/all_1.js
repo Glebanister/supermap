@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['binarycollapsingsortedstorageslist_5',['BinaryCollapsingSortedStoragesList',['../classsupermap_1_1BinaryCollapsingSortedStoragesList.html#abaa696b1617b9634d2566d817a4f2cf9',1,'supermap::BinaryCollapsingSortedStoragesList::BinaryCollapsingSortedStoragesList()'],['../classsupermap_1_1BinaryCollapsingSortedStoragesList.html',1,'supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;']]],
+  ['binarycollapsingsortedstorageslist_5',['BinaryCollapsingSortedStoragesList',['../classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ae8b73176726f16bb3ec50621ee1fd552',1,'supermap::BinaryCollapsingSortedStoragesList::BinaryCollapsingSortedStoragesList()'],['../classsupermap_1_1BinaryCollapsingSortedStoragesList.html',1,'supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;']]],
   ['bloomfilter_6',['BloomFilter',['../classsupermap_1_1BloomFilter.html',1,'supermap']]],
   ['bounds_7',['Bounds',['../structsupermap_1_1Bounds.html',1,'supermap']]],
   ['bst_8',['BST',['../classsupermap_1_1BST.html',1,'supermap']]],

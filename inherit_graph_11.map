@@ -1,5 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1FixedDeserializedSize.html" title=" " alt="" coords="5,38,312,109"/>
-<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1FixedDeserializedSizeRegister_3_01KeyValue_3_01Key_00_01Value_01_4_01_4.html" title="FixedDeserializedSizeRegister template specialization for KeyValue. Sets exactDeserializedSize as the..." alt="" coords="371,5,573,61"/>
-<area shape="rect" id="node3" href="$structsupermap_1_1io_1_1FixedDeserializedSizeRegister_3_01StorageValueIgnorer_3_01Key_00_01Value_01_4_01_4.html" title="Register of StorageValueIgnorer deserialized size." alt="" coords="360,85,584,141"/>
+<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1Deserializable.html" title=" " alt="" coords="5,143,187,184"/>
+<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1ShallowDeserializer.html" title=" " alt="" coords="235,5,449,47"/>
+<area shape="rect" id="node4" href="$structsupermap_1_1io_1_1DeserializeHelper_3_01ByteArray_3_01Len_01_4_01_4.html" title="DeserializeHelper template specialization for ByteArray." alt="" coords="251,71,433,112"/>
+<area shape="rect" id="node5" href="$structsupermap_1_1io_1_1DeserializeHelper_3_01KeyValue_3_01Key_00_01Value_01_4_01_4.html" title="DeserializeHelper template specialization for KeyValue." alt="" coords="260,135,424,191"/>
+<area shape="rect" id="node6" href="$structsupermap_1_1io_1_1DeserializeHelper_3_01StorageValueIgnorer_3_01Key_00_01Value_01_4_01_4.html" title="DeserializeHelper template specialization for StorageValueIgnorer." alt="" coords="247,215,437,271"/>
+<area shape="rect" id="node7" href="$structsupermap_1_1io_1_1ShallowDeserializer.html" title="Template for DeserializeHelper which deserializes object shallowly." alt="" coords="235,295,449,336"/>
+<area shape="rect" id="node3" href="$structsupermap_1_1io_1_1DeserializeHelper_3_01Key_3_01KeyLen_01_4_01_4.html" title=" " alt="" coords="497,5,668,47"/>
+<area shape="rect" id="node8" href="$structsupermap_1_1io_1_1DeserializeHelper_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_01_4_01_4.html" title="Default DeserializeHelper for all integral types." alt="" coords="501,280,665,351"/>
 </map>

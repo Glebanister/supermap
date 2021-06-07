@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Supermap: supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt; Class Template Reference</title>
+<title>Supermap: supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classsupermap_1_1BinaryCollapsingSortedStoragesList-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt; Class Template Reference</div>  </div>
+<div class="title">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -80,68 +80,93 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="BinaryCollapsingSortedStoragesList_8hpp_source.html">BinaryCollapsingSortedStoragesList.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;:</div>
+Inheritance diagram for supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1BinaryCollapsingSortedStoragesList__inherit__graph.png" border="0" usemap="#asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01EachStorageRegister_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01EachStorageRegister_01_4_inherit__map" id="asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01EachStorageRegister_01_4_inherit__map">
-<area shape="rect" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="71,199,301,269"/>
-<area shape="rect" href="classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="91,95,281,151"/>
-<area shape="rect" href="classsupermap_1_1Findable.html" title="An abstract storage where element of type T can be found." alt="" coords="5,13,169,39"/>
-<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="194,5,375,47"/>
+<div class="center"><img src="classsupermap_1_1BinaryCollapsingSortedStoragesList__inherit__graph.png" border="0" usemap="#asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01InnerRegisterInfo_00_01FindPatternType_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01InnerRegisterInfo_00_01FindPatternType_01_4_inherit__map" id="asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01InnerRegisterInfo_00_01FindPatternType_01_4_inherit__map">
+<area shape="rect" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="45,199,279,269"/>
+<area shape="rect" href="classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="65,95,259,151"/>
+<area shape="rect" href="classsupermap_1_1Findable.html" title="An abstract storage where element of type T can be found." alt="" coords="5,5,140,47"/>
+<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="165,5,341,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;:</div>
+Collaboration diagram for supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1BinaryCollapsingSortedStoragesList__coll__graph.png" border="0" usemap="#asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01EachStorageRegister_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01EachStorageRegister_01_4_coll__map" id="asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01EachStorageRegister_01_4_coll__map">
-<area shape="rect" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="71,199,301,269"/>
-<area shape="rect" href="classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="91,95,281,151"/>
-<area shape="rect" href="classsupermap_1_1Findable.html" title="An abstract storage where element of type T can be found." alt="" coords="5,13,169,39"/>
-<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="194,5,375,47"/>
+<div class="center"><img src="classsupermap_1_1BinaryCollapsingSortedStoragesList__coll__graph.png" border="0" usemap="#asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01InnerRegisterInfo_00_01FindPatternType_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01InnerRegisterInfo_00_01FindPatternType_01_4_coll__map" id="asupermap_1_1BinaryCollapsingSortedStoragesList_3_01T_00_01IndexT_00_01RankOneSize_00_01InnerRegisterInfo_00_01FindPatternType_01_4_coll__map">
+<area shape="rect" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="45,199,279,269"/>
+<area shape="rect" href="classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="65,95,259,151"/>
+<area shape="rect" href="classsupermap_1_1Findable.html" title="An abstract storage where element of type T can be found." alt="" coords="5,5,140,47"/>
+<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="165,5,341,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abaa696b1617b9634d2566d817a4f2cf9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#abaa696b1617b9634d2566d817a4f2cf9">BinaryCollapsingSortedStoragesList</a> (IndexT batchSize)</td></tr>
-<tr class="memdesc:abaa696b1617b9634d2566d817a4f2cf9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank...">BinaryCollapsingSortedStoragesList</a>.  <a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#abaa696b1617b9634d2566d817a4f2cf9">More...</a><br /></td></tr>
-<tr class="separator:abaa696b1617b9634d2566d817a4f2cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39a015c95adeb96309943cdf6216c0fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a39a015c95adeb96309943cdf6216c0fa">append</a> (std::unique_ptr&lt; <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedStorage</a> &gt; &amp;&amp;storage) override</td></tr>
-<tr class="memdesc:a39a015c95adeb96309943cdf6216c0fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add storage with the largest order to list.  <a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a39a015c95adeb96309943cdf6216c0fa">More...</a><br /></td></tr>
-<tr class="separator:a39a015c95adeb96309943cdf6216c0fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5f45709e78713c30288099f356d21cd"><td class="memItemLeft" align="right" valign="top">std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ab5f45709e78713c30288099f356d21cd">find</a> (std::function&lt; bool(const T &amp;)&gt; less, std::function&lt; bool(const T &amp;)&gt; equal) override</td></tr>
-<tr class="memdesc:ab5f45709e78713c30288099f356d21cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for the fulfillment of the predicate <code>equal</code> in all storages, starting from the last added storages.  <a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ab5f45709e78713c30288099f356d21cd">More...</a><br /></td></tr>
-<tr class="separator:ab5f45709e78713c30288099f356d21cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6583f5be5edaada8debada2e3f1b9386"><td class="memTemplParams" colspan="2">template&lt;typename Consumer , typename  = std::enable_if_t&lt;std::is_invocable_r_v&lt;void, Consumer &amp;, const SortedStorage &amp;&gt;&gt;&gt; </td></tr>
-<tr class="memitem:a6583f5be5edaada8debada2e3f1b9386"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a6583f5be5edaada8debada2e3f1b9386">consumeStorages</a> (Consumer &amp;consumer)</td></tr>
-<tr class="memdesc:a6583f5be5edaada8debada2e3f1b9386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traverses through all storages with given consumer.  <a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a6583f5be5edaada8debada2e3f1b9386">More...</a><br /></td></tr>
-<tr class="separator:a6583f5be5edaada8debada2e3f1b9386"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a></td></tr>
-<tr class="memitem:a3a7739d40bcd55b850ffecca73dc7102 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="a3a7739d40bcd55b850ffecca73dc7102"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a3a7739d40bcd55b850ffecca73dc7102">append</a> (std::unique_ptr&lt; T &gt; &amp;&amp;)=0</td></tr>
-<tr class="memdesc:a3a7739d40bcd55b850ffecca73dc7102 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex()</a></code>. <br /></td></tr>
-<tr class="separator:a3a7739d40bcd55b850ffecca73dc7102 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="ab7741ad1a746cd6e8badb8a5b224f7c3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#ab7741ad1a746cd6e8badb8a5b224f7c3">appendCopy</a> (T elem)</td></tr>
-<tr class="memdesc:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add copy of an element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex()</a></code>. <br /></td></tr>
-<tr class="separator:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a876c3fcdaa0e07e5f07faf5e425014d4 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">virtual IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a876c3fcdaa0e07e5f07faf5e425014d4">getItemsCount</a> () const noexcept</td></tr>
-<tr class="separator:a876c3fcdaa0e07e5f07faf5e425014d4 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7467cb0a77057464037ad4fddf693a50 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex</a> () const noexcept</td></tr>
-<tr class="separator:a7467cb0a77057464037ad4fddf693a50 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79c65797187c7cfdbe8b6e1fc41bb058 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a79c65797187c7cfdbe8b6e1fc41bb058">getRegisterInfo</a> () noexcept</td></tr>
-<tr class="separator:a79c65797187c7cfdbe8b6e1fc41bb058 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8b73176726f16bb3ec50621ee1fd552"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ae8b73176726f16bb3ec50621ee1fd552">BinaryCollapsingSortedStoragesList</a> (IndexT batchSize, InnerRegisterSupplier innerRegisterSupplier)</td></tr>
+<tr class="memdesc:ae8b73176726f16bb3ec50621ee1fd552"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank...">BinaryCollapsingSortedStoragesList</a>.  <a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ae8b73176726f16bb3ec50621ee1fd552">More...</a><br /></td></tr>
+<tr class="separator:ae8b73176726f16bb3ec50621ee1fd552"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f020cbc6be8b59f39fb6563b7b587e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a8f020cbc6be8b59f39fb6563b7b587e9">append</a> (std::unique_ptr&lt; <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedStorage</a> &gt; &amp;&amp;storage) override</td></tr>
+<tr class="memdesc:a8f020cbc6be8b59f39fb6563b7b587e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add storage with the largest order to list.  <a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a8f020cbc6be8b59f39fb6563b7b587e9">More...</a><br /></td></tr>
+<tr class="separator:a8f020cbc6be8b59f39fb6563b7b587e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a512f42618c3810fb39acb5f1efa6f1"><td class="memItemLeft" align="right" valign="top">std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a7a512f42618c3810fb39acb5f1efa6f1">find</a> (const FindPatternType &amp;pattern, std::function&lt; bool(const T &amp;, const FindPatternType &amp;)&gt; less, std::function&lt; bool(const T &amp;, const FindPatternType &amp;)&gt; equal) override</td></tr>
+<tr class="memdesc:a7a512f42618c3810fb39acb5f1efa6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for the fulfillment of the predicate <code>equal</code> in all storages, starting from the last added storages.  <a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a7a512f42618c3810fb39acb5f1efa6f1">More...</a><br /></td></tr>
+<tr class="separator:a7a512f42618c3810fb39acb5f1efa6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classsupermap_1_1Findable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1Findable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1Findable.html">supermap::Findable&lt; T, P &gt;</a></td></tr>
+<tr class="memitem:a61d23e3d52e26e9777d014fd21419a42 inherit pub_methods_classsupermap_1_1Findable"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1Findable.html#a61d23e3d52e26e9777d014fd21419a42">find</a> (const P &amp;pattern, std::function&lt; bool(const T &amp;, const P &amp;)&gt; less, std::function&lt; bool(const T &amp;, const P &amp;)&gt; equal)=0</td></tr>
+<tr class="memdesc:a61d23e3d52e26e9777d014fd21419a42 inherit pub_methods_classsupermap_1_1Findable"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for the fulfillment of the predicate <code>equal</code> in all storages, starting from the last added storages.  <a href="classsupermap_1_1Findable.html#a61d23e3d52e26e9777d014fd21419a42">More...</a><br /></td></tr>
+<tr class="separator:a61d23e3d52e26e9777d014fd21419a42 inherit pub_methods_classsupermap_1_1Findable"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a></td></tr>
+<tr class="memitem:a0c307adc31ad7cd7744a2da97d3b8113 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a0c307adc31ad7cd7744a2da97d3b8113">OrderedStorage</a> (typename CountingRegister::InnerRegisterSupplier registerSupplier)</td></tr>
+<tr class="separator:a0c307adc31ad7cd7744a2da97d3b8113 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb6aa97832a3b49e96e2f90aa7bfe6be inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="aeb6aa97832a3b49e96e2f90aa7bfe6be"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#aeb6aa97832a3b49e96e2f90aa7bfe6be">append</a> (std::unique_ptr&lt; T &gt; &amp;&amp;)=0</td></tr>
+<tr class="memdesc:aeb6aa97832a3b49e96e2f90aa7bfe6be inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex()</a></code>. <br /></td></tr>
+<tr class="separator:aeb6aa97832a3b49e96e2f90aa7bfe6be inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63602bf8048399de13719b19966906af inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="a63602bf8048399de13719b19966906af"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a63602bf8048399de13719b19966906af">appendCopy</a> (T elem)</td></tr>
+<tr class="memdesc:a63602bf8048399de13719b19966906af inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add copy of an element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex()</a></code>. <br /></td></tr>
+<tr class="separator:a63602bf8048399de13719b19966906af inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa164c190bb40c9ff5d96e02a5647dd7a inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">virtual IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#aa164c190bb40c9ff5d96e02a5647dd7a">getItemsCount</a> () const noexcept</td></tr>
+<tr class="separator:aa164c190bb40c9ff5d96e02a5647dd7a inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c897292491b06f99238ed137feeedc inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex</a> () const noexcept</td></tr>
+<tr class="separator:a76c897292491b06f99238ed137feeedc inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c0d9724d1ffd9a8543e6ba17954625 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a98c0d9724d1ffd9a8543e6ba17954625">getRegisterInfo</a> () noexcept</td></tr>
+<tr class="separator:a98c0d9724d1ffd9a8543e6ba17954625 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a></td></tr>
-<tr class="memitem:afb7c9992c6acb5c1c8f7e0309460456c inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterType &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#afb7c9992c6acb5c1c8f7e0309460456c">getRegister</a> ()</td></tr>
-<tr class="separator:afb7c9992c6acb5c1c8f7e0309460456c inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classsupermap_1_1SortedStoragesList"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classsupermap_1_1SortedStoragesList')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classsupermap_1_1SortedStoragesList.html">supermap::SortedStoragesList&lt; T, IndexT, InnerRegisterInfo, FindPatternType &gt;</a></td></tr>
+<tr class="memitem:a9c12a9c898f7fec58ee8e22319725da5 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memItemLeft" align="right" valign="top"><a id="a9c12a9c898f7fec58ee8e22319725da5"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ContentType</b> = T</td></tr>
+<tr class="separator:a9c12a9c898f7fec58ee8e22319725da5 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a303ba75e218a0bf38969c38c5927c5f7 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memItemLeft" align="right" valign="top"><a id="a303ba75e218a0bf38969c38c5927c5f7"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>IndexType</b> = IndexT</td></tr>
+<tr class="separator:a303ba75e218a0bf38969c38c5927c5f7 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10183e2f2d8f0abd815d5078cd997962 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memItemLeft" align="right" valign="top"><a id="a10183e2f2d8f0abd815d5078cd997962"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>RegisterType</b> = InnerRegisterInfo</td></tr>
+<tr class="separator:a10183e2f2d8f0abd815d5078cd997962 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea3f283a42c61b01e47aa0af1201e566 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memItemLeft" align="right" valign="top"><a id="aea3f283a42c61b01e47aa0af1201e566"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>FindPatternType</b> = FindPatternType</td></tr>
+<tr class="separator:aea3f283a42c61b01e47aa0af1201e566 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2398e8e83fcec5a4a14c5dd61e874cc4 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memItemLeft" align="right" valign="top"><a id="a2398e8e83fcec5a4a14c5dd61e874cc4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>InnerRegisterSupplier</b> = typename <a class="el" href="classsupermap_1_1OrderedStorage.html">OrderedStorage</a>&lt; <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedSingleFileIndexedStorage</a>&lt; T, IndexT, InnerRegisterInfo, FindPatternType &gt;, IndexT, void &gt;::CountingRegister::InnerRegisterSupplier</td></tr>
+<tr class="separator:a2398e8e83fcec5a4a14c5dd61e874cc4 inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa10477896ffb623a92e3f3e1d982790a inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memItemLeft" align="right" valign="top"><a id="aa10477896ffb623a92e3f3e1d982790a"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>StoragesRegister</b> = <a class="el" href="classsupermap_1_1VoidRegister.html">VoidRegister</a>&lt; <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedSingleFileIndexedStorage</a>&lt; T, IndexT, InnerRegisterInfo, FindPatternType &gt; &gt;</td></tr>
+<tr class="separator:aa10477896ffb623a92e3f3e1d982790a inherit pub_types_classsupermap_1_1SortedStoragesList"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a></td></tr>
+<tr class="memitem:ad04da464c5e2395a062ef0c0ca39e8dd inherit pub_types_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="ad04da464c5e2395a062ef0c0ca39e8dd"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>CountingRegister</b> = <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterInfo &gt;</td></tr>
+<tr class="separator:ad04da464c5e2395a062ef0c0ca39e8dd inherit pub_types_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a></td></tr>
+<tr class="memitem:acf6833d7bbb51a7f78f57a269c544394 inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterInfo &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#acf6833d7bbb51a7f78f57a269c544394">getRegister</a> ()</td></tr>
+<tr class="separator:acf6833d7bbb51a7f78f57a269c544394 inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename IndexT, IndexT RankOneSize, typename EachStorageRegister&gt;<br />
-class supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, typename IndexT, IndexT RankOneSize, typename InnerRegisterInfo, typename FindPatternType&gt;<br />
+class supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;</h3>
 
 <p>List of <code><a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator.">SortedSingleFileIndexedStorage</a></code>. For each storage, the rank is determined as log_2(SIZE / <code>RankOneSize</code> ). Two storages are merged if their ranks are the same. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -149,28 +174,38 @@ class supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, E
     <tr><td class="paramname">T</td><td>Type of storage content. </td></tr>
     <tr><td class="paramname">IndexT</td><td>Type of storage content index. </td></tr>
     <tr><td class="paramname">RankOneSize</td><td>Size of block which have rank 1. </td></tr>
-    <tr><td class="paramname">EachStorageRegister</td><td>This list storages register. </td></tr>
+    <tr><td class="paramname">InnerRegisterInfo</td><td>This list storages registers info. </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abaa696b1617b9634d2566d817a4f2cf9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abaa696b1617b9634d2566d817a4f2cf9">&#9670;&nbsp;</a></span>BinaryCollapsingSortedStoragesList()</h2>
+<a id="ae8b73176726f16bb3ec50621ee1fd552"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8b73176726f16bb3ec50621ee1fd552">&#9670;&nbsp;</a></span>BinaryCollapsingSortedStoragesList()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT , IndexT RankOneSize, typename EachStorageRegister &gt; </div>
+template&lt;typename T , typename IndexT , IndexT RankOneSize, typename InnerRegisterInfo , typename FindPatternType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">supermap::BinaryCollapsingSortedStoragesList</a>&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;::<a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">BinaryCollapsingSortedStoragesList</a> </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">supermap::BinaryCollapsingSortedStoragesList</a>&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;::<a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">BinaryCollapsingSortedStoragesList</a> </td>
           <td>(</td>
           <td class="paramtype">IndexT&#160;</td>
-          <td class="paramname"><em>batchSize</em></td><td>)</td>
+          <td class="paramname"><em>batchSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">InnerRegisterSupplier&#160;</td>
+          <td class="paramname"><em>innerRegisterSupplier</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -183,9 +218,8 @@ template&lt;typename T , typename IndexT , IndexT RankOneSize, typename EachStor
 <p>Creates <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank...">BinaryCollapsingSortedStoragesList</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">predLess</td><td>Binary predicate, returns if the first argument is less then second. </td></tr>
-    <tr><td class="paramname">predEq</td><td>Binary predicate, returns if the first argument equals to the second. </td></tr>
     <tr><td class="paramname">batchSize</td><td>The size of the batch of <code>T</code> objects that are simultaneously stored in RAM. </td></tr>
+    <tr><td class="paramname">innerRegisterSupplier</td><td>Supplier of registers for all inner storages. </td></tr>
   </table>
   </dd>
 </dl>
@@ -193,19 +227,19 @@ template&lt;typename T , typename IndexT , IndexT RankOneSize, typename EachStor
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a39a015c95adeb96309943cdf6216c0fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a39a015c95adeb96309943cdf6216c0fa">&#9670;&nbsp;</a></span>append()</h2>
+<a id="a8f020cbc6be8b59f39fb6563b7b587e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f020cbc6be8b59f39fb6563b7b587e9">&#9670;&nbsp;</a></span>append()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT , IndexT RankOneSize, typename EachStorageRegister &gt; </div>
+template&lt;typename T , typename IndexT , IndexT RankOneSize, typename InnerRegisterInfo , typename FindPatternType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">supermap::BinaryCollapsingSortedStoragesList</a>&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;::append </td>
+          <td class="memname">void <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">supermap::BinaryCollapsingSortedStoragesList</a>&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;::append </td>
           <td>(</td>
           <td class="paramtype">std::unique_ptr&lt; <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedStorage</a> &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>storage</em></td><td>)</td>
@@ -229,71 +263,33 @@ template&lt;typename T , typename IndexT , IndexT RankOneSize, typename EachStor
 
 </div>
 </div>
-<a id="a6583f5be5edaada8debada2e3f1b9386"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6583f5be5edaada8debada2e3f1b9386">&#9670;&nbsp;</a></span>consumeStorages()</h2>
+<a id="a7a512f42618c3810fb39acb5f1efa6f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a512f42618c3810fb39acb5f1efa6f1">&#9670;&nbsp;</a></span>find()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT , IndexT RankOneSize, typename EachStorageRegister &gt; </div>
-<div class="memtemplate">
-template&lt;typename Consumer , typename  = std::enable_if_t&lt;std::is_invocable_r_v&lt;void, Consumer &amp;, const SortedStorage &amp;&gt;&gt;&gt; </div>
+template&lt;typename T , typename IndexT , IndexT RankOneSize, typename InnerRegisterInfo , typename FindPatternType &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">supermap::BinaryCollapsingSortedStoragesList</a>&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;::consumeStorages </td>
+          <td class="memname">std::optional&lt;T&gt; <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">supermap::BinaryCollapsingSortedStoragesList</a>&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;::find </td>
           <td>(</td>
-          <td class="paramtype">Consumer &amp;&#160;</td>
-          <td class="paramname"><em>consumer</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype">const FindPatternType &amp;&#160;</td>
+          <td class="paramname"><em>pattern</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Traverses through all storages with given consumer. </p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Consumer</td><td>Type of consumer. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">consumer</td><td>Consumer which is applicable for <code>const</code> <code>&amp;T</code>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ab5f45709e78713c30288099f356d21cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5f45709e78713c30288099f356d21cd">&#9670;&nbsp;</a></span>find()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , typename IndexT , IndexT RankOneSize, typename EachStorageRegister &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt;T&gt; <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">supermap::BinaryCollapsingSortedStoragesList</a>&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;::find </td>
-          <td>(</td>
-          <td class="paramtype">std::function&lt; bool(const T &amp;)&gt;&#160;</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; bool(const T &amp;, const FindPatternType &amp;)&gt;&#160;</td>
           <td class="paramname"><em>less</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::function&lt; bool(const T &amp;)&gt;&#160;</td>
+          <td class="paramtype">std::function&lt; bool(const T &amp;, const FindPatternType &amp;)&gt;&#160;</td>
           <td class="paramname"><em>equal</em>&#160;</td>
         </tr>
         <tr>
@@ -304,7 +300,7 @@ template&lt;typename T , typename IndexT , IndexT RankOneSize, typename EachStor
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -312,14 +308,13 @@ template&lt;typename T , typename IndexT , IndexT RankOneSize, typename EachStor
 <p>Searches for the fulfillment of the predicate <code>equal</code> in all storages, starting from the last added storages. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">less</td><td>Predicate, accepts object from storage, returns if it is less than the one required. </td></tr>
-    <tr><td class="paramname">equal</td><td>Predicate, accepts object from storage, returns if this is the one. </td></tr>
+    <tr><td class="paramname">pattern</td><td>Find pattern. </td></tr>
+    <tr><td class="paramname">less</td><td>Predicate, accepts object from storage and pattern, returns if object is less then pattern. </td></tr>
+    <tr><td class="paramname">equal</td><td>Predicate, accepts object from storage and pattern, returns if this is equals to pattern. </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><code>std::nullopt</code> iff object predicate is not fulfilled by any object in all storages, non-empty <code>std::optional&lt;T&gt;</code> otherwise. </dd></dl>
-
-<p>Implements <a class="el" href="classsupermap_1_1Findable.html#a51db1b2fe015ec2f59b59b0065fab297">supermap::Findable&lt; T &gt;</a>.</p>
 
 </div>
 </div>

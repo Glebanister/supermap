@@ -77,15 +77,20 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>supermap {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classsupermap_1_1Findable.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1Findable.html">Findable</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classsupermap_1_1Findable.html#a51db1b2fe015ec2f59b59b0065fab297">   22</a></span>&#160;    <span class="keyword">virtual</span> std::optional&lt;T&gt; <a class="code" href="classsupermap_1_1Findable.html#a51db1b2fe015ec2f59b59b0065fab297">find</a>(std::function&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> T &amp;)&gt; less, std::function&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> T &amp;)&gt; equal) = 0;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// supermap</span></div>
-<div class="ttc" id="aclasssupermap_1_1Findable_html"><div class="ttname"><a href="classsupermap_1_1Findable.html">supermap::Findable</a></div><div class="ttdoc">An abstract storage where element of type T can be found.</div><div class="ttdef"><b>Definition:</b> Findable.hpp:13</div></div>
-<div class="ttc" id="aclasssupermap_1_1Findable_html_a51db1b2fe015ec2f59b59b0065fab297"><div class="ttname"><a href="classsupermap_1_1Findable.html#a51db1b2fe015ec2f59b59b0065fab297">supermap::Findable::find</a></div><div class="ttdeci">virtual std::optional&lt; T &gt; find(std::function&lt; bool(const T &amp;)&gt; less, std::function&lt; bool(const T &amp;)&gt; equal)=0</div><div class="ttdoc">Finds an objects, that fulfills equal unary predicate.</div></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> P&gt;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classsupermap_1_1Findable.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1Findable.html">Findable</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classsupermap_1_1Findable.html#a61d23e3d52e26e9777d014fd21419a42">   26</a></span>&#160;    <span class="keyword">virtual</span> std::optional&lt;T&gt; <a class="code" href="classsupermap_1_1Findable.html#a61d23e3d52e26e9777d014fd21419a42">find</a>(</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> P &amp;pattern,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        std::function&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> T &amp;, <span class="keyword">const</span> P &amp;)&gt; less,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        std::function&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> T &amp;, <span class="keyword">const</span> P &amp;)&gt; equal</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    ) = 0;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="ttc" id="aclasssupermap_1_1Findable_html"><div class="ttname"><a href="classsupermap_1_1Findable.html">supermap::Findable</a></div><div class="ttdoc">An abstract storage where element of type T can be found.</div><div class="ttdef"><b>Definition:</b> Findable.hpp:14</div></div>
+<div class="ttc" id="aclasssupermap_1_1Findable_html_a61d23e3d52e26e9777d014fd21419a42"><div class="ttname"><a href="classsupermap_1_1Findable.html#a61d23e3d52e26e9777d014fd21419a42">supermap::Findable::find</a></div><div class="ttdeci">virtual std::optional&lt; T &gt; find(const P &amp;pattern, std::function&lt; bool(const T &amp;, const P &amp;)&gt; less, std::function&lt; bool(const T &amp;, const P &amp;)&gt; equal)=0</div><div class="ttdoc">Searches for the fulfillment of the predicate equal in all storages, starting from the last added sto...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

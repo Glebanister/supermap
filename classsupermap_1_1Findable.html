@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Supermap: supermap::Findable&lt; T &gt; Class Template Reference</title>
+<title>Supermap: supermap::Findable&lt; T, P &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classsupermap_1_1Findable-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">supermap::Findable&lt; T &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">supermap::Findable&lt; T, P &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -79,58 +79,65 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="Findable_8hpp_source.html">Findable.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for supermap::Findable&lt; T &gt;:</div>
+Inheritance diagram for supermap::Findable&lt; T, P &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1Findable__inherit__graph.png" border="0" usemap="#asupermap_1_1Findable_3_01T_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="asupermap_1_1Findable_3_01T_01_4_inherit__map" id="asupermap_1_1Findable_3_01T_01_4_inherit__map">
-<area shape="rect" title="An abstract storage where element of type T can be found." alt="" coords="5,155,169,182"/>
-<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="217,5,471,76"/>
-<area shape="rect" href="classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="249,101,439,157"/>
-<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="253,181,435,237"/>
-<area shape="rect" href="classsupermap_1_1SortedStoragesList.html" title="Abstract list of single file sorted storages." alt="" coords="248,261,440,332"/>
-<area shape="rect" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="519,93,749,164"/>
+<div class="center"><img src="classsupermap_1_1Findable__inherit__graph.png" border="0" usemap="#asupermap_1_1Findable_3_01T_00_01P_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="asupermap_1_1Findable_3_01T_00_01P_01_4_inherit__map" id="asupermap_1_1Findable_3_01T_00_01P_01_4_inherit__map">
+<area shape="rect" title="An abstract storage where element of type T can be found." alt="" coords="5,115,140,156"/>
+<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="195,5,375,76"/>
+<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="195,100,375,171"/>
+<area shape="rect" href="classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="188,195,381,251"/>
+<area shape="rect" href="classsupermap_1_1FilteredStorage.html" title="Sorted single file indexed storage with filter as a additional register." alt="" coords="445,107,648,163"/>
+<area shape="rect" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="429,188,664,259"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a51db1b2fe015ec2f59b59b0065fab297"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1Findable.html#a51db1b2fe015ec2f59b59b0065fab297">find</a> (std::function&lt; bool(const T &amp;)&gt; less, std::function&lt; bool(const T &amp;)&gt; equal)=0</td></tr>
-<tr class="memdesc:a51db1b2fe015ec2f59b59b0065fab297"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds an objects, that fulfills <code>equal</code> unary predicate.  <a href="classsupermap_1_1Findable.html#a51db1b2fe015ec2f59b59b0065fab297">More...</a><br /></td></tr>
-<tr class="separator:a51db1b2fe015ec2f59b59b0065fab297"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61d23e3d52e26e9777d014fd21419a42"><td class="memItemLeft" align="right" valign="top">virtual std::optional&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1Findable.html#a61d23e3d52e26e9777d014fd21419a42">find</a> (const P &amp;pattern, std::function&lt; bool(const T &amp;, const P &amp;)&gt; less, std::function&lt; bool(const T &amp;, const P &amp;)&gt; equal)=0</td></tr>
+<tr class="memdesc:a61d23e3d52e26e9777d014fd21419a42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for the fulfillment of the predicate <code>equal</code> in all storages, starting from the last added storages.  <a href="classsupermap_1_1Findable.html#a61d23e3d52e26e9777d014fd21419a42">More...</a><br /></td></tr>
+<tr class="separator:a61d23e3d52e26e9777d014fd21419a42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T&gt;<br />
-class supermap::Findable&lt; T &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, typename P&gt;<br />
+class supermap::Findable&lt; T, P &gt;</h3>
 
 <p>An abstract storage where element of type <code>T</code> can be found. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td><a class="el" href="classsupermap_1_1Findable.html" title="An abstract storage where element of type T can be found.">Findable</a> object type. </td></tr>
+    <tr><td class="paramname">P</td><td>Find pattern type. </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a51db1b2fe015ec2f59b59b0065fab297"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51db1b2fe015ec2f59b59b0065fab297">&#9670;&nbsp;</a></span>find()</h2>
+<a id="a61d23e3d52e26e9777d014fd21419a42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61d23e3d52e26e9777d014fd21419a42">&#9670;&nbsp;</a></span>find()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename T , typename P &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual std::optional&lt;T&gt; <a class="el" href="classsupermap_1_1Findable.html">supermap::Findable</a>&lt; T &gt;::find </td>
+          <td class="memname">virtual std::optional&lt;T&gt; <a class="el" href="classsupermap_1_1Findable.html">supermap::Findable</a>&lt; T, P &gt;::find </td>
           <td>(</td>
-          <td class="paramtype">std::function&lt; bool(const T &amp;)&gt;&#160;</td>
+          <td class="paramtype">const P &amp;&#160;</td>
+          <td class="paramname"><em>pattern</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::function&lt; bool(const T &amp;, const P &amp;)&gt;&#160;</td>
           <td class="paramname"><em>less</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::function&lt; bool(const T &amp;)&gt;&#160;</td>
+          <td class="paramtype">std::function&lt; bool(const T &amp;, const P &amp;)&gt;&#160;</td>
           <td class="paramname"><em>equal</em>&#160;</td>
         </tr>
         <tr>
@@ -146,17 +153,18 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Finds an objects, that fulfills <code>equal</code> unary predicate. </p>
+<p>Searches for the fulfillment of the predicate <code>equal</code> in all storages, starting from the last added storages. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">less</td><td>Unary predicate which indicates if an argument is less than the one required. </td></tr>
-    <tr><td class="paramname">equal</td><td>Unary predicate which indicates if an argument equals to the one required. </td></tr>
+    <tr><td class="paramname">pattern</td><td>Find pattern </td></tr>
+    <tr><td class="paramname">less</td><td>Predicate, accepts object from storage and pattern, returns if object is less then pattern. </td></tr>
+    <tr><td class="paramname">equal</td><td>Predicate, accepts object from storage and pattern, returns if this is equals to pattern. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><code>std::nullopt</code> if there is no element, which fulfills predicate. Not empty <code>std::optional&lt;T&gt;</code> is returned otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><code>std::nullopt</code> iff object predicate is not fulfilled by any object in all storages, non-empty <code>std::optional&lt;T&gt;</code> otherwise. </dd></dl>
 
-<p>Implemented in <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html#a0bcabe0c02216312bf8f617557dfd4fd">supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>, and <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ab5f45709e78713c30288099f356d21cd">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html#a21e47d946791a927559574c5dce1d386">supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterInfo, FindPattern &gt;</a>.</p>
 
 </div>
 </div>

@@ -79,9 +79,31 @@ $(function() {
  <a href="classsupermap_1_1StorageItemRegister.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="StorageItemRegister_8hpp_source.html">StorageItemRegister.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for supermap::StorageItemRegister&lt; T, Info &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsupermap_1_1StorageItemRegister__inherit__graph.png" border="0" usemap="#asupermap_1_1StorageItemRegister_3_01T_00_01Info_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="asupermap_1_1StorageItemRegister_3_01T_00_01Info_01_4_inherit__map" id="asupermap_1_1StorageItemRegister_3_01T_00_01Info_01_4_inherit__map">
+<area shape="rect" title="An abstract registrar of storage items, which aims to add new items to the storage." alt="" coords="5,109,209,151"/>
+<area shape="rect" href="classsupermap_1_1CountingStorageItemRegister.html" title=" " alt="" coords="17,199,198,255"/>
+<area shape="rect" href="classsupermap_1_1Cloneable.html" title=" " alt="" coords="31,5,183,61"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for supermap::StorageItemRegister&lt; T, Info &gt;:</div>
+<div class="dyncontent">
+<div class="center"><img src="classsupermap_1_1StorageItemRegister__coll__graph.png" border="0" usemap="#asupermap_1_1StorageItemRegister_3_01T_00_01Info_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="asupermap_1_1StorageItemRegister_3_01T_00_01Info_01_4_coll__map" id="asupermap_1_1StorageItemRegister_3_01T_00_01Info_01_4_coll__map">
+<area shape="rect" title="An abstract registrar of storage items, which aims to add new items to the storage." alt="" coords="5,109,209,151"/>
+<area shape="rect" href="classsupermap_1_1Cloneable.html" title=" " alt="" coords="31,5,183,61"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
+<tr class="memitem:ac404e338a50b211b4652b9a3c6087838"><td class="memItemLeft" align="right" valign="top"><a id="ac404e338a50b211b4652b9a3c6087838"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ToRegister</b> = T</td></tr>
+<tr class="separator:ac404e338a50b211b4652b9a3c6087838"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29b3e97906038e958d5b6715a313d421"><td class="memItemLeft" align="right" valign="top"><a id="a29b3e97906038e958d5b6715a313d421"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ItemsInfo</b> = Info</td></tr>
 <tr class="separator:a29b3e97906038e958d5b6715a313d421"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -94,6 +116,9 @@ virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <tr class="separator:a17b506b1081eab5a9469fcbac2b9d889"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bed2f6b31ee3b7c46f88e5a5fc545cd"><td class="memItemLeft" align="right" valign="top">virtual Info&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1StorageItemRegister.html#a5bed2f6b31ee3b7c46f88e5a5fc545cd">getRegisteredItemsInfo</a> () const noexcept=0</td></tr>
 <tr class="separator:a5bed2f6b31ee3b7c46f88e5a5fc545cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classsupermap_1_1Cloneable"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1Cloneable')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1Cloneable.html">supermap::Cloneable&lt; StorageItemRegister&lt; T, Info &gt; &gt;</a></td></tr>
+<tr class="memitem:ae313a6b46a9e9e2bc2f74e41b835bc45 inherit pub_methods_classsupermap_1_1Cloneable"><td class="memItemLeft" align="right" valign="top">virtual std::unique_ptr&lt; <a class="el" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt; T, Info &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1Cloneable.html#ae313a6b46a9e9e2bc2f74e41b835bc45">clone</a> () const=0</td></tr>
+<tr class="separator:ae313a6b46a9e9e2bc2f74e41b835bc45 inherit pub_methods_classsupermap_1_1Cloneable"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T, typename Info&gt;<br />
@@ -134,7 +159,7 @@ template&lt;typename T , typename Info &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Information about already registered items. </dd></dl>
 
-<p>Implemented in <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#aa76647da796f3cdbfe3a9069ad03fa75">supermap::CountingStorageItemRegister&lt; T, IndexT, InnerStorageRegister, AdditionalInfo &gt;</a>, <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#aa76647da796f3cdbfe3a9069ad03fa75">supermap::CountingStorageItemRegister&lt; T, IndexT, RegisterType &gt;</a>, and <a class="el" href="classsupermap_1_1VoidRegister.html#a91903534439e79130c28d0fd08f069ba">supermap::VoidRegister&lt; T &gt;</a>.</p>
+<p>Implemented in <a class="el" href="classsupermap_1_1FilteringRegister.html#a3e8afffd312091cc1dc13969ae5b32bd">supermap::FilteringRegister&lt; FilterToAdd, FilterToContain &gt;</a>, <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#a6b274d7eecdfc5ff89f805d3be9ac964">supermap::CountingStorageItemRegister&lt; T, IndexT, AdditionalInfo &gt;</a>, <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#a6b274d7eecdfc5ff89f805d3be9ac964">supermap::CountingStorageItemRegister&lt; T, IndexT, RegisterInfo &gt;</a>, and <a class="el" href="classsupermap_1_1VoidRegister.html#a91903534439e79130c28d0fd08f069ba">supermap::VoidRegister&lt; T &gt;</a>.</p>
 
 </div>
 </div>

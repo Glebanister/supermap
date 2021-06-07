@@ -76,22 +76,35 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>supermap {</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span> &lt;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">typename</span> T,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">typename</span> IndexT,</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">typename</span> EachStorageRegisterType,</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">typename</span> SortedStorage = SortedSingleFileIndexedStorage&lt;T, IndexT, EachStorageRegisterType&gt;,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">typename</span> StoragesRegister = VoidRegister&lt;SortedStorage&gt;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;&gt;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classsupermap_1_1SortedStoragesList.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1SortedStoragesList.html">SortedStoragesList</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1Findable.html">Findable</a>&lt;T&gt;,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      <span class="keyword">public</span> <a class="code" href="classsupermap_1_1OrderedStorage.html">OrderedStorage</a>&lt;SortedStorage, IndexT, StoragesRegister&gt; {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// supermap</span></div>
-<div class="ttc" id="aclasssupermap_1_1Findable_html"><div class="ttname"><a href="classsupermap_1_1Findable.html">supermap::Findable</a></div><div class="ttdoc">An abstract storage where element of type T can be found.</div><div class="ttdef"><b>Definition:</b> Findable.hpp:13</div></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span> &lt;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">typename</span> T,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">typename</span> IndexT,</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">typename</span> EachStorageRegisterInfo,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">typename</span> FindPattern,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">typename</span> SortedStorage = SortedSingleFileIndexedStorage&lt;T, IndexT, EachStorageRegisterInfo, FindPattern&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classsupermap_1_1SortedStoragesList.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1SortedStoragesList.html">SortedStoragesList</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1Findable.html">Findable</a>&lt;T, FindPattern&gt;,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;      <span class="keyword">public</span> <a class="code" href="classsupermap_1_1OrderedStorage.html">OrderedStorage</a>&lt;SortedStorage, IndexT, void&gt; {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">using</span> ContentType = T;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">using</span> IndexType = IndexT;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">using</span> RegisterType = EachStorageRegisterInfo;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">using</span> FindPatternType = FindPattern;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">using</span> InnerRegisterSupplier = <span class="keyword">typename</span> <a class="code" href="classsupermap_1_1OrderedStorage.html">OrderedStorage</a>&lt;SortedStorage,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                                          IndexT,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                                                          <span class="keywordtype">void</span>&gt;::CountingRegister::InnerRegisterSupplier;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">using</span> <a class="code" href="classsupermap_1_1VoidRegister.html">StoragesRegister</a> = <a class="code" href="classsupermap_1_1VoidRegister.html">VoidRegister&lt;SortedStorage&gt;</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="classsupermap_1_1SortedStoragesList.html">SortedStoragesList</a>()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        : <a class="code" href="classsupermap_1_1OrderedStorage.html">OrderedStorage&lt;SortedStorage, IndexT, void&gt;</a>([]() { <span class="keywordflow">return</span> std::make_unique&lt;StoragesRegister&gt;(); }) {}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="ttc" id="aclasssupermap_1_1Findable_html"><div class="ttname"><a href="classsupermap_1_1Findable.html">supermap::Findable</a></div><div class="ttdoc">An abstract storage where element of type T can be found.</div><div class="ttdef"><b>Definition:</b> Findable.hpp:14</div></div>
 <div class="ttc" id="aclasssupermap_1_1OrderedStorage_html"><div class="ttname"><a href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a></div><div class="ttdoc">An abstract storage, where elements has particular order. Element added later is of lower order.</div><div class="ttdef"><b>Definition:</b> OrderedStorage.hpp:15</div></div>
-<div class="ttc" id="aclasssupermap_1_1SortedStoragesList_html"><div class="ttname"><a href="classsupermap_1_1SortedStoragesList.html">supermap::SortedStoragesList</a></div><div class="ttdoc">Abstract list of single file sorted storages.</div><div class="ttdef"><b>Definition:</b> SortedStoragesList.hpp:24</div></div>
+<div class="ttc" id="aclasssupermap_1_1SortedStoragesList_html"><div class="ttname"><a href="classsupermap_1_1SortedStoragesList.html">supermap::SortedStoragesList</a></div><div class="ttdoc">Abstract list of single file sorted storages.</div><div class="ttdef"><b>Definition:</b> SortedStoragesList.hpp:23</div></div>
+<div class="ttc" id="aclasssupermap_1_1VoidRegister_html"><div class="ttname"><a href="classsupermap_1_1VoidRegister.html">supermap::VoidRegister</a></div><div class="ttdoc">Empty register that does nothing.</div><div class="ttdef"><b>Definition:</b> CountingStorageItemRegister.hpp:32</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

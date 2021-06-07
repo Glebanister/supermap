@@ -1,30 +1,4 @@
 var searchData=
 [
-  ['serializable_211',['Serializable',['../structsupermap_1_1io_1_1Serializable.html',1,'supermap::io']]],
-  ['serializable_3c_20false_20_3e_212',['Serializable&lt; false &gt;',['../structsupermap_1_1io_1_1Serializable.html',1,'supermap::io']]],
-  ['serializable_3c_20true_20_3e_213',['Serializable&lt; true &gt;',['../structsupermap_1_1io_1_1Serializable.html',1,'supermap::io']]],
-  ['serializehelper_214',['SerializeHelper',['../structsupermap_1_1io_1_1SerializeHelper.html',1,'supermap::io']]],
-  ['serializehelper_3c_20bytearray_3c_20len_20_3e_20_3e_215',['SerializeHelper&lt; ByteArray&lt; Len &gt; &gt;',['../structsupermap_1_1io_1_1SerializeHelper_3_01ByteArray_3_01Len_01_4_01_4.html',1,'supermap::io']]],
-  ['serializehelper_3c_20key_3c_20keylen_20_3e_20_3e_216',['SerializeHelper&lt; Key&lt; KeyLen &gt; &gt;',['../structsupermap_1_1io_1_1SerializeHelper_3_01Key_3_01KeyLen_01_4_01_4.html',1,'supermap::io']]],
-  ['serializehelper_3c_20keyvalue_3c_20key_2c_20value_20_3e_20_3e_217',['SerializeHelper&lt; KeyValue&lt; Key, Value &gt; &gt;',['../structsupermap_1_1io_1_1SerializeHelper_3_01KeyValue_3_01Key_00_01Value_01_4_01_4.html',1,'supermap::io']]],
-  ['serializehelper_3c_20t_2c_20std_3a_3aenable_5fif_5ft_3c_20std_3a_3ais_5fintegral_5fv_3c_20t_20_3e_20_3e_20_3e_218',['SerializeHelper&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &gt; &gt;',['../structsupermap_1_1io_1_1SerializeHelper_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_01_4_01_4.html',1,'supermap::io']]],
-  ['shallowdeserializedsize_219',['ShallowDeserializedSize',['../structsupermap_1_1io_1_1ShallowDeserializedSize.html',1,'supermap::io']]],
-  ['shallowdeserializer_220',['ShallowDeserializer',['../structsupermap_1_1io_1_1ShallowDeserializer.html',1,'supermap::io']]],
-  ['shallowdeserializer_3c_20key_3c_20keylen_20_3e_20_3e_221',['ShallowDeserializer&lt; Key&lt; KeyLen &gt; &gt;',['../structsupermap_1_1io_1_1ShallowDeserializer.html',1,'supermap::io']]],
-  ['shallowserializer_222',['ShallowSerializer',['../structsupermap_1_1io_1_1ShallowSerializer.html',1,'supermap::io']]],
-  ['shallowserializer_3c_20key_3c_20keylen_20_3e_20_3e_223',['ShallowSerializer&lt; Key&lt; KeyLen &gt; &gt;',['../structsupermap_1_1io_1_1ShallowSerializer.html',1,'supermap::io']]],
-  ['singlefileindexedstorage_224',['SingleFileIndexedStorage',['../classsupermap_1_1SingleFileIndexedStorage.html',1,'supermap']]],
-  ['singlefileindexedstorage_3c_20supermap_3a_3akeyvalue_2c_20indext_2c_20supermap_3a_3avoidregister_3c_20supermap_3a_3akeyvalue_20_3e_20_3e_225',['SingleFileIndexedStorage&lt; supermap::KeyValue, IndexT, supermap::VoidRegister&lt; supermap::KeyValue &gt; &gt;',['../classsupermap_1_1SingleFileIndexedStorage.html',1,'supermap']]],
-  ['sortedsinglefileindexedstorage_226',['SortedSingleFileIndexedStorage',['../classsupermap_1_1SortedSingleFileIndexedStorage.html',1,'supermap']]],
-  ['sortedsinglefileindexedstorage_3c_20supermap_3a_3akeyvalue_2c_20indext_2c_20supermap_3a_3avoidregister_3c_20supermap_3a_3akeyvalue_20_3e_20_3e_227',['SortedSingleFileIndexedStorage&lt; supermap::KeyValue, IndexT, supermap::VoidRegister&lt; supermap::KeyValue &gt; &gt;',['../classsupermap_1_1SortedSingleFileIndexedStorage.html',1,'supermap']]],
-  ['sortedstorageslist_228',['SortedStoragesList',['../classsupermap_1_1SortedStoragesList.html',1,'supermap']]],
-  ['sortedstorageslist_3c_20t_2c_20indext_2c_20eachstorageregister_20_3e_229',['SortedStoragesList&lt; T, IndexT, EachStorageRegister &gt;',['../classsupermap_1_1SortedStoragesList.html',1,'supermap']]],
-  ['storageitemregister_230',['StorageItemRegister',['../classsupermap_1_1StorageItemRegister.html',1,'supermap']]],
-  ['storageitemregister_3c_20t_2c_20countingstorageinfo_3c_20indext_2c_20innerstorageregister_3a_3aitemsinfo_20_3e_20_3e_231',['StorageItemRegister&lt; T, CountingStorageInfo&lt; IndexT, InnerStorageRegister::ItemsInfo &gt; &gt;',['../classsupermap_1_1StorageItemRegister.html',1,'supermap']]],
-  ['storageitemregister_3c_20t_2c_20void_20_3e_232',['StorageItemRegister&lt; T, void &gt;',['../classsupermap_1_1StorageItemRegister.html',1,'supermap']]],
-  ['storagevalueignorer_233',['StorageValueIgnorer',['../structsupermap_1_1StorageValueIgnorer.html',1,'supermap']]],
-  ['stringinputstream_234',['StringInputStream',['../classsupermap_1_1io_1_1StringInputStream.html',1,'supermap::io']]],
-  ['stringoutputstream_235',['StringOutputStream',['../classsupermap_1_1io_1_1StringOutputStream.html',1,'supermap::io']]],
-  ['supermap_236',['Supermap',['../classsupermap_1_1Supermap.html',1,'supermap']]],
-  ['supermapexception_237',['SupermapException',['../classsupermap_1_1SupermapException.html',1,'supermap']]]
+  ['ramfilemanager_231',['RamFileManager',['../classsupermap_1_1io_1_1RamFileManager.html',1,'supermap::io']]]
 ];

@@ -1,8 +1,8 @@
-<map id="supermap::Findable&lt; T &gt;" name="supermap::Findable&lt; T &gt;">
-<area shape="rect" id="node1" title="An abstract storage where element of type T can be found." alt="" coords="5,155,169,182"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="217,5,471,76"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="249,101,439,157"/>
-<area shape="rect" id="node5" href="$classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="253,181,435,237"/>
-<area shape="rect" id="node6" href="$classsupermap_1_1SortedStoragesList.html" title="Abstract list of single file sorted storages." alt="" coords="248,261,440,332"/>
-<area shape="rect" id="node4" href="$classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="519,93,749,164"/>
+<map id="supermap::Findable&lt; T, P &gt;" name="supermap::Findable&lt; T, P &gt;">
+<area shape="rect" id="node1" title="An abstract storage where element of type T can be found." alt="" coords="5,115,140,156"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="195,5,375,76"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="195,100,375,171"/>
+<area shape="rect" id="node5" href="$classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="188,195,381,251"/>
+<area shape="rect" id="node4" href="$classsupermap_1_1FilteredStorage.html" title="Sorted single file indexed storage with filter as a additional register." alt="" coords="445,107,648,163"/>
+<area shape="rect" id="node6" href="$classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="429,188,664,259"/>
 </map>

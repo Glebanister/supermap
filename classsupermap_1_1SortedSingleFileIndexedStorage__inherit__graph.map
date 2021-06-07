@@ -1,7 +1,7 @@
-<map id="supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;" name="supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;">
-<area shape="rect" id="node1" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="739,27,920,83"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1SingleFileIndexedStorage.html" title="Indexed storage that stores all items in the single file." alt="" coords="464,5,691,47"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="235,5,416,47"/>
-<area shape="rect" id="node4" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,187,47"/>
-<area shape="rect" id="node5" href="$classsupermap_1_1Findable.html" title="An abstract storage where element of type T can be found." alt="" coords="495,71,659,98"/>
+<map id="supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterInfo, FindPattern &gt;" name="supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterInfo, FindPattern &gt;">
+<area shape="rect" id="node1" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="720,31,901,87"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1SingleFileIndexedStorage.html" title="Indexed storage that stores all items in the single file." alt="" coords="452,5,672,47"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="229,5,404,47"/>
+<area shape="rect" id="node4" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,181,47"/>
+<area shape="rect" id="node5" href="$classsupermap_1_1Findable.html" title=" " alt="" coords="495,71,629,112"/>
 </map>

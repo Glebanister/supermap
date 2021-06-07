@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Supermap: supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt; Class Template Reference</title>
+<title>Supermap: supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -67,11 +67,12 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classsupermap_1_1OrderedStorage-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -80,72 +81,117 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="OrderedStorage_8hpp_source.html">OrderedStorage.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;:</div>
+Inheritance diagram for supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1OrderedStorage__inherit__graph.png" border="0" usemap="#asupermap_1_1OrderedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="asupermap_1_1OrderedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_inherit__map" id="asupermap_1_1OrderedStorage_3_01T_00_01IndexT_00_01RegisterType_01_4_inherit__map">
-<area shape="rect" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,108,187,149"/>
-<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title=" " alt="" coords="235,5,429,76"/>
-<area shape="rect" href="classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="237,101,427,157"/>
-<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="241,203,423,244"/>
-<area shape="rect" href="classsupermap_1_1KeyValueShrinkableStorage.html" title="Storage, which contains keys and associated values. Consists of two parts: the one,..." alt="" coords="492,13,693,69"/>
-<area shape="rect" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="477,93,708,164"/>
-<area shape="rect" href="classsupermap_1_1SingleFileIndexedStorage.html" title=" " alt="" coords="489,188,697,259"/>
-<area shape="rect" href="classsupermap_1_1SingleFileIndexedStorage.html" title="Indexed storage that stores all items in the single file." alt="" coords="479,284,706,325"/>
-<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="756,185,1009,256"/>
-<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="792,281,973,337"/>
+<div class="center"><img src="classsupermap_1_1OrderedStorage__inherit__graph.png" border="0" usemap="#asupermap_1_1OrderedStorage_3_01T_00_01IndexT_00_01RegisterInfo_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="asupermap_1_1OrderedStorage_3_01T_00_01IndexT_00_01RegisterInfo_01_4_inherit__map" id="asupermap_1_1OrderedStorage_3_01T_00_01IndexT_00_01RegisterInfo_01_4_inherit__map">
+<area shape="rect" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,101,181,142"/>
+<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title=" " alt="" coords="239,9,413,65"/>
+<area shape="rect" href="classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="229,93,423,149"/>
+<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="239,189,413,230"/>
+<area shape="rect" href="classsupermap_1_1KeyValueShrinkableStorage.html" title="Storage, which contains keys and associated values. Consists of two parts: the one,..." alt="" coords="487,5,689,61"/>
+<area shape="rect" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="471,86,705,157"/>
+<area shape="rect" href="classsupermap_1_1SingleFileIndexedStorage.html" title=" " alt="" coords="488,181,688,237"/>
+<area shape="rect" href="classsupermap_1_1SingleFileIndexedStorage.html" title="Indexed storage that stores all items in the single file." alt="" coords="478,271,698,313"/>
+<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="754,162,934,233"/>
+<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="754,257,934,327"/>
+<area shape="rect" href="classsupermap_1_1SortedSingleFileIndexedStorage.html" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="753,352,935,408"/>
+<area shape="rect" href="classsupermap_1_1FilteredStorage.html" title="Sorted single file indexed storage with filter as a additional register." alt="" coords="983,264,1185,320"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ad04da464c5e2395a062ef0c0ca39e8dd"><td class="memItemLeft" align="right" valign="top"><a id="ad04da464c5e2395a062ef0c0ca39e8dd"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>CountingRegister</b> = <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterInfo &gt;</td></tr>
+<tr class="separator:ad04da464c5e2395a062ef0c0ca39e8dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3a7739d40bcd55b850ffecca73dc7102"><td class="memItemLeft" align="right" valign="top"><a id="a3a7739d40bcd55b850ffecca73dc7102"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a3a7739d40bcd55b850ffecca73dc7102">append</a> (std::unique_ptr&lt; T &gt; &amp;&amp;)=0</td></tr>
-<tr class="memdesc:a3a7739d40bcd55b850ffecca73dc7102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex()</a></code>. <br /></td></tr>
-<tr class="separator:a3a7739d40bcd55b850ffecca73dc7102"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7741ad1a746cd6e8badb8a5b224f7c3"><td class="memItemLeft" align="right" valign="top"><a id="ab7741ad1a746cd6e8badb8a5b224f7c3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#ab7741ad1a746cd6e8badb8a5b224f7c3">appendCopy</a> (T elem)</td></tr>
-<tr class="memdesc:ab7741ad1a746cd6e8badb8a5b224f7c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add copy of an element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex()</a></code>. <br /></td></tr>
-<tr class="separator:ab7741ad1a746cd6e8badb8a5b224f7c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a876c3fcdaa0e07e5f07faf5e425014d4"><td class="memItemLeft" align="right" valign="top">virtual IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a876c3fcdaa0e07e5f07faf5e425014d4">getItemsCount</a> () const noexcept</td></tr>
-<tr class="separator:a876c3fcdaa0e07e5f07faf5e425014d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7467cb0a77057464037ad4fddf693a50"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex</a> () const noexcept</td></tr>
-<tr class="separator:a7467cb0a77057464037ad4fddf693a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79c65797187c7cfdbe8b6e1fc41bb058"><td class="memItemLeft" align="right" valign="top">const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a79c65797187c7cfdbe8b6e1fc41bb058">getRegisterInfo</a> () noexcept</td></tr>
-<tr class="separator:a79c65797187c7cfdbe8b6e1fc41bb058"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c307adc31ad7cd7744a2da97d3b8113"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a0c307adc31ad7cd7744a2da97d3b8113">OrderedStorage</a> (typename CountingRegister::InnerRegisterSupplier registerSupplier)</td></tr>
+<tr class="separator:a0c307adc31ad7cd7744a2da97d3b8113"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb6aa97832a3b49e96e2f90aa7bfe6be"><td class="memItemLeft" align="right" valign="top"><a id="aeb6aa97832a3b49e96e2f90aa7bfe6be"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#aeb6aa97832a3b49e96e2f90aa7bfe6be">append</a> (std::unique_ptr&lt; T &gt; &amp;&amp;)=0</td></tr>
+<tr class="memdesc:aeb6aa97832a3b49e96e2f90aa7bfe6be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex()</a></code>. <br /></td></tr>
+<tr class="separator:aeb6aa97832a3b49e96e2f90aa7bfe6be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63602bf8048399de13719b19966906af"><td class="memItemLeft" align="right" valign="top"><a id="a63602bf8048399de13719b19966906af"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a63602bf8048399de13719b19966906af">appendCopy</a> (T elem)</td></tr>
+<tr class="memdesc:a63602bf8048399de13719b19966906af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add copy of an element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex()</a></code>. <br /></td></tr>
+<tr class="separator:a63602bf8048399de13719b19966906af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa164c190bb40c9ff5d96e02a5647dd7a"><td class="memItemLeft" align="right" valign="top">virtual IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#aa164c190bb40c9ff5d96e02a5647dd7a">getItemsCount</a> () const noexcept</td></tr>
+<tr class="separator:aa164c190bb40c9ff5d96e02a5647dd7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c897292491b06f99238ed137feeedc"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex</a> () const noexcept</td></tr>
+<tr class="separator:a76c897292491b06f99238ed137feeedc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c0d9724d1ffd9a8543e6ba17954625"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a98c0d9724d1ffd9a8543e6ba17954625">getRegisterInfo</a> () noexcept</td></tr>
+<tr class="separator:a98c0d9724d1ffd9a8543e6ba17954625"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:afb7c9992c6acb5c1c8f7e0309460456c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterType &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#afb7c9992c6acb5c1c8f7e0309460456c">getRegister</a> ()</td></tr>
-<tr class="separator:afb7c9992c6acb5c1c8f7e0309460456c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf6833d7bbb51a7f78f57a269c544394"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterInfo &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#acf6833d7bbb51a7f78f57a269c544394">getRegister</a> ()</td></tr>
+<tr class="separator:acf6833d7bbb51a7f78f57a269c544394"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename T, typename IndexT, typename RegisterType&gt;<br />
-class supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T, typename IndexT, typename RegisterInfo&gt;<br />
+class supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</h3>
 
 <p>An abstract storage, where elements has particular order. Element added later is of lower order. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>Storage content type. </td></tr>
     <tr><td class="paramname">IndexT</td><td>Storage order type. </td></tr>
-    <tr><td class="paramname">RegisterType</td><td>Storage register type. </td></tr>
+    <tr><td class="paramname">RegisterInfo</td><td>Storage register info type. </td></tr>
   </table>
   </dd>
 </dl>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a876c3fcdaa0e07e5f07faf5e425014d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a876c3fcdaa0e07e5f07faf5e425014d4">&#9670;&nbsp;</a></span>getItemsCount()</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0c307adc31ad7cd7744a2da97d3b8113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c307adc31ad7cd7744a2da97d3b8113">&#9670;&nbsp;</a></span>OrderedStorage()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual IndexT <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a>&lt; T, IndexT, RegisterType &gt;::getItemsCount </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a>&lt; T, IndexT, RegisterInfo &gt;::<a class="el" href="classsupermap_1_1OrderedStorage.html">OrderedStorage</a> </td>
+          <td>(</td>
+          <td class="paramtype">typename CountingRegister::InnerRegisterSupplier&#160;</td>
+          <td class="paramname"><em>registerSupplier</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">registerSupplier</td><td>Supplier that creates storage items register. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa164c190bb40c9ff5d96e02a5647dd7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa164c190bb40c9ff5d96e02a5647dd7a">&#9670;&nbsp;</a></span>getItemsCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename IndexT , typename RegisterInfo &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual IndexT <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a>&lt; T, IndexT, RegisterInfo &gt;::getItemsCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -159,23 +205,23 @@ template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Number of registered elements. </dd></dl>
 
-<p>Reimplemented in <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a7d0075508b874fa91bfbf125173cdda6">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>.</p>
+<p>Reimplemented in <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#acc418728254adc559afd938bacee1cd7">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a7467cb0a77057464037ad4fddf693a50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7467cb0a77057464037ad4fddf693a50">&#9670;&nbsp;</a></span>getLastElementIndex()</h2>
+<a id="a76c897292491b06f99238ed137feeedc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76c897292491b06f99238ed137feeedc">&#9670;&nbsp;</a></span>getLastElementIndex()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">IndexT <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a>&lt; T, IndexT, RegisterType &gt;::getLastElementIndex </td>
+          <td class="memname">IndexT <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a>&lt; T, IndexT, RegisterInfo &gt;::getLastElementIndex </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -191,19 +237,19 @@ template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 
 </div>
 </div>
-<a id="afb7c9992c6acb5c1c8f7e0309460456c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb7c9992c6acb5c1c8f7e0309460456c">&#9670;&nbsp;</a></span>getRegister()</h2>
+<a id="acf6833d7bbb51a7f78f57a269c544394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf6833d7bbb51a7f78f57a269c544394">&#9670;&nbsp;</a></span>getRegister()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt;T, IndexT, RegisterType&gt;&amp; <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a>&lt; T, IndexT, RegisterType &gt;::getRegister </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt;T, IndexT, RegisterInfo&gt;&amp; <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a>&lt; T, IndexT, RegisterInfo &gt;::getRegister </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -219,19 +265,19 @@ template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
 
 </div>
 </div>
-<a id="a79c65797187c7cfdbe8b6e1fc41bb058"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79c65797187c7cfdbe8b6e1fc41bb058">&#9670;&nbsp;</a></span>getRegisterInfo()</h2>
+<a id="a98c0d9724d1ffd9a8543e6ba17954625"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98c0d9724d1ffd9a8543e6ba17954625">&#9670;&nbsp;</a></span>getRegisterInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename T , typename IndexT , typename RegisterType &gt; </div>
+template&lt;typename T , typename IndexT , typename RegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const auto&amp; <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a>&lt; T, IndexT, RegisterType &gt;::getRegisterInfo </td>
+          <td class="memname">auto <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage</a>&lt; T, IndexT, RegisterInfo &gt;::getRegisterInfo </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>

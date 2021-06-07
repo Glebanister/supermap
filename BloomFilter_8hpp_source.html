@@ -77,16 +77,23 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>supermap {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classsupermap_1_1BloomFilter.html">    8</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1BloomFilter.html">BloomFilter</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1Filter.html">Filter</a> {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keywordtype">void</span> addKey(<span class="keyword">const</span> std::string &amp;key) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    [[nodiscard]] <span class="keywordtype">bool</span> mightContain(<span class="keyword">const</span> std::string &amp;key) <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;};</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classsupermap_1_1BloomFilter.html">    9</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1BloomFilter.html">BloomFilter</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1Filter.html">Filter</a>&lt;T&gt; {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classsupermap_1_1BloomFilter.html#a5bd8f5f3c3da38a2f8ad1729fab9587c">   11</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1BloomFilter.html#a5bd8f5f3c3da38a2f8ad1729fab9587c">add</a>(<span class="keyword">const</span> T &amp;elem)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keywordflow">throw</span> <a class="code" href="classsupermap_1_1NotImplementedException.html">NotImplementedException</a>(<span class="stringliteral">&quot;Add key to bloom filter&quot;</span>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    }</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// supermap</span></div>
-<div class="ttc" id="aclasssupermap_1_1BloomFilter_html"><div class="ttname"><a href="classsupermap_1_1BloomFilter.html">supermap::BloomFilter</a></div><div class="ttdef"><b>Definition:</b> BloomFilter.hpp:8</div></div>
-<div class="ttc" id="aclasssupermap_1_1Filter_html"><div class="ttname"><a href="classsupermap_1_1Filter.html">supermap::Filter</a></div><div class="ttdef"><b>Definition:</b> Filter.hpp:7</div></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    [[nodiscard]] <span class="keywordtype">bool</span> mightContain(<span class="keyword">const</span> T &amp;elem)<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">throw</span> <a class="code" href="classsupermap_1_1NotImplementedException.html">NotImplementedException</a>(<span class="stringliteral">&quot;Might contain key in bloom filter&quot;</span>);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;};</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="ttc" id="aclasssupermap_1_1BloomFilter_html"><div class="ttname"><a href="classsupermap_1_1BloomFilter.html">supermap::BloomFilter</a></div><div class="ttdef"><b>Definition:</b> BloomFilter.hpp:9</div></div>
+<div class="ttc" id="aclasssupermap_1_1BloomFilter_html_a5bd8f5f3c3da38a2f8ad1729fab9587c"><div class="ttname"><a href="classsupermap_1_1BloomFilter.html#a5bd8f5f3c3da38a2f8ad1729fab9587c">supermap::BloomFilter::add</a></div><div class="ttdeci">void add(const T &amp;elem) override</div><div class="ttdoc">Add elem to filter.</div><div class="ttdef"><b>Definition:</b> BloomFilter.hpp:11</div></div>
+<div class="ttc" id="aclasssupermap_1_1Filter_html"><div class="ttname"><a href="classsupermap_1_1Filter.html">supermap::Filter</a></div><div class="ttdoc">Filter, which can add elements to self and tell which elements are certainly were not added to filter...</div><div class="ttdef"><b>Definition:</b> Filter.hpp:16</div></div>
+<div class="ttc" id="aclasssupermap_1_1NotImplementedException_html"><div class="ttname"><a href="classsupermap_1_1NotImplementedException.html">supermap::NotImplementedException</a></div><div class="ttdoc">An implementation stub.</div><div class="ttdef"><b>Definition:</b> SupermapException.hpp:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

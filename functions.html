@@ -66,21 +66,24 @@ $(function() {
 
 <h3><a id="index_a"></a>- a -</h3><ul>
 <li>add()
-: <a class="el" href="classsupermap_1_1BST.html#ad1c724ddef50829f256d0800bdd19ba3">supermap::BST&lt; Key, Value, IndexT &gt;</a>
+: <a class="el" href="classsupermap_1_1BloomFilter.html#a5bd8f5f3c3da38a2f8ad1729fab9587c">supermap::BloomFilter&lt; T &gt;</a>
+, <a class="el" href="classsupermap_1_1BST.html#ad1c724ddef50829f256d0800bdd19ba3">supermap::BST&lt; Key, Value, IndexT &gt;</a>
+, <a class="el" href="classsupermap_1_1Filter.html#acb59309c969af9cc7ea9d7e896b7dfe4">supermap::Filter&lt; ToAdd, ToContain &gt;</a>
 , <a class="el" href="classsupermap_1_1KeyValueStorage.html#a8ea1d9026377d64b51d269555f33b823">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1Supermap.html#a69d8132934f5fa228549e68dd4eb5c9f">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad, EachIndexRegType &gt;</a>
+, <a class="el" href="classsupermap_1_1MockFilter.html#aeb078c0feba069cc53446a485f4692b5">supermap::MockFilter&lt; ToAdd, ToContain &gt;</a>
+, <a class="el" href="classsupermap_1_1Supermap.html#a8c2f73008e3db86bb47bc2f2b27d563f">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>
 </li>
 <li>append()
-: <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a39a015c95adeb96309943cdf6216c0fa">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;</a>
-, <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#af10359fde26b9f2f135e0a6cc311297d">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
-, <a class="el" href="classsupermap_1_1OrderedStorage.html#a3a7739d40bcd55b850ffecca73dc7102">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a>
-, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#aabce5a4a2d5c141cddf3ed4e5608dd3d">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a8f020cbc6be8b59f39fb6563b7b587e9">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;</a>
+, <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a3fadacb96e47759287ebe25d1b657903">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1OrderedStorage.html#aeb6aa97832a3b49e96e2f90aa7bfe6be">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a597a35e3dd7a8208228138d8dacda4f1">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>appendAll()
-: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a7bf9b054a8d3320e9f55015c86e4760b">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a6d118db614bc839abe8b982c8f041b5f">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>appendCopy()
-: <a class="el" href="classsupermap_1_1OrderedStorage.html#ab7741ad1a746cd6e8badb8a5b224f7c3">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1OrderedStorage.html#a63602bf8048399de13719b19966906af">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>availableBytes()
 : <a class="el" href="classsupermap_1_1io_1_1FileInputStream.html#afe70fc4b7c22b0684d9bbfefaaec8359">supermap::io::FileInputStream</a>
@@ -92,7 +95,7 @@ $(function() {
 
 <h3><a id="index_b"></a>- b -</h3><ul>
 <li>BinaryCollapsingSortedStoragesList()
-: <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#abaa696b1617b9634d2566d817a4f2cf9">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;</a>
+: <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ae8b73176726f16bb3ec50621ee1fd552">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;</a>
 </li>
 <li>ByteArray()
 : <a class="el" href="classsupermap_1_1ByteArray.html#adbf33d1066cb1c7614694d3ac3065904">supermap::ByteArray&lt; Len &gt;</a>
@@ -107,22 +110,26 @@ $(function() {
 <li>clear()
 : <a class="el" href="classsupermap_1_1io_1_1FileManager.html#aa21ac50deb6c910ee43c1e01edf5a223">supermap::io::FileManager</a>
 </li>
+<li>clone()
+: <a class="el" href="classsupermap_1_1Cloneable.html#ae313a6b46a9e9e2bc2f74e41b835bc45">supermap::Cloneable&lt; T &gt;</a>
+, <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#a91c1f1827ded17ed3d5ce4fab4c8572b">supermap::CountingStorageItemRegister&lt; T, IndexT, AdditionalInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1FilteringRegister.html#a9b364fd820ea4f07919dbcf19ee0136e">supermap::FilteringRegister&lt; FilterToAdd, FilterToContain &gt;</a>
+, <a class="el" href="classsupermap_1_1MockFilter.html#ad1faea556015562ccdab0e03c8d47825">supermap::MockFilter&lt; ToAdd, ToContain &gt;</a>
+, <a class="el" href="classsupermap_1_1VoidRegister.html#aeea9c334bede840ce1ba5ea978c3dc47">supermap::VoidRegister&lt; T &gt;</a>
+</li>
 <li>collect()
 : <a class="el" href="classsupermap_1_1io_1_1InputIterator.html#a4615bb042b27a2d0a8f66ac4024ea002">supermap::io::InputIterator&lt; T, IndexT, EachSize, typename &gt;</a>
 </li>
 <li>collectWith()
 : <a class="el" href="classsupermap_1_1io_1_1InputIterator.html#ac5f59e040e1c304801f6d5d524ddc511">supermap::io::InputIterator&lt; T, IndexT, EachSize, typename &gt;</a>
 </li>
-<li>consumeStorages()
-: <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a6583f5be5edaada8debada2e3f1b9386">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;</a>
-</li>
 <li>containsKey()
 : <a class="el" href="classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b">supermap::BST&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1KeyValueStorage.html#ab57adee95980670a1d0862cf635dd8a7">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1Supermap.html#aea7390879faffbd9b2e7164a0bf8d2fa">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad, EachIndexRegType &gt;</a>
+, <a class="el" href="classsupermap_1_1Supermap.html#a19af6149f3dce7fc201788b3fdd945b8">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>
 </li>
 <li>CountingStorageItemRegister()
-: <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#a4f2df7b087331910df395aa230521723">supermap::CountingStorageItemRegister&lt; T, IndexT, InnerStorageRegister, AdditionalInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#acbaddbd18078c8c0dae4e26610eabf29">supermap::CountingStorageItemRegister&lt; T, IndexT, AdditionalInfo &gt;</a>
 </li>
 <li>create()
 : <a class="el" href="classsupermap_1_1io_1_1FileManager.html#a45439a95166eb982fc8c2b6fdb111a24">supermap::io::FileManager</a>
@@ -147,6 +154,10 @@ $(function() {
 <li>equals()
 : <a class="el" href="structsupermap_1_1KeyValue.html#ac7f998ba65644b0f036958db8d187e47">supermap::KeyValue&lt; Key, Value &gt;</a>
 </li>
+<li>extract()
+: <a class="el" href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">supermap::BST&lt; Key, Value, IndexT &gt;</a>
+, <a class="el" href="classsupermap_1_1ExtractibleKeyValueStorage.html#ac8145050221007c3adb8cac26c115ee6">supermap::ExtractibleKeyValueStorage&lt; Key, Value, IndexT &gt;</a>
+</li>
 </ul>
 
 
@@ -157,10 +168,14 @@ $(function() {
 <li>FileOutputStream()
 : <a class="el" href="classsupermap_1_1io_1_1FileOutputStream.html#abda9169da3ae4677da425336ffe09c1f">supermap::io::FileOutputStream</a>
 </li>
+<li>FilteredStorage()
+: <a class="el" href="classsupermap_1_1FilteredStorage.html#a1bfe06d820b027783c437c73ea4dbe6c">supermap::FilteredStorage&lt; Content, IndexT, FindPattern, Register, RegisterInfo &gt;</a>
+</li>
 <li>find()
-: <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ab5f45709e78713c30288099f356d21cd">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, EachStorageRegister &gt;</a>
-, <a class="el" href="classsupermap_1_1Findable.html#a51db1b2fe015ec2f59b59b0065fab297">supermap::Findable&lt; T &gt;</a>
-, <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html#a0bcabe0c02216312bf8f617557dfd4fd">supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a7a512f42618c3810fb39acb5f1efa6f1">supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;</a>
+, <a class="el" href="classsupermap_1_1FilteredStorage.html#a26844064d1243a0f39af6ab6824429bd">supermap::FilteredStorage&lt; Content, IndexT, FindPattern, Register, RegisterInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1Findable.html#a61d23e3d52e26e9777d014fd21419a42">supermap::Findable&lt; T, P &gt;</a>
+, <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html#a21e47d946791a927559574c5dce1d386">supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterInfo, FindPattern &gt;</a>
 </li>
 <li>flush()
 : <a class="el" href="classsupermap_1_1io_1_1FileOutputStream.html#a16bd66a8b73739f76873109bbdc19fad">supermap::io::FileOutputStream</a>
@@ -181,15 +196,15 @@ $(function() {
 
 <h3><a id="index_g"></a>- g -</h3><ul>
 <li>get()
-: <a class="el" href="classsupermap_1_1IndexedStorage.html#a80a364e2e09a1e503931a3b797873dfd">supermap::IndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1IndexedStorage.html#a129c394bb6cc2d7543db42f94b325277">supermap::IndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 , <a class="el" href="classsupermap_1_1io_1_1FileInputStream.html#ab916b329db670f1b3b05efa99ac19bf5">supermap::io::FileInputStream</a>
 , <a class="el" href="classsupermap_1_1io_1_1FileOutputStream.html#af13b3506274ea421a1dd38bd6c322c3f">supermap::io::FileOutputStream</a>
 , <a class="el" href="classsupermap_1_1io_1_1InputStream.html#a811cffeea8d9c20110e1ae51af7ad679">supermap::io::InputStream</a>
 , <a class="el" href="classsupermap_1_1io_1_1OutputStream.html#a9153e7add9e0fa19dd1685a201f4c86f">supermap::io::OutputStream</a>
 , <a class="el" href="classsupermap_1_1io_1_1StringInputStream.html#afd198106a8b2de606722074bd263e1b2">supermap::io::StringInputStream</a>
 , <a class="el" href="classsupermap_1_1io_1_1StringOutputStream.html#a756b78101bd34122ee18371fad58f92a">supermap::io::StringOutputStream</a>
-, <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a8b3c90cffa16f435948c040aadb99041">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
-, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a9e6d7561bb09d238f55088d38155eb77">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+, <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a326b37880d402f7cc940e0b05775b3b4">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ad0750fbe31aa5da2ba767e6eea9e8a35">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getBytes()
 : <a class="el" href="classsupermap_1_1ByteArray.html#a431327a63a21c04c1f64cc2db7a40ce2">supermap::ByteArray&lt; Len &gt;</a>
@@ -197,19 +212,16 @@ $(function() {
 <li>getCharsPointer()
 : <a class="el" href="classsupermap_1_1ByteArray.html#a4daddd48b2cd353c39cfcc33969dc323">supermap::ByteArray&lt; Len &gt;</a>
 </li>
-<li>getCollapsingBlocksListLength()
-: <a class="el" href="classsupermap_1_1Supermap.html#aa40ba84ddbe279b50fd80259d142dc7c">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad, EachIndexRegType &gt;</a>
-</li>
 <li>getCustomDataIterator()
-: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a8084e5d561c1b8ab566b9ea5bd027dec">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a27e3e939683297183ecc11d8add2f05d">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getDataIterator()
-: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ada88fa48923a29e6fe607bb0d43e1c3d">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ab0cdc36a70c022dcc1a6850e1c2115be">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getFileManager()
 : <a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html#aa4213d6332f6d7e89b21d47b775aaf00">supermap::io::TemporaryFile</a>
-, <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ad0ce126007aef23c5d0635bc228c1611">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
-, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ae3b7291875e0d1bf58996013b6b646cb">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+, <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#adb926b7826768dca362ae21cd37f121d">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a9bdb6f54ee4196877814e01c7cdc41ee">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getInputIterator()
 : <a class="el" href="classsupermap_1_1io_1_1FileManager.html#a27dd6e58f29103120018930abab03b18">supermap::io::FileManager</a>
@@ -221,20 +233,21 @@ $(function() {
 , <a class="el" href="classsupermap_1_1io_1_1RamFileManager.html#a131df30019b9fbc6640048758bc775d2">supermap::io::RamFileManager</a>
 </li>
 <li>getItemsCount()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a7d0075508b874fa91bfbf125173cdda6">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
-, <a class="el" href="classsupermap_1_1OrderedStorage.html#a876c3fcdaa0e07e5f07faf5e425014d4">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#acc418728254adc559afd938bacee1cd7">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1OrderedStorage.html#aa164c190bb40c9ff5d96e02a5647dd7a">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#aa164c190bb40c9ff5d96e02a5647dd7a">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getLastElementIndex()
-: <a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getNotSortedEntries()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a4a471ad8f29f469cb6f8c1fd970c24aa">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ab121c89651e8d43b06a82cf742d61646">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 <li>getNotSortedItemsCount()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a87238ba601ec4c690a128c2ca579f28c">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a02e1efa001b7244ab1dc942eec44be1f">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 <li>getNotSortedKeys()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#aef5a27a848fe0bd2f6db3bc5a8d2d9d1">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a7bb78104e5631e914f44661a3d859336">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 <li>getOutputIterator()
 : <a class="el" href="classsupermap_1_1io_1_1FileManager.html#ab365f2d05d95532ffc9bb028051a23ce">supermap::io::FileManager</a>
@@ -250,37 +263,39 @@ $(function() {
 , <a class="el" href="classsupermap_1_1io_1_1TemporaryFolder.html#a108e61d49fe7cf78989fa00e766b8ff0">supermap::io::TemporaryFolder</a>
 </li>
 <li>getRegister()
-: <a class="el" href="classsupermap_1_1OrderedStorage.html#afb7c9992c6acb5c1c8f7e0309460456c">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1OrderedStorage.html#acf6833d7bbb51a7f78f57a269c544394">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#acf6833d7bbb51a7f78f57a269c544394">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getRegisteredItemsInfo()
-: <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#aa76647da796f3cdbfe3a9069ad03fa75">supermap::CountingStorageItemRegister&lt; T, IndexT, InnerStorageRegister, AdditionalInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#a6b274d7eecdfc5ff89f805d3be9ac964">supermap::CountingStorageItemRegister&lt; T, IndexT, AdditionalInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1FilteringRegister.html#a3e8afffd312091cc1dc13969ae5b32bd">supermap::FilteringRegister&lt; FilterToAdd, FilterToContain &gt;</a>
 , <a class="el" href="classsupermap_1_1StorageItemRegister.html#a5bed2f6b31ee3b7c46f88e5a5fc545cd">supermap::StorageItemRegister&lt; T, Info &gt;</a>
 , <a class="el" href="classsupermap_1_1VoidRegister.html#a91903534439e79130c28d0fd08f069ba">supermap::VoidRegister&lt; T &gt;</a>
 </li>
 <li>getRegisterInfo()
-: <a class="el" href="classsupermap_1_1OrderedStorage.html#a79c65797187c7cfdbe8b6e1fc41bb058">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1OrderedStorage.html#a98c0d9724d1ffd9a8543e6ba17954625">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getSize()
 : <a class="el" href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">supermap::BST&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1KeyValueStorage.html#a14d7f2623b97d0414ca66873a3ea854e">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1Supermap.html#ab90c8f0e01d693a26b101d27c7ec6726">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad, EachIndexRegType &gt;</a>
+, <a class="el" href="classsupermap_1_1Supermap.html#aabe8646b6645363c0bad5593e9bb0212">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>
 </li>
 <li>getSortedEntries()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a8c7b818381d78eb5b8221c0362253170">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a4783219851b3c18b3f9b3b367f311567">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 <li>getSortedItemsCount()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ada0ced9a80336f168dc1345d9d601410">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a04d766b2db8b15d76fb278b513305a63">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 <li>getSortedKeys()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ae521b67b8c1eef4e235a69d2e850323e">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a6dc4532cf0d4c18a399a4f55b6038c15">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 <li>getStorageFilePath()
-: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a60d1e3a6e1bfd29cfb026d3b2c0a47c7">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ad41427e9680d561d2fb12c3b40455f26">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>getValue()
 : <a class="el" href="classsupermap_1_1BST.html#a601ba28bd32c3370d6ef1019c7419bda">supermap::BST&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1KeyValueStorage.html#a8cd13604da8fc692706dc74d965d3777">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
-, <a class="el" href="classsupermap_1_1Supermap.html#a4e1f867a4690c963018ad4a551f5fd1f">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad, EachIndexRegType &gt;</a>
+, <a class="el" href="classsupermap_1_1Supermap.html#ac8f98793e1790efb784407453bb05f6a">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad &gt;</a>
 </li>
 </ul>
 
@@ -301,7 +316,7 @@ $(function() {
 
 <h3><a id="index_k"></a>- k -</h3><ul>
 <li>KeyValueShrinkableStorage()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a4097fc9b3435583aec93e9f34b0ac21f">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a6b7a4d0f4187d7a6ef1346ff714dc2d4">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 </ul>
 
@@ -309,6 +324,10 @@ $(function() {
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>makeRootPath()
 : <a class="el" href="classsupermap_1_1io_1_1EncapsulatedFileManager.html#a196febe746dfe88bd8ccdba0b90c3ad3">supermap::io::EncapsulatedFileManager</a>
+</li>
+<li>mightContain()
+: <a class="el" href="classsupermap_1_1Filter.html#a8e5410866034a706d87c57f8992e1a4c">supermap::Filter&lt; ToAdd, ToContain &gt;</a>
+, <a class="el" href="classsupermap_1_1MockFilter.html#a465062594b56d38e628a63a88ee60f87">supermap::MockFilter&lt; ToAdd, ToContain &gt;</a>
 </li>
 </ul>
 
@@ -332,6 +351,9 @@ $(function() {
 : <a class="el" href="classsupermap_1_1ByteArray.html#ab2aebb41db3934af6124e906b24a6553">supermap::ByteArray&lt; Len &gt;</a>
 , <a class="el" href="structsupermap_1_1KeyValue.html#a5ceba4e43487b30170f84187680646df">supermap::KeyValue&lt; Key, Value &gt;</a>
 </li>
+<li>OrderedStorage()
+: <a class="el" href="classsupermap_1_1OrderedStorage.html#a0c307adc31ad7cd7744a2da97d3b8113">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
+</li>
 <li>OutputIterator()
 : <a class="el" href="classsupermap_1_1io_1_1OutputIterator.html#a52d079385fb5291b46103da72f706c83">supermap::io::OutputIterator&lt; T, typename &gt;</a>
 </li>
@@ -340,7 +362,8 @@ $(function() {
 
 <h3><a id="index_r"></a>- r -</h3><ul>
 <li>registerItem()
-: <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#a64aaa94c88997d4ec0fb05ef5fe725ee">supermap::CountingStorageItemRegister&lt; T, IndexT, InnerStorageRegister, AdditionalInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#a071538f91c4aaa610814baa0a91ad2dc">supermap::CountingStorageItemRegister&lt; T, IndexT, AdditionalInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1FilteringRegister.html#a5250766bca6cf46b30b9b9700a8708e3">supermap::FilteringRegister&lt; FilterToAdd, FilterToContain &gt;</a>
 , <a class="el" href="classsupermap_1_1StorageItemRegister.html#a17b506b1081eab5a9469fcbac2b9d889">supermap::StorageItemRegister&lt; T, Info &gt;</a>
 , <a class="el" href="classsupermap_1_1VoidRegister.html#a01441f68b45aefd9d81379c17fdddef5">supermap::VoidRegister&lt; T &gt;</a>
 </li>
@@ -357,8 +380,8 @@ $(function() {
 , <a class="el" href="classsupermap_1_1io_1_1RamFileManager.html#a2124b2270fc1cd0f48e56fe48d7d4526">supermap::io::RamFileManager</a>
 </li>
 <li>resetWith()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a5cc091d19b56c5a493e6c5e1088e9bf5">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
-, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ad8db1128dfb7f42fd534be12a5a40034">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#aa2f8b613bf52729ff262faba3309e4c7">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
+, <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ac66055dec7788efd909f8a56c913dfd4">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 </ul>
 
@@ -370,34 +393,31 @@ $(function() {
 , <a class="el" href="structsupermap_1_1io_1_1ShallowSerializer.html#a710e81ace9d40de57cc0b0ff46a660e3">supermap::io::ShallowSerializer&lt; T &gt;</a>
 </li>
 <li>shareNotSortedStorageFile()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a46a2521db01b2654b02e77c5dc702f96">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ad44dcd41d0df31de5114cf8eb0eeb8cf">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 <li>shareSortedStorageFile()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a207166c175494d5061bb7a3a17a7ab8a">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a167d1303184287681afec11232ae287b">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 <li>shareStorageFile()
-: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ae381657beb0d2def7a3266c828ae962c">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#a4b4e3475f79f024fe71a7f9d1c6075a6">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>shrink()
-: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a9bce7bfef1ef91c027246dbe127c61ef">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</a>
+: <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a8500707d0cfb040cbde947e5b90bf323">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</a>
 </li>
 <li>SingleFileIndexedStorage()
-: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ab2665d4e1b0845ea0506da4976eca8f5">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1SingleFileIndexedStorage.html#ab2bda5702752457840438059cfde1131">supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;</a>
 </li>
 <li>sortedEndIterator()
-: <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html#add617f45ef4735817c0bbcf16e652821">supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html#a3ead14caea01d678fd2475346b59a788">supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterInfo, FindPattern &gt;</a>
 </li>
 <li>SortedSingleFileIndexedStorage()
-: <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html#afda8146e916ff807bf043d35ff74265b">supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterType &gt;</a>
+: <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html#a27e6b54c5a35799c7caca6b2f0ec4dc3">supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterInfo, FindPattern &gt;</a>
 </li>
 <li>StringInputStream()
 : <a class="el" href="classsupermap_1_1io_1_1StringInputStream.html#a01e08d7120ff6e72f4a0e6ed140b11f6">supermap::io::StringInputStream</a>
 </li>
 <li>StringOutputStream()
 : <a class="el" href="classsupermap_1_1io_1_1StringOutputStream.html#ac74a6664660f70f23548bfb7c854c269">supermap::io::StringOutputStream</a>
-</li>
-<li>Supermap()
-: <a class="el" href="classsupermap_1_1Supermap.html#a3b64ec7e900b778656cb885629fefb6c">supermap::Supermap&lt; Key, Value, IndexT, MaxRamLoad, EachIndexRegType &gt;</a>
 </li>
 <li>swap()
 : <a class="el" href="classsupermap_1_1io_1_1DiskFileManager.html#a93ed98098c44856aa818125bac84da6b">supermap::io::DiskFileManager</a>

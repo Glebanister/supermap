@@ -1,4 +1,4 @@
-<map id="supermap::IndexedStorage&lt; T, IndexT, RegisterType &gt;" name="supermap::IndexedStorage&lt; T, IndexT, RegisterType &gt;">
-<area shape="rect" id="node1" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="5,95,187,136"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,187,47"/>
+<map id="supermap::IndexedStorage&lt; T, IndexT, RegisterInfo &gt;" name="supermap::IndexedStorage&lt; T, IndexT, RegisterInfo &gt;">
+<area shape="rect" id="node1" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="6,95,181,136"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,181,47"/>
 </map>

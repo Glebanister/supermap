@@ -83,8 +83,9 @@ Inheritance diagram for supermap::VoidRegister&lt; T &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsupermap_1_1VoidRegister__inherit__graph.png" border="0" usemap="#asupermap_1_1VoidRegister_3_01T_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="asupermap_1_1VoidRegister_3_01T_01_4_inherit__map" id="asupermap_1_1VoidRegister_3_01T_01_4_inherit__map">
-<area shape="rect" title="Empty register that does nothing." alt="" coords="13,95,202,121"/>
-<area shape="rect" href="classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="5,5,209,47"/>
+<area shape="rect" title="Empty register that does nothing." alt="" coords="13,169,202,196"/>
+<area shape="rect" href="classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="5,80,209,121"/>
+<area shape="rect" href="classsupermap_1_1Cloneable.html" title="Object which can produce cloned versions." alt="" coords="21,5,193,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -92,8 +93,9 @@ Collaboration diagram for supermap::VoidRegister&lt; T &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsupermap_1_1VoidRegister__coll__graph.png" border="0" usemap="#asupermap_1_1VoidRegister_3_01T_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="asupermap_1_1VoidRegister_3_01T_01_4_coll__map" id="asupermap_1_1VoidRegister_3_01T_01_4_coll__map">
-<area shape="rect" title="Empty register that does nothing." alt="" coords="13,95,202,121"/>
-<area shape="rect" href="classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="5,5,209,47"/>
+<area shape="rect" title="Empty register that does nothing." alt="" coords="13,169,202,196"/>
+<area shape="rect" href="classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="5,80,209,121"/>
+<area shape="rect" href="classsupermap_1_1Cloneable.html" title="Object which can produce cloned versions." alt="" coords="21,5,193,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -113,10 +115,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1VoidRegister.html#a91903534439e79130c28d0fd08f069ba">getRegisteredItemsInfo</a> () const noexcept override</td></tr>
 <tr class="memdesc:a91903534439e79130c28d0fd08f069ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Nothing to return since it is a void storage. <br /></td></tr>
 <tr class="separator:a91903534439e79130c28d0fd08f069ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeea9c334bede840ce1ba5ea978c3dc47"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt; T, void &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1VoidRegister.html#aeea9c334bede840ce1ba5ea978c3dc47">clone</a> () const override</td></tr>
+<tr class="separator:aeea9c334bede840ce1ba5ea978c3dc47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_types_classsupermap_1_1StorageItemRegister"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classsupermap_1_1StorageItemRegister')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classsupermap_1_1StorageItemRegister.html">supermap::StorageItemRegister&lt; T, void &gt;</a></td></tr>
+<tr class="memitem:ac404e338a50b211b4652b9a3c6087838 inherit pub_types_classsupermap_1_1StorageItemRegister"><td class="memItemLeft" align="right" valign="top"><a id="ac404e338a50b211b4652b9a3c6087838"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ToRegister</b> = T</td></tr>
+<tr class="separator:ac404e338a50b211b4652b9a3c6087838 inherit pub_types_classsupermap_1_1StorageItemRegister"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29b3e97906038e958d5b6715a313d421 inherit pub_types_classsupermap_1_1StorageItemRegister"><td class="memItemLeft" align="right" valign="top"><a id="a29b3e97906038e958d5b6715a313d421"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>ItemsInfo</b> = void</td></tr>
 <tr class="separator:a29b3e97906038e958d5b6715a313d421 inherit pub_types_classsupermap_1_1StorageItemRegister"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -132,7 +139,38 @@ class supermap::VoidRegister&lt; T &gt;</h3>
   </table>
   </dd>
 </dl>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aeea9c334bede840ce1ba5ea978c3dc47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeea9c334bede840ce1ba5ea978c3dc47">&#9670;&nbsp;</a></span>clone()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt;T, void&gt; &gt; <a class="el" href="classsupermap_1_1VoidRegister.html">supermap::VoidRegister</a>&lt; T &gt;::clone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>Cloned version of void register. </dd></dl>
+
+<p>Implements <a class="el" href="classsupermap_1_1Cloneable.html#ae313a6b46a9e9e2bc2f74e41b835bc45">supermap::Cloneable&lt; T &gt;</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/core/<a class="el" href="CountingStorageItemRegister_8hpp_source.html">CountingStorageItemRegister.hpp</a></li>
 </ul>
 </div><!-- contents -->

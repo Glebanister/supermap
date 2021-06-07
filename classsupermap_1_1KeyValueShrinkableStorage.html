@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Supermap: supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt; Class Template Reference</title>
+<title>Supermap: supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classsupermap_1_1KeyValueShrinkableStorage-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt; Class Template Reference</div>  </div>
+<div class="title">supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -79,89 +79,95 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="KeyValueShrinkableStorage_8hpp_source.html">KeyValueShrinkableStorage.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;:</div>
+Inheritance diagram for supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1KeyValueShrinkableStorage__inherit__graph.png" border="0" usemap="#asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01IndexRegisterInfo_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01IndexRegisterInfo_01_4_inherit__map" id="asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01IndexRegisterInfo_01_4_inherit__map">
-<area shape="rect" title="Storage, which contains keys and associated values. Consists of two parts: the one,..." alt="" coords="477,13,679,69"/>
-<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title=" " alt="" coords="235,5,429,76"/>
-<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,20,187,61"/>
+<div class="center"><img src="classsupermap_1_1KeyValueShrinkableStorage__inherit__graph.png" border="0" usemap="#asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01KeyIndexRegisterInfo_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01KeyIndexRegisterInfo_01_4_inherit__map" id="asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01KeyIndexRegisterInfo_01_4_inherit__map">
+<area shape="rect" title="Storage, which contains keys and associated values. Consists of two parts: the one,..." alt="" coords="5,199,207,255"/>
+<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title=" " alt="" coords="19,95,193,151"/>
+<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="18,5,194,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;:</div>
+Collaboration diagram for supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1KeyValueShrinkableStorage__coll__graph.png" border="0" usemap="#asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01IndexRegisterInfo_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01IndexRegisterInfo_01_4_coll__map" id="asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01IndexRegisterInfo_01_4_coll__map">
-<area shape="rect" title="Storage, which contains keys and associated values. Consists of two parts: the one,..." alt="" coords="477,13,679,69"/>
-<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title=" " alt="" coords="235,5,429,76"/>
-<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,20,187,61"/>
+<div class="center"><img src="classsupermap_1_1KeyValueShrinkableStorage__coll__graph.png" border="0" usemap="#asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01KeyIndexRegisterInfo_01_4_coll__map" alt="Collaboration graph"/></div>
+<map name="asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01KeyIndexRegisterInfo_01_4_coll__map" id="asupermap_1_1KeyValueShrinkableStorage_3_01Key_00_01Value_00_01IndexT_00_01KeyIndexRegisterInfo_01_4_coll__map">
+<area shape="rect" title="Storage, which contains keys and associated values. Consists of two parts: the one,..." alt="" coords="5,199,207,255"/>
+<area shape="rect" href="classsupermap_1_1IndexedStorage.html" title=" " alt="" coords="19,95,193,151"/>
+<area shape="rect" href="classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="18,5,194,47"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4097fc9b3435583aec93e9f34b0ac21f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a4097fc9b3435583aec93e9f34b0ac21f">KeyValueShrinkableStorage</a> (const std::string &amp;notSortedStorageFilename, const std::string &amp;sortedStorageFilename, std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt; fileManager)</td></tr>
-<tr class="memdesc:a4097fc9b3435583aec93e9f34b0ac21f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty storage.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#a4097fc9b3435583aec93e9f34b0ac21f">More...</a><br /></td></tr>
-<tr class="separator:a4097fc9b3435583aec93e9f34b0ac21f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b8629503007c59d77880a9d7b2c8247"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a3b8629503007c59d77880a9d7b2c8247">KeyValueShrinkableStorage</a> (const <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a> &amp;oldStorage, const <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">KeyIndexStorage</a> &amp;actualIndex, const std::string &amp;notSortedStorageFilename, const std::string &amp;sortedStorageFilename, std::size_t indexBatchSize)</td></tr>
-<tr class="memdesc:a3b8629503007c59d77880a9d7b2c8247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new storage, copying values from <code>oldStorage</code>. Those value indexes will be taken from <code>actualIndex</code> in sorted order. New all new key-values will be sorted (if <code>actualIndex</code> is sorted), so all key-values will be in sorted storage. Not sorted storage will be empty.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#a3b8629503007c59d77880a9d7b2c8247">More...</a><br /></td></tr>
-<tr class="separator:a3b8629503007c59d77880a9d7b2c8247"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cc091d19b56c5a493e6c5e1088e9bf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a5cc091d19b56c5a493e6c5e1088e9bf5">resetWith</a> (<a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a> &amp;&amp;other)</td></tr>
-<tr class="memdesc:a5cc091d19b56c5a493e6c5e1088e9bf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces <code>this</code> storage with <code>other</code>. <code>other</code> will be <code>moved-from</code>.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#a5cc091d19b56c5a493e6c5e1088e9bf5">More...</a><br /></td></tr>
-<tr class="separator:a5cc091d19b56c5a493e6c5e1088e9bf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0ce126007aef23c5d0635bc228c1611"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ad0ce126007aef23c5d0635bc228c1611">getFileManager</a> () const noexcept</td></tr>
-<tr class="separator:ad0ce126007aef23c5d0635bc228c1611"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a207166c175494d5061bb7a3a17a7ab8a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a207166c175494d5061bb7a3a17a7ab8a">shareSortedStorageFile</a> () const noexcept</td></tr>
-<tr class="separator:a207166c175494d5061bb7a3a17a7ab8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46a2521db01b2654b02e77c5dc702f96"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a46a2521db01b2654b02e77c5dc702f96">shareNotSortedStorageFile</a> () const noexcept</td></tr>
-<tr class="separator:a46a2521db01b2654b02e77c5dc702f96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af10359fde26b9f2f135e0a6cc311297d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#af10359fde26b9f2f135e0a6cc311297d">append</a> (std::unique_ptr&lt; <a class="el" href="structsupermap_1_1KeyValue.html">KV</a> &gt; &amp;&amp;item) override</td></tr>
-<tr class="memdesc:af10359fde26b9f2f135e0a6cc311297d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends <code>item</code> to the storage. It can not be easily appended to the sorted storage, hence, it is being appended to the not sorted storage. New value is considered to be the most relevant for key.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#af10359fde26b9f2f135e0a6cc311297d">More...</a><br /></td></tr>
-<tr class="separator:af10359fde26b9f2f135e0a6cc311297d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b3c90cffa16f435948c040aadb99041"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsupermap_1_1KeyValue.html">KV</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a8b3c90cffa16f435948c040aadb99041">get</a> (IndexT index) const override</td></tr>
-<tr class="memdesc:a8b3c90cffa16f435948c040aadb99041"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets key-value pair which has index <code>index</code> in this storage. Behavior is undefined if index overflows storage size.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#a8b3c90cffa16f435948c040aadb99041">More...</a><br /></td></tr>
-<tr class="separator:a8b3c90cffa16f435948c040aadb99041"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d0075508b874fa91bfbf125173cdda6"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a7d0075508b874fa91bfbf125173cdda6">getItemsCount</a> () const noexcept override</td></tr>
-<tr class="separator:a7d0075508b874fa91bfbf125173cdda6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada0ced9a80336f168dc1345d9d601410"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ada0ced9a80336f168dc1345d9d601410">getSortedItemsCount</a> () const noexcept</td></tr>
-<tr class="separator:ada0ced9a80336f168dc1345d9d601410"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87238ba601ec4c690a128c2ca579f28c"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a87238ba601ec4c690a128c2ca579f28c">getNotSortedItemsCount</a> () const noexcept</td></tr>
-<tr class="separator:a87238ba601ec4c690a128c2ca579f28c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae521b67b8c1eef4e235a69d2e850323e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; <a class="el" href="structsupermap_1_1StorageValueIgnorer.html">ValueIgnorer</a>, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ae521b67b8c1eef4e235a69d2e850323e">getSortedKeys</a> ()</td></tr>
-<tr class="separator:ae521b67b8c1eef4e235a69d2e850323e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef5a27a848fe0bd2f6db3bc5a8d2d9d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; <a class="el" href="structsupermap_1_1StorageValueIgnorer.html">ValueIgnorer</a>, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#aef5a27a848fe0bd2f6db3bc5a8d2d9d1">getNotSortedKeys</a> ()</td></tr>
-<tr class="separator:aef5a27a848fe0bd2f6db3bc5a8d2d9d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c7b818381d78eb5b8221c0362253170"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; <a class="el" href="structsupermap_1_1KeyValue.html">KV</a>, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a8c7b818381d78eb5b8221c0362253170">getSortedEntries</a> ()</td></tr>
-<tr class="separator:a8c7b818381d78eb5b8221c0362253170"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a471ad8f29f469cb6f8c1fd970c24aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; <a class="el" href="structsupermap_1_1KeyValue.html">KV</a>, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a4a471ad8f29f469cb6f8c1fd970c24aa">getNotSortedEntries</a> ()</td></tr>
-<tr class="separator:a4a471ad8f29f469cb6f8c1fd970c24aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bce7bfef1ef91c027246dbe127c61ef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">KeyIndexStorage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a9bce7bfef1ef91c027246dbe127c61ef">shrink</a> (IndexT shrinkBatchSize, const std::string &amp;newIndexFileName)</td></tr>
-<tr class="memdesc:a9bce7bfef1ef91c027246dbe127c61ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shrinks not sorted storage. After command completion not sorted storage is empty and there are the most relevant values are paired with keys in sorted storage.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#a9bce7bfef1ef91c027246dbe127c61ef">More...</a><br /></td></tr>
-<tr class="separator:a9bce7bfef1ef91c027246dbe127c61ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a></td></tr>
-<tr class="memitem:a3a7739d40bcd55b850ffecca73dc7102 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="a3a7739d40bcd55b850ffecca73dc7102"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a3a7739d40bcd55b850ffecca73dc7102">append</a> (std::unique_ptr&lt; T &gt; &amp;&amp;)=0</td></tr>
-<tr class="memdesc:a3a7739d40bcd55b850ffecca73dc7102 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex()</a></code>. <br /></td></tr>
-<tr class="separator:a3a7739d40bcd55b850ffecca73dc7102 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="ab7741ad1a746cd6e8badb8a5b224f7c3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#ab7741ad1a746cd6e8badb8a5b224f7c3">appendCopy</a> (T elem)</td></tr>
-<tr class="memdesc:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add copy of an element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex()</a></code>. <br /></td></tr>
-<tr class="separator:ab7741ad1a746cd6e8badb8a5b224f7c3 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7467cb0a77057464037ad4fddf693a50 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a7467cb0a77057464037ad4fddf693a50">getLastElementIndex</a> () const noexcept</td></tr>
-<tr class="separator:a7467cb0a77057464037ad4fddf693a50 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79c65797187c7cfdbe8b6e1fc41bb058 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">const auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a79c65797187c7cfdbe8b6e1fc41bb058">getRegisterInfo</a> () noexcept</td></tr>
-<tr class="separator:a79c65797187c7cfdbe8b6e1fc41bb058 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b7a4d0f4187d7a6ef1346ff714dc2d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a6b7a4d0f4187d7a6ef1346ff714dc2d4">KeyValueShrinkableStorage</a> (const std::string &amp;notSortedStorageFilename, const std::string &amp;sortedStorageFilename, std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt; fileManager, InnerRegisterSupplier innerRegisterSupplier)</td></tr>
+<tr class="memdesc:a6b7a4d0f4187d7a6ef1346ff714dc2d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty storage.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#a6b7a4d0f4187d7a6ef1346ff714dc2d4">More...</a><br /></td></tr>
+<tr class="separator:a6b7a4d0f4187d7a6ef1346ff714dc2d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbb62e37dcc8110eb409ef087ec66659"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#abbb62e37dcc8110eb409ef087ec66659">KeyValueShrinkableStorage</a> (const <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a> &amp;oldStorage, const <a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">KeyIndexStorage</a> &amp;actualIndex, const std::string &amp;notSortedStorageFilename, const std::string &amp;sortedStorageFilename, std::size_t indexBatchSize)</td></tr>
+<tr class="memdesc:abbb62e37dcc8110eb409ef087ec66659"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates new storage, copying values from <code>oldStorage</code>. Those value indexes will be taken from <code>actualIndex</code> in sorted order. New all new key-values will be sorted (if <code>actualIndex</code> is sorted), so all key-values will be in sorted storage. Not sorted storage will be empty.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#abbb62e37dcc8110eb409ef087ec66659">More...</a><br /></td></tr>
+<tr class="separator:abbb62e37dcc8110eb409ef087ec66659"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2f8b613bf52729ff262faba3309e4c7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#aa2f8b613bf52729ff262faba3309e4c7">resetWith</a> (<a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a> &amp;&amp;other)</td></tr>
+<tr class="memdesc:aa2f8b613bf52729ff262faba3309e4c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces <code>this</code> storage with <code>other</code>. <code>other</code> will be <code>moved-from</code>.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#aa2f8b613bf52729ff262faba3309e4c7">More...</a><br /></td></tr>
+<tr class="separator:aa2f8b613bf52729ff262faba3309e4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb926b7826768dca362ae21cd37f121d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#adb926b7826768dca362ae21cd37f121d">getFileManager</a> () const noexcept</td></tr>
+<tr class="separator:adb926b7826768dca362ae21cd37f121d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a167d1303184287681afec11232ae287b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a167d1303184287681afec11232ae287b">shareSortedStorageFile</a> () const noexcept</td></tr>
+<tr class="separator:a167d1303184287681afec11232ae287b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad44dcd41d0df31de5114cf8eb0eeb8cf"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ad44dcd41d0df31de5114cf8eb0eeb8cf">shareNotSortedStorageFile</a> () const noexcept</td></tr>
+<tr class="separator:ad44dcd41d0df31de5114cf8eb0eeb8cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fadacb96e47759287ebe25d1b657903"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a3fadacb96e47759287ebe25d1b657903">append</a> (std::unique_ptr&lt; <a class="el" href="structsupermap_1_1KeyValue.html">KV</a> &gt; &amp;&amp;item) override</td></tr>
+<tr class="memdesc:a3fadacb96e47759287ebe25d1b657903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends <code>item</code> to the storage. It can not be easily appended to the sorted storage, hence, it is being appended to the not sorted storage. New value is considered to be the most relevant for key.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#a3fadacb96e47759287ebe25d1b657903">More...</a><br /></td></tr>
+<tr class="separator:a3fadacb96e47759287ebe25d1b657903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a326b37880d402f7cc940e0b05775b3b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structsupermap_1_1KeyValue.html">KV</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a326b37880d402f7cc940e0b05775b3b4">get</a> (IndexT index) const override</td></tr>
+<tr class="memdesc:a326b37880d402f7cc940e0b05775b3b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets key-value pair which has index <code>index</code> in this storage. Behavior is undefined if index overflows storage size.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#a326b37880d402f7cc940e0b05775b3b4">More...</a><br /></td></tr>
+<tr class="separator:a326b37880d402f7cc940e0b05775b3b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc418728254adc559afd938bacee1cd7"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#acc418728254adc559afd938bacee1cd7">getItemsCount</a> () const noexcept override</td></tr>
+<tr class="separator:acc418728254adc559afd938bacee1cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04d766b2db8b15d76fb278b513305a63"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a04d766b2db8b15d76fb278b513305a63">getSortedItemsCount</a> () const noexcept</td></tr>
+<tr class="separator:a04d766b2db8b15d76fb278b513305a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02e1efa001b7244ab1dc942eec44be1f"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a02e1efa001b7244ab1dc942eec44be1f">getNotSortedItemsCount</a> () const noexcept</td></tr>
+<tr class="separator:a02e1efa001b7244ab1dc942eec44be1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dc4532cf0d4c18a399a4f55b6038c15"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; <a class="el" href="structsupermap_1_1StorageValueIgnorer.html">ValueIgnorer</a>, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a6dc4532cf0d4c18a399a4f55b6038c15">getSortedKeys</a> ()</td></tr>
+<tr class="separator:a6dc4532cf0d4c18a399a4f55b6038c15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bb78104e5631e914f44661a3d859336"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; <a class="el" href="structsupermap_1_1StorageValueIgnorer.html">ValueIgnorer</a>, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a7bb78104e5631e914f44661a3d859336">getNotSortedKeys</a> ()</td></tr>
+<tr class="separator:a7bb78104e5631e914f44661a3d859336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4783219851b3c18b3f9b3b367f311567"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; <a class="el" href="structsupermap_1_1KeyValue.html">KV</a>, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a4783219851b3c18b3f9b3b367f311567">getSortedEntries</a> ()</td></tr>
+<tr class="separator:a4783219851b3c18b3f9b3b367f311567"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab121c89651e8d43b06a82cf742d61646"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt; <a class="el" href="structsupermap_1_1KeyValue.html">KV</a>, IndexT &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#ab121c89651e8d43b06a82cf742d61646">getNotSortedEntries</a> ()</td></tr>
+<tr class="separator:ab121c89651e8d43b06a82cf742d61646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8500707d0cfb040cbde947e5b90bf323"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">KeyIndexStorage</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html#a8500707d0cfb040cbde947e5b90bf323">shrink</a> (IndexT shrinkBatchSize, const std::string &amp;newIndexFileName)</td></tr>
+<tr class="memdesc:a8500707d0cfb040cbde947e5b90bf323"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shrinks not sorted storage. After command completion not sorted storage is empty and there are the most relevant values are paired with keys in sorted storage.  <a href="classsupermap_1_1KeyValueShrinkableStorage.html#a8500707d0cfb040cbde947e5b90bf323">More...</a><br /></td></tr>
+<tr class="separator:a8500707d0cfb040cbde947e5b90bf323"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a></td></tr>
+<tr class="memitem:a0c307adc31ad7cd7744a2da97d3b8113 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a0c307adc31ad7cd7744a2da97d3b8113">OrderedStorage</a> (typename CountingRegister::InnerRegisterSupplier registerSupplier)</td></tr>
+<tr class="separator:a0c307adc31ad7cd7744a2da97d3b8113 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb6aa97832a3b49e96e2f90aa7bfe6be inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="aeb6aa97832a3b49e96e2f90aa7bfe6be"></a>
+virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#aeb6aa97832a3b49e96e2f90aa7bfe6be">append</a> (std::unique_ptr&lt; T &gt; &amp;&amp;)=0</td></tr>
+<tr class="memdesc:aeb6aa97832a3b49e96e2f90aa7bfe6be inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex()</a></code>. <br /></td></tr>
+<tr class="separator:aeb6aa97832a3b49e96e2f90aa7bfe6be inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63602bf8048399de13719b19966906af inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="a63602bf8048399de13719b19966906af"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a63602bf8048399de13719b19966906af">appendCopy</a> (T elem)</td></tr>
+<tr class="memdesc:a63602bf8048399de13719b19966906af inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add copy of an element to the end of storage (which will have the greatest order). Order of added element is <code><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex()</a></code>. <br /></td></tr>
+<tr class="separator:a63602bf8048399de13719b19966906af inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76c897292491b06f99238ed137feeedc inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a76c897292491b06f99238ed137feeedc">getLastElementIndex</a> () const noexcept</td></tr>
+<tr class="separator:a76c897292491b06f99238ed137feeedc inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98c0d9724d1ffd9a8543e6ba17954625 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#a98c0d9724d1ffd9a8543e6ba17954625">getRegisterInfo</a> () noexcept</td></tr>
+<tr class="separator:a98c0d9724d1ffd9a8543e6ba17954625 inherit pub_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a></td></tr>
-<tr class="memitem:afb7c9992c6acb5c1c8f7e0309460456c inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterType &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#afb7c9992c6acb5c1c8f7e0309460456c">getRegister</a> ()</td></tr>
-<tr class="separator:afb7c9992c6acb5c1c8f7e0309460456c inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a></td></tr>
+<tr class="memitem:ad04da464c5e2395a062ef0c0ca39e8dd inherit pub_types_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a id="ad04da464c5e2395a062ef0c0ca39e8dd"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>CountingRegister</b> = <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterInfo &gt;</td></tr>
+<tr class="separator:ad04da464c5e2395a062ef0c0ca39e8dd inherit pub_types_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classsupermap_1_1OrderedStorage"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classsupermap_1_1OrderedStorage')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classsupermap_1_1OrderedStorage.html">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a></td></tr>
+<tr class="memitem:acf6833d7bbb51a7f78f57a269c544394 inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">CountingStorageItemRegister</a>&lt; T, IndexT, RegisterInfo &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1OrderedStorage.html#acf6833d7bbb51a7f78f57a269c544394">getRegister</a> ()</td></tr>
+<tr class="separator:acf6833d7bbb51a7f78f57a269c544394 inherit pro_methods_classsupermap_1_1OrderedStorage"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename Key, typename Value, typename IndexT, typename IndexRegisterInfo&gt;<br />
-class supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterInfo &gt;</h3>
+<div class="textblock"><h3>template&lt;typename Key, typename Value, typename IndexT, typename KeyIndexRegisterInfo&gt;<br />
+class supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, KeyIndexRegisterInfo &gt;</h3>
 
 <p>Storage, which contains keys and associated values. Consists of two parts: the one, where keys are sorted and unique and the one where there is no particular order. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
@@ -169,23 +175,25 @@ class supermap::KeyValueShrinkableStorage&lt; Key, Value, IndexT, IndexRegisterI
     <tr><td class="paramname"><a class="el" href="structsupermap_1_1Key.html" title="An array which contains Len bytes in-place (not in the heap memory).">Key</a></td><td>key type. </td></tr>
     <tr><td class="paramname">Value</td><td>value type. </td></tr>
     <tr><td class="paramname">IndexT</td><td>type of storage index. </td></tr>
+    <tr><td class="paramname">KeyIndexRegisterInfo</td><td>Type of index storages information. </td></tr>
+    <tr><td class="paramname">IndexFindPatternType</td><td>Find pattern of index storages. </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4097fc9b3435583aec93e9f34b0ac21f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4097fc9b3435583aec93e9f34b0ac21f">&#9670;&nbsp;</a></span>KeyValueShrinkableStorage() <span class="overload">[1/2]</span></h2>
+<a id="a6b7a4d0f4187d7a6ef1346ff714dc2d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b7a4d0f4187d7a6ef1346ff714dc2d4">&#9670;&nbsp;</a></span>KeyValueShrinkableStorage() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::<a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a> </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::<a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a> </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>notSortedStorageFilename</em>, </td>
@@ -200,7 +208,13 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a> &gt;&#160;</td>
-          <td class="paramname"><em>fileManager</em>&#160;</td>
+          <td class="paramname"><em>fileManager</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">InnerRegisterSupplier&#160;</td>
+          <td class="paramname"><em>innerRegisterSupplier</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -227,21 +241,21 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="a3b8629503007c59d77880a9d7b2c8247"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b8629503007c59d77880a9d7b2c8247">&#9670;&nbsp;</a></span>KeyValueShrinkableStorage() <span class="overload">[2/2]</span></h2>
+<a id="abbb62e37dcc8110eb409ef087ec66659"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abbb62e37dcc8110eb409ef087ec66659">&#9670;&nbsp;</a></span>KeyValueShrinkableStorage() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::<a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a> </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::<a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a> </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt; &amp;&#160;</td>
           <td class="paramname"><em>oldStorage</em>, </td>
         </tr>
         <tr>
@@ -296,19 +310,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af10359fde26b9f2f135e0a6cc311297d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af10359fde26b9f2f135e0a6cc311297d">&#9670;&nbsp;</a></span>append()</h2>
+<a id="a3fadacb96e47759287ebe25d1b657903"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fadacb96e47759287ebe25d1b657903">&#9670;&nbsp;</a></span>append()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::append </td>
+          <td class="memname">void <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::append </td>
           <td>(</td>
           <td class="paramtype">std::unique_ptr&lt; <a class="el" href="structsupermap_1_1KeyValue.html">KV</a> &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>item</em></td><td>)</td>
@@ -332,19 +346,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="a8b3c90cffa16f435948c040aadb99041"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b3c90cffa16f435948c040aadb99041">&#9670;&nbsp;</a></span>get()</h2>
+<a id="a326b37880d402f7cc940e0b05775b3b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a326b37880d402f7cc940e0b05775b3b4">&#9670;&nbsp;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structsupermap_1_1KeyValue.html">KV</a> <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::get </td>
+          <td class="memname"><a class="el" href="structsupermap_1_1KeyValue.html">KV</a> <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::get </td>
           <td>(</td>
           <td class="paramtype">IndexT&#160;</td>
           <td class="paramname"><em>index</em></td><td>)</td>
@@ -367,23 +381,23 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Read key-value pair. </dd></dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1IndexedStorage.html#a80a364e2e09a1e503931a3b797873dfd">supermap::IndexedStorage&lt; KeyValue&lt; Key, Value &gt;, IndexT, VoidRegister&lt; KeyValue&lt; Key, Value &gt; &gt; &gt;</a>.</p>
+<p>Implements <a class="el" href="classsupermap_1_1IndexedStorage.html#a129c394bb6cc2d7543db42f94b325277">supermap::IndexedStorage&lt; KeyValue&lt; Key, Value &gt;, IndexT, void &gt;</a>.</p>
 
 </div>
 </div>
-<a id="ad0ce126007aef23c5d0635bc228c1611"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0ce126007aef23c5d0635bc228c1611">&#9670;&nbsp;</a></span>getFileManager()</h2>
+<a id="adb926b7826768dca362ae21cd37f121d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb926b7826768dca362ae21cd37f121d">&#9670;&nbsp;</a></span>getFileManager()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a>&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::getFileManager </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1FileManager.html">io::FileManager</a>&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::getFileManager </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -399,19 +413,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="a7d0075508b874fa91bfbf125173cdda6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d0075508b874fa91bfbf125173cdda6">&#9670;&nbsp;</a></span>getItemsCount()</h2>
+<a id="acc418728254adc559afd938bacee1cd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc418728254adc559afd938bacee1cd7">&#9670;&nbsp;</a></span>getItemsCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">IndexT <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::getItemsCount </td>
+          <td class="memname">IndexT <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::getItemsCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -425,23 +439,23 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Number of key-value pairs in storage (sum of sorted and not sorted storage sizes). </dd></dl>
 
-<p>Reimplemented from <a class="el" href="classsupermap_1_1OrderedStorage.html#a876c3fcdaa0e07e5f07faf5e425014d4">supermap::OrderedStorage&lt; T, IndexT, RegisterType &gt;</a>.</p>
+<p>Reimplemented from <a class="el" href="classsupermap_1_1OrderedStorage.html#aa164c190bb40c9ff5d96e02a5647dd7a">supermap::OrderedStorage&lt; T, IndexT, RegisterInfo &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a4a471ad8f29f469cb6f8c1fd970c24aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a471ad8f29f469cb6f8c1fd970c24aa">&#9670;&nbsp;</a></span>getNotSortedEntries()</h2>
+<a id="ab121c89651e8d43b06a82cf742d61646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab121c89651e8d43b06a82cf742d61646">&#9670;&nbsp;</a></span>getNotSortedEntries()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;<a class="el" href="structsupermap_1_1KeyValue.html">KV</a>, IndexT&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::getNotSortedEntries </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;<a class="el" href="structsupermap_1_1KeyValue.html">KV</a>, IndexT&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::getNotSortedEntries </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -457,19 +471,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="a87238ba601ec4c690a128c2ca579f28c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87238ba601ec4c690a128c2ca579f28c">&#9670;&nbsp;</a></span>getNotSortedItemsCount()</h2>
+<a id="a02e1efa001b7244ab1dc942eec44be1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02e1efa001b7244ab1dc942eec44be1f">&#9670;&nbsp;</a></span>getNotSortedItemsCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">IndexT <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::getNotSortedItemsCount </td>
+          <td class="memname">IndexT <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::getNotSortedItemsCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -485,19 +499,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="aef5a27a848fe0bd2f6db3bc5a8d2d9d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef5a27a848fe0bd2f6db3bc5a8d2d9d1">&#9670;&nbsp;</a></span>getNotSortedKeys()</h2>
+<a id="a7bb78104e5631e914f44661a3d859336"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb78104e5631e914f44661a3d859336">&#9670;&nbsp;</a></span>getNotSortedKeys()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;<a class="el" href="structsupermap_1_1StorageValueIgnorer.html">ValueIgnorer</a>, IndexT&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::getNotSortedKeys </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;<a class="el" href="structsupermap_1_1StorageValueIgnorer.html">ValueIgnorer</a>, IndexT&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::getNotSortedKeys </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -513,19 +527,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="a8c7b818381d78eb5b8221c0362253170"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c7b818381d78eb5b8221c0362253170">&#9670;&nbsp;</a></span>getSortedEntries()</h2>
+<a id="a4783219851b3c18b3f9b3b367f311567"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4783219851b3c18b3f9b3b367f311567">&#9670;&nbsp;</a></span>getSortedEntries()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;<a class="el" href="structsupermap_1_1KeyValue.html">KV</a>, IndexT&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::getSortedEntries </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;<a class="el" href="structsupermap_1_1KeyValue.html">KV</a>, IndexT&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::getSortedEntries </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -541,19 +555,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="ada0ced9a80336f168dc1345d9d601410"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada0ced9a80336f168dc1345d9d601410">&#9670;&nbsp;</a></span>getSortedItemsCount()</h2>
+<a id="a04d766b2db8b15d76fb278b513305a63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d766b2db8b15d76fb278b513305a63">&#9670;&nbsp;</a></span>getSortedItemsCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">IndexT <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::getSortedItemsCount </td>
+          <td class="memname">IndexT <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::getSortedItemsCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -569,19 +583,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="ae521b67b8c1eef4e235a69d2e850323e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae521b67b8c1eef4e235a69d2e850323e">&#9670;&nbsp;</a></span>getSortedKeys()</h2>
+<a id="a6dc4532cf0d4c18a399a4f55b6038c15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dc4532cf0d4c18a399a4f55b6038c15">&#9670;&nbsp;</a></span>getSortedKeys()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;<a class="el" href="structsupermap_1_1StorageValueIgnorer.html">ValueIgnorer</a>, IndexT&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::getSortedKeys </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1io_1_1InputIterator.html">io::InputIterator</a>&lt;<a class="el" href="structsupermap_1_1StorageValueIgnorer.html">ValueIgnorer</a>, IndexT&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::getSortedKeys </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -597,21 +611,21 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="a5cc091d19b56c5a493e6c5e1088e9bf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cc091d19b56c5a493e6c5e1088e9bf5">&#9670;&nbsp;</a></span>resetWith()</h2>
+<a id="aa2f8b613bf52729ff262faba3309e4c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2f8b613bf52729ff262faba3309e4c7">&#9670;&nbsp;</a></span>resetWith()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::resetWith </td>
+          <td class="memname">void <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::resetWith </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt; &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -633,19 +647,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="a46a2521db01b2654b02e77c5dc702f96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46a2521db01b2654b02e77c5dc702f96">&#9670;&nbsp;</a></span>shareNotSortedStorageFile()</h2>
+<a id="ad44dcd41d0df31de5114cf8eb0eeb8cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad44dcd41d0df31de5114cf8eb0eeb8cf">&#9670;&nbsp;</a></span>shareNotSortedStorageFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a>&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::shareNotSortedStorageFile </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a>&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::shareNotSortedStorageFile </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -661,19 +675,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="a207166c175494d5061bb7a3a17a7ab8a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a207166c175494d5061bb7a3a17a7ab8a">&#9670;&nbsp;</a></span>shareSortedStorageFile()</h2>
+<a id="a167d1303184287681afec11232ae287b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a167d1303184287681afec11232ae287b">&#9670;&nbsp;</a></span>shareSortedStorageFile()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a>&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::shareSortedStorageFile </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1io_1_1TemporaryFile.html">io::TemporaryFile</a>&gt; <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::shareSortedStorageFile </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -689,19 +703,19 @@ template&lt;typename Key , typename Value , typename IndexT , typename IndexRegi
 
 </div>
 </div>
-<a id="a9bce7bfef1ef91c027246dbe127c61ef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9bce7bfef1ef91c027246dbe127c61ef">&#9670;&nbsp;</a></span>shrink()</h2>
+<a id="a8500707d0cfb040cbde947e5b90bf323"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8500707d0cfb040cbde947e5b90bf323">&#9670;&nbsp;</a></span>shrink()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Key , typename Value , typename IndexT , typename IndexRegisterInfo &gt; </div>
+template&lt;typename Key , typename Value , typename IndexT , typename KeyIndexRegisterInfo &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">KeyIndexStorage</a> <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, IndexRegisterInfo &gt;::shrink </td>
+          <td class="memname"><a class="el" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">KeyIndexStorage</a> <a class="el" href="classsupermap_1_1KeyValueShrinkableStorage.html">supermap::KeyValueShrinkableStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, IndexT, KeyIndexRegisterInfo &gt;::shrink </td>
           <td>(</td>
           <td class="paramtype">IndexT&#160;</td>
           <td class="paramname"><em>shrinkBatchSize</em>, </td>

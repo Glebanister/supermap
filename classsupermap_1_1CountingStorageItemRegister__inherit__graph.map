@@ -1,4 +1,5 @@
-<map id="supermap::CountingStorageItemRegister&lt; T, IndexT, InnerStorageRegister, AdditionalInfo &gt;" name="supermap::CountingStorageItemRegister&lt; T, IndexT, InnerStorageRegister, AdditionalInfo &gt;">
-<area shape="rect" id="node1" title="Storage item register which counts every added element to the storage." alt="" coords="257,5,468,76"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="5,5,209,76"/>
+<map id="supermap::CountingStorageItemRegister&lt; T, IndexT, AdditionalInfo &gt;" name="supermap::CountingStorageItemRegister&lt; T, IndexT, AdditionalInfo &gt;">
+<area shape="rect" id="node1" title="Storage item register which counts every added element to the storage." alt="" coords="477,5,659,61"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="225,5,429,61"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1Cloneable.html" title="Object which can produce cloned versions." alt="" coords="5,20,177,47"/>
 </map>

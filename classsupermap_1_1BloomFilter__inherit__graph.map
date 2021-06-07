@@ -1,4 +1,5 @@
-<map id="supermap::BloomFilter" name="supermap::BloomFilter">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,156,107"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1Filter.html" title=" " alt="" coords="23,5,138,32"/>
+<map id="supermap::BloomFilter&lt; T &gt;" name="supermap::BloomFilter&lt; T &gt;">
+<area shape="rect" id="node1" title=" " alt="" coords="5,155,187,181"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1Filter.html" title=" " alt="" coords="24,80,168,107"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1Cloneable.html" title="Object which can produce cloned versions." alt="" coords="10,5,182,32"/>
 </map>

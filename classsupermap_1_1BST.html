@@ -102,19 +102,18 @@ Collaboration diagram for supermap::BST&lt; Key, Value, IndexT &gt;:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad1c724ddef50829f256d0800bdd19ba3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BST.html#ad1c724ddef50829f256d0800bdd19ba3">add</a> (const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;key, Value &amp;&amp;value) override</td></tr>
-<tr class="memdesc:ad1c724ddef50829f256d0800bdd19ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add file to the storage. More relevant key value overwrites less relevant.  <a href="classsupermap_1_1BST.html#ad1c724ddef50829f256d0800bdd19ba3">More...</a><br /></td></tr>
+<tr class="memdesc:ad1c724ddef50829f256d0800bdd19ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add key-value pair to <a class="el" href="classsupermap_1_1BST.html" title="Implementation of Binary Search Tree with std::map.">BST</a>.  <a href="classsupermap_1_1BST.html#ad1c724ddef50829f256d0800bdd19ba3">More...</a><br /></td></tr>
 <tr class="separator:ad1c724ddef50829f256d0800bdd19ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbb21ce915286b51c864fe84d967d21b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b">containsKey</a> (const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;key) override</td></tr>
-<tr class="memdesc:adbb21ce915286b51c864fe84d967d21b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if storage contains <code>key</code>.  <a href="classsupermap_1_1BST.html#adbb21ce915286b51c864fe84d967d21b">More...</a><br /></td></tr>
 <tr class="separator:adbb21ce915286b51c864fe84d967d21b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a601ba28bd32c3370d6ef1019c7419bda"><td class="memItemLeft" align="right" valign="top">Value&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BST.html#a601ba28bd32c3370d6ef1019c7419bda">getValue</a> (const <a class="el" href="structsupermap_1_1Key.html">Key</a> &amp;key) override</td></tr>
-<tr class="memdesc:a601ba28bd32c3370d6ef1019c7419bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads value associated with the given <code>key</code>. If there is no value associated with <code>key</code>, behavior is undefined.  <a href="classsupermap_1_1BST.html#a601ba28bd32c3370d6ef1019c7419bda">More...</a><br /></td></tr>
 <tr class="separator:a601ba28bd32c3370d6ef1019c7419bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a074f057468b0d76709e633dbf98b352a"><td class="memItemLeft" align="right" valign="top">IndexT&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BST.html#a074f057468b0d76709e633dbf98b352a">getSize</a> () const noexcept override</td></tr>
 <tr class="separator:a074f057468b0d76709e633dbf98b352a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5160f3c074e0f8236858c24b06de7f6a"><td class="memItemLeft" align="right" valign="top"><a id="a5160f3c074e0f8236858c24b06de7f6a"></a>
-std::vector&lt; <a class="el" href="structsupermap_1_1KeyValue.html">KeyValue</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>extract</b> () &amp;&amp;override</td></tr>
-<tr class="separator:a5160f3c074e0f8236858c24b06de7f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dd230e2b2a6567b6c24433bd1261d27"><td class="memItemLeft" align="right" valign="top"><a id="a8dd230e2b2a6567b6c24433bd1261d27"></a>
+std::vector&lt; <a class="el" href="structsupermap_1_1KeyValue.html">KeyValue</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">extract</a> () &amp;&amp;override</td></tr>
+<tr class="memdesc:a8dd230e2b2a6567b6c24433bd1261d27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move all key-value pairs to the vector, emptying the <a class="el" href="classsupermap_1_1BST.html" title="Implementation of Binary Search Tree with std::map.">BST</a> itself. <br /></td></tr>
+<tr class="separator:a8dd230e2b2a6567b6c24433bd1261d27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename Key, typename Value, typename IndexT&gt;<br />
@@ -166,11 +165,11 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Add file to the storage. More relevant key value overwrites less relevant. </p>
+<p>Add key-value pair to <a class="el" href="classsupermap_1_1BST.html" title="Implementation of Binary Search Tree with std::map.">BST</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">key</td><td>New key. </td></tr>
-    <tr><td class="paramname">value</td><td>Value of the <code>key</code>. </td></tr>
+    <tr><td class="paramname">key</td><td><a class="el" href="structsupermap_1_1Key.html" title="An array which contains Len bytes in-place (not in the heap memory).">Key</a> to add. </td></tr>
+    <tr><td class="paramname">value</td><td>Value to add. </td></tr>
   </table>
   </dd>
 </dl>
@@ -204,15 +203,7 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Checks if storage contains <code>key</code>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td><a class="el" href="structsupermap_1_1Key.html" title="An array which contains Len bytes in-place (not in the heap memory).">Key</a> to find. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>If there is any value associated with the given key. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>If <a class="el" href="classsupermap_1_1BST.html" title="Implementation of Binary Search Tree with std::map.">BST</a> contains <code>key</code>. </dd></dl>
 
 <p>Implements <a class="el" href="classsupermap_1_1KeyValueStorage.html#ab57adee95980670a1d0862cf635dd8a7">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>.</p>
 
@@ -242,7 +233,7 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Size of the storage. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Current number of keys in <a class="el" href="classsupermap_1_1BST.html" title="Implementation of Binary Search Tree with std::map.">BST</a>. </dd></dl>
 
 <p>Implements <a class="el" href="classsupermap_1_1KeyValueStorage.html#a14d7f2623b97d0414ca66873a3ea854e">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>.</p>
 
@@ -273,15 +264,7 @@ template&lt;typename Key , typename Value , typename IndexT &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Reads value associated with the given <code>key</code>. If there is no value associated with <code>key</code>, behavior is undefined. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td><a class="el" href="structsupermap_1_1Key.html" title="An array which contains Len bytes in-place (not in the heap memory).">Key</a> to get value. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Value associated with the given <code>key</code>. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The most relevant <code>Value</code> associated with <code>key</code>. </dd></dl>
 
 <p>Implements <a class="el" href="classsupermap_1_1KeyValueStorage.html#a8cd13604da8fc692706dc74d965d3777">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>.</p>
 
