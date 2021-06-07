@@ -7,6 +7,21 @@ namespace supermap {
  * @tparam IndexT Bounds type
  */
 template <typename IndexT>
-struct Bounds { IndexT min, max; };
+struct Bounds {
+    using Type = IndexT;
+
+    IndexT min, max;
+};
+
+template <typename T>
+struct IsBounds {
+    static constexpr bool isBounds = false;
+};
+
+template <typename T>
+struct IsBounds<Bounds<T>> {
+    static constexpr bool isBounds = true;
+    using Type = T;
+};
 
 } // supermap

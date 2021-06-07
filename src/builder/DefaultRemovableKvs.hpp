@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/KeyValueStorage.hpp"
-#include "core/RemovableKvs.hpp"
 #include "primitive/Bounds.hpp"
 #include "io/SerializeHelper.hpp"
 #include "exception/SupermapException.hpp"
@@ -80,16 +79,12 @@ template <
     typename Value,
     typename Size
 >
-class DefaultRemovableKvs : public RemovableKvs<Key, Value, Size> {
+class DefaultRemovableKvs : public KeyValueStorage<Key, Value, Size> {
   public:
-    explicit DefaultRemovableKvs(std::unique_ptr<KeyValueStorage<Key,
-                                                                 MaybeRemovedValue<Value>,
-                                                                 Size>> &&innerStorage = nullptr)
-        : storageOfMaybeRemoved_(std::move(innerStorage)) {}
+    using KeyValueStorageMaybeValue = KeyValueStorage<Key, MaybeRemovedValue<Value>, Size>;
 
-    void setInnerStorage(std::unique_ptr<KeyValueStorage<Key, MaybeRemovedValue<Value>, Size>> &&inner) {
-        storageOfMaybeRemoved_ = std::move(inner);
-    }
+    explicit DefaultRemovableKvs(std::unique_ptr<KeyValueStorageMaybeValue> &&innerStorage)
+        : storageOfMaybeRemoved_(std::move(innerStorage)) {}
 
     void add(const Key &key, Value &&value) override {
         assert(storageOfMaybeRemoved_);
@@ -120,7 +115,7 @@ class DefaultRemovableKvs : public RemovableKvs<Key, Value, Size> {
     }
 
   private:
-    std::unique_ptr<KeyValueStorage<Key, MaybeRemovedValue<Value>, Size>> storageOfMaybeRemoved_;
+    std::unique_ptr<KeyValueStorage < Key, MaybeRemovedValue<Value>, Size>> storageOfMaybeRemoved_;
 };
 
 } // supermap

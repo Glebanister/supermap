@@ -3,6 +3,7 @@
 #include <map>
 
 #include "ExtractibleKeyValueStorage.hpp"
+#include "primitive/Bounds.hpp"
 
 namespace supermap {
 
@@ -37,8 +38,17 @@ class BST : public ExtractibleKeyValueStorage<Key, Value, IndexT> {
     /**
      * @return Current number of keys in BST.
      */
-    IndexT getSize() const noexcept override {
-        return static_cast<IndexT>(map_.size());
+    IndexT getSize() const override {
+        auto mapSize = map_.size();
+
+        if constexpr (IsBounds<IndexT>::isBounds) {
+            return Bounds<typename IsBounds<IndexT>::Type>{
+                mapSize,
+                mapSize
+            };
+        } else {
+            return mapSize;
+        }
     }
 
     /**
@@ -52,6 +62,10 @@ class BST : public ExtractibleKeyValueStorage<Key, Value, IndexT> {
         }
         map_.clear();
         return extracted;
+    }
+
+    void remove(const Key &key) override {
+        map_.erase(key);
     }
 
   private:

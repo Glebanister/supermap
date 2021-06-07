@@ -19,7 +19,6 @@ namespace supermap {
 template <
     typename T,
     typename IndexT,
-    IndexT RankOneSize,
     typename InnerRegisterInfo,
     typename FindPatternType
 >
@@ -32,8 +31,8 @@ class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, 
      * @brief A node in linked list of storages.
      */
     struct ListNode {
-        explicit ListNode(std::unique_ptr<SortedStorage> &&s, std::shared_ptr<ListNode> n)
-            : storage(std::move(s)), next(std::move(n)) {}
+        explicit ListNode(std::unique_ptr<SortedStorage> &&s, std::shared_ptr<ListNode> n, IndexT rankOneSize)
+            : storage(std::move(s)), next(std::move(n)), rankOneSize_(rankOneSize) {}
 
         std::unique_ptr<SortedStorage> storage;
         std::shared_ptr<ListNode> next;
@@ -52,8 +51,11 @@ class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, 
             assert(valid());
             IndexT size = storage->getItemsCount();
             assert(size != 0);
-            return std::log2((size + RankOneSize - 1) / RankOneSize);
+            return std::log2((size + rankOneSize_ - 1) / rankOneSize_);
         }
+
+      private:
+        const IndexT rankOneSize_;
     };
 
   public:
@@ -72,7 +74,7 @@ class BinaryCollapsingSortedStoragesList : public SortedStoragesList<T, IndexT, 
      * @param storage New storage. Its rank must be 0.
      */
     void append(std::unique_ptr<SortedStorage> &&storage) override {
-        head_ = std::make_shared<ListNode>(std::move(storage), std::move(head_));
+        head_ = std::make_shared<ListNode>(std::move(storage), std::move(head_), batchSize_);
         std::shared_ptr<ListNode> curNode = head_;
         std::shared_ptr<ListNode> nextNode = curNode->next;
         while (nextNode != nullptr) {

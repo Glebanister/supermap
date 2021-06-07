@@ -27,8 +27,7 @@ namespace supermap {
 template <
     typename Key,
     typename Value,
-    typename IndexT,
-    IndexT MaxRamLoad
+    typename IndexT
 >
 class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
   public:
@@ -47,20 +46,20 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
   public:
     explicit Supermap(std::unique_ptr<RamStorageBase> &&innerStorage,
                       std::unique_ptr<DiskStorage> &&diskDataStorage,
-                      std::function<bool(IndexT, IndexT)> shouldShrinkChecker,
                       std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)> keyIndexStorageSupplier,
                       std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier,
                       std::function<std::unique_ptr<FilterType>()> filerSupplier,
-                      IndexT keyIndexBatchSize)
+                      IndexT keyIndexBatchSize,
+                      double maxNotSortedPart)
         : innerStorage_(std::move(innerStorage)),
           diskDataStorage_(std::move(diskDataStorage)),
           diskIndex_(indexListSupplier()),
-          shouldShrinkChecker_(std::move(shouldShrinkChecker)),
           keyIndexStorageSupplier_(std::move(keyIndexStorageSupplier)),
           indexListSupplier_(std::move(indexListSupplier)),
           filerSupplier_(std::move(filerSupplier)),
           keyIndexBatchSize_(keyIndexBatchSize),
-          random(std::chrono::steady_clock::now().time_since_epoch().count()) {}
+          random(std::chrono::steady_clock::now().time_since_epoch().count()),
+          maxNotSortedPart_(maxNotSortedPart) {}
 
     /**
      * @brief Adds new key-value pair to the storage.
@@ -70,13 +69,16 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     void add(const Key &key, Value &&value) override {
         diskDataStorage_->append(std::make_unique<KeyVal>(key, value));
         innerStorage_->add(key, diskDataStorage_->getLastElementIndex());
-        if (innerStorage_->getSize() >= MaxRamLoad) {
+        if (innerStorage_->getSize() >= keyIndexBatchSize_) {
             dropRamIndexToDisk();
         }
-        if (shouldShrinkChecker_(
-            diskDataStorage_->getNotSortedItemsCount(),
-            diskDataStorage_->getSortedItemsCount() + diskDataStorage_->getNotSortedItemsCount())) {
 
+        IndexT notSortedStorageSize = diskDataStorage_->getNotSortedItemsCount();
+        IndexT totalStorageSize = diskDataStorage_->getItemsCount();
+
+        double notSortedPart = static_cast<double>(notSortedStorageSize) / static_cast<double>(totalStorageSize);
+
+        if (notSortedPart >= maxNotSortedPart_) {
             dropRamIndexToDisk();
             shrinkDataStorage();
         }
@@ -168,7 +170,6 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     std::unique_ptr<RamStorageBase> innerStorage_;
     std::unique_ptr<DiskStorage> diskDataStorage_;
     std::unique_ptr<IndexStorageListBase> diskIndex_;
-    std::function<bool(IndexT, IndexT)> shouldShrinkChecker_;
     std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)>
         keyIndexStorageSupplier_;
     std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier_;
@@ -176,6 +177,7 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     const IndexT keyIndexBatchSize_;
     const std::string indexFilesPrefix = "index-";
     mutable std::mt19937 random;
+    const double maxNotSortedPart_;
 };
 
 } // supermap

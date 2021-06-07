@@ -25,7 +25,7 @@
 #include "core/BST.hpp"
 #include "core/FilteredStorage.hpp"
 #include "core/MockFilter.hpp"
-#include "core/DefaultSupermap.hpp"
+#include "core/DefaultBuilder.hpp"
 
 using CharKV = supermap::KeyValue<char, char>;
 
@@ -738,7 +738,7 @@ TEST_CASE("BinaryCollapsingSortedStoragesList") {
         []() { return std::make_unique<VoidRegister<CharKV>>(); }
     );
 
-    BinaryCollapsingSortedStoragesList<CharKV, char, 2, void, char> list(
+    BinaryCollapsingSortedStoragesList<CharKV, char, void, char> list(
         2,
         []() { return std::make_unique<VoidRegister<CharKV>>(); }
     );
@@ -765,7 +765,15 @@ TEST_CASE("BinaryCollapsingSortedStoragesList") {
 TEST_CASE ("Supermap simple") {
     using namespace supermap;
 
-    auto superMap = DefaultSupermap<2, 3, 4, 2, 2>::make();
+    using SupermapBuilder = DefaultBuilder<Key<2>, ByteArray<3>, std::size_t>;
+
+    auto superMap = SupermapBuilder::build(
+        SupermapBuilder::BuildParameters{
+            3,
+            0.5,
+            "supermap"
+        }
+    );
     auto key = [](const std::string &s) {
         return Key<2>::fromString(s);
     };

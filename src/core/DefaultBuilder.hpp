@@ -3,54 +3,53 @@
 #include "Supermap.hpp"
 #include "io/EncapsulatedFileManager.hpp"
 #include "MockFilter.hpp"
-#include "DefaultRemovableKvs.hpp"
 
 namespace supermap {
 
 template <
-    std::size_t KeyLen,
-    std::size_t ValueLen,
-    std::size_t MaxRamLoad,
-    std::size_t MaxNotSortedSize,
-    std::size_t KeyIndexBatchSize
+    typename Key,
+    typename Value,
+    typename IndexT
 >
-class DefaultSupermap {
+class DefaultBuilder {
   public:
-    using K = Key<KeyLen>;
-    using I = std::size_t;
-    using V = ByteArray<ValueLen>;
-    using MV = MaybeRemovedValue<V>;
+    struct BuildParameters {
+        IndexT batchSize;
+        double maxNotSortedPart;
+        std::string folderName;
+    };
+
+  public:
+    using K = Key;
+    using I = IndexT;
+    using V = Value;
     using KI = KeyValue<K, I>;
     using B = Bounds<I>;
-    using Default = Supermap<K, MV, I, MaxRamLoad>;
+    using Smap = Supermap<K, V, I>;
 
     using RamType = supermap::BST<K, I, I>;
-    using IndexStorageListBase = typename Default::IndexStorageListBase;
-    using IndexStorageBase = typename Default::IndexStorageBase;
-    using DiskStorage = typename Default::DiskStorage;
-    using RegisterInfo = typename Default::RegisterInfo;
-    using Register = typename Default::Register;
-    using DefaultBinaryCollapsingList = BinaryCollapsingSortedStoragesList<KI, I, MaxRamLoad, RegisterInfo, K>;
+    using IndexStorageListBase = typename Smap::IndexStorageListBase;
+    using IndexStorageBase = typename Smap::IndexStorageBase;
+    using DiskStorage = typename Smap::DiskStorage;
+    using RegisterInfo = typename Smap::RegisterInfo;
+    using Register = typename Smap::Register;
+    using DefaultBinaryCollapsingList = BinaryCollapsingSortedStoragesList<KI, I, RegisterInfo, K>;
 
-    static std::shared_ptr<RemovableKvs<K, V, B>> make() {
-        using MyBinaryCollapsingList = BinaryCollapsingSortedStoragesList<KI, I, MaxRamLoad, RegisterInfo, K>;
-
+    static std::shared_ptr<KeyValueStorage<K, V, B>> build(const BuildParameters &params) {
         std::shared_ptr<supermap::io::FileManager> fileManager
             = std::make_shared<supermap::io::EncapsulatedFileManager>(
-                std::make_shared<supermap::io::TemporaryFolder>(".supermap", true),
+                std::make_shared<supermap::io::TemporaryFolder>(params.folderName, true),
                 std::make_unique<supermap::io::DiskFileManager>()
             );
-
-        std::function<bool(I, I)> shouldShrinkChecker = [](I ns, I) { return ns >= MaxNotSortedSize; };
 
         std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)>
             indexSupplier = [](IndexStorageBase &&sortedStorage) {
             return std::make_unique<IndexStorageBase>(std::move(sortedStorage));
         };
 
-        std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier = []() {
-            return std::make_unique<MyBinaryCollapsingList>(
-                KeyIndexBatchSize,
+        std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier = [maxRamLoad = params.batchSize]() {
+            return std::make_unique<DefaultBinaryCollapsingList>(
+                maxRamLoad,
                 []() {
                     return std::make_unique<FilteringRegister<KI, K>>
                         (
@@ -74,7 +73,7 @@ class DefaultSupermap {
                     );
             };
 
-        std::unique_ptr<KeyValueStorage<K, MV, B>> kvs = std::make_unique<Default>(
+        return std::make_shared<Smap>(
             std::make_unique<RamType>(),
             std::make_unique<DiskStorage>(
                 "storage-not-sorted",
@@ -82,9 +81,6 @@ class DefaultSupermap {
                 fileManager,
                 innerRegisterSupplier
             ),
-            [](I notSortedSize, I) {
-                return notSortedSize >= MaxNotSortedSize;
-            },
             [](IndexStorageBase &&sortedStorage) {
                 return std::make_unique<IndexStorageBase>(std::move(sortedStorage));
             },
@@ -93,10 +89,9 @@ class DefaultSupermap {
                 return std::make_unique<MockFilter<KI, K>>
                     ();
             },
-            KeyIndexBatchSize
+            params.batchSize,
+            params.maxNotSortedPart
         );
-
-        return std::make_shared<DefaultRemovableKvs<K, V, B>>(std::move(kvs));
     }
 };
 

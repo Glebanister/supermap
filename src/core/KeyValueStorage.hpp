@@ -52,6 +52,14 @@ class KeyValueStorage {
     }
 
     /**
+     * @brief Remove @p key from storage.
+     * @param key Key to remove.
+     */
+    virtual void remove(const Key &) {
+        throw NotImplementedException("Remove for abstract KeyValueStorage");
+    }
+
+    /**
      * @return Size of the storage.
      */
     virtual IndexT getSize() const = 0;

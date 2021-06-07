@@ -12,37 +12,57 @@
 #include "core/MockFilter.hpp"
 #include "core/FilteringRegister.hpp"
 #include "core/FilteredStorage.hpp"
-#include "core/DefaultSupermap.hpp"
+#include "core/DefaultBuilder.hpp"
 
 extern std::uint32_t timeSeed();
 
 template <
     std::size_t KeyLen,
-    std::size_t ValueLen,
-    std::size_t MaxRamLoad,
-    std::size_t MaxNotSortedSize,
-    std::size_t KeyIndexBatchSize,
-    char AlphabetBegin,
-    char AlphabetEnd
+    std::size_t ValueLen
 >
-void stressTestSupermap(std::size_t iterations, std::size_t seed) {
+void stressTestSupermap(std::size_t iterations,
+                        std::size_t seed,
+                        std::size_t batchSize,
+                        double part,
+                        char alphabetBegin,
+                        char alphabetEnd,
+                        bool check) {
     using namespace supermap;
 
-    auto kvs = DefaultSupermap<KeyLen, ValueLen, MaxRamLoad, MaxNotSortedSize, KeyIndexBatchSize>::make();
+    using SupermapBuilder = DefaultBuilder<Key<KeyLen>, ByteArray<ValueLen>, std::size_t>;
 
-    std::map<Key<KeyLen>, ByteArray<ValueLen>> expectedMap;
+    auto kvs = SupermapBuilder::build(
+        typename SupermapBuilder::BuildParameters{
+            batchSize,
+            part,
+            "supermap"
+        }
+    );
+
+    std::shared_ptr<KeyValueStorage<Key<KeyLen>, ByteArray<ValueLen>, Bounds<std::size_t>>> expectedKvs = check
+        ? std::make_shared<BST<Key<KeyLen>, ByteArray<ValueLen>, Bounds<std::size_t>>>()
+        : SupermapBuilder::build(
+            typename SupermapBuilder::BuildParameters{
+                batchSize,
+                part,
+                "supermap-other"
+            }
+        );
+
     std::mt19937 rand(seed);
     auto randValue = [&]() {
         std::string v;
+        v.reserve(ValueLen);
         for (std::size_t i = 0; i < ValueLen; ++i) {
-            v += static_cast<char>(rand() % (AlphabetEnd - AlphabetBegin + 1) + AlphabetBegin);
+            v += static_cast<char>(rand() % (alphabetEnd - alphabetBegin + 1) + alphabetBegin);
         }
         return ByteArray<ValueLen>::fromString(v);
     };
     auto randKey = [&]() {
         std::string k;
+        k.reserve(KeyLen);
         for (std::size_t i = 0; i < KeyLen; ++i) {
-            k += static_cast<char>(rand() % (AlphabetEnd - AlphabetBegin + 1) + AlphabetBegin);
+            k += static_cast<char>(rand() % (alphabetEnd - alphabetBegin + 1) + alphabetBegin);
         }
         return Key<KeyLen>::fromString(k);
     };
@@ -53,21 +73,21 @@ void stressTestSupermap(std::size_t iterations, std::size_t seed) {
                 auto key = randKey();
                 auto value = randValue();
                 kvs->add(key, ByteArray<ValueLen>(value));
-                expectedMap[key] = value;
+                expectedKvs->add(key, ByteArray<ValueLen>(value));
             }
                 break;
             case 1: {
                 auto key = randKey();
-                bool expectedContains = expectedMap.find(key) != expectedMap.end();
+                bool expectedContains = expectedKvs->contains(key);
                 CHECK_EQ(expectedContains, kvs->contains(key));
                 if (expectedContains) {
-                    CHECK_EQ(expectedMap[key], kvs->getValue(key));
+                    CHECK_EQ(expectedKvs->getValue(key), kvs->getValue(key));
                 }
             }
                 break;
             case 2: {
                 auto key = randKey();
-                CHECK_EQ((expectedMap.find(key) != expectedMap.end()), kvs->contains(key));
+                CHECK_EQ(expectedKvs->contains(key), kvs->contains(key));
             }
                 break;
             default: break;
@@ -78,99 +98,31 @@ void stressTestSupermap(std::size_t iterations, std::size_t seed) {
 TEST_SUITE("Supermap Stress") {
 
 TEST_CASE("Supermap Stress 1") {
-    stressTestSupermap<
-        1,   // Key
-        1,   // Value
-        1,   // RamLoad
-        1,   // MaxNotSortedSize,
-        1,   // KeyIndexBatchSize,
-        '0', // AlphabetBegin
-        '1'  // AlphabetEnd
-    >(2000, timeSeed());
+    stressTestSupermap<1, 1>(10000, timeSeed(), 1, 0.8, '0', '0', true);
 }
 
 TEST_CASE("Supermap Stress 2") {
-    stressTestSupermap<
-        2,   // Key
-        2,   // Value
-        4,   // RamLoad
-        5,   // MaxNotSortedSize,
-        2,   // KeyIndexBatchSize,
-        '0', // AlphabetBegin
-        '2'  // AlphabetEnd
-    >(2000, timeSeed());
+    stressTestSupermap<1, 1>(10000, timeSeed(), 1, 0.5, '0', '1', true);
 }
 
 TEST_CASE("Supermap Stress 3") {
-    stressTestSupermap<
-        3,   // Key
-        6,   // Value
-        5,   // RamLoad
-        6,   // MaxNotSortedSize,
-        4,   // KeyIndexBatchSize,
-        '0', // AlphabetBegin
-        '1'  // AlphabetEnd
-    >(2000, timeSeed());
+    stressTestSupermap<3, 4>(10000, timeSeed(), 7, 0.12, '0', '3', true);
 }
 
 TEST_CASE("Supermap Stress 4") {
-    stressTestSupermap<
-        3,   // Key
-        6,   // Value
-        10,  // RamLoad
-        40,  // MaxNotSortedSize,
-        10,  // KeyIndexBatchSize,
-        '0', // AlphabetBegin
-        '3'  // AlphabetEnd
-    >(2000, timeSeed());
+    stressTestSupermap<128, 4096>(1000, timeSeed(), 50, 0.3, 'a', 'z', true);
 }
 
-TEST_CASE("Supermap Stress 5") {
-    stressTestSupermap<
-        10,   // Key
-        30,   // Value
-        942,  // RamLoad
-        4003, // MaxNotSortedSize,
-        52,   // KeyIndexBatchSize,
-        'a',  // AlphabetBegin
-        'z'   // AlphabetEnd
-    >(2000, timeSeed());
+TEST_CASE("Supermap Stress 4") {
+    stressTestSupermap<2, 2>(20000, timeSeed(), 507, 0.02, 'a', 'z', true);
 }
 
-TEST_CASE("Supermap Stress 6") {
-    stressTestSupermap<
-        3,    // Key
-        30,   // Value
-        942,  // RamLoad
-        2013, // MaxNotSortedSize,
-        52,   // KeyIndexBatchSize,
-        'a',  // AlphabetBegin
-        'z'   // AlphabetEnd
-    >(10000, timeSeed());
 }
 
-TEST_CASE("Supermap Stress 7") {
-    stressTestSupermap<
-        5,    // Key
-        30,   // Value
-        123,  // RamLoad
-        912,  // MaxNotSortedSize,
-        11,   // KeyIndexBatchSize,
-        '0',  // AlphabetBegin
-        '1'   // AlphabetEnd
-    >(10000, timeSeed());
-}
+TEST_SUITE("Supermap Stress Profiling") {
 
-TEST_CASE("Supermap Stress 8") {
-    stressTestSupermap<
-        171,  // Key
-        1031, // Value
-        212,  // RamLoad
-        72,   // MaxNotSortedSize,
-        13,   // KeyIndexBatchSize,
-        'a',  // AlphabetBegin
-        'z'   // AlphabetEnd
-    >(10000, timeSeed());
+TEST_CASE("Supermap Stress Profiling") {
+    stressTestSupermap<16, 64>(100000, timeSeed(), 5000, 1.0, 'a', 'z', false);
 }
 
 }
