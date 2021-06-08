@@ -4,16 +4,17 @@
 #include "core/BST.hpp"
 #include "DefaultRemovableKvs.hpp"
 #include "DefaultSupermap.hpp"
+#include "DefaultFilteredKvs.hpp"
 
 namespace supermap {
 
 namespace detail {
 
 template <typename Key, typename Value, typename Size>
-class RemovableBuilder;
+class FilteredBuilder;
 
 template <typename Key, typename Value, typename Size>
-class SupermapBuilder;
+class RemovableBuilder;
 
 template <typename Key, typename Value, typename Size>
 class PrimitiveKvsBuilder;
@@ -23,20 +24,43 @@ class KeyValueStorageBuilder {
   public:
     virtual std::unique_ptr<KeyValueStorage<Key, Value, Size>> build() = 0;
 
-    auto removable() -> std::enable_if_t<MaybeRemovedHelper<Value>::isMaybeRemoved,
-                                         RemovableBuilder<Key, typename MaybeRemovedHelper<Value>::Type, Size>> {
-        return RemovableBuilder<Key, typename MaybeRemovedHelper<Value>::Type, Size>(*this);
+    auto filtered(std::unique_ptr<Filter<Key>> &&filter) {
+        return FilteredBuilder<Key, Value, Size>(*this, std::move(filter));
     }
 
-    auto supermap(typename DefaultSupermap<Key, Value, Size>::BuildParameters params) {
-        return SupermapBuilder<Key, Value, Size>(*this, std::move(params));
+    auto removable() {
+        return RemovableBuilder<Key, typename MaybeRemovedHelper<Value>::Type, Size>(*this);
     }
 };
 
 template <typename Key, typename Value, typename Size>
-class RemovableBuilder : public KeyValueStorageBuilder<Key, Value, Size> {
+class FilteredBuilder : public KeyValueStorageBuilder<Key, Value, Size> {
+  private:
+    using FilteredKvs = DefaultFilteredKvs<Key, Value, Size>;
+
   public:
-    explicit RemovableBuilder(KeyValueStorage<Key, MaybeRemovedValue<Value>, Size> &parent)
+    explicit FilteredBuilder(
+        KeyValueStorageBuilder<Key, Value, Size> &parent,
+        std::unique_ptr<Filter<Key>> &&filter
+    ) : parent_(parent), filter_(std::move(filter)) {}
+
+    std::unique_ptr<KeyValueStorage<Key, Value, Size>> build() override {
+        return std::make_unique<FilteredKvs>(parent_.build(), std::move(filter_));
+    }
+
+  private:
+    KeyValueStorageBuilder<Key, Value, Size> &parent_;
+    std::unique_ptr<Filter<Key>> filter_;
+};
+
+template <typename Key, typename Value, typename Size>
+class RemovableBuilder : public KeyValueStorageBuilder<Key, Value, Size> {
+  private:
+    using MaybeRemovedV = MaybeRemovedValue<Value>;
+    using MaybeRemovedKvs = KeyValueStorage<Key, MaybeRemovedV, Size>;
+
+  public:
+    explicit RemovableBuilder(KeyValueStorageBuilder<Key, MaybeRemovedV, Size> &parent)
         : parent_(parent) {}
 
     std::unique_ptr<KeyValueStorage<Key, Value, Size>> build() override {
@@ -48,36 +72,20 @@ class RemovableBuilder : public KeyValueStorageBuilder<Key, Value, Size> {
 };
 
 template <typename Key, typename Value, typename Size>
-class SupermapBuilder : public KeyValueStorageBuilder<Key, Value, Size> {
-  public:
-    using BuildParams = typename DefaultSupermap<Key, Value, Size>::BuildParameters;
-
-    explicit SupermapBuilder(KeyValueStorage<Key, Value, Size> &parent, BuildParams params)
-        : parent_(parent), params_(std::move(params)) {}
-
-    std::unique_ptr<KeyValueStorage<Key, Value, Size>> build() override {
-        return DefaultSupermap<Key, Value, Size>::build(parent_.build(), params_);
-    }
-
-  private:
-    KeyValueStorageBuilder<Key, Value, Size> &parent_;
-    BuildParams params_;
-};
-
-template <typename Key, typename Value, typename Size>
 class PrimitiveKvsBuilder : public KeyValueStorageBuilder<Key, Value, Size> {
+  private:
+    using KVS = KeyValueStorage<Key, Value, Size>;
+
   public:
-    using KvsSupplier = std::function<std::unique_ptr<ExtractibleKeyValueStorage<Key, Value, Size>>()>;
+    explicit PrimitiveKvsBuilder(std::unique_ptr<KVS> &&kvs)
+        : kvs_(std::move(kvs)) {}
 
-    explicit PrimitiveKvsBuilder(KvsSupplier supplier)
-        : kvsSupplier_(std::move(supplier)) {}
-
-    std::unique_ptr<KeyValueStorage<Key, Value, Size>> build() override {
-        return kvsSupplier_();
+    std::unique_ptr<KVS> build() override {
+        return std::move(kvs_);
     }
 
   private:
-    KvsSupplier kvsSupplier_;
+    std::unique_ptr<KVS> kvs_;
 };
 
 }
@@ -85,20 +93,8 @@ class PrimitiveKvsBuilder : public KeyValueStorageBuilder<Key, Value, Size> {
 namespace builder {
 
 template <typename Key, typename Value, typename Size>
-auto fromKvs(std::function<std::unique_ptr<KeyValueStorage<Key, Value, Size>>()> kvsSupplier) {
-    return detail::PrimitiveKvsBuilder<Key, Value, Size>(std::move(kvsSupplier));
-}
-
-template <typename Key, typename Value, typename Size, template <typename, typename, typename> class Kvs>
-auto fromPrimitiveKvs() {
-    return fromKvs([]() {
-        return std::make_unique<Kvs<Key, Value, Size>>();
-    });
-}
-
-template <typename Key, typename Value, typename Size>
-auto fromBst() {
-    return fromPrimitiveKvs<Key, Value, Size, BST>();
+auto fromKvs(std::unique_ptr<KeyValueStorage<Key, Value, Size>> &&kvs) {
+    return detail::PrimitiveKvsBuilder<Key, Value, Size>(std::move(kvs));
 }
 
 } // builder

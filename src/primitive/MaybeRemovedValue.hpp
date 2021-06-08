@@ -34,7 +34,7 @@ struct MaybeRemovedHelper {
 };
 
 template <typename T>
-struct MaybeRemovedValue<MaybeRemovedValue<T>> {
+struct MaybeRemovedHelper<MaybeRemovedValue<T>> {
     static constexpr bool isMaybeRemoved = true;
     using Type = T;
 };

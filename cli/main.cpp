@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include "CommandLineInterface.hpp"
 #include "KvsCommandHandler.hpp"
@@ -26,17 +27,24 @@ int main(int, const char **) {
         "supermap"
     };
 
-    std::unique_ptr<supermap::KeyValueStorage<K, MaybeV, I>> nonRemovableKvs = SupermapBuilder::build<std::unique_ptr>(
+    auto backendKvs = SupermapBuilder::build(
         std::make_unique<supermap::BST<K, I, I>>(),
         supermapParams
     );
 
-    auto kvs = std::make_shared<supermap::DefaultRemovableKvs<K, V, I>>(std::move(nonRemovableKvs));
+    std::unique_ptr<supermap::KeyValueStorage<K, V, I>> kvs =
+        supermap::builder::fromKvs<K, MaybeV, I>(std::move(backendKvs))
+            .removable()
+            .filtered(std::make_unique<supermap::BloomFilter<K>>())
+            .build();
 
-    cli.addCommand("add", std::make_shared<supermap::cli::AddKeyHandler<K, V, I>>(kvs));
-    cli.addCommand("remove", std::make_shared<supermap::cli::RemoveKeyHandler<K, V, I>>(kvs));
-    cli.addCommand("contains", std::make_shared<supermap::cli::ContainsKeyHandler<K, V, I>>(kvs));
-    cli.addCommand("get", std::make_shared<supermap::cli::GetValueHandler<K, V, I>>(kvs));
+    std::shared_ptr<supermap::KeyValueStorage<K, V, I>>
+        shared = std::shared_ptr<supermap::KeyValueStorage<K, V, I>>(kvs.release());
+
+    cli.addCommand("add", std::make_shared<supermap::cli::AddKeyHandler<K, V, I>>(shared));
+    cli.addCommand("remove", std::make_shared<supermap::cli::RemoveKeyHandler<K, V, I>>(shared));
+    cli.addCommand("contains", std::make_shared<supermap::cli::ContainsKeyHandler<K, V, I>>(shared));
+    cli.addCommand("get", std::make_shared<supermap::cli::GetValueHandler<K, V, I>>(shared));
 
     cli.run(std::cin, std::cout);
 }

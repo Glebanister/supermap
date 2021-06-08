@@ -16,8 +16,7 @@ template <
 class DefaultFilteredKvs : public KeyValueStorage<Key, Value, Size> {
   private:
     using KVS = KeyValueStorage<Key, Value, Size>;
-    using KI = KeyValue<Key, Size>;
-    using FilterBase = Filter<KI, Key>;
+    using FilterBase = Filter<Key>;
 
   public:
     explicit DefaultFilteredKvs(
@@ -26,32 +25,24 @@ class DefaultFilteredKvs : public KeyValueStorage<Key, Value, Size> {
     ) : innerStorage_(std::move(innerStorage)),
         filter_(std::move(filter)) {}
 
-    void add(const Key &, Value &&) override {
-//        assert(storageOfMaybeRemoved_);
-//        storageOfMaybeRemoved_->add(key, MaybeRemovedValue<Value>{std::move(value), false});
+    void add(const Key &key, Value &&value) override {
+        filter_->add(key);
+        innerStorage_->add(key, std::move(value));
     }
 
-    std::optional<Value> getValue(const Key &) override {
-//        assert(storageOfMaybeRemoved_);
-//        std::optional<MaybeRemovedValue<Value>> optMaybeRemoved = storageOfMaybeRemoved_->getValue(key);
-//        if (!optMaybeRemoved.has_value()) {
-//            return std::nullopt;
-//        }
-//        MaybeRemovedValue<Value> maybeInnerValue = optMaybeRemoved.value();
-//        if (maybeInnerValue.removed) {
-//            return std::nullopt;
-//        }
-//        return std::optional{maybeInnerValue.value};
+    std::optional<Value> getValue(const Key &key) override {
+        if (!filter_->mightContain(key)) {
+            return std::nullopt;
+        }
+        return innerStorage_->getValue(key);
     }
 
     Size getUpperSizeBound() const override {
-//        assert(storageOfMaybeRemoved_);
-//        return storageOfMaybeRemoved_->getUpperSizeBound();
+        return innerStorage_->getUpperSizeBound();
     }
 
-    void remove(const Key &) override {
-//        assert(storageOfMaybeRemoved_);
-//        storageOfMaybeRemoved_->add(key, MaybeRemovedValue<Value>{Value{}, true});
+    void remove(const Key &key) override {
+        innerStorage_->remove(key);
     }
 
   private:

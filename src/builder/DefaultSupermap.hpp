@@ -38,8 +38,7 @@ class DefaultSupermap {
     using KVS = KeyValueStorage<Key, Value, IndexT>;
 
   public:
-    template <template <typename> class pointer = std::unique_ptr>
-    static pointer<KVS> build(
+    static std::unique_ptr<KVS> build(
         std::unique_ptr<RamStorageBase> &&nested,
         const BuildParameters &params
     ) {
@@ -74,20 +73,22 @@ class DefaultSupermap {
                 );
             };
 
-        return pointer<KVS>(new Smap(
-            std::move(nested),
-            std::make_unique<DiskStorage>(
-                "storage-not-sorted",
-                "storage-sorted",
-                fileManager,
-                innerRegisterSupplier
-            ),
-            indexSupplier,
-            indexListSupplier,
-            innerRegisterSupplier,
-            params.batchSize,
-            params.maxNotSortedPart
-        ));
+        return std::unique_ptr<KVS>(
+            new Smap(
+                std::move(nested),
+                std::make_unique<DiskStorage>(
+                    "storage-not-sorted",
+                    "storage-sorted",
+                    fileManager,
+                    innerRegisterSupplier
+                ),
+                indexSupplier,
+                indexListSupplier,
+                innerRegisterSupplier,
+                params.batchSize,
+                params.maxNotSortedPart
+            )
+        );
     }
 };
 
