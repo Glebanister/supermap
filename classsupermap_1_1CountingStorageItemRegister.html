@@ -142,6 +142,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a6b274d7eecdfc5ff89f805d3be9ac964"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91c1f1827ded17ed3d5ce4fab4c8572b"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt; T, <a class="el" href="structsupermap_1_1CountingStorageInfo.html">CountingStorageInfo</a>&lt; IndexT, AdditionalInfo &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#a91c1f1827ded17ed3d5ce4fab4c8572b">clone</a> () const override</td></tr>
 <tr class="separator:a91c1f1827ded17ed3d5ce4fab4c8572b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae1648e9d7d76251afef857b5c1f6e33e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1CountingStorageItemRegister.html#ae1648e9d7d76251afef857b5c1f6e33e">reserve</a> (std::uint64_t n) override</td></tr>
+<tr class="memdesc:ae1648e9d7d76251afef857b5c1f6e33e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserves inner register for <code>n</code> elements.  <a href="classsupermap_1_1CountingStorageItemRegister.html#ae1648e9d7d76251afef857b5c1f6e33e">More...</a><br /></td></tr>
+<tr class="separator:ae1648e9d7d76251afef857b5c1f6e33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T, typename IndexT, typename AdditionalInfo&gt;<br />
@@ -214,6 +217,44 @@ template&lt;typename T , typename IndexT , typename AdditionalInfo &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>Pair of count of registered items and additional information. </dd></dl>
 
 <p>Implements <a class="el" href="classsupermap_1_1StorageItemRegister.html#a5bed2f6b31ee3b7c46f88e5a5fc545cd">supermap::StorageItemRegister&lt; T, CountingStorageInfo&lt; IndexT, AdditionalInfo &gt; &gt;</a>.</p>
+
+</div>
+</div>
+<a id="ae1648e9d7d76251afef857b5c1f6e33e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae1648e9d7d76251afef857b5c1f6e33e">&#9670;&nbsp;</a></span>reserve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename IndexT , typename AdditionalInfo &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsupermap_1_1CountingStorageItemRegister.html">supermap::CountingStorageItemRegister</a>&lt; T, IndexT, AdditionalInfo &gt;::reserve </td>
+          <td>(</td>
+          <td class="paramtype">std::uint64_t&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reserves inner register for <code>n</code> elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>Reservation size. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classsupermap_1_1StorageItemRegister.html#ad863193199e49593fee9b08b7bcee9b4">supermap::StorageItemRegister&lt; T, CountingStorageInfo&lt; IndexT, AdditionalInfo &gt; &gt;</a>.</p>
 
 </div>
 </div>

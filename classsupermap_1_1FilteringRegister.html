@@ -126,6 +126,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <tr class="separator:a747917c177bfce7ab1b0ede9a70bbae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4e6068bf070affd72342b6b6979705f"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt; RegisterT, std::shared_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">FilterBase</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1FilteringRegister.html#ab4e6068bf070affd72342b6b6979705f">clone</a> () const override</td></tr>
 <tr class="separator:ab4e6068bf070affd72342b6b6979705f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27746cc08314b7a3fe086a9597e035f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1FilteringRegister.html#a27746cc08314b7a3fe086a9597e035f1">reserve</a> (std::uint64_t n) override</td></tr>
+<tr class="memdesc:a27746cc08314b7a3fe086a9597e035f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserve inner filter storage for <code>n</code> elements.  <a href="classsupermap_1_1FilteringRegister.html#a27746cc08314b7a3fe086a9597e035f1">More...</a><br /></td></tr>
+<tr class="separator:a27746cc08314b7a3fe086a9597e035f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename RegisterT, typename FilterT&gt;<br />
@@ -197,6 +200,44 @@ template&lt;typename RegisterT , typename FilterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>Information about already registered items. </dd></dl>
 
 <p>Implements <a class="el" href="classsupermap_1_1StorageItemRegister.html#a5bed2f6b31ee3b7c46f88e5a5fc545cd">supermap::StorageItemRegister&lt; RegisterT, std::shared_ptr&lt; Filter&lt; FilterT &gt; &gt; &gt;</a>.</p>
+
+</div>
+</div>
+<a id="a27746cc08314b7a3fe086a9597e035f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27746cc08314b7a3fe086a9597e035f1">&#9670;&nbsp;</a></span>reserve()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename RegisterT , typename FilterT &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classsupermap_1_1FilteringRegister.html">supermap::FilteringRegister</a>&lt; RegisterT, FilterT &gt;::reserve </td>
+          <td>(</td>
+          <td class="paramtype">std::uint64_t&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reserve inner filter storage for <code>n</code> elements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>Reservation size. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented from <a class="el" href="classsupermap_1_1StorageItemRegister.html#ad863193199e49593fee9b08b7bcee9b4">supermap::StorageItemRegister&lt; RegisterT, std::shared_ptr&lt; Filter&lt; FilterT &gt; &gt; &gt;</a>.</p>
 
 </div>
 </div>

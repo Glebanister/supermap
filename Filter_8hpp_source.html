@@ -84,13 +84,16 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classsupermap_1_1Filter.html#a412cc7f2497afffa9dea0226e9a7722a">   21</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1Filter.html#a412cc7f2497afffa9dea0226e9a7722a">add</a>(<span class="keyword">const</span> T &amp;elem) = 0;</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classsupermap_1_1Filter.html#a5f01200f564dd2041900858736230ac5">   30</a></span>&#160;    [[nodiscard]] <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classsupermap_1_1Filter.html#a5f01200f564dd2041900858736230ac5">mightContain</a>(<span class="keyword">const</span> T &amp;elem) <span class="keyword">const</span> = 0;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classsupermap_1_1Filter.html#a9ad627929851fdb457c907c25ad0eabb">   35</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1Filter.html#a9ad627929851fdb457c907c25ad0eabb">reserve</a>(std::uint64_t) {};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// supermap</span></div>
 <div class="ttc" id="aclasssupermap_1_1Cloneable_html"><div class="ttname"><a href="classsupermap_1_1Cloneable.html">supermap::Cloneable</a></div><div class="ttdoc">Object which can produce cloned versions.</div><div class="ttdef"><b>Definition:</b> Cloneable.hpp:12</div></div>
 <div class="ttc" id="aclasssupermap_1_1Filter_html"><div class="ttname"><a href="classsupermap_1_1Filter.html">supermap::Filter</a></div><div class="ttdoc">Filter, which can add elements to self and tell which elements are certainly were not added to filter...</div><div class="ttdef"><b>Definition:</b> Filter.hpp:15</div></div>
 <div class="ttc" id="aclasssupermap_1_1Filter_html_a412cc7f2497afffa9dea0226e9a7722a"><div class="ttname"><a href="classsupermap_1_1Filter.html#a412cc7f2497afffa9dea0226e9a7722a">supermap::Filter::add</a></div><div class="ttdeci">virtual void add(const T &amp;elem)=0</div><div class="ttdoc">Add elem to filter.</div></div>
 <div class="ttc" id="aclasssupermap_1_1Filter_html_a5f01200f564dd2041900858736230ac5"><div class="ttname"><a href="classsupermap_1_1Filter.html#a5f01200f564dd2041900858736230ac5">supermap::Filter::mightContain</a></div><div class="ttdeci">virtual bool mightContain(const T &amp;elem) const =0</div><div class="ttdoc">Check if key could be added to filter. It means, that false positive result has place to be,...</div></div>
+<div class="ttc" id="aclasssupermap_1_1Filter_html_a9ad627929851fdb457c907c25ad0eabb"><div class="ttname"><a href="classsupermap_1_1Filter.html#a9ad627929851fdb457c907c25ad0eabb">supermap::Filter::reserve</a></div><div class="ttdeci">virtual void reserve(std::uint64_t)</div><div class="ttdoc">Reserve filter for n elements.</div><div class="ttdef"><b>Definition:</b> Filter.hpp:35</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
