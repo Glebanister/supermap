@@ -60,6 +60,7 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
     ) : SingleFileIndexedStorage<T, IndexT, RegisterInfo>(std::move(dataFileName),
                                                           manager,
                                                           std::move(registerSupplier)) {
+        getRegister().reserve(std::distance(begin, end));
         appendAll(begin, sorted ? end : sortedEndIterator(begin, end, isLess, isEq));
     }
 

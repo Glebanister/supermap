@@ -99,7 +99,6 @@ class SingleFileIndexedStorage : public IndexedStorage<T, IndexT, RegisterInfo> 
         typename = std::enable_if_t<std::is_same_v<Result, T>>
     >
     void appendAll(IteratorT begin, IteratorT end, Functor func) {
-        getRegister().reserve(std::distance(begin, end));
         io::OutputIterator<Result> writer
             = getFileManager()->template getOutputIterator<Result>(getStorageFilePath(), true);
         writer.writeAll(begin, end, [&](const auto &obj) {

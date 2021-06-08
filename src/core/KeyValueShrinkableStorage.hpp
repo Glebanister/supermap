@@ -306,6 +306,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
         auto keys = it.collectWith([](ValueIgnorer &&kvi, IndexT ind) {
             return KeyIndex{std::move(kvi.key), ind};
         }, batchSize);
+        sortedIndex.getRegister().reserve(sortedIndex.getItemsCount());
         while (!keys.empty()) {
             sortedIndex.appendAll(keys.cbegin(), keys.cend());
             keys = it.collectWith([](ValueIgnorer &&kvi, IndexT ind) {
