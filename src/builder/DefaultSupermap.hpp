@@ -17,6 +17,7 @@ class DefaultSupermap {
         IndexT batchSize;
         double maxNotSortedPart{};
         std::string folderName;
+        /* TODO: Add BloomFilter c-tor params */
     };
 
   public:
@@ -53,25 +54,25 @@ class DefaultSupermap {
             return std::make_unique<IndexStorageBase>(std::move(sortedStorage));
         };
 
-        std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier = [maxRamLoad = params.batchSize]() {
-            return std::make_unique<DefaultBinaryCollapsingList>(
-                maxRamLoad,
-                []() {
-                    return std::make_unique<FilteringRegister<KI, K>>(
-                        []() { return std::make_unique<BloomFilter<K>>(); },
-                        [](const KI &ki) { return ki.key; }
+        std::function<std::unique_ptr<Register>()>
+            innerRegisterSupplier = [/* TODO: capture BloomFilter c-tor params by value here */]() {
+            return std::make_unique<FilteringRegister<KI, K>>(
+                [/* TODO: capture BloomFilter c-tor params by value here */]() {
+                    return std::make_unique<BloomFilter<K>>(
+                        /* TODO: pass BloomFilter ctor arguments here */
                     );
-                }
+                },
+                [](const KI &ki) { return ki.key; }
             );
         };
 
-        std::function<std::unique_ptr<Register>()> innerRegisterSupplier
-            = []() {
-                return std::make_unique<FilteringRegister<KI, K>>(
-                    []() { return std::make_unique<BloomFilter<K>>(); },
-                    [](const KI &ki) { return ki.key; }
-                );
-            };
+        std::function<std::unique_ptr<IndexStorageListBase>()>
+            indexListSupplier = [maxRamLoad = params.batchSize, registerSupplier = innerRegisterSupplier]() {
+            return std::make_unique<DefaultBinaryCollapsingList>(
+                maxRamLoad,
+                registerSupplier
+            );
+        };
 
         return std::unique_ptr<KVS>(
             new Smap(
