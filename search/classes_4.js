@@ -5,7 +5,7 @@ var searchData=
   ['filemanager_217',['FileManager',['../classsupermap_1_1io_1_1FileManager.html',1,'supermap::io']]],
   ['fileoutputstream_218',['FileOutputStream',['../classsupermap_1_1io_1_1FileOutputStream.html',1,'supermap::io']]],
   ['filter_219',['Filter',['../classsupermap_1_1Filter.html',1,'supermap']]],
-  ['filter_3c_20t_20_3e_220',['Filter&lt; T &gt;',['../classsupermap_1_1Filter.html',1,'supermap']]],
+  ['filter_3c_20keyvalue_3c_20t_2c_20index_20_3e_2c_20t_20_3e_220',['Filter&lt; KeyValue&lt; T, Index &gt;, T &gt;',['../classsupermap_1_1Filter.html',1,'supermap']]],
   ['filteredstorage_221',['FilteredStorage',['../classsupermap_1_1FilteredStorage.html',1,'supermap']]],
   ['filteringregister_222',['FilteringRegister',['../classsupermap_1_1FilteringRegister.html',1,'supermap']]],
   ['findable_223',['Findable',['../classsupermap_1_1Findable.html',1,'supermap']]],
