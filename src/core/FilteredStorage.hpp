@@ -19,10 +19,10 @@ template <
 >
 class FilteredStorage : public SortedSingleFileIndexedStorage<Content, IndexT, RegisterInfo, FindPattern> {
   public:
-    using SortedStorage = SortedSingleFileIndexedStorage<Content, IndexT, Register, FindPattern>;
+    using SortedStorage = SortedSingleFileIndexedStorage<Content, IndexT, RegisterInfo, FindPattern>;
     using SortedStorage::find;
     using FilterBase = Filter<FindPattern>;
-    using FilterSupplier = std::function<std::unique_ptr<FilterBase()>>;
+    using FilterSupplier = std::function<std::unique_ptr<FilterBase>()>;
 
     /**
      * @brief Create new filtered storage instance calling merge c-tor of @p SortedStorage.

@@ -166,8 +166,7 @@ class Supermap : public KeyValueStorage<Key, Value, IndexT> {
     std::unique_ptr<RamStorageBase> innerStorage_;
     std::unique_ptr<DiskStorage> diskDataStorage_;
     std::unique_ptr<IndexStorageListBase> diskIndex_;
-    std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)>
-        keyIndexStorageSupplier_;
+    std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)> keyIndexStorageSupplier_;
     std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier_;
     std::function<std::unique_ptr<RegisterBase>()> registerSupplier_;
     const IndexT keyIndexBatchSize_;

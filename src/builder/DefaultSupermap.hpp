@@ -30,6 +30,7 @@ class DefaultSupermap {
     using RamStorageBase = typename Smap::RamStorageBase;
     using IndexStorageListBase = typename Smap::IndexStorageListBase;
     using IndexStorageBase = typename Smap::IndexStorageBase;
+    using FilteredIndexStorage = FilteredStorage<KI, I, K>;
     using DiskStorage = typename Smap::DiskStorage;
     using RegisterInfo = typename Smap::RegisterInfo;
     using Register = typename Smap::RegisterBase;
@@ -51,7 +52,7 @@ class DefaultSupermap {
 
         std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)>
             indexSupplier = [](IndexStorageBase &&sortedStorage) {
-            return std::make_unique<IndexStorageBase>(std::move(sortedStorage));
+            return std::make_unique<FilteredIndexStorage>(std::move(sortedStorage));
         };
 
         std::function<std::unique_ptr<Register>()>
