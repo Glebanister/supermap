@@ -38,17 +38,8 @@ class BST : public ExtractibleKeyValueStorage<Key, Value, IndexT> {
     /**
      * @return Current number of keys in BST.
      */
-    IndexT getSize() const override {
-        auto mapSize = map_.size();
-
-        if constexpr (IsBounds<IndexT>::isBounds) {
-            return Bounds<typename IsBounds<IndexT>::Type>{
-                mapSize,
-                mapSize
-            };
-        } else {
-            return mapSize;
-        }
+    IndexT getUpperSizeBound() const override {
+        return map_.size();
     }
 
     /**

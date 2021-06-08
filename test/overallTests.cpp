@@ -25,7 +25,7 @@
 #include "core/BST.hpp"
 #include "core/FilteredStorage.hpp"
 #include "core/MockFilter.hpp"
-#include "core/DefaultBuilder.hpp"
+#include "builder/DefaultSupermap.hpp"
 
 using CharKV = supermap::KeyValue<char, char>;
 
@@ -765,9 +765,14 @@ TEST_CASE("BinaryCollapsingSortedStoragesList") {
 TEST_CASE ("Supermap simple") {
     using namespace supermap;
 
-    using SupermapBuilder = DefaultBuilder<Key<2>, ByteArray<3>, std::size_t>;
+    using K = Key<2>;
+    using V = ByteArray<3>;
+    using I = std::size_t;
+
+    using SupermapBuilder = DefaultSupermap<K, V, I>;
 
     auto superMap = SupermapBuilder::build(
+        std::make_unique<BST<K, V, I>>(),
         SupermapBuilder::BuildParameters{
             3,
             0.5,
@@ -798,6 +803,6 @@ TEST_CASE ("Supermap simple") {
     CHECK_EQ(superMap->getValue(key("dd")), value("444"));
     CHECK_EQ(superMap->getValue(key("ee")), value("555"));
     CHECK_EQ(superMap->getValue(key("ff")), value("666"));
-    CHECK_LE(superMap->getSize().max, 9);
+    CHECK_LE(superMap->getUpperSizeBound(), 9);
 }
 }

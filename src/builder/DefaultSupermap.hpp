@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Supermap.hpp"
+#include "core/Supermap.hpp"
 #include "io/EncapsulatedFileManager.hpp"
-#include "MockFilter.hpp"
+#include "core/MockFilter.hpp"
 
 namespace supermap {
 
@@ -11,11 +11,11 @@ template <
     typename Value,
     typename IndexT
 >
-class DefaultBuilder {
+class DefaultSupermap {
   public:
     struct BuildParameters {
         IndexT batchSize;
-        double maxNotSortedPart;
+        double maxNotSortedPart{};
         std::string folderName;
     };
 
@@ -24,10 +24,9 @@ class DefaultBuilder {
     using I = IndexT;
     using V = Value;
     using KI = KeyValue<K, I>;
-    using B = Bounds<I>;
     using Smap = Supermap<K, V, I>;
 
-    using RamType = supermap::BST<K, I, I>;
+    using RamStorageBase = typename Smap::RamStorageBase;
     using IndexStorageListBase = typename Smap::IndexStorageListBase;
     using IndexStorageBase = typename Smap::IndexStorageBase;
     using DiskStorage = typename Smap::DiskStorage;
@@ -35,7 +34,16 @@ class DefaultBuilder {
     using Register = typename Smap::Register;
     using DefaultBinaryCollapsingList = BinaryCollapsingSortedStoragesList<KI, I, RegisterInfo, K>;
 
-    static std::shared_ptr<KeyValueStorage<K, V, B>> build(const BuildParameters &params) {
+  private:
+    using KVS = KeyValueStorage<Key, Value, IndexT>;
+
+  public:
+
+    template <template <typename> class pointer = std::unique_ptr>
+    static pointer<KVS> build(
+        std::unique_ptr<RamStorageBase> &&nested,
+        const BuildParameters &params
+    ) {
         std::shared_ptr<supermap::io::FileManager> fileManager
             = std::make_shared<supermap::io::EncapsulatedFileManager>(
                 std::make_shared<supermap::io::TemporaryFolder>(params.folderName, true),
@@ -73,8 +81,8 @@ class DefaultBuilder {
                     );
             };
 
-        return std::make_shared<Smap>(
-            std::make_unique<RamType>(),
+        return pointer<KVS>(new Smap(
+            std::move(nested),
             std::make_unique<DiskStorage>(
                 "storage-not-sorted",
                 "storage-sorted",
@@ -91,7 +99,7 @@ class DefaultBuilder {
             },
             params.batchSize,
             params.maxNotSortedPart
-        );
+        ));
     }
 };
 

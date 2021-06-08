@@ -62,7 +62,7 @@ class KeyValueStorage {
     /**
      * @return Size of the storage.
      */
-    virtual IndexT getSize() const = 0;
+    virtual IndexT getUpperSizeBound() const = 0;
 
     virtual ~KeyValueStorage() = default;
 };

@@ -12,7 +12,7 @@
 #include "core/MockFilter.hpp"
 #include "core/FilteringRegister.hpp"
 #include "core/FilteredStorage.hpp"
-#include "core/DefaultBuilder.hpp"
+#include "builder/DefaultSupermap.hpp"
 
 extern std::uint32_t timeSeed();
 
@@ -29,10 +29,10 @@ void stressTestSupermap(std::size_t iterations,
                         bool check) {
     using namespace supermap;
 
-    using SupermapBuilder = DefaultBuilder<Key<KeyLen>, ByteArray<ValueLen>, std::size_t>;
+    using SupermapBuilder = DefaultSupermap<Key<KeyLen>, ByteArray<ValueLen>, std::size_t>;
 
-    auto kvs = SupermapBuilder::build(
-        typename SupermapBuilder::BuildParameters{
+    auto kvs = DefaultSupermap::build(
+        typename DefaultSupermap::BuildParameters{
             batchSize,
             part,
             "supermap"
@@ -41,8 +41,8 @@ void stressTestSupermap(std::size_t iterations,
 
     std::shared_ptr<KeyValueStorage<Key<KeyLen>, ByteArray<ValueLen>, Bounds<std::size_t>>> expectedKvs = check
         ? std::make_shared<BST<Key<KeyLen>, ByteArray<ValueLen>, Bounds<std::size_t>>>()
-        : SupermapBuilder::build(
-            typename SupermapBuilder::BuildParameters{
+        : DefaultSupermap::build(
+            typename DefaultSupermap::BuildParameters{
                 batchSize,
                 part,
                 "supermap-other"

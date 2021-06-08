@@ -2,77 +2,11 @@
 
 #include "core/KeyValueStorage.hpp"
 #include "primitive/Bounds.hpp"
+#include "primitive/MaybeRemovedValue.hpp"
 #include "io/SerializeHelper.hpp"
 #include "exception/SupermapException.hpp"
 
 namespace supermap {
-
-/**
- * @brief Optional value container.
- * @tparam Value Maybe contained value.
- */
-template <typename Value>
-struct MaybeRemovedValue {
-    Value value;
-    bool removed;
-
-    /**
-     * @brief Parses string @p MaybeValue representation.
-     * @param str String representation.
-     * @return Non-removed @p MaybeValue.
-     */
-    static MaybeRemovedValue fromString(const std::string &str) {
-        return {Value::fromString(str), false};
-    }
-
-    [[nodiscard]] std::string toString() const {
-        if (removed) {
-            throw KeyException("Value is removed");
-        }
-        return value.toString();
-    }
-};
-
-namespace io {
-
-/**
- * @brief @p SerializeHelper template specialization for @p MaybeRemovedValue.
- * @tparam T Content type.
- */
-template <typename T>
-struct SerializeHelper<MaybeRemovedValue<T>> : Serializable<true> {
-    static void serialize(const MaybeRemovedValue<T> &val, std::ostream &os) {
-        io::serialize(val.value, os);
-        io::serialize(val.removed, os);
-    }
-};
-
-/**
- * @brief @p DeserializeHelper template specialization for @p MaybeRemovedValue.
- * @tparam T Content type.
- */
-template <typename T>
-struct DeserializeHelper<MaybeRemovedValue<T>> : Deserializable<true> {
-    static MaybeRemovedValue<T> deserialize(std::istream &is) {
-        return {
-            io::deserialize<T>(is),
-            io::deserialize<bool>(is)
-        };
-    }
-};
-
-/**
- * @brief @p FixedDeserializedSizeRegister template specialization for @p MaybeRemovedValue.
- * @tparam T Content type.
- */
-template <typename T>
-struct FixedDeserializedSizeRegister<MaybeRemovedValue<T>> : FixedDeserializedSize<
-    FixedDeserializedSizeRegister<T>::exactDeserializedSize
-        + FixedDeserializedSizeRegister<bool>::exactDeserializedSize
-> {
-};
-
-} // io
 
 template <
     typename Key,
@@ -104,9 +38,9 @@ class DefaultRemovableKvs : public KeyValueStorage<Key, Value, Size> {
         return std::optional{maybeInnerValue.value};
     }
 
-    Size getSize() const override {
+    Size getUpperSizeBound() const override {
         assert(storageOfMaybeRemoved_);
-        return storageOfMaybeRemoved_->getSize();
+        return storageOfMaybeRemoved_->getUpperSizeBound();
     }
 
     void remove(const Key &key) override {
@@ -115,7 +49,7 @@ class DefaultRemovableKvs : public KeyValueStorage<Key, Value, Size> {
     }
 
   private:
-    std::unique_ptr<KeyValueStorage < Key, MaybeRemovedValue<Value>, Size>> storageOfMaybeRemoved_;
+    std::unique_ptr<KeyValueStorage<Key, MaybeRemovedValue<Value>, Size>> storageOfMaybeRemoved_;
 };
 
 } // supermap

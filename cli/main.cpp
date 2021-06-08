@@ -4,7 +4,7 @@
 #include "KvsCommandHandler.hpp"
 #include "core/BST.hpp"
 #include "io/DiskFileManager.hpp"
-#include "core/DefaultBuilder.hpp"
+#include "builder/DefaultSupermap.hpp"
 #include "primitive/Key.hpp"
 #include "primitive/ByteArray.hpp"
 #include "builder/KeyValueStorageBuilder.hpp"
@@ -12,24 +12,30 @@
 int main(int, const char **) {
     supermap::cli::CommandLineInterface cli("supermap");
 
-    using SupermapBuilder = supermap::DefaultBuilder<supermap::Key<1>, supermap::ByteArray<1>, std::uint64_t>;
+    using K = supermap::Key<1>;
+    using V = supermap::ByteArray<1>;
+    using I = std::uint64_t;
+    using MaybeV = supermap::MaybeRemovedValue<V>;
 
-    using K = typename SupermapBuilder::K;
-    using V = typename SupermapBuilder::V;
-    using B = typename SupermapBuilder::B;
+    using SupermapBuilder = supermap::DefaultSupermap<K, MaybeV, I>;
 
-    std::shared_ptr<supermap::KeyValueStorage<K, V, B>> kvs = SupermapBuilder::build(
-        SupermapBuilder::BuildParameters{
-            3,
-            0.5,
-            "supermap"
-        }
+    auto supermapParams = SupermapBuilder::BuildParameters{
+        3,
+        0.5,
+        "supermap"
+    };
+
+    std::unique_ptr<supermap::KeyValueStorage<K, MaybeV, I>> nonRemovableKvs = SupermapBuilder::build<std::unique_ptr>(
+        std::make_unique<supermap::BST<K, I, I>>(),
+        supermapParams
     );
 
-    cli.addCommand("add", std::make_shared<supermap::cli::AddKeyHandler<K, V, B>>(kvs));
-    cli.addCommand("remove", std::make_shared<supermap::cli::RemoveKeyHandler<K, V, B>>(kvs));
-    cli.addCommand("contains", std::make_shared<supermap::cli::ContainsKeyHandler<K, V, B>>(kvs));
-    cli.addCommand("get", std::make_shared<supermap::cli::GetValueHandler<K, V, B>>(kvs));
+    auto kvs = std::make_shared<supermap::DefaultRemovableKvs<K, V, I>>(std::move(nonRemovableKvs));
+
+    cli.addCommand("add", std::make_shared<supermap::cli::AddKeyHandler<K, V, I>>(kvs));
+    cli.addCommand("remove", std::make_shared<supermap::cli::RemoveKeyHandler<K, V, I>>(kvs));
+    cli.addCommand("contains", std::make_shared<supermap::cli::ContainsKeyHandler<K, V, I>>(kvs));
+    cli.addCommand("get", std::make_shared<supermap::cli::GetValueHandler<K, V, I>>(kvs));
 
     cli.run(std::cin, std::cout);
 }

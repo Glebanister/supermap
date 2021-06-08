@@ -4,7 +4,6 @@
 #include <memory>
 #include <random>
 
-#include "primitive/Bounds.hpp"
 #include "KeyValueStorage.hpp"
 #include "KeyValueShrinkableStorage.hpp"
 #include "SortedStoragesList.hpp"
@@ -21,7 +20,7 @@ namespace supermap {
  * When the index in RAM overflows, it is reset to an index on disk, where it is stored as a binary collapsible list.
  * @tparam Key Type of key.
  * @tparam Value Type of value.
- * @tparam IndexT Type of Bounds.
+ * @tparam IndexT Type of size.
  * @tparam MaxRamLoad The largest size of an index that can reside in RAM.
  */
 template <
@@ -29,7 +28,7 @@ template <
     typename Value,
     typename IndexT
 >
-class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
+class Supermap : public KeyValueStorage<Key, Value, IndexT> {
   public:
     using KeyVal = KeyValue<Key, Value>;
     using KeyIndex = KeyValue<Key, IndexT>;
@@ -69,7 +68,7 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     void add(const Key &key, Value &&value) override {
         diskDataStorage_->append(std::make_unique<KeyVal>(key, value));
         innerStorage_->add(key, diskDataStorage_->getLastElementIndex());
-        if (innerStorage_->getSize() >= keyIndexBatchSize_) {
+        if (innerStorage_->getUpperSizeBound() >= keyIndexBatchSize_) {
             dropRamIndexToDisk();
         }
 
@@ -107,13 +106,10 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     }
 
     /**
-     * @return Bounds of number of the unique keys in the storage.
+     * @return Upper bound of number of the unique keys in the storage.
      */
-    Bounds<IndexT> getSize() const noexcept override {
-        return {
-            diskDataStorage_->getSortedItemsCount(),
-            diskDataStorage_->getSortedItemsCount() + diskDataStorage_->getNotSortedItemsCount()
-        };
+    IndexT getUpperSizeBound() const noexcept override {
+        return diskDataStorage_->getSortedItemsCount() + diskDataStorage_->getNotSortedItemsCount();
     }
 
   private:
@@ -139,7 +135,7 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
     }
 
     void dropRamIndexToDisk() {
-        if (innerStorage_->getSize() == 0) {
+        if (innerStorage_->getUpperSizeBound() == 0) {
             return;
         }
         std::vector<KeyIndex> newBlockKeyIndex = std::move(*innerStorage_).extract();
@@ -160,7 +156,7 @@ class Supermap : public KeyValueStorage<Key, Value, Bounds<IndexT>> {
         auto actualIndex = keyIndexStorageSupplier_(
             diskDataStorage_->shrink(
                 keyIndexBatchSize_,
-                addRandomString(indexFilesPrefix + "new-keys=" + std::to_string(getSize().max))
+                addRandomString(indexFilesPrefix + "new-keys=" + std::to_string(getUpperSizeBound()))
             ));
         std::unique_ptr<IndexStorageListBase> newIndexList = indexListSupplier_();
         newIndexList->append(std::move(actualIndex));

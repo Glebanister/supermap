@@ -17,7 +17,7 @@ class ExtractibleKeyValueStorage : public KeyValueStorage<Key, Value, IndexT> {
 
     /**
      * @brief Move all inner key-value pairs to the vector, emptying
-     * inner storage, such that the @p getSize will return 0.
+     * inner storage, such that the @p getUpperSizeBound will return 0.
      */
     virtual std::vector<KeyValue<Key, Value>> extract() && = 0;
 };
