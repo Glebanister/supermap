@@ -100,6 +100,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
                 false
             );
         std::vector<KeyIndex> currentBatchIndex = indexIterator.collect(indexBatchSize);
+        sortedStorage_.getRegister().reserve(sortedStorage_.getItemsCount());
         while (!currentBatchIndex.empty()) {
             sortedStorage_.appendAll(
                 currentBatchIndex.begin(),
@@ -306,7 +307,7 @@ class KeyValueShrinkableStorage : public IndexedStorage<KeyValue<Key, Value>, In
         auto keys = it.collectWith([](ValueIgnorer &&kvi, IndexT ind) {
             return KeyIndex{std::move(kvi.key), ind};
         }, batchSize);
-        sortedIndex.getRegister().reserve(sortedIndex.getItemsCount());
+        sortedIndex.getRegister().reserve(sortedStorage_.getItemsCount());
         while (!keys.empty()) {
             sortedIndex.appendAll(keys.cbegin(), keys.cend());
             keys = it.collectWith([](ValueIgnorer &&kvi, IndexT ind) {
