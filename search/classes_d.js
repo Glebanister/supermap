@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['voidregister_279',['VoidRegister',['../classsupermap_1_1VoidRegister.html',1,'supermap']]]
+  ['temporaryfile_299',['TemporaryFile',['../classsupermap_1_1io_1_1TemporaryFile.html',1,'supermap::io']]],
+  ['temporaryfolder_300',['TemporaryFolder',['../classsupermap_1_1io_1_1TemporaryFolder.html',1,'supermap::io']]]
 ];

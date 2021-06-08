@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Supermap: src/core/DefaultRemovableKvs.hpp Source File</title>
+<title>Supermap: src/builder/DefaultRemovableKvs.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html">core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_3614a4769bf2e5108078b7811e118005.html">builder</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -73,125 +73,66 @@ $(function() {
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;core/KeyValueStorage.hpp&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;core/RemovableKvs.hpp&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;primitive/Bounds.hpp&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;primitive/Bounds.hpp&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;primitive/MaybeRemovedValue.hpp&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;io/SerializeHelper.hpp&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;exception/SupermapException.hpp&quot;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>supermap {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Value&gt;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="structsupermap_1_1MaybeRemovedValue.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue</a> {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    Value value;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">bool</span> removed;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">template</span> &lt;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">typename</span> Key,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">typename</span> Value,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">typename</span> Size</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;&gt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1DefaultRemovableKvs.html">DefaultRemovableKvs</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorage</a>&lt;Key, Value, Size&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">using</span> <a class="code" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorageMaybeValue</a> = <a class="code" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorage&lt;Key, MaybeRemovedValue&lt;Value&gt;</a>, Size&gt;;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structsupermap_1_1MaybeRemovedValue.html#a86dfbf5aaab4fed837c5eb5db7a0ac84">   25</a></span>&#160;    <span class="keyword">static</span> <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue</a> <a class="code" href="structsupermap_1_1MaybeRemovedValue.html#a86dfbf5aaab4fed837c5eb5db7a0ac84">fromString</a>(<span class="keyword">const</span> std::string &amp;str) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">return</span> {Value::fromString(str), <span class="keyword">false</span>};</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    }</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    [[nodiscard]] std::string toString()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (removed) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">throw</span> <a class="code" href="classsupermap_1_1KeyException.html">KeyException</a>(<span class="stringliteral">&quot;Value is removed&quot;</span>);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> value.toString();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span>io {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structsupermap_1_1io_1_1SerializeHelper_3_01MaybeRemovedValue_3_01T_01_4_01_4.html">   44</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structsupermap_1_1io_1_1SerializeHelper.html">SerializeHelper</a>&lt;<a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue</a>&lt;T&gt;&gt; : <a class="code" href="structsupermap_1_1io_1_1Serializable.html">Serializable</a>&lt;true&gt; {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> serialize(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;T&gt;</a> &amp;val, std::ostream &amp;os) {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        io::serialize(val.value, os);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        io::serialize(val.removed, os);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html">DefaultRemovableKvs</a>(std::unique_ptr&lt;KeyValueStorageMaybeValue&gt; &amp;&amp;innerStorage)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        : storageOfMaybeRemoved_(std::move(innerStorage)) {}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html#a508a08410fbdf1a61663acd781f93939">   23</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html#a508a08410fbdf1a61663acd781f93939">add</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key, Value &amp;&amp;value)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        assert(storageOfMaybeRemoved_);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        storageOfMaybeRemoved_-&gt;add(key, <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;Value&gt;</a>{std::move(value), <span class="keyword">false</span>});</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html#ae6f252d2491fea3a11ada229b3948381">   28</a></span>&#160;    std::optional&lt;Value&gt; <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html#ae6f252d2491fea3a11ada229b3948381">getValue</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        assert(storageOfMaybeRemoved_);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        std::optional&lt;MaybeRemovedValue&lt;Value&gt;&gt; optMaybeRemoved = storageOfMaybeRemoved_-&gt;getValue(key);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (!optMaybeRemoved.has_value()) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;Value&gt;</a> maybeInnerValue = optMaybeRemoved.value();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">if</span> (maybeInnerValue.removed) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">return</span> std::optional{maybeInnerValue.value};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html#a5510d252ec1b92f477e88ebabe3d489d">   41</a></span>&#160;    Size <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html#a5510d252ec1b92f477e88ebabe3d489d">getUpperSizeBound</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        assert(storageOfMaybeRemoved_);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> storageOfMaybeRemoved_-&gt;getUpperSizeBound();</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html#a40b65cce113eb22a7734170908f9d686">   46</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html#a40b65cce113eb22a7734170908f9d686">remove</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        assert(storageOfMaybeRemoved_);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        storageOfMaybeRemoved_-&gt;add(key, <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;Value&gt;</a>{Value{}, <span class="keyword">true</span>});</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structsupermap_1_1io_1_1DeserializeHelper_3_01MaybeRemovedValue_3_01T_01_4_01_4.html">   56</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structsupermap_1_1io_1_1DeserializeHelper.html">DeserializeHelper</a>&lt;<a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue</a>&lt;T&gt;&gt; : <a class="code" href="structsupermap_1_1io_1_1Deserializable.html">Deserializable</a>&lt;true&gt; {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">static</span> <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;T&gt;</a> deserialize(std::istream &amp;is) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keywordflow">return</span> {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            io::deserialize&lt;T&gt;(is),</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            io::deserialize&lt;bool&gt;(is)</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        };</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="structsupermap_1_1io_1_1FixedDeserializedSizeRegister_3_01MaybeRemovedValue_3_01T_01_4_01_4.html">   70</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structsupermap_1_1io_1_1FixedDeserializedSizeRegister.html">FixedDeserializedSizeRegister</a>&lt;<a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue</a>&lt;T&gt;&gt; : <a class="code" href="structsupermap_1_1io_1_1FixedDeserializedSize.html">FixedDeserializedSize</a>&lt;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    FixedDeserializedSizeRegister&lt;T&gt;::exactDeserializedSize</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        + FixedDeserializedSizeRegister&lt;bool&gt;::exactDeserializedSize</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;&gt; {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// io</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">template</span> &lt;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">typename</span> <a class="code" href="structsupermap_1_1Key.html">Key</a>,</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">typename</span> Value,</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">typename</span> Size</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;&gt;</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html">   83</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1DefaultRemovableKvs.html">DefaultRemovableKvs</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1RemovableKvs.html">RemovableKvs</a>&lt;Key, Value, Size&gt; {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html">DefaultRemovableKvs</a>(std::unique_ptr&lt;<a class="code" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorage</a>&lt;<a class="code" href="structsupermap_1_1Key.html">Key</a>,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                                                                 <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;Value&gt;</a>,</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                                                                 Size&gt;&gt; &amp;&amp;innerStorage = <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        : storageOfMaybeRemoved_(std::move(innerStorage)) {}</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> setInnerStorage(std::unique_ptr&lt;<a class="code" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorage</a>&lt;<a class="code" href="structsupermap_1_1Key.html">Key</a>, <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;Value&gt;</a>, Size&gt;&gt; &amp;&amp;inner) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        storageOfMaybeRemoved_ = std::move(inner);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html#a508a08410fbdf1a61663acd781f93939">   94</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html#a508a08410fbdf1a61663acd781f93939">add</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key, Value &amp;&amp;value)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        assert(storageOfMaybeRemoved_);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        storageOfMaybeRemoved_-&gt;add(key, <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;Value&gt;</a>{std::move(value), <span class="keyword">false</span>});</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html#ae6f252d2491fea3a11ada229b3948381">   99</a></span>&#160;    std::optional&lt;Value&gt; <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html#ae6f252d2491fea3a11ada229b3948381">getValue</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        assert(storageOfMaybeRemoved_);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        std::optional&lt;MaybeRemovedValue&lt;Value&gt;&gt; optMaybeRemoved = storageOfMaybeRemoved_-&gt;getValue(key);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">if</span> (!optMaybeRemoved.has_value()) {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            <span class="keywordflow">return</span> std::nullopt;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;Value&gt;</a> maybeInnerValue = optMaybeRemoved.value();</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keywordflow">if</span> (maybeInnerValue.removed) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            <span class="keywordflow">return</span> std::nullopt;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">return</span> std::optional{maybeInnerValue.value};</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html#acc99807d276b5b9f8c6aa4af498eee06">  112</a></span>&#160;    Size <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html#acc99807d276b5b9f8c6aa4af498eee06">getSize</a>()<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        assert(storageOfMaybeRemoved_);</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">return</span> storageOfMaybeRemoved_-&gt;getSize();</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultRemovableKvs.html#a40b65cce113eb22a7734170908f9d686">  117</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1DefaultRemovableKvs.html#a40b65cce113eb22a7734170908f9d686">remove</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        assert(storageOfMaybeRemoved_);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        storageOfMaybeRemoved_-&gt;add(key, <a class="code" href="structsupermap_1_1MaybeRemovedValue.html">MaybeRemovedValue&lt;Value&gt;</a>{Value{}, <span class="keyword">true</span>});</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    std::unique_ptr&lt;KeyValueStorage&lt;Key, MaybeRemovedValue&lt;Value&gt;, Size&gt;&gt; storageOfMaybeRemoved_;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;};</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// supermap</span></div>
-<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html">supermap::DefaultRemovableKvs</a></div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:83</div></div>
-<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html_a40b65cce113eb22a7734170908f9d686"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html#a40b65cce113eb22a7734170908f9d686">supermap::DefaultRemovableKvs::remove</a></div><div class="ttdeci">void remove(const Key &amp;key) override</div><div class="ttdoc">Remove key from storage.</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:117</div></div>
-<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html_a508a08410fbdf1a61663acd781f93939"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html#a508a08410fbdf1a61663acd781f93939">supermap::DefaultRemovableKvs::add</a></div><div class="ttdeci">void add(const Key &amp;key, Value &amp;&amp;value) override</div><div class="ttdoc">Add file to the storage. More relevant key value overwrites less relevant.</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:94</div></div>
-<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html_acc99807d276b5b9f8c6aa4af498eee06"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html#acc99807d276b5b9f8c6aa4af498eee06">supermap::DefaultRemovableKvs::getSize</a></div><div class="ttdeci">Size getSize() const override</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:112</div></div>
-<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html_ae6f252d2491fea3a11ada229b3948381"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html#ae6f252d2491fea3a11ada229b3948381">supermap::DefaultRemovableKvs::getValue</a></div><div class="ttdeci">std::optional&lt; Value &gt; getValue(const Key &amp;key) override</div><div class="ttdoc">Reads value associated with the given key. If there is no value associated with key,...</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:99</div></div>
-<div class="ttc" id="aclasssupermap_1_1KeyException_html"><div class="ttname"><a href="classsupermap_1_1KeyException.html">supermap::KeyException</a></div><div class="ttdoc">Thrown when accessing value of non-existent key.</div><div class="ttdef"><b>Definition:</b> SupermapException.hpp:36</div></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    std::unique_ptr&lt;KeyValueStorage&lt;Key, MaybeRemovedValue&lt;Value&gt;, Size&gt;&gt; storageOfMaybeRemoved_;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html">supermap::DefaultRemovableKvs</a></div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:16</div></div>
+<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html_a40b65cce113eb22a7734170908f9d686"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html#a40b65cce113eb22a7734170908f9d686">supermap::DefaultRemovableKvs::remove</a></div><div class="ttdeci">void remove(const Key &amp;key) override</div><div class="ttdoc">Remove key from storage.</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:46</div></div>
+<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html_a508a08410fbdf1a61663acd781f93939"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html#a508a08410fbdf1a61663acd781f93939">supermap::DefaultRemovableKvs::add</a></div><div class="ttdeci">void add(const Key &amp;key, Value &amp;&amp;value) override</div><div class="ttdoc">Add file to the storage. More relevant key value overwrites less relevant.</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:23</div></div>
+<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html_a5510d252ec1b92f477e88ebabe3d489d"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html#a5510d252ec1b92f477e88ebabe3d489d">supermap::DefaultRemovableKvs::getUpperSizeBound</a></div><div class="ttdeci">Size getUpperSizeBound() const override</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:41</div></div>
+<div class="ttc" id="aclasssupermap_1_1DefaultRemovableKvs_html_ae6f252d2491fea3a11ada229b3948381"><div class="ttname"><a href="classsupermap_1_1DefaultRemovableKvs.html#ae6f252d2491fea3a11ada229b3948381">supermap::DefaultRemovableKvs::getValue</a></div><div class="ttdeci">std::optional&lt; Value &gt; getValue(const Key &amp;key) override</div><div class="ttdoc">Reads value associated with the given key. If there is no value associated with key,...</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:28</div></div>
 <div class="ttc" id="aclasssupermap_1_1KeyValueStorage_html"><div class="ttname"><a href="classsupermap_1_1KeyValueStorage.html">supermap::KeyValueStorage</a></div><div class="ttdoc">An abstract key-value storage.</div><div class="ttdef"><b>Definition:</b> KeyValueStorage.hpp:18</div></div>
-<div class="ttc" id="aclasssupermap_1_1RemovableKvs_html"><div class="ttname"><a href="classsupermap_1_1RemovableKvs.html">supermap::RemovableKvs</a></div><div class="ttdoc">A key-value storage, from where keys can be removed.</div><div class="ttdef"><b>Definition:</b> RemovableKvs.hpp:14</div></div>
 <div class="ttc" id="astructsupermap_1_1Key_html"><div class="ttname"><a href="structsupermap_1_1Key.html">supermap::Key</a></div><div class="ttdoc">An array which contains Len bytes in-place (not in the heap memory).</div><div class="ttdef"><b>Definition:</b> Key.hpp:18</div></div>
-<div class="ttc" id="astructsupermap_1_1MaybeRemovedValue_html"><div class="ttname"><a href="structsupermap_1_1MaybeRemovedValue.html">supermap::MaybeRemovedValue</a></div><div class="ttdoc">Optional value container.</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:16</div></div>
-<div class="ttc" id="astructsupermap_1_1MaybeRemovedValue_html_a86dfbf5aaab4fed837c5eb5db7a0ac84"><div class="ttname"><a href="structsupermap_1_1MaybeRemovedValue.html#a86dfbf5aaab4fed837c5eb5db7a0ac84">supermap::MaybeRemovedValue::fromString</a></div><div class="ttdeci">static MaybeRemovedValue fromString(const std::string &amp;str)</div><div class="ttdoc">Parses string MaybeValue representation.</div><div class="ttdef"><b>Definition:</b> DefaultRemovableKvs.hpp:25</div></div>
-<div class="ttc" id="astructsupermap_1_1io_1_1Deserializable_html"><div class="ttname"><a href="structsupermap_1_1io_1_1Deserializable.html">supermap::io::Deserializable</a></div><div class="ttdoc">Flag if object is deserializable.</div><div class="ttdef"><b>Definition:</b> SerializeHelper.hpp:25</div></div>
-<div class="ttc" id="astructsupermap_1_1io_1_1DeserializeHelper_html"><div class="ttname"><a href="structsupermap_1_1io_1_1DeserializeHelper.html">supermap::io::DeserializeHelper</a></div><div class="ttdoc">Container for deserialize function. Must be declared for any type that wants to be deserialized.</div><div class="ttdef"><b>Definition:</b> SerializeHelper.hpp:67</div></div>
-<div class="ttc" id="astructsupermap_1_1io_1_1FixedDeserializedSizeRegister_html"><div class="ttname"><a href="structsupermap_1_1io_1_1FixedDeserializedSizeRegister.html">supermap::io::FixedDeserializedSizeRegister</a></div><div class="ttdoc">Register of all types that have exactDeserializedSize. To deserialize any type, Register for this typ...</div><div class="ttdef"><b>Definition:</b> SerializeHelper.hpp:46</div></div>
-<div class="ttc" id="astructsupermap_1_1io_1_1FixedDeserializedSize_html"><div class="ttname"><a href="structsupermap_1_1io_1_1FixedDeserializedSize.html">supermap::io::FixedDeserializedSize</a></div><div class="ttdoc">Container of ExactDeserializedSize for this type, which tells exact size of object of this type after...</div><div class="ttdef"><b>Definition:</b> SerializeHelper.hpp:36</div></div>
-<div class="ttc" id="astructsupermap_1_1io_1_1Serializable_html"><div class="ttname"><a href="structsupermap_1_1io_1_1Serializable.html">supermap::io::Serializable</a></div><div class="ttdoc">Flag if object is serializable.</div><div class="ttdef"><b>Definition:</b> SerializeHelper.hpp:16</div></div>
-<div class="ttc" id="astructsupermap_1_1io_1_1SerializeHelper_html"><div class="ttname"><a href="structsupermap_1_1io_1_1SerializeHelper.html">supermap::io::SerializeHelper</a></div><div class="ttdoc">Container for serialize function. Must be declared for any type that wants to be serialized.</div><div class="ttdef"><b>Definition:</b> SerializeHelper.hpp:54</div></div>
+<div class="ttc" id="astructsupermap_1_1MaybeRemovedValue_html"><div class="ttname"><a href="structsupermap_1_1MaybeRemovedValue.html">supermap::MaybeRemovedValue</a></div><div class="ttdoc">Optional value container.</div><div class="ttdef"><b>Definition:</b> MaybeRemovedValue.hpp:10</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

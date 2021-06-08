@@ -1,5 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classsupermap_1_1io_1_1InputStream.html" title="Abstract input stream. Only a wrapper to std::istream." alt="" coords="5,35,177,61"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1io_1_1FileInputStream.html" title="Specialization of InputStream which encapsulates work with std::ifstream. Dedicated to work with file..." alt="" coords="225,5,419,32"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1io_1_1StringInputStream.html" title="Specialization of InputStream which encapsulates work with std::stringstream. Dedicated to work with ..." alt="" coords="240,57,404,98"/>
+<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1FixedDeserializedSize.html" title=" " alt="" coords="5,5,299,76"/>
+<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1FixedDeserializedSizeRegister_3_01MaybeRemovedValue_3_01T_01_4_01_4.html" title="FixedDeserializedSizeRegister template specialization for MaybeRemovedValue." alt="" coords="347,20,620,61"/>
 </map>

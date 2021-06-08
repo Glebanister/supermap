@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classsupermap_1_1io_1_1InputIterator.html" title="Iterator which allows to read continuous objects of type T from input stream." alt="" coords="5,5,228,47"/>
+<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1FixedDeserializedSize.html" title=" " alt="" coords="5,38,312,109"/>
+<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1FixedDeserializedSizeRegister_3_01KeyValue_3_01Key_00_01Value_01_4_01_4.html" title="FixedDeserializedSizeRegister template specialization for KeyValue. Sets exactDeserializedSize as the..." alt="" coords="371,5,573,61"/>
+<area shape="rect" id="node3" href="$structsupermap_1_1io_1_1FixedDeserializedSizeRegister_3_01StorageValueIgnorer_3_01Key_00_01Value_01_4_01_4.html" title="Register of StorageValueIgnorer deserialized size." alt="" coords="360,85,584,141"/>
 </map>

@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1FixedDeserializedSize.html" title=" " alt="" coords="5,5,299,76"/>
-<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1FixedDeserializedSizeRegister_3_01MaybeRemovedValue_3_01T_01_4_01_4.html" title="FixedDeserializedSizeRegister template specialization for MaybeRemovedValue." alt="" coords="347,20,620,61"/>
+<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1Deserializable.html" title=" " alt="" coords="5,5,187,47"/>
+<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1DeserializeHelper.html" title="Container for deserialize function. Must be declared for any type that wants to be deserialized." alt="" coords="235,5,399,47"/>
 </map>

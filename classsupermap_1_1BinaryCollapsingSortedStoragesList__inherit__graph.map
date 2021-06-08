@@ -1,5 +1,5 @@
-<map id="supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;" name="supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, RankOneSize, InnerRegisterInfo, FindPatternType &gt;">
-<area shape="rect" id="node1" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="45,199,279,269"/>
+<map id="supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, InnerRegisterInfo, FindPatternType &gt;" name="supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, InnerRegisterInfo, FindPatternType &gt;">
+<area shape="rect" id="node1" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="71,199,253,269"/>
 <area shape="rect" id="node2" href="$classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="65,95,259,151"/>
 <area shape="rect" id="node3" href="$classsupermap_1_1Findable.html" title="An abstract storage where element of type T can be found." alt="" coords="5,5,140,47"/>
 <area shape="rect" id="node4" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="165,5,341,47"/>

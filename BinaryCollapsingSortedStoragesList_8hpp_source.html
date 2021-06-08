@@ -82,93 +82,95 @@ $(function() {
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">template</span> &lt;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">typename</span> T,</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">typename</span> IndexT,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    IndexT RankOneSize,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">typename</span> InnerRegisterInfo,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">typename</span> FindPatternType</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;&gt;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">BinaryCollapsingSortedStoragesList</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1SortedStoragesList.html">SortedStoragesList</a>&lt;T, IndexT, InnerRegisterInfo, FindPatternType&gt; {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">using</span> <a class="code" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedStorage</a> = <a class="code" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedSingleFileIndexedStorage&lt;T, IndexT, InnerRegisterInfo, FindPatternType&gt;</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">using</span> InnerRegisterSupplier = <span class="keyword">typename</span> SortedStorage::InnerRegisterSupplier;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">struct </span>ListNode {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">explicit</span> ListNode(std::unique_ptr&lt;SortedStorage&gt; &amp;&amp;s, std::shared_ptr&lt;ListNode&gt; n)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            : storage(std::move(s)), next(std::move(n)) {}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        std::unique_ptr&lt;SortedStorage&gt; storage;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        std::shared_ptr&lt;ListNode&gt; next;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordtype">bool</span> valid() {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordflow">return</span> storage != <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        IndexT getRank() {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            assert(valid());</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            IndexT size = storage-&gt;getItemsCount();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            assert(size != 0);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">return</span> std::log2((size + RankOneSize - 1) / RankOneSize);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    };</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ae8b73176726f16bb3ec50621ee1fd552">   65</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ae8b73176726f16bb3ec50621ee1fd552">BinaryCollapsingSortedStoragesList</a>(IndexT batchSize, InnerRegisterSupplier innerRegisterSupplier)</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        : head_(nullptr),</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          batchSize_(batchSize),</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;          innerRegisterSupplier_(std::move(innerRegisterSupplier)) {}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a8f020cbc6be8b59f39fb6563b7b587e9">   74</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a8f020cbc6be8b59f39fb6563b7b587e9">append</a>(std::unique_ptr&lt;SortedStorage&gt; &amp;&amp;storage)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        head_ = std::make_shared&lt;ListNode&gt;(std::move(storage), std::move(head_));</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        std::shared_ptr&lt;ListNode&gt; curNode = head_;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        std::shared_ptr&lt;ListNode&gt; nextNode = curNode-&gt;next;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">while</span> (nextNode != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            assert(curNode-&gt;getRank() &lt;= nextNode-&gt;getRank());</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            <span class="keywordflow">if</span> (curNode-&gt;getRank() &lt; nextNode-&gt;getRank()) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            assert(curNode-&gt;valid());</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            assert(nextNode-&gt;valid());</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <a class="code" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedStorage</a> mergedKeys(</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                std::vector&lt;SortedStorage&gt;{*nextNode-&gt;storage, *curNode-&gt;storage},</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                <span class="stringliteral">&quot;collapse&quot;</span>,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                curNode-&gt;storage-&gt;getFileManager(),</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                batchSize_,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                innerRegisterSupplier_</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            );</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            nextNode-&gt;storage-&gt;resetWith(std::move(mergedKeys));</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            head_ = nextNode;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            curNode = nextNode;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            nextNode = nextNode-&gt;next;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a7a512f42618c3810fb39acb5f1efa6f1">  108</a></span>&#160;    std::optional&lt;T&gt; <a class="code" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a7a512f42618c3810fb39acb5f1efa6f1">find</a>(</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keyword">const</span> FindPatternType &amp;pattern,</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        std::function&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> T &amp;, <span class="keyword">const</span> FindPatternType &amp;)&gt; less,</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        std::function&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> T &amp;, <span class="keyword">const</span> FindPatternType &amp;)&gt; equal</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    )<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        std::shared_ptr&lt;ListNode&gt; curNode = head_;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">while</span> (curNode != <span class="keyword">nullptr</span>) {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            assert(curNode-&gt;valid());</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            std::optional&lt;T&gt; found = curNode-&gt;storage-&gt;find(pattern, less, equal);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">if</span> (found.has_value()) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                <span class="keywordflow">return</span> found;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            curNode = curNode-&gt;next;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> std::nullopt;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    std::shared_ptr&lt;ListNode&gt; head_ = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    IndexT batchSize_;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    InnerRegisterSupplier innerRegisterSupplier_;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;};</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <span class="comment">// supermap</span></div>
-<div class="ttc" id="aclasssupermap_1_1BinaryCollapsingSortedStoragesList_html"><div class="ttname"><a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">supermap::BinaryCollapsingSortedStoragesList</a></div><div class="ttdoc">List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank...</div><div class="ttdef"><b>Definition:</b> BinaryCollapsingSortedStoragesList.hpp:26</div></div>
-<div class="ttc" id="aclasssupermap_1_1BinaryCollapsingSortedStoragesList_html_a7a512f42618c3810fb39acb5f1efa6f1"><div class="ttname"><a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a7a512f42618c3810fb39acb5f1efa6f1">supermap::BinaryCollapsingSortedStoragesList::find</a></div><div class="ttdeci">std::optional&lt; T &gt; find(const FindPatternType &amp;pattern, std::function&lt; bool(const T &amp;, const FindPatternType &amp;)&gt; less, std::function&lt; bool(const T &amp;, const FindPatternType &amp;)&gt; equal) override</div><div class="ttdoc">Searches for the fulfillment of the predicate equal in all storages, starting from the last added sto...</div><div class="ttdef"><b>Definition:</b> BinaryCollapsingSortedStoragesList.hpp:108</div></div>
-<div class="ttc" id="aclasssupermap_1_1BinaryCollapsingSortedStoragesList_html_a8f020cbc6be8b59f39fb6563b7b587e9"><div class="ttname"><a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a8f020cbc6be8b59f39fb6563b7b587e9">supermap::BinaryCollapsingSortedStoragesList::append</a></div><div class="ttdeci">void append(std::unique_ptr&lt; SortedStorage &gt; &amp;&amp;storage) override</div><div class="ttdoc">Add storage with the largest order to list.</div><div class="ttdef"><b>Definition:</b> BinaryCollapsingSortedStoragesList.hpp:74</div></div>
-<div class="ttc" id="aclasssupermap_1_1BinaryCollapsingSortedStoragesList_html_ae8b73176726f16bb3ec50621ee1fd552"><div class="ttname"><a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#ae8b73176726f16bb3ec50621ee1fd552">supermap::BinaryCollapsingSortedStoragesList::BinaryCollapsingSortedStoragesList</a></div><div class="ttdeci">BinaryCollapsingSortedStoragesList(IndexT batchSize, InnerRegisterSupplier innerRegisterSupplier)</div><div class="ttdoc">Creates BinaryCollapsingSortedStoragesList.</div><div class="ttdef"><b>Definition:</b> BinaryCollapsingSortedStoragesList.hpp:65</div></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">typename</span> InnerRegisterInfo,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">typename</span> FindPatternType</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;&gt;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">BinaryCollapsingSortedStoragesList</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1SortedStoragesList.html">SortedStoragesList</a>&lt;T, IndexT, InnerRegisterInfo, FindPatternType&gt; {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">using</span> <a class="code" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedStorage</a> = <a class="code" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedSingleFileIndexedStorage&lt;T, IndexT, InnerRegisterInfo, FindPatternType&gt;</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">using</span> InnerRegisterSupplier = <span class="keyword">typename</span> SortedStorage::InnerRegisterSupplier;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">struct </span>ListNode {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">explicit</span> ListNode(std::unique_ptr&lt;SortedStorage&gt; &amp;&amp;s, std::shared_ptr&lt;ListNode&gt; n, IndexT rankOneSize)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            : storage(std::move(s)), next(std::move(n)), rankOneSize_(rankOneSize) {}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        std::unique_ptr&lt;SortedStorage&gt; storage;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        std::shared_ptr&lt;ListNode&gt; next;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordtype">bool</span> valid() {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">return</span> storage != <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        IndexT getRank() {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            assert(valid());</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            IndexT size = storage-&gt;getItemsCount();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            assert(size != 0);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keywordflow">return</span> std::log2((size + rankOneSize_ - 1) / rankOneSize_);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="keyword">const</span> IndexT rankOneSize_;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#afca366ff68b0357a3fb9807f804f8286">   67</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#afca366ff68b0357a3fb9807f804f8286">BinaryCollapsingSortedStoragesList</a>(IndexT batchSize, InnerRegisterSupplier innerRegisterSupplier)</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        : head_(nullptr),</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;          batchSize_(batchSize),</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;          innerRegisterSupplier_(std::move(innerRegisterSupplier)) {}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a28b737aacaf427f03c2770435e847b53">   76</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a28b737aacaf427f03c2770435e847b53">append</a>(std::unique_ptr&lt;SortedStorage&gt; &amp;&amp;storage)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        head_ = std::make_shared&lt;ListNode&gt;(std::move(storage), std::move(head_), batchSize_);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        std::shared_ptr&lt;ListNode&gt; curNode = head_;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        std::shared_ptr&lt;ListNode&gt; nextNode = curNode-&gt;next;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">while</span> (nextNode != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            assert(curNode-&gt;getRank() &lt;= nextNode-&gt;getRank());</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordflow">if</span> (curNode-&gt;getRank() &lt; nextNode-&gt;getRank()) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            assert(curNode-&gt;valid());</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            assert(nextNode-&gt;valid());</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <a class="code" href="classsupermap_1_1SortedSingleFileIndexedStorage.html">SortedStorage</a> mergedKeys(</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                std::vector&lt;SortedStorage&gt;{*nextNode-&gt;storage, *curNode-&gt;storage},</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                <span class="stringliteral">&quot;collapse&quot;</span>,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                curNode-&gt;storage-&gt;getFileManager(),</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                batchSize_,</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                innerRegisterSupplier_</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            );</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            nextNode-&gt;storage-&gt;resetWith(std::move(mergedKeys));</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            head_ = nextNode;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            curNode = nextNode;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            nextNode = nextNode-&gt;next;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a89f662b1c0f58237fb39acb193041675">  110</a></span>&#160;    std::optional&lt;T&gt; <a class="code" href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a89f662b1c0f58237fb39acb193041675">find</a>(</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">const</span> FindPatternType &amp;pattern,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        std::function&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> T &amp;, <span class="keyword">const</span> FindPatternType &amp;)&gt; less,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        std::function&lt;<span class="keywordtype">bool</span>(<span class="keyword">const</span> T &amp;, <span class="keyword">const</span> FindPatternType &amp;)&gt; equal</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    )<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        std::shared_ptr&lt;ListNode&gt; curNode = head_;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keywordflow">while</span> (curNode != <span class="keyword">nullptr</span>) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            assert(curNode-&gt;valid());</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            std::optional&lt;T&gt; found = curNode-&gt;storage-&gt;find(pattern, less, equal);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">if</span> (found.has_value()) {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                <span class="keywordflow">return</span> found;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            curNode = curNode-&gt;next;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    }</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    std::shared_ptr&lt;ListNode&gt; head_ = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    IndexT batchSize_;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    InnerRegisterSupplier innerRegisterSupplier_;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;};</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="ttc" id="aclasssupermap_1_1BinaryCollapsingSortedStoragesList_html"><div class="ttname"><a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html">supermap::BinaryCollapsingSortedStoragesList</a></div><div class="ttdoc">List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank...</div><div class="ttdef"><b>Definition:</b> BinaryCollapsingSortedStoragesList.hpp:25</div></div>
+<div class="ttc" id="aclasssupermap_1_1BinaryCollapsingSortedStoragesList_html_a28b737aacaf427f03c2770435e847b53"><div class="ttname"><a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a28b737aacaf427f03c2770435e847b53">supermap::BinaryCollapsingSortedStoragesList::append</a></div><div class="ttdeci">void append(std::unique_ptr&lt; SortedStorage &gt; &amp;&amp;storage) override</div><div class="ttdoc">Add storage with the largest order to list.</div><div class="ttdef"><b>Definition:</b> BinaryCollapsingSortedStoragesList.hpp:76</div></div>
+<div class="ttc" id="aclasssupermap_1_1BinaryCollapsingSortedStoragesList_html_a89f662b1c0f58237fb39acb193041675"><div class="ttname"><a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a89f662b1c0f58237fb39acb193041675">supermap::BinaryCollapsingSortedStoragesList::find</a></div><div class="ttdeci">std::optional&lt; T &gt; find(const FindPatternType &amp;pattern, std::function&lt; bool(const T &amp;, const FindPatternType &amp;)&gt; less, std::function&lt; bool(const T &amp;, const FindPatternType &amp;)&gt; equal) override</div><div class="ttdoc">Searches for the fulfillment of the predicate equal in all storages, starting from the last added sto...</div><div class="ttdef"><b>Definition:</b> BinaryCollapsingSortedStoragesList.hpp:110</div></div>
+<div class="ttc" id="aclasssupermap_1_1BinaryCollapsingSortedStoragesList_html_afca366ff68b0357a3fb9807f804f8286"><div class="ttname"><a href="classsupermap_1_1BinaryCollapsingSortedStoragesList.html#afca366ff68b0357a3fb9807f804f8286">supermap::BinaryCollapsingSortedStoragesList::BinaryCollapsingSortedStoragesList</a></div><div class="ttdeci">BinaryCollapsingSortedStoragesList(IndexT batchSize, InnerRegisterSupplier innerRegisterSupplier)</div><div class="ttdoc">Creates BinaryCollapsingSortedStoragesList.</div><div class="ttdef"><b>Definition:</b> BinaryCollapsingSortedStoragesList.hpp:67</div></div>
 <div class="ttc" id="aclasssupermap_1_1SortedSingleFileIndexedStorage_html"><div class="ttname"><a href="classsupermap_1_1SortedSingleFileIndexedStorage.html">supermap::SortedSingleFileIndexedStorage</a></div><div class="ttdoc">Single file storage where objects are sorted in increasing order, defined by comparator.</div><div class="ttdef"><b>Definition:</b> SortedSingleFileIndexedStorage.hpp:24</div></div>
 <div class="ttc" id="aclasssupermap_1_1SortedStoragesList_html"><div class="ttname"><a href="classsupermap_1_1SortedStoragesList.html">supermap::SortedStoragesList</a></div><div class="ttdoc">Abstract list of single file sorted storages.</div><div class="ttdef"><b>Definition:</b> SortedStoragesList.hpp:23</div></div>
 </div><!-- fragment --></div><!-- contents -->

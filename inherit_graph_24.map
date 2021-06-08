@@ -1,4 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1Serializable.html" title=" " alt="" coords="5,5,172,47"/>
-<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1SerializeHelper.html" title="Container for serialize function. Must be declared for any type that wants to be serialized." alt="" coords="220,5,408,47"/>
+<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1FixedDeserializedSize.html" title=" " alt="" coords="5,13,208,54"/>
+<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1ShallowDeserializedSize.html" title="Type which indicates about shallowly deserialized object size." alt="" coords="256,13,473,54"/>
+<area shape="rect" id="node3" href="$structsupermap_1_1io_1_1FixedDeserializedSizeRegister_3_01T_00_01std_1_1enable__if__t_3_01std_1_cd68edb0dee60bb54c411e0eab5accdd.html" title="Default FixedDeserializedSizeRegister for all integral types." alt="" coords="521,5,728,61"/>
 </map>
