@@ -209,17 +209,16 @@ $(function() {
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    std::unique_ptr&lt;RamStorageBase&gt; innerStorage_;</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    std::unique_ptr&lt;DiskStorage&gt; diskDataStorage_;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    std::unique_ptr&lt;IndexStorageListBase&gt; diskIndex_;</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    std::function&lt;std::unique_ptr&lt;IndexStorageBase&gt;(IndexStorageBase &amp;&amp;)&gt;</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        keyIndexStorageSupplier_;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    std::function&lt;std::unique_ptr&lt;IndexStorageListBase&gt;()&gt; indexListSupplier_;</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    std::function&lt;std::unique_ptr&lt;RegisterBase&gt;()&gt; registerSupplier_;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keyword">const</span> IndexT keyIndexBatchSize_;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keyword">const</span> std::string indexFilesPrefix = <span class="stringliteral">&quot;index-&quot;</span>;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">mutable</span> std::mt19937 random;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> maxNotSortedPart_;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;};</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    std::function&lt;std::unique_ptr&lt;IndexStorageBase&gt;(IndexStorageBase &amp;&amp;)&gt; keyIndexStorageSupplier_;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    std::function&lt;std::unique_ptr&lt;IndexStorageListBase&gt;()&gt; indexListSupplier_;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    std::function&lt;std::unique_ptr&lt;RegisterBase&gt;()&gt; registerSupplier_;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">const</span> IndexT keyIndexBatchSize_;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keyword">const</span> std::string indexFilesPrefix = <span class="stringliteral">&quot;index-&quot;</span>;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keyword">mutable</span> std::mt19937 random;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">double</span> maxNotSortedPart_;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;};</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;} <span class="comment">// supermap</span></div>
 <div class="ttc" id="aclasssupermap_1_1ExtractibleKeyValueStorage_html"><div class="ttname"><a href="classsupermap_1_1ExtractibleKeyValueStorage.html">supermap::ExtractibleKeyValueStorage</a></div><div class="ttdoc">KeyValueStorage that can be extracted to the vector.</div><div class="ttdef"><b>Definition:</b> ExtractibleKeyValueStorage.hpp:15</div></div>
 <div class="ttc" id="aclasssupermap_1_1Filter_html"><div class="ttname"><a href="classsupermap_1_1Filter.html">supermap::Filter</a></div><div class="ttdoc">Filter, which can add elements to self and tell which elements are certainly were not added to filter...</div><div class="ttdef"><b>Definition:</b> Filter.hpp:15</div></div>
 <div class="ttc" id="aclasssupermap_1_1FilteringRegister_html"><div class="ttname"><a href="classsupermap_1_1FilteringRegister.html">supermap::FilteringRegister</a></div><div class="ttdoc">A storage register, which registers elements in inner filter.</div><div class="ttdef"><b>Definition:</b> FilteringRegister.hpp:18</div></div>
