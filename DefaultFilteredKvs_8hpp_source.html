@@ -88,58 +88,48 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultFilteredKvs.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1DefaultFilteredKvs.html">DefaultFilteredKvs</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorage</a>&lt;Key, Value, Size&gt; {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">using</span> <a class="code" href="classsupermap_1_1KeyValueStorage.html">KVS</a> = <a class="code" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorage&lt;Key, Value, Size&gt;</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">using</span> <a class="code" href="structsupermap_1_1KeyValue.html">KI</a> = <a class="code" href="structsupermap_1_1KeyValue.html">KeyValue&lt;Key, Size&gt;</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">using</span> <a class="code" href="classsupermap_1_1Filter.html">FilterBase</a> = <a class="code" href="classsupermap_1_1Filter.html">Filter&lt;KI, Key&gt;</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html">DefaultFilteredKvs</a>(</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        std::unique_ptr&lt;KVS&gt; &amp;&amp;innerStorage,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        std::unique_ptr&lt;FilterBase&gt; &amp;&amp;filter</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    ) : innerStorage_(std::move(innerStorage)),</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        filter_(std::move(filter)) {}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultFilteredKvs.html#ac90d9ac8bc9193912b5356cce97bf020">   29</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html#ac90d9ac8bc9193912b5356cce97bf020">add</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;, Value &amp;&amp;)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">//        assert(storageOfMaybeRemoved_);</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">//        storageOfMaybeRemoved_-&gt;add(key, MaybeRemovedValue&lt;Value&gt;{std::move(value), false});</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultFilteredKvs.html#a8344139a00be02f10b6f1b23fb0dcd58">   34</a></span>&#160;    std::optional&lt;Value&gt; <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html#a8344139a00be02f10b6f1b23fb0dcd58">getValue</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">//        assert(storageOfMaybeRemoved_);</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">//        std::optional&lt;MaybeRemovedValue&lt;Value&gt;&gt; optMaybeRemoved = storageOfMaybeRemoved_-&gt;getValue(key);</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">//        if (!optMaybeRemoved.has_value()) {</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">//            return std::nullopt;</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">//        }</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">//        MaybeRemovedValue&lt;Value&gt; maybeInnerValue = optMaybeRemoved.value();</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">//        if (maybeInnerValue.removed) {</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">//            return std::nullopt;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">//        }</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//        return std::optional{maybeInnerValue.value};</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultFilteredKvs.html#a0d29f789ae9e7a62ea75ac7a34fe75a3">   47</a></span>&#160;    Size <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html#a0d29f789ae9e7a62ea75ac7a34fe75a3">getUpperSizeBound</a>()<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">//        assert(storageOfMaybeRemoved_);</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">//        return storageOfMaybeRemoved_-&gt;getUpperSizeBound();</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultFilteredKvs.html#a0a2fe372dcada89ed3e411d0b139acb9">   52</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html#a0a2fe372dcada89ed3e411d0b139acb9">remove</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">//        assert(storageOfMaybeRemoved_);</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">//        storageOfMaybeRemoved_-&gt;add(key, MaybeRemovedValue&lt;Value&gt;{Value{}, true});</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    std::unique_ptr&lt;KVS&gt; innerStorage_;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    std::unique_ptr&lt;FilterBase&gt; filter_;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">using</span> <a class="code" href="classsupermap_1_1Filter.html">FilterBase</a> = <a class="code" href="classsupermap_1_1Filter.html">Filter&lt;Key&gt;</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html">DefaultFilteredKvs</a>(</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        std::unique_ptr&lt;KVS&gt; &amp;&amp;innerStorage,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        std::unique_ptr&lt;FilterBase&gt; &amp;&amp;filter</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    ) : innerStorage_(std::move(innerStorage)),</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        filter_(std::move(filter)) {}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultFilteredKvs.html#ab2a0e32de0e76c75486188c87b836f34">   28</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html#ab2a0e32de0e76c75486188c87b836f34">add</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key, Value &amp;&amp;value)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        filter_-&gt;add(key);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        innerStorage_-&gt;add(key, std::move(value));</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultFilteredKvs.html#a30d5c3a88bdfae662c1171d36439143c">   33</a></span>&#160;    std::optional&lt;Value&gt; <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html#a30d5c3a88bdfae662c1171d36439143c">getValue</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (!filter_-&gt;mightContain(key)) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">return</span> innerStorage_-&gt;getValue(key);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultFilteredKvs.html#a0d29f789ae9e7a62ea75ac7a34fe75a3">   40</a></span>&#160;    Size <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html#a0d29f789ae9e7a62ea75ac7a34fe75a3">getUpperSizeBound</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> innerStorage_-&gt;getUpperSizeBound();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="classsupermap_1_1DefaultFilteredKvs.html#a6c4caa23981bc7684087061614ab0946">   44</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1DefaultFilteredKvs.html#a6c4caa23981bc7684087061614ab0946">remove</a>(<span class="keyword">const</span> <a class="code" href="structsupermap_1_1Key.html">Key</a> &amp;key)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        innerStorage_-&gt;remove(key);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::unique_ptr&lt;KVS&gt; innerStorage_;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    std::unique_ptr&lt;FilterBase&gt; filter_;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;};</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;} <span class="comment">// supermap</span></div>
 <div class="ttc" id="aclasssupermap_1_1DefaultFilteredKvs_html"><div class="ttname"><a href="classsupermap_1_1DefaultFilteredKvs.html">supermap::DefaultFilteredKvs</a></div><div class="ttdef"><b>Definition:</b> DefaultFilteredKvs.hpp:16</div></div>
-<div class="ttc" id="aclasssupermap_1_1DefaultFilteredKvs_html_a0a2fe372dcada89ed3e411d0b139acb9"><div class="ttname"><a href="classsupermap_1_1DefaultFilteredKvs.html#a0a2fe372dcada89ed3e411d0b139acb9">supermap::DefaultFilteredKvs::remove</a></div><div class="ttdeci">void remove(const Key &amp;) override</div><div class="ttdoc">Remove key from storage.</div><div class="ttdef"><b>Definition:</b> DefaultFilteredKvs.hpp:52</div></div>
-<div class="ttc" id="aclasssupermap_1_1DefaultFilteredKvs_html_a0d29f789ae9e7a62ea75ac7a34fe75a3"><div class="ttname"><a href="classsupermap_1_1DefaultFilteredKvs.html#a0d29f789ae9e7a62ea75ac7a34fe75a3">supermap::DefaultFilteredKvs::getUpperSizeBound</a></div><div class="ttdeci">Size getUpperSizeBound() const override</div><div class="ttdef"><b>Definition:</b> DefaultFilteredKvs.hpp:47</div></div>
-<div class="ttc" id="aclasssupermap_1_1DefaultFilteredKvs_html_a8344139a00be02f10b6f1b23fb0dcd58"><div class="ttname"><a href="classsupermap_1_1DefaultFilteredKvs.html#a8344139a00be02f10b6f1b23fb0dcd58">supermap::DefaultFilteredKvs::getValue</a></div><div class="ttdeci">std::optional&lt; Value &gt; getValue(const Key &amp;) override</div><div class="ttdoc">Reads value associated with the given key. If there is no value associated with key,...</div><div class="ttdef"><b>Definition:</b> DefaultFilteredKvs.hpp:34</div></div>
-<div class="ttc" id="aclasssupermap_1_1DefaultFilteredKvs_html_ac90d9ac8bc9193912b5356cce97bf020"><div class="ttname"><a href="classsupermap_1_1DefaultFilteredKvs.html#ac90d9ac8bc9193912b5356cce97bf020">supermap::DefaultFilteredKvs::add</a></div><div class="ttdeci">void add(const Key &amp;, Value &amp;&amp;) override</div><div class="ttdoc">Add file to the storage. More relevant key value overwrites less relevant.</div><div class="ttdef"><b>Definition:</b> DefaultFilteredKvs.hpp:29</div></div>
+<div class="ttc" id="aclasssupermap_1_1DefaultFilteredKvs_html_a0d29f789ae9e7a62ea75ac7a34fe75a3"><div class="ttname"><a href="classsupermap_1_1DefaultFilteredKvs.html#a0d29f789ae9e7a62ea75ac7a34fe75a3">supermap::DefaultFilteredKvs::getUpperSizeBound</a></div><div class="ttdeci">Size getUpperSizeBound() const override</div><div class="ttdef"><b>Definition:</b> DefaultFilteredKvs.hpp:40</div></div>
+<div class="ttc" id="aclasssupermap_1_1DefaultFilteredKvs_html_a30d5c3a88bdfae662c1171d36439143c"><div class="ttname"><a href="classsupermap_1_1DefaultFilteredKvs.html#a30d5c3a88bdfae662c1171d36439143c">supermap::DefaultFilteredKvs::getValue</a></div><div class="ttdeci">std::optional&lt; Value &gt; getValue(const Key &amp;key) override</div><div class="ttdoc">Reads value associated with the given key. If there is no value associated with key,...</div><div class="ttdef"><b>Definition:</b> DefaultFilteredKvs.hpp:33</div></div>
+<div class="ttc" id="aclasssupermap_1_1DefaultFilteredKvs_html_a6c4caa23981bc7684087061614ab0946"><div class="ttname"><a href="classsupermap_1_1DefaultFilteredKvs.html#a6c4caa23981bc7684087061614ab0946">supermap::DefaultFilteredKvs::remove</a></div><div class="ttdeci">void remove(const Key &amp;key) override</div><div class="ttdoc">Remove key from storage.</div><div class="ttdef"><b>Definition:</b> DefaultFilteredKvs.hpp:44</div></div>
+<div class="ttc" id="aclasssupermap_1_1DefaultFilteredKvs_html_ab2a0e32de0e76c75486188c87b836f34"><div class="ttname"><a href="classsupermap_1_1DefaultFilteredKvs.html#ab2a0e32de0e76c75486188c87b836f34">supermap::DefaultFilteredKvs::add</a></div><div class="ttdeci">void add(const Key &amp;key, Value &amp;&amp;value) override</div><div class="ttdoc">Add file to the storage. More relevant key value overwrites less relevant.</div><div class="ttdef"><b>Definition:</b> DefaultFilteredKvs.hpp:28</div></div>
 <div class="ttc" id="aclasssupermap_1_1Filter_html"><div class="ttname"><a href="classsupermap_1_1Filter.html">supermap::Filter</a></div><div class="ttdoc">Filter, which can add elements to self and tell which elements are certainly were not added to filter...</div><div class="ttdef"><b>Definition:</b> Filter.hpp:15</div></div>
 <div class="ttc" id="aclasssupermap_1_1KeyValueStorage_html"><div class="ttname"><a href="classsupermap_1_1KeyValueStorage.html">supermap::KeyValueStorage</a></div><div class="ttdoc">An abstract key-value storage.</div><div class="ttdef"><b>Definition:</b> KeyValueStorage.hpp:18</div></div>
-<div class="ttc" id="astructsupermap_1_1KeyValue_html"><div class="ttname"><a href="structsupermap_1_1KeyValue.html">supermap::KeyValue</a></div><div class="ttdoc">Pair of key and value.</div><div class="ttdef"><b>Definition:</b> KeyValue.hpp:11</div></div>
 <div class="ttc" id="astructsupermap_1_1Key_html"><div class="ttname"><a href="structsupermap_1_1Key.html">supermap::Key</a></div><div class="ttdoc">An array which contains Len bytes in-place (not in the heap memory).</div><div class="ttdef"><b>Definition:</b> Key.hpp:18</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

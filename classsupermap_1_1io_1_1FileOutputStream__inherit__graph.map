@@ -1,0 +1,4 @@
+<map id="supermap::io::FileOutputStream" name="supermap::io::FileOutputStream">
+<area shape="rect" id="node1" title="Output stream specialization to work with files output stream." alt="" coords="16,80,177,121"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1io_1_1OutputStream.html" title="Abstract output stream. Wraps std::ostream." alt="" coords="5,5,188,32"/>
+</map>

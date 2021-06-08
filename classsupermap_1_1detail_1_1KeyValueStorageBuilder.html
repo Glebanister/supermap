@@ -77,6 +77,12 @@ $(function() {
 Inheritance diagram for supermap::detail::KeyValueStorageBuilder&lt; Key, Value, Size &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classsupermap_1_1detail_1_1KeyValueStorageBuilder__inherit__graph.png" border="0" usemap="#asupermap_1_1detail_1_1KeyValueStorageBuilder_3_01Key_00_01Value_00_01Size_01_4_inherit__map" alt="Inheritance graph"/></div>
+<map name="asupermap_1_1detail_1_1KeyValueStorageBuilder_3_01Key_00_01Value_00_01Size_01_4_inherit__map" id="asupermap_1_1detail_1_1KeyValueStorageBuilder_3_01Key_00_01Value_00_01Size_01_4_inherit__map">
+<area shape="rect" title=" " alt="" coords="5,63,189,119"/>
+<area shape="rect" href="classsupermap_1_1detail_1_1FilteredBuilder.html" title=" " alt="" coords="249,5,427,47"/>
+<area shape="rect" href="classsupermap_1_1detail_1_1PrimitiveKvsBuilder.html" title=" " alt="" coords="237,71,439,112"/>
+<area shape="rect" href="classsupermap_1_1detail_1_1RemovableBuilder.html" title=" " alt="" coords="245,136,431,177"/>
+</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -84,12 +90,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a3cbf0b4f0366c115c0d297db856cd74b"><td class="memItemLeft" align="right" valign="top"><a id="a3cbf0b4f0366c115c0d297db856cd74b"></a>
 virtual std::unique_ptr&lt; <a class="el" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorage</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, Size &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>build</b> ()=0</td></tr>
 <tr class="separator:a3cbf0b4f0366c115c0d297db856cd74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af585e9b32cff1e5388006380a6b58e13"><td class="memItemLeft" align="right" valign="top"><a id="af585e9b32cff1e5388006380a6b58e13"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>removable</b> () -&gt; std::enable_if_t&lt; <a class="el" href="structsupermap_1_1MaybeRemovedHelper.html">MaybeRemovedHelper</a>&lt; Value &gt;::isMaybeRemoved, <a class="el" href="classsupermap_1_1detail_1_1RemovableBuilder.html">RemovableBuilder</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, typename <a class="el" href="structsupermap_1_1MaybeRemovedHelper.html">MaybeRemovedHelper</a>&lt; Value &gt;::Type, Size &gt;&gt;</td></tr>
-<tr class="separator:af585e9b32cff1e5388006380a6b58e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2cad914e79cd192fe46eb7f8d5a16ee"><td class="memItemLeft" align="right" valign="top"><a id="ae2cad914e79cd192fe46eb7f8d5a16ee"></a>
-auto&#160;</td><td class="memItemRight" valign="bottom"><b>supermap</b> (typename <a class="el" href="classsupermap_1_1DefaultSupermap.html">DefaultSupermap</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a>, Value, Size &gt;::BuildParameters params)</td></tr>
-<tr class="separator:ae2cad914e79cd192fe46eb7f8d5a16ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82ce2e1812ade0a7548c26fffbaf2df3"><td class="memItemLeft" align="right" valign="top"><a id="a82ce2e1812ade0a7548c26fffbaf2df3"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>filtered</b> (std::unique_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">Filter</a>&lt; <a class="el" href="structsupermap_1_1Key.html">Key</a> &gt;&gt; &amp;&amp;filter)</td></tr>
+<tr class="separator:a82ce2e1812ade0a7548c26fffbaf2df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6d540a659e4159cdc736234c3c214fc"><td class="memItemLeft" align="right" valign="top"><a id="ac6d540a659e4159cdc736234c3c214fc"></a>
+auto&#160;</td><td class="memItemRight" valign="bottom"><b>removable</b> ()</td></tr>
+<tr class="separator:ac6d540a659e4159cdc736234c3c214fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/builder/<a class="el" href="KeyValueStorageBuilder_8hpp_source.html">KeyValueStorageBuilder.hpp</a></li>
