@@ -29,20 +29,26 @@ void stressTestSupermap(std::size_t iterations,
                         bool check) {
     using namespace supermap;
 
-    using SupermapBuilder = DefaultSupermap<Key<KeyLen>, ByteArray<ValueLen>, std::size_t>;
+    using K = Key<KeyLen>;
+    using V = ByteArray<ValueLen>;
+    using I = std::size_t;
 
-    auto kvs = DefaultSupermap::build(
-        typename DefaultSupermap::BuildParameters{
+    using SupermapBuilder = DefaultSupermap<K, V, I>;
+
+    auto kvs = SupermapBuilder::build(
+        std::make_unique<BST<K, I, I>>(),
+        typename SupermapBuilder::BuildParameters{
             batchSize,
             part,
             "supermap"
         }
     );
 
-    std::shared_ptr<KeyValueStorage<Key<KeyLen>, ByteArray<ValueLen>, Bounds<std::size_t>>> expectedKvs = check
-        ? std::make_shared<BST<Key<KeyLen>, ByteArray<ValueLen>, Bounds<std::size_t>>>()
-        : DefaultSupermap::build(
-            typename DefaultSupermap::BuildParameters{
+    auto expectedKvs = check
+        ? std::make_unique<BST<K, V, I>>()
+        : SupermapBuilder::build(
+            std::make_unique<BST<K, I, I>>(),
+            typename SupermapBuilder::BuildParameters{
                 batchSize,
                 part,
                 "supermap-other"
@@ -121,8 +127,8 @@ TEST_CASE("Supermap Stress 4") {
 
 TEST_SUITE("Supermap Stress Profiling") {
 
-TEST_CASE("Supermap Stress Profiling") {
-    stressTestSupermap<16, 64>(100000, timeSeed(), 5000, 1.0, 'a', 'z', false);
-}
+//TEST_CASE("Supermap Stress Profiling") {
+//    stressTestSupermap<16, 64>(100000, timeSeed(), 5000, 1.0, 'a', 'z', false);
+//}
 
 }

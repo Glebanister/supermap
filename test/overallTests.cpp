@@ -772,7 +772,7 @@ TEST_CASE ("Supermap simple") {
     using SupermapBuilder = DefaultSupermap<K, V, I>;
 
     auto superMap = SupermapBuilder::build(
-        std::make_unique<BST<K, V, I>>(),
+        std::make_unique<BST<K, I, I>>(),
         SupermapBuilder::BuildParameters{
             3,
             0.5,
