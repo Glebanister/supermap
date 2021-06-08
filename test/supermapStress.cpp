@@ -125,10 +125,10 @@ TEST_CASE("Supermap Stress 4") {
 
 }
 
-TEST_SUITE("Supermap Stress Profiling") {
-
-//TEST_CASE("Supermap Stress Profiling") {
-//    stressTestSupermap<16, 64>(100000, timeSeed(), 5000, 1.0, 'a', 'z', false);
+//TEST_SUITE("Supermap Stress Profiling") {
+//
+////TEST_CASE("Supermap Stress Profiling") {
+////    stressTestSupermap<16, 64>(100000, timeSeed(), 5000, 1.0, 'a', 'z', false);
+////}
+//
 //}
-
-}
