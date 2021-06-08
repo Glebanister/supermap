@@ -26,6 +26,11 @@ class StorageItemRegister : public Cloneable<StorageItemRegister<T, Info>> {
      */
     virtual Info getRegisteredItemsInfo() const noexcept = 0;
 
+    /**
+     * @brief Reserve filter for storing @p n elements.
+     */
+    virtual void reserve(std::uint64_t) {}
+
     virtual ~StorageItemRegister() = default;
 };
 

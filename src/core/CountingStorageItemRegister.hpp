@@ -119,6 +119,14 @@ class CountingStorageItemRegister
         );
     }
 
+    /**
+     * @brief Reserves inner register for @p n elements.
+     * @param n Reservation size.
+     */
+    void reserve(std::uint64_t n) override {
+        innerRegister_->reserve(n);
+    }
+
   private:
     explicit CountingStorageItemRegister(IndexT count,
                                          std::unique_ptr<StorageItemRegister<T, AdditionalInfo>> &&innerRegister)

@@ -49,6 +49,14 @@ class FilteringRegister : public StorageItemRegister<RegisterT, std::shared_ptr<
         );
     }
 
+    /**
+     * @brief Reserve inner filter storage for @p n elements.
+     * @param n Reservation size.
+     */
+    void reserve(std::uint64_t n) override {
+        filter_->reserve(n);
+    }
+
   private:
     std::shared_ptr<FilterBase> filter_{};
     std::function<FilterT(const RegisterT &)> func_;

@@ -28,6 +28,11 @@ class Filter : public Cloneable<Filter<T>> {
      * @return if @p false, then @p elem was never added to filter.
      */
     [[nodiscard]] virtual bool mightContain(const T &elem) const = 0;
+
+    /**
+     * @brief Reserve filter for @p n elements.
+     */
+    virtual void reserve(std::uint64_t) {};
 };
 
 } // supermap

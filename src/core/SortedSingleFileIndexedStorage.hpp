@@ -28,6 +28,7 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
     using SingleFileIndexedStorage<T, IndexT, RegisterInfo>::append;
     using SingleFileIndexedStorage<T, IndexT, RegisterInfo>::appendAll;
     using SingleFileIndexedStorage<T, IndexT, RegisterInfo>::SingleFileIndexedStorage;
+    using OrderedStorage<T, IndexT, RegisterInfo>::getRegister;
     using InnerRegisterSupplier = typename SingleFileIndexedStorage<T, IndexT, RegisterInfo>::InnerRegisterSupplier;
 
     /**
@@ -158,7 +159,7 @@ class SortedSingleFileIndexedStorage : public SingleFileIndexedStorage<T, IndexT
                 totalSize += newer[i].getItemsCount();
             }
         }
-
+        getRegister().reserve(totalSize);
         auto updateOnce = [&](std::int32_t i) {
             if (++currentFrontPointers[i] < newer[i].getItemsCount()) {
                 frontLine[i].emplace(newer[i].get(currentFrontPointers[i]));
