@@ -32,9 +32,9 @@ class Supermap : public KeyValueStorage<Key, Value, IndexT> {
   public:
     using KeyVal = KeyValue<Key, Value>;
     using KeyIndex = KeyValue<Key, IndexT>;
-    using Register = FilteringRegister<KeyIndex, Key>;
-    using FilterType = Filter<KeyIndex, Key>;
-    using RegisterInfo = typename Register::ItemsInfo;
+    using RegisterBase = FilteringRegister<KeyIndex, Key>;
+    using FilterType = Filter<Key>;
+    using RegisterInfo = typename RegisterBase::ItemsInfo;
     using FilterSupplier = std::function<std::unique_ptr<FilterType>()>;
 
     using IndexStorageListBase = SortedStoragesList<KeyIndex, IndexT, RegisterInfo, Key>;
@@ -47,7 +47,7 @@ class Supermap : public KeyValueStorage<Key, Value, IndexT> {
                       std::unique_ptr<DiskStorage> &&diskDataStorage,
                       std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)> keyIndexStorageSupplier,
                       std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier,
-                      std::function<std::unique_ptr<FilterType>()> filerSupplier,
+                      std::function<std::unique_ptr<RegisterBase>()> registerSupplier,
                       IndexT keyIndexBatchSize,
                       double maxNotSortedPart)
         : innerStorage_(std::move(innerStorage)),
@@ -55,7 +55,7 @@ class Supermap : public KeyValueStorage<Key, Value, IndexT> {
           diskIndex_(indexListSupplier()),
           keyIndexStorageSupplier_(std::move(keyIndexStorageSupplier)),
           indexListSupplier_(std::move(indexListSupplier)),
-          filerSupplier_(std::move(filerSupplier)),
+          registerSupplier_(std::move(registerSupplier)),
           keyIndexBatchSize_(keyIndexBatchSize),
           random(std::chrono::steady_clock::now().time_since_epoch().count()),
           maxNotSortedPart_(maxNotSortedPart) {}
@@ -147,7 +147,7 @@ class Supermap : public KeyValueStorage<Key, Value, IndexT> {
             diskDataStorage_->getFileManager(),
             [](const KeyIndex &a, const KeyIndex &b) { return a.key < b.key; },
             [](const KeyIndex &a, const KeyIndex &b) { return a.key == b.key; },
-            [filer = filerSupplier_]() { return std::make_unique<Register>(filer); }
+            registerSupplier_
         );
         diskIndex_->append(keyIndexStorageSupplier_(std::move(newBlock)));
     }
@@ -169,7 +169,7 @@ class Supermap : public KeyValueStorage<Key, Value, IndexT> {
     std::function<std::unique_ptr<IndexStorageBase>(IndexStorageBase &&)>
         keyIndexStorageSupplier_;
     std::function<std::unique_ptr<IndexStorageListBase>()> indexListSupplier_;
-    FilterSupplier filerSupplier_;
+    std::function<std::unique_ptr<RegisterBase>()> registerSupplier_;
     const IndexT keyIndexBatchSize_;
     const std::string indexFilesPrefix = "index-";
     mutable std::mt19937 random;

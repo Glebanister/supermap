@@ -31,14 +31,13 @@ class DefaultSupermap {
     using IndexStorageBase = typename Smap::IndexStorageBase;
     using DiskStorage = typename Smap::DiskStorage;
     using RegisterInfo = typename Smap::RegisterInfo;
-    using Register = typename Smap::Register;
+    using Register = typename Smap::RegisterBase;
     using DefaultBinaryCollapsingList = BinaryCollapsingSortedStoragesList<KI, I, RegisterInfo, K>;
 
   private:
     using KVS = KeyValueStorage<Key, Value, IndexT>;
 
   public:
-
     template <template <typename> class pointer = std::unique_ptr>
     static pointer<KVS> build(
         std::unique_ptr<RamStorageBase> &&nested,
@@ -59,26 +58,20 @@ class DefaultSupermap {
             return std::make_unique<DefaultBinaryCollapsingList>(
                 maxRamLoad,
                 []() {
-                    return std::make_unique<FilteringRegister<KI, K>>
-                        (
-                            []() {
-                                return std::make_unique<BloomFilter<I, K>>
-                                    ();
-                            }
-                        );
+                    return std::make_unique<FilteringRegister<KI, K>>(
+                        []() { return std::make_unique<BloomFilter<K>>(); },
+                        [](const KI &ki) { return ki.key; }
+                    );
                 }
             );
         };
 
         std::function<std::unique_ptr<Register>()> innerRegisterSupplier
             = []() {
-                return std::make_unique<FilteringRegister<KI, K>>
-                    (
-                        []() {
-                            return std::make_unique<BloomFilter<I, K>>
-                                ();
-                        }
-                    );
+                return std::make_unique<FilteringRegister<KI, K>>(
+                    []() { return std::make_unique<BloomFilter<K>>(); },
+                    [](const KI &ki) { return ki.key; }
+                );
             };
 
         return pointer<KVS>(new Smap(
@@ -89,14 +82,9 @@ class DefaultSupermap {
                 fileManager,
                 innerRegisterSupplier
             ),
-            [](IndexStorageBase &&sortedStorage) {
-                return std::make_unique<IndexStorageBase>(std::move(sortedStorage));
-            },
+            indexSupplier,
             indexListSupplier,
-            []() {
-                return std::make_unique<BloomFilter<I, K>>
-                    ();
-            },
+            innerRegisterSupplier,
             params.batchSize,
             params.maxNotSortedPart
         ));

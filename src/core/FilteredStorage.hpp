@@ -21,7 +21,8 @@ class FilteredStorage : public SortedSingleFileIndexedStorage<Content, IndexT, R
   public:
     using SortedStorage = SortedSingleFileIndexedStorage<Content, IndexT, Register, FindPattern>;
     using SortedStorage::find;
-    using FilterSupplier = std::function<std::unique_ptr<Filter<Content, FindPattern>()>>;
+    using FilterBase = Filter<FindPattern>;
+    using FilterSupplier = std::function<std::unique_ptr<FilterBase()>>;
 
     /**
      * @brief Create new filtered storage instance calling merge c-tor of @p SortedStorage.
@@ -63,7 +64,7 @@ class FilteredStorage : public SortedSingleFileIndexedStorage<Content, IndexT, R
         std::function<bool(const Content &, const FindPattern &)> less,
         std::function<bool(const Content &, const FindPattern &)> equal
     ) override {
-        std::shared_ptr<Filter<Content, FindPattern>> filter = this->getRegisterInfo().additional;
+        std::shared_ptr<FilterBase> filter = this->getRegisterInfo().additional;
         if (!filter->mightContain(pattern)) {
             return std::nullopt;
         }

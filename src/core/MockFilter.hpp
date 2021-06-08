@@ -6,17 +6,16 @@ namespace supermap {
 
 /**
  * @brief A filter, that does not filters anything.
- * @tparam ToAdd Type to add to filter.
- * @tparam ToContain Type to contain in filter.
+ * @tparam T Type to add to filter.
  */
-template <typename ToAdd, typename ToContain>
-class MockFilter : public Filter<ToAdd, ToContain> {
+template <typename T>
+class MockFilter : public Filter<T> {
   public:
     /**
      * @brief Add @p elem to filter. Filter is mock, so nothing is actually happens.
      * @param elem Element to add.
      */
-    void add(const ToAdd &) override {}
+    void add(const T &) override {}
 
     /**
      * @brief Check if @p key could be added to filter.
@@ -24,7 +23,7 @@ class MockFilter : public Filter<ToAdd, ToContain> {
      * @param elem An element to check.
      * @return Always @p true.
      */
-    [[nodiscard]] bool mightContain(const ToContain &) const override {
+    [[nodiscard]] bool mightContain(const T &) const override {
         return true;
     }
 
@@ -32,8 +31,8 @@ class MockFilter : public Filter<ToAdd, ToContain> {
      * @return Ownership of filter with the same state. State is empty,
      * so just new @p MockFilter is being created.
      */
-    std::unique_ptr<Filter<ToAdd, ToContain>> clone() const override {
-        return std::make_unique<MockFilter<ToAdd, ToContain>>();
+    std::unique_ptr<Filter<T>> clone() const override {
+        return std::make_unique<MockFilter<T>>();
     }
 };
 

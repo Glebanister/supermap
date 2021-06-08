@@ -8,6 +8,7 @@
 #include "primitive/Key.hpp"
 #include "primitive/ByteArray.hpp"
 #include "builder/KeyValueStorageBuilder.hpp"
+#include "builder/DefaultFilteredKvs.hpp"
 
 int main(int, const char **) {
     supermap::cli::CommandLineInterface cli("supermap");

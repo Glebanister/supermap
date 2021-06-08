@@ -9,20 +9,16 @@ namespace supermap {
 /**
  * @brief Filter, which can add elements to self and tell
  * which elements are certainly were not added to filter.
- * @tparam ToAdd Parameter to add to filter.
- * @tparam ToContain Parameter to contain in filter.
+ * @tparam T Parameter to add to filter.
  */
-template <typename ToAdd, typename ToContain>
-class Filter : public Cloneable<Filter<ToAdd, ToContain>> {
+template <typename T>
+class Filter : public Cloneable<Filter<T>> {
   public:
-    using AddType = ToAdd;
-    using ContainType = ToContain;
-
     /**
      * @brief Add @p elem to filter.
      * @param elem Element to add.
      */
-    virtual void add(const ToAdd &elem) = 0;
+    virtual void add(const T &elem) = 0;
 
     /**
      * @brief Check if @p key could be added to filter.
@@ -31,7 +27,7 @@ class Filter : public Cloneable<Filter<ToAdd, ToContain>> {
      * @param elem An element to check.
      * @return if @p false, then @p elem was never added to filter.
      */
-    [[nodiscard]] virtual bool mightContain(const ToContain &elem) const = 0;
+    [[nodiscard]] virtual bool mightContain(const T &elem) const = 0;
 };
 
 } // supermap
