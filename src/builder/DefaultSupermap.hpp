@@ -2,7 +2,7 @@
 
 #include "core/Supermap.hpp"
 #include "io/EncapsulatedFileManager.hpp"
-#include "core/MockFilter.hpp"
+#include "core/BloomFilter.hpp"
 
 namespace supermap {
 
@@ -62,7 +62,7 @@ class DefaultSupermap {
                     return std::make_unique<FilteringRegister<KI, K>>
                         (
                             []() {
-                                return std::make_unique<MockFilter<KI, K>>
+                                return std::make_unique<BloomFilter<I, K>>
                                     ();
                             }
                         );
@@ -75,7 +75,7 @@ class DefaultSupermap {
                 return std::make_unique<FilteringRegister<KI, K>>
                     (
                         []() {
-                            return std::make_unique<MockFilter<KI, K>>
+                            return std::make_unique<BloomFilter<I, K>>
                                 ();
                         }
                     );
@@ -94,7 +94,7 @@ class DefaultSupermap {
             },
             indexListSupplier,
             []() {
-                return std::make_unique<MockFilter<KI, K>>
+                return std::make_unique<BloomFilter<I, K>>
                     ();
             },
             params.batchSize,
