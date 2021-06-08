@@ -1,0 +1,13 @@
+digraph "supermap::BinaryCollapsingSortedStoragesList&lt; T, IndexT, InnerRegisterInfo, FindPatternType &gt;"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="supermap::BinaryCollapsing\lSortedStoragesList\< T,\l IndexT, InnerRegisterInfo,\l FindPatternType \>",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="supermap::SortedStorages\lList\< T, IndexT, InnerRegister\lInfo, FindPatternType \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1SortedStoragesList.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="supermap::Findable\l\< T, P \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1Findable.html",tooltip="An abstract storage where element of type T can be found."];
+  Node4 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="supermap::OrderedStorage\l\< T, IndexT, RegisterInfo \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1OrderedStorage.html",tooltip="An abstract storage, where elements has particular order. Element added later is of lower order."];
+}

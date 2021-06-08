@@ -1,6 +1,0 @@
-<map id="supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;" name="supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;">
-<area shape="rect" id="node1" title="An abstract key&#45;value storage." alt="" coords="5,49,191,90"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1ExtractibleKeyValueStorage.html" title="KeyValueStorage that can be extracted to the vector." alt="" coords="239,5,416,61"/>
-<area shape="rect" id="node4" href="$classsupermap_1_1Supermap.html" title="Key&#45;value storage. Stores all values on disk. The index is partially stored in RAM...." alt="" coords="251,85,403,126"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1BST.html" title="Implementation of Binary Search Tree with std::map." alt="" coords="464,13,612,54"/>
-</map>

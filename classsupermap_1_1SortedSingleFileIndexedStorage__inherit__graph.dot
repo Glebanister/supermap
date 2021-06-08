@@ -1,0 +1,16 @@
+digraph "supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterInfo, FindPattern &gt;"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="supermap::SortedSingleFile\lIndexedStorage\< T, IndexT,\l RegisterInfo, FindPattern \>",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Single file storage where objects are sorted in increasing order, defined by comparator."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="supermap::SingleFileIndexed\lStorage\< T, IndexT, RegisterInfo \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1SingleFileIndexedStorage.html",tooltip="Indexed storage that stores all items in the single file."];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="supermap::IndexedStorage\l\< T, IndexT, RegisterInfo \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1IndexedStorage.html",tooltip="A storage that represents something from which you can take an element by index and add an element to..."];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="supermap::OrderedStorage\l\< T, IndexT, RegisterInfo \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1OrderedStorage.html",tooltip="An abstract storage, where elements has particular order. Element added later is of lower order."];
+  Node5 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="supermap::Findable\l\< T, FindPattern \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1Findable.html",tooltip=" "];
+}

@@ -28,7 +28,7 @@ var searchData=
   ['sortedstorageslist_163',['SortedStoragesList',['../classsupermap_1_1SortedStoragesList.html',1,'supermap']]],
   ['sortedstorageslist_3c_20t_2c_20indext_2c_20innerregisterinfo_2c_20findpatterntype_20_3e_164',['SortedStoragesList&lt; T, IndexT, InnerRegisterInfo, FindPatternType &gt;',['../classsupermap_1_1SortedStoragesList.html',1,'supermap']]],
   ['storageitemregister_165',['StorageItemRegister',['../classsupermap_1_1StorageItemRegister.html',1,'supermap']]],
-  ['storageitemregister_3c_20filtertoadd_2c_20std_3a_3ashared_5fptr_3c_20filter_3c_20filtertoadd_2c_20filtertocontain_20_3e_20_3e_20_3e_166',['StorageItemRegister&lt; FilterToAdd, std::shared_ptr&lt; Filter&lt; FilterToAdd, FilterToContain &gt; &gt; &gt;',['../classsupermap_1_1StorageItemRegister.html',1,'supermap']]],
+  ['storageitemregister_3c_20registert_2c_20std_3a_3ashared_5fptr_3c_20filter_3c_20filtert_20_3e_20_3e_20_3e_166',['StorageItemRegister&lt; RegisterT, std::shared_ptr&lt; Filter&lt; FilterT &gt; &gt; &gt;',['../classsupermap_1_1StorageItemRegister.html',1,'supermap']]],
   ['storageitemregister_3c_20t_2c_20countingstorageinfo_3c_20indext_2c_20additionalinfo_20_3e_20_3e_167',['StorageItemRegister&lt; T, CountingStorageInfo&lt; IndexT, AdditionalInfo &gt; &gt;',['../classsupermap_1_1StorageItemRegister.html',1,'supermap']]],
   ['storageitemregister_3c_20t_2c_20void_20_3e_168',['StorageItemRegister&lt; T, void &gt;',['../classsupermap_1_1StorageItemRegister.html',1,'supermap']]],
   ['storagevalueignorer_169',['StorageValueIgnorer',['../structsupermap_1_1StorageValueIgnorer.html',1,'supermap']]],

@@ -1,0 +1,18 @@
+digraph "supermap::Findable&lt; T, P &gt;"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="supermap::Findable\l\< T, P \>",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="An abstract storage where element of type T can be found."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="supermap::SortedSingleFile\lIndexedStorage\< supermap\l::KeyValue, IndexT, void,\l supermap::Key \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1SortedSingleFileIndexedStorage.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="supermap::SortedSingleFile\lIndexedStorage\< Content,\l IndexT, typename Register\l::ItemsInfo, FindPattern \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1SortedSingleFileIndexedStorage.html",tooltip=" "];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="supermap::FilteredStorage\l\< Content, IndexT, FindPattern,\l Register, RegisterInfo \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1FilteredStorage.html",tooltip="Sorted single file indexed storage with filter as a additional register."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="supermap::SortedStorages\lList\< T, IndexT, InnerRegister\lInfo, FindPatternType \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1SortedStoragesList.html",tooltip=" "];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="supermap::BinaryCollapsing\lSortedStoragesList\< T,\l IndexT, InnerRegisterInfo,\l FindPatternType \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classsupermap_1_1BinaryCollapsingSortedStoragesList.html",tooltip="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..."];
+}

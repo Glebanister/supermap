@@ -1,5 +1,0 @@
-<map id="supermap::io::DeserializeHelper&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &gt; &gt;" name="supermap::io::DeserializeHelper&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &gt; &gt;">
-<area shape="rect" id="node1" title="Default DeserializeHelper for all integral types." alt="" coords="31,184,195,255"/>
-<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1ShallowDeserializer.html" title="Template for DeserializeHelper which deserializes object shallowly." alt="" coords="5,95,220,136"/>
-<area shape="rect" id="node3" href="$structsupermap_1_1io_1_1Deserializable.html" title=" " alt="" coords="22,5,203,47"/>
-</map>

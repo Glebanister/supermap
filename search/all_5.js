@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['fileexception_45',['FileException',['../classsupermap_1_1FileException.html',1,'supermap']]],
-  ['fileinputstream_46',['FileInputStream',['../classsupermap_1_1io_1_1FileInputStream.html#ac68606be9cd2dc7902ba24f1fe467b82',1,'supermap::io::FileInputStream::FileInputStream()'],['../classsupermap_1_1io_1_1FileInputStream.html',1,'supermap::io::FileInputStream']]],
-  ['filemanager_47',['FileManager',['../classsupermap_1_1io_1_1FileManager.html',1,'supermap::io']]],
-  ['fileoutputstream_48',['FileOutputStream',['../classsupermap_1_1io_1_1FileOutputStream.html#abda9169da3ae4677da425336ffe09c1f',1,'supermap::io::FileOutputStream::FileOutputStream()'],['../classsupermap_1_1io_1_1FileOutputStream.html',1,'supermap::io::FileOutputStream']]],
-  ['filter_49',['Filter',['../classsupermap_1_1Filter.html',1,'supermap']]],
-  ['filter_3c_20keyvalue_3c_20t_2c_20index_20_3e_2c_20t_20_3e_50',['Filter&lt; KeyValue&lt; T, Index &gt;, T &gt;',['../classsupermap_1_1Filter.html',1,'supermap']]],
+  ['fileexception_46',['FileException',['../classsupermap_1_1FileException.html',1,'supermap']]],
+  ['fileinputstream_47',['FileInputStream',['../classsupermap_1_1io_1_1FileInputStream.html#ac68606be9cd2dc7902ba24f1fe467b82',1,'supermap::io::FileInputStream::FileInputStream()'],['../classsupermap_1_1io_1_1FileInputStream.html',1,'supermap::io::FileInputStream']]],
+  ['filemanager_48',['FileManager',['../classsupermap_1_1io_1_1FileManager.html',1,'supermap::io']]],
+  ['fileoutputstream_49',['FileOutputStream',['../classsupermap_1_1io_1_1FileOutputStream.html#abda9169da3ae4677da425336ffe09c1f',1,'supermap::io::FileOutputStream::FileOutputStream()'],['../classsupermap_1_1io_1_1FileOutputStream.html',1,'supermap::io::FileOutputStream']]],
+  ['filter_50',['Filter',['../classsupermap_1_1Filter.html',1,'supermap']]],
   ['filteredstorage_51',['FilteredStorage',['../classsupermap_1_1FilteredStorage.html#a1bfe06d820b027783c437c73ea4dbe6c',1,'supermap::FilteredStorage::FilteredStorage()'],['../classsupermap_1_1FilteredStorage.html',1,'supermap::FilteredStorage&lt; Content, IndexT, FindPattern, Register, RegisterInfo &gt;']]],
   ['filteringregister_52',['FilteringRegister',['../classsupermap_1_1FilteringRegister.html',1,'supermap']]],
   ['find_53',['find',['../classsupermap_1_1Findable.html#a61d23e3d52e26e9777d014fd21419a42',1,'supermap::Findable::find()'],['../classsupermap_1_1FilteredStorage.html#a26844064d1243a0f39af6ab6824429bd',1,'supermap::FilteredStorage::find()'],['../classsupermap_1_1BinaryCollapsingSortedStoragesList.html#a89f662b1c0f58237fb39acb193041675',1,'supermap::BinaryCollapsingSortedStoragesList::find()'],['../classsupermap_1_1SortedSingleFileIndexedStorage.html#a21e47d946791a927559574c5dce1d386',1,'supermap::SortedSingleFileIndexedStorage::find()'],['../classsupermap_1_1FilteredStorage.html#a21e47d946791a927559574c5dce1d386',1,'supermap::FilteredStorage::find()']]],

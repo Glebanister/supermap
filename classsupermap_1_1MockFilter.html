@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Supermap: supermap::MockFilter&lt; ToAdd, ToContain &gt; Class Template Reference</title>
+<title>Supermap: supermap::MockFilter&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classsupermap_1_1MockFilter-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">supermap::MockFilter&lt; ToAdd, ToContain &gt; Class Template Reference</div>  </div>
+<div class="title">supermap::MockFilter&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -79,75 +79,54 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="MockFilter_8hpp_source.html">MockFilter.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for supermap::MockFilter&lt; ToAdd, ToContain &gt;:</div>
+Inheritance diagram for supermap::MockFilter&lt; T &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1MockFilter__inherit__graph.png" border="0" usemap="#asupermap_1_1MockFilter_3_01ToAdd_00_01ToContain_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="asupermap_1_1MockFilter_3_01ToAdd_00_01ToContain_01_4_inherit__map" id="asupermap_1_1MockFilter_3_01ToAdd_00_01ToContain_01_4_inherit__map">
-<area shape="rect" title="A filter, that does not filters anything." alt="" coords="31,184,179,225"/>
-<area shape="rect" href="classsupermap_1_1Filter.html" title="Filter, which can add elements to self and tell which elements are certainly were not added to filter..." alt="" coords="21,95,188,136"/>
-<area shape="rect" href="classsupermap_1_1Cloneable.html" title=" " alt="" coords="5,5,204,47"/>
-</map>
+<div class="center"><img src="classsupermap_1_1MockFilter__inherit__graph.png" border="0" usemap="#asupermap_1_1MockFilter_3_01T_01_4_inherit__map" alt="Inheritance graph"/></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for supermap::MockFilter&lt; ToAdd, ToContain &gt;:</div>
+Collaboration diagram for supermap::MockFilter&lt; T &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1MockFilter__coll__graph.png" border="0" usemap="#asupermap_1_1MockFilter_3_01ToAdd_00_01ToContain_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="asupermap_1_1MockFilter_3_01ToAdd_00_01ToContain_01_4_coll__map" id="asupermap_1_1MockFilter_3_01ToAdd_00_01ToContain_01_4_coll__map">
-<area shape="rect" title="A filter, that does not filters anything." alt="" coords="31,184,179,225"/>
-<area shape="rect" href="classsupermap_1_1Filter.html" title="Filter, which can add elements to self and tell which elements are certainly were not added to filter..." alt="" coords="21,95,188,136"/>
-<area shape="rect" href="classsupermap_1_1Cloneable.html" title=" " alt="" coords="5,5,204,47"/>
-</map>
+<div class="center"><img src="classsupermap_1_1MockFilter__coll__graph.png" border="0" usemap="#asupermap_1_1MockFilter_3_01T_01_4_coll__map" alt="Collaboration graph"/></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeb078c0feba069cc53446a485f4692b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1MockFilter.html#aeb078c0feba069cc53446a485f4692b5">add</a> (const ToAdd &amp;) override</td></tr>
-<tr class="memdesc:aeb078c0feba069cc53446a485f4692b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add <code>elem</code> to filter. <a class="el" href="classsupermap_1_1Filter.html" title="Filter, which can add elements to self and tell which elements are certainly were not added to filter...">Filter</a> is mock, so nothing is actually happens.  <a href="classsupermap_1_1MockFilter.html#aeb078c0feba069cc53446a485f4692b5">More...</a><br /></td></tr>
-<tr class="separator:aeb078c0feba069cc53446a485f4692b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a465062594b56d38e628a63a88ee60f87"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1MockFilter.html#a465062594b56d38e628a63a88ee60f87">mightContain</a> (const ToContain &amp;) const override</td></tr>
-<tr class="memdesc:a465062594b56d38e628a63a88ee60f87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if <code>key</code> could be added to filter. <a class="el" href="classsupermap_1_1Filter.html" title="Filter, which can add elements to self and tell which elements are certainly were not added to filter...">Filter</a> is mock, so it always assumes, that element could be in the filter.  <a href="classsupermap_1_1MockFilter.html#a465062594b56d38e628a63a88ee60f87">More...</a><br /></td></tr>
-<tr class="separator:a465062594b56d38e628a63a88ee60f87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1faea556015562ccdab0e03c8d47825"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">Filter</a>&lt; ToAdd, ToContain &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1MockFilter.html#ad1faea556015562ccdab0e03c8d47825">clone</a> () const override</td></tr>
-<tr class="separator:ad1faea556015562ccdab0e03c8d47825"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_classsupermap_1_1Filter"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classsupermap_1_1Filter')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classsupermap_1_1Filter.html">supermap::Filter&lt; ToAdd, ToContain &gt;</a></td></tr>
-<tr class="memitem:a49d8a1ff490a7f0d91278eb7cb8ecea9 inherit pub_types_classsupermap_1_1Filter"><td class="memItemLeft" align="right" valign="top"><a id="a49d8a1ff490a7f0d91278eb7cb8ecea9"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>AddType</b> = ToAdd</td></tr>
-<tr class="separator:a49d8a1ff490a7f0d91278eb7cb8ecea9 inherit pub_types_classsupermap_1_1Filter"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30893843ccdb01275f74e373b0635a15 inherit pub_types_classsupermap_1_1Filter"><td class="memItemLeft" align="right" valign="top"><a id="a30893843ccdb01275f74e373b0635a15"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ContainType</b> = ToContain</td></tr>
-<tr class="separator:a30893843ccdb01275f74e373b0635a15 inherit pub_types_classsupermap_1_1Filter"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ce32b2bb4efd81726d8be6ff081378e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1MockFilter.html#a8ce32b2bb4efd81726d8be6ff081378e">add</a> (const T &amp;) override</td></tr>
+<tr class="memdesc:a8ce32b2bb4efd81726d8be6ff081378e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add <code>elem</code> to filter. <a class="el" href="classsupermap_1_1Filter.html" title="Filter, which can add elements to self and tell which elements are certainly were not added to filter...">Filter</a> is mock, so nothing is actually happens.  <a href="classsupermap_1_1MockFilter.html#a8ce32b2bb4efd81726d8be6ff081378e">More...</a><br /></td></tr>
+<tr class="separator:a8ce32b2bb4efd81726d8be6ff081378e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc332e3ae690823ece35eccf4d89b9da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1MockFilter.html#acc332e3ae690823ece35eccf4d89b9da">mightContain</a> (const T &amp;) const override</td></tr>
+<tr class="memdesc:acc332e3ae690823ece35eccf4d89b9da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if <code>key</code> could be added to filter. <a class="el" href="classsupermap_1_1Filter.html" title="Filter, which can add elements to self and tell which elements are certainly were not added to filter...">Filter</a> is mock, so it always assumes, that element could be in the filter.  <a href="classsupermap_1_1MockFilter.html#acc332e3ae690823ece35eccf4d89b9da">More...</a><br /></td></tr>
+<tr class="separator:acc332e3ae690823ece35eccf4d89b9da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d37297dec48628ffe5396b56cb36f4b"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">Filter</a>&lt; T &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1MockFilter.html#a6d37297dec48628ffe5396b56cb36f4b">clone</a> () const override</td></tr>
+<tr class="separator:a6d37297dec48628ffe5396b56cb36f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename ToAdd, typename ToContain&gt;<br />
-class supermap::MockFilter&lt; ToAdd, ToContain &gt;</h3>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class supermap::MockFilter&lt; T &gt;</h3>
 
 <p>A filter, that does not filters anything. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">ToAdd</td><td>Type to add to filter. </td></tr>
-    <tr><td class="paramname">ToContain</td><td>Type to contain in filter. </td></tr>
+    <tr><td class="paramname">T</td><td>Type to add to filter. </td></tr>
   </table>
   </dd>
 </dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aeb078c0feba069cc53446a485f4692b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb078c0feba069cc53446a485f4692b5">&#9670;&nbsp;</a></span>add()</h2>
+<a id="a8ce32b2bb4efd81726d8be6ff081378e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ce32b2bb4efd81726d8be6ff081378e">&#9670;&nbsp;</a></span>add()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ToAdd , typename ToContain &gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classsupermap_1_1MockFilter.html">supermap::MockFilter</a>&lt; ToAdd, ToContain &gt;::add </td>
+          <td class="memname">void <a class="el" href="classsupermap_1_1MockFilter.html">supermap::MockFilter</a>&lt; T &gt;::add </td>
           <td>(</td>
-          <td class="paramtype">const ToAdd &amp;&#160;</td>
+          <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -167,23 +146,23 @@ template&lt;typename ToAdd , typename ToContain &gt; </div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1Filter.html#acb59309c969af9cc7ea9d7e896b7dfe4">supermap::Filter&lt; ToAdd, ToContain &gt;</a>.</p>
+<p>Implements <a class="el" href="classsupermap_1_1Filter.html#a412cc7f2497afffa9dea0226e9a7722a">supermap::Filter&lt; T &gt;</a>.</p>
 
 </div>
 </div>
-<a id="ad1faea556015562ccdab0e03c8d47825"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1faea556015562ccdab0e03c8d47825">&#9670;&nbsp;</a></span>clone()</h2>
+<a id="a6d37297dec48628ffe5396b56cb36f4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d37297dec48628ffe5396b56cb36f4b">&#9670;&nbsp;</a></span>clone()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ToAdd , typename ToContain &gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="classsupermap_1_1Filter.html">Filter</a>&lt;ToAdd, ToContain&gt; &gt; <a class="el" href="classsupermap_1_1MockFilter.html">supermap::MockFilter</a>&lt; ToAdd, ToContain &gt;::clone </td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classsupermap_1_1Filter.html">Filter</a>&lt;T&gt; &gt; <a class="el" href="classsupermap_1_1MockFilter.html">supermap::MockFilter</a>&lt; T &gt;::clone </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -197,25 +176,25 @@ template&lt;typename ToAdd , typename ToContain &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Ownership of filter with the same state. State is empty, so just new <code><a class="el" href="classsupermap_1_1MockFilter.html" title="A filter, that does not filters anything.">MockFilter</a></code> is being created. </dd></dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1Cloneable.html#ae313a6b46a9e9e2bc2f74e41b835bc45">supermap::Cloneable&lt; Filter&lt; ToAdd, ToContain &gt; &gt;</a>.</p>
+<p>Implements <a class="el" href="classsupermap_1_1Cloneable.html#ae313a6b46a9e9e2bc2f74e41b835bc45">supermap::Cloneable&lt; Filter&lt; T &gt; &gt;</a>.</p>
 
 </div>
 </div>
-<a id="a465062594b56d38e628a63a88ee60f87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a465062594b56d38e628a63a88ee60f87">&#9670;&nbsp;</a></span>mightContain()</h2>
+<a id="acc332e3ae690823ece35eccf4d89b9da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc332e3ae690823ece35eccf4d89b9da">&#9670;&nbsp;</a></span>mightContain()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename ToAdd , typename ToContain &gt; </div>
+template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classsupermap_1_1MockFilter.html">supermap::MockFilter</a>&lt; ToAdd, ToContain &gt;::mightContain </td>
+          <td class="memname">bool <a class="el" href="classsupermap_1_1MockFilter.html">supermap::MockFilter</a>&lt; T &gt;::mightContain </td>
           <td>(</td>
-          <td class="paramtype">const ToContain &amp;&#160;</td>
+          <td class="paramtype">const T &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
@@ -236,7 +215,7 @@ template&lt;typename ToAdd , typename ToContain &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Always <code>true</code>. </dd></dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1Filter.html#a8e5410866034a706d87c57f8992e1a4c">supermap::Filter&lt; ToAdd, ToContain &gt;</a>.</p>
+<p>Implements <a class="el" href="classsupermap_1_1Filter.html#a5f01200f564dd2041900858736230ac5">supermap::Filter&lt; T &gt;</a>.</p>
 
 </div>
 </div>

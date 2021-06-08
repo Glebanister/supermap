@@ -1,0 +1,11 @@
+digraph "supermap::io::DeserializeHelper&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &gt; &gt;"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="supermap::io::Deserialize\lHelper\< T, std::enable\l_if_t\< std::is_integral\l_v\< T \> \> \>",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Default DeserializeHelper for all integral types."];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="supermap::io::ShallowDeserializer\l\< T, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1ShallowDeserializer.html",tooltip="Template for DeserializeHelper which deserializes object shallowly."];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="supermap::io::Deserializable\l\< true \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1Deserializable.html",tooltip=" "];
+}

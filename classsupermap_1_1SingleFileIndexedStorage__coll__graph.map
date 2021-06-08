@@ -1,6 +1,0 @@
-<map id="supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;" name="supermap::SingleFileIndexedStorage&lt; T, IndexT, RegisterInfo &gt;">
-<area shape="rect" id="node1" title="Indexed storage that stores all items in the single file." alt="" coords="528,53,748,95"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="231,5,405,47"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,181,47"/>
-<area shape="rect" id="node4" title=" " alt="" coords="231,71,405,112"/>
-</map>

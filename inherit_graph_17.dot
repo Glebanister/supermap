@@ -1,0 +1,24 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="supermap::io::Deserializable\l\< true \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1Deserializable.html",tooltip=" "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="supermap::io::ShallowDeserializer\l\< Key\< KeyLen \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1ShallowDeserializer.html",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="supermap::io::Deserialize\lHelper\< Key\< KeyLen \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1DeserializeHelper_3_01Key_3_01KeyLen_01_4_01_4.html",tooltip=" "];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="supermap::io::Deserialize\lHelper\< ByteArray\< Len \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1DeserializeHelper_3_01ByteArray_3_01Len_01_4_01_4.html",tooltip="DeserializeHelper template specialization for ByteArray."];
+  Node0 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="supermap::io::Deserialize\lHelper\< KeyValue\< Key,\l Value \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1DeserializeHelper_3_01KeyValue_3_01Key_00_01Value_01_4_01_4.html",tooltip="DeserializeHelper template specialization for KeyValue."];
+  Node0 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="supermap::io::Deserialize\lHelper\< MaybeRemovedValue\< T \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1DeserializeHelper_3_01MaybeRemovedValue_3_01T_01_4_01_4.html",tooltip="DeserializeHelper template specialization for MaybeRemovedValue."];
+  Node0 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="supermap::io::Deserialize\lHelper\< StorageValueIgnorer\l\< Key, Value \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1DeserializeHelper_3_01StorageValueIgnorer_3_01Key_00_01Value_01_4_01_4.html",tooltip="DeserializeHelper template specialization for StorageValueIgnorer."];
+  Node0 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="supermap::io::ShallowDeserializer\l\< T, typename \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1ShallowDeserializer.html",tooltip="Template for DeserializeHelper which deserializes object shallowly."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="supermap::io::Deserialize\lHelper\< T, std::enable\l_if_t\< std::is_integral\l_v\< T \> \> \>",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structsupermap_1_1io_1_1DeserializeHelper_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_01_4_01_4.html",tooltip="Default DeserializeHelper for all integral types."];
+}

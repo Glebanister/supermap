@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Supermap: supermap::FilteringRegister&lt; FilterToAdd, FilterToContain &gt; Class Template Reference</title>
+<title>Supermap: supermap::FilteringRegister&lt; RegisterT, FilterT &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,7 +71,7 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classsupermap_1_1FilteringRegister-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">supermap::FilteringRegister&lt; FilterToAdd, FilterToContain &gt; Class Template Reference</div>  </div>
+<div class="title">supermap::FilteringRegister&lt; RegisterT, FilterT &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -80,72 +80,69 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="FilteringRegister_8hpp_source.html">FilteringRegister.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for supermap::FilteringRegister&lt; FilterToAdd, FilterToContain &gt;:</div>
+Inheritance diagram for supermap::FilteringRegister&lt; RegisterT, FilterT &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1FilteringRegister__inherit__graph.png" border="0" usemap="#asupermap_1_1FilteringRegister_3_01FilterToAdd_00_01FilterToContain_01_4_inherit__map" alt="Inheritance graph"/></div>
-<map name="asupermap_1_1FilteringRegister_3_01FilterToAdd_00_01FilterToContain_01_4_inherit__map" id="asupermap_1_1FilteringRegister_3_01FilterToAdd_00_01FilterToContain_01_4_inherit__map">
-<area shape="rect" title="A storage register, which registers elements in inner filter." alt="" coords="477,20,684,61"/>
-<area shape="rect" href="classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="225,5,429,76"/>
-<area shape="rect" href="classsupermap_1_1Cloneable.html" title="Object which can produce cloned versions." alt="" coords="5,27,177,54"/>
-</map>
+<div class="center"><img src="classsupermap_1_1FilteringRegister__inherit__graph.png" border="0" usemap="#asupermap_1_1FilteringRegister_3_01RegisterT_00_01FilterT_01_4_inherit__map" alt="Inheritance graph"/></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for supermap::FilteringRegister&lt; FilterToAdd, FilterToContain &gt;:</div>
+Collaboration diagram for supermap::FilteringRegister&lt; RegisterT, FilterT &gt;:</div>
 <div class="dyncontent">
-<div class="center"><img src="classsupermap_1_1FilteringRegister__coll__graph.png" border="0" usemap="#asupermap_1_1FilteringRegister_3_01FilterToAdd_00_01FilterToContain_01_4_coll__map" alt="Collaboration graph"/></div>
-<map name="asupermap_1_1FilteringRegister_3_01FilterToAdd_00_01FilterToContain_01_4_coll__map" id="asupermap_1_1FilteringRegister_3_01FilterToAdd_00_01FilterToContain_01_4_coll__map">
-<area shape="rect" title="A storage register, which registers elements in inner filter." alt="" coords="477,20,684,61"/>
-<area shape="rect" href="classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="225,5,429,76"/>
-<area shape="rect" href="classsupermap_1_1Cloneable.html" title="Object which can produce cloned versions." alt="" coords="5,27,177,54"/>
-</map>
+<div class="center"><img src="classsupermap_1_1FilteringRegister__coll__graph.png" border="0" usemap="#asupermap_1_1FilteringRegister_3_01RegisterT_00_01FilterT_01_4_coll__map" alt="Collaboration graph"/></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:adde66f2357cb2bbcd3f6ec2096a5023b"><td class="memItemLeft" align="right" valign="top"><a id="adde66f2357cb2bbcd3f6ec2096a5023b"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>FilterBase</b> = <a class="el" href="classsupermap_1_1Filter.html">Filter</a>&lt; FilterToAdd, FilterToContain &gt;</td></tr>
-<tr class="separator:adde66f2357cb2bbcd3f6ec2096a5023b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_types_classsupermap_1_1StorageItemRegister"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classsupermap_1_1StorageItemRegister')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classsupermap_1_1StorageItemRegister.html">supermap::StorageItemRegister&lt; FilterToAdd, std::shared_ptr&lt; Filter&lt; FilterToAdd, FilterToContain &gt; &gt; &gt;</a></td></tr>
+<tr class="memitem:a1938fca1a2249ef7a686f67e9e3da746"><td class="memItemLeft" align="right" valign="top"><a id="a1938fca1a2249ef7a686f67e9e3da746"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>FilterBase</b> = <a class="el" href="classsupermap_1_1Filter.html">Filter</a>&lt; FilterT &gt;</td></tr>
+<tr class="separator:a1938fca1a2249ef7a686f67e9e3da746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classsupermap_1_1StorageItemRegister"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classsupermap_1_1StorageItemRegister')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classsupermap_1_1StorageItemRegister.html">supermap::StorageItemRegister&lt; RegisterT, std::shared_ptr&lt; Filter&lt; FilterT &gt; &gt; &gt;</a></td></tr>
 <tr class="memitem:ac404e338a50b211b4652b9a3c6087838 inherit pub_types_classsupermap_1_1StorageItemRegister"><td class="memItemLeft" align="right" valign="top"><a id="ac404e338a50b211b4652b9a3c6087838"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ToRegister</b> = FilterToAdd</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ToRegister</b> = RegisterT</td></tr>
 <tr class="separator:ac404e338a50b211b4652b9a3c6087838 inherit pub_types_classsupermap_1_1StorageItemRegister"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29b3e97906038e958d5b6715a313d421 inherit pub_types_classsupermap_1_1StorageItemRegister"><td class="memItemLeft" align="right" valign="top"><a id="a29b3e97906038e958d5b6715a313d421"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>ItemsInfo</b> = std::shared_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">Filter</a>&lt; FilterToAdd, FilterToContain &gt; &gt;</td></tr>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>ItemsInfo</b> = std::shared_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">Filter</a>&lt; FilterT &gt; &gt;</td></tr>
 <tr class="separator:a29b3e97906038e958d5b6715a313d421 inherit pub_types_classsupermap_1_1StorageItemRegister"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae3924e6f48bd9a9197f728bb40d24812"><td class="memItemLeft" align="right" valign="top"><a id="ae3924e6f48bd9a9197f728bb40d24812"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>FilteringRegister</b> (std::function&lt; std::shared_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">FilterBase</a> &gt;()&gt; filterSupplier)</td></tr>
-<tr class="separator:ae3924e6f48bd9a9197f728bb40d24812"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5250766bca6cf46b30b9b9700a8708e3"><td class="memItemLeft" align="right" valign="top"><a id="a5250766bca6cf46b30b9b9700a8708e3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1FilteringRegister.html#a5250766bca6cf46b30b9b9700a8708e3">registerItem</a> (const FilterToAdd &amp;item) override</td></tr>
-<tr class="memdesc:a5250766bca6cf46b30b9b9700a8708e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an item in storage, by adding it to the inner filter. <br /></td></tr>
-<tr class="separator:a5250766bca6cf46b30b9b9700a8708e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e8afffd312091cc1dc13969ae5b32bd"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">FilterBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1FilteringRegister.html#a3e8afffd312091cc1dc13969ae5b32bd">getRegisteredItemsInfo</a> () const noexcept override</td></tr>
-<tr class="separator:a3e8afffd312091cc1dc13969ae5b32bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b364fd820ea4f07919dbcf19ee0136e"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt; FilterToAdd, std::shared_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">FilterBase</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1FilteringRegister.html#a9b364fd820ea4f07919dbcf19ee0136e">clone</a> () const override</td></tr>
-<tr class="separator:a9b364fd820ea4f07919dbcf19ee0136e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41f6642f136468cd1138d9f025a6522d"><td class="memItemLeft" align="right" valign="top"><a id="a41f6642f136468cd1138d9f025a6522d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FilteringRegister</b> (std::function&lt; std::shared_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">FilterBase</a> &gt;()&gt; filterSupplier, std::function&lt; FilterT(const RegisterT &amp;)&gt; func)</td></tr>
+<tr class="separator:a41f6642f136468cd1138d9f025a6522d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a0038896e6504b13791dda50a79c70f"><td class="memItemLeft" align="right" valign="top"><a id="a5a0038896e6504b13791dda50a79c70f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1FilteringRegister.html#a5a0038896e6504b13791dda50a79c70f">registerItem</a> (const RegisterT &amp;item) override</td></tr>
+<tr class="memdesc:a5a0038896e6504b13791dda50a79c70f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers an item in storage, by adding it to the inner filter. <br /></td></tr>
+<tr class="separator:a5a0038896e6504b13791dda50a79c70f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a747917c177bfce7ab1b0ede9a70bbae1"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">FilterBase</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1FilteringRegister.html#a747917c177bfce7ab1b0ede9a70bbae1">getRegisteredItemsInfo</a> () const noexcept override</td></tr>
+<tr class="separator:a747917c177bfce7ab1b0ede9a70bbae1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4e6068bf070affd72342b6b6979705f"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt; RegisterT, std::shared_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">FilterBase</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1FilteringRegister.html#ab4e6068bf070affd72342b6b6979705f">clone</a> () const override</td></tr>
+<tr class="separator:ab4e6068bf070affd72342b6b6979705f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename FilterToAdd, typename FilterToContain&gt;<br />
-class supermap::FilteringRegister&lt; FilterToAdd, FilterToContain &gt;</h3>
+<div class="textblock"><h3>template&lt;typename RegisterT, typename FilterT&gt;<br />
+class supermap::FilteringRegister&lt; RegisterT, FilterT &gt;</h3>
 
 <p>A storage register, which registers elements in inner filter. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">RegisterT</td><td>Register content type. </td></tr>
+    <tr><td class="paramname">FilterT</td><td><a class="el" href="classsupermap_1_1Filter.html" title="Filter, which can add elements to self and tell which elements are certainly were not added to filter...">Filter</a> content type. </td></tr>
+  </table>
+  </dd>
+</dl>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9b364fd820ea4f07919dbcf19ee0136e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b364fd820ea4f07919dbcf19ee0136e">&#9670;&nbsp;</a></span>clone()</h2>
+<a id="ab4e6068bf070affd72342b6b6979705f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4e6068bf070affd72342b6b6979705f">&#9670;&nbsp;</a></span>clone()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename FilterToAdd , typename FilterToContain &gt; </div>
+template&lt;typename RegisterT , typename FilterT &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt;FilterToAdd, std::shared_ptr&lt;<a class="el" href="classsupermap_1_1Filter.html">FilterBase</a>&gt; &gt; &gt; <a class="el" href="classsupermap_1_1FilteringRegister.html">supermap::FilteringRegister</a>&lt; FilterToAdd, FilterToContain &gt;::clone </td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt;RegisterT, std::shared_ptr&lt;<a class="el" href="classsupermap_1_1Filter.html">FilterBase</a>&gt; &gt; &gt; <a class="el" href="classsupermap_1_1FilteringRegister.html">supermap::FilteringRegister</a>&lt; RegisterT, FilterT &gt;::clone </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -163,19 +160,19 @@ template&lt;typename FilterToAdd , typename FilterToContain &gt; </div>
 
 </div>
 </div>
-<a id="a3e8afffd312091cc1dc13969ae5b32bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3e8afffd312091cc1dc13969ae5b32bd">&#9670;&nbsp;</a></span>getRegisteredItemsInfo()</h2>
+<a id="a747917c177bfce7ab1b0ede9a70bbae1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a747917c177bfce7ab1b0ede9a70bbae1">&#9670;&nbsp;</a></span>getRegisteredItemsInfo()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename FilterToAdd , typename FilterToContain &gt; </div>
+template&lt;typename RegisterT , typename FilterT &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1Filter.html">FilterBase</a>&gt; <a class="el" href="classsupermap_1_1FilteringRegister.html">supermap::FilteringRegister</a>&lt; FilterToAdd, FilterToContain &gt;::getRegisteredItemsInfo </td>
+          <td class="memname">std::shared_ptr&lt;<a class="el" href="classsupermap_1_1Filter.html">FilterBase</a>&gt; <a class="el" href="classsupermap_1_1FilteringRegister.html">supermap::FilteringRegister</a>&lt; RegisterT, FilterT &gt;::getRegisteredItemsInfo </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -189,7 +186,7 @@ template&lt;typename FilterToAdd , typename FilterToContain &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Information about already registered items. </dd></dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1StorageItemRegister.html#a5bed2f6b31ee3b7c46f88e5a5fc545cd">supermap::StorageItemRegister&lt; FilterToAdd, std::shared_ptr&lt; Filter&lt; FilterToAdd, FilterToContain &gt; &gt; &gt;</a>.</p>
+<p>Implements <a class="el" href="classsupermap_1_1StorageItemRegister.html#a5bed2f6b31ee3b7c46f88e5a5fc545cd">supermap::StorageItemRegister&lt; RegisterT, std::shared_ptr&lt; Filter&lt; FilterT &gt; &gt; &gt;</a>.</p>
 
 </div>
 </div>

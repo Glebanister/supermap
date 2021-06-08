@@ -1,8 +1,0 @@
-<map id="supermap::Findable&lt; T, P &gt;" name="supermap::Findable&lt; T, P &gt;">
-<area shape="rect" id="node1" title="An abstract storage where element of type T can be found." alt="" coords="5,115,140,156"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="195,5,375,76"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="195,100,375,171"/>
-<area shape="rect" id="node5" href="$classsupermap_1_1SortedStoragesList.html" title=" " alt="" coords="188,195,381,251"/>
-<area shape="rect" id="node4" href="$classsupermap_1_1FilteredStorage.html" title="Sorted single file indexed storage with filter as a additional register." alt="" coords="429,107,632,163"/>
-<area shape="rect" id="node6" href="$classsupermap_1_1BinaryCollapsingSortedStoragesList.html" title="List of SortedSingleFileIndexedStorage. For each storage, the rank is determined as log_2(SIZE / Rank..." alt="" coords="440,188,621,259"/>
-</map>

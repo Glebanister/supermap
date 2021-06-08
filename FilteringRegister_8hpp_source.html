@@ -77,43 +77,46 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>supermap {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">template</span> &lt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">typename</span> FilterToAdd,</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">typename</span> FilterToContain</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;&gt;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classsupermap_1_1FilteringRegister.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1FilteringRegister.html">FilteringRegister</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt;FilterToAdd,</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                                     std::shared_ptr&lt;Filter&lt;FilterToAdd, FilterToContain&gt;&gt;&gt; {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">using</span> <a class="code" href="classsupermap_1_1Filter.html">FilterBase</a> = <a class="code" href="classsupermap_1_1Filter.html">Filter&lt;FilterToAdd, FilterToContain&gt;</a>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classsupermap_1_1FilteringRegister.html">FilteringRegister</a>(std::function&lt;std::shared_ptr&lt;FilterBase&gt;()&gt; filterSupplier)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        : filter_(filterSupplier()) {}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classsupermap_1_1FilteringRegister.html#a5250766bca6cf46b30b9b9700a8708e3">   27</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1FilteringRegister.html#a5250766bca6cf46b30b9b9700a8708e3">registerItem</a>(<span class="keyword">const</span> FilterToAdd &amp;item)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        filter_-&gt;add(item);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classsupermap_1_1FilteringRegister.html#a3e8afffd312091cc1dc13969ae5b32bd">   34</a></span>&#160;    std::shared_ptr&lt;FilterBase&gt; <a class="code" href="classsupermap_1_1FilteringRegister.html#a3e8afffd312091cc1dc13969ae5b32bd">getRegisteredItemsInfo</a>() const noexcept<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> filter_;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    std::unique_ptr&lt;StorageItemRegister&lt;FilterToAdd, std::shared_ptr&lt;FilterBase&gt;&gt;&gt;</div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classsupermap_1_1FilteringRegister.html#a9b364fd820ea4f07919dbcf19ee0136e">   42</a></span>&#160;    <a class="code" href="classsupermap_1_1FilteringRegister.html#a9b364fd820ea4f07919dbcf19ee0136e">clone</a>()<span class="keyword"> const override </span>{</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> std::make_unique&lt;FilteringRegister&lt;FilterToAdd, FilterToContain&gt;&gt;(</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            [filter = filter_]() { <span class="keywordflow">return</span> filter-&gt;clone(); }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        );</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::shared_ptr&lt;FilterBase&gt; filter_{};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span> &lt;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">typename</span> RegisterT,</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">typename</span> FilterT</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;&gt;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classsupermap_1_1FilteringRegister.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1FilteringRegister.html">FilteringRegister</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1StorageItemRegister.html">StorageItemRegister</a>&lt;RegisterT, std::shared_ptr&lt;Filter&lt;FilterT&gt;&gt;&gt; {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">using</span> <a class="code" href="classsupermap_1_1Filter.html">FilterBase</a> = <a class="code" href="classsupermap_1_1Filter.html">Filter&lt;FilterT&gt;</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classsupermap_1_1FilteringRegister.html">FilteringRegister</a>(</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        std::function&lt;std::shared_ptr&lt;FilterBase&gt;()&gt; filterSupplier,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        std::function&lt;FilterT(<span class="keyword">const</span> RegisterT &amp;)&gt; func</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    ) : filter_(filterSupplier()), func_(std::move(func)) {}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classsupermap_1_1FilteringRegister.html#a5a0038896e6504b13791dda50a79c70f">   30</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classsupermap_1_1FilteringRegister.html#a5a0038896e6504b13791dda50a79c70f">registerItem</a>(<span class="keyword">const</span> RegisterT &amp;item)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        filter_-&gt;add(func_(item));</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classsupermap_1_1FilteringRegister.html#a747917c177bfce7ab1b0ede9a70bbae1">   37</a></span>&#160;    std::shared_ptr&lt;FilterBase&gt; <a class="code" href="classsupermap_1_1FilteringRegister.html#a747917c177bfce7ab1b0ede9a70bbae1">getRegisteredItemsInfo</a>() const noexcept<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">return</span> filter_;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    std::unique_ptr&lt;StorageItemRegister&lt;RegisterT, std::shared_ptr&lt;FilterBase&gt;&gt;&gt;</div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="classsupermap_1_1FilteringRegister.html#ab4e6068bf070affd72342b6b6979705f">   45</a></span>&#160;    <a class="code" href="classsupermap_1_1FilteringRegister.html#ab4e6068bf070affd72342b6b6979705f">clone</a>()<span class="keyword"> const override </span>{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> std::make_unique&lt;FilteringRegister&lt;RegisterT, FilterT&gt;&gt;(</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            [filter = filter_]() { <span class="keywordflow">return</span> filter-&gt;clone(); },</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            func_</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        );</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// supermap</span></div>
-<div class="ttc" id="aclasssupermap_1_1Filter_html"><div class="ttname"><a href="classsupermap_1_1Filter.html">supermap::Filter</a></div><div class="ttdoc">Filter, which can add elements to self and tell which elements are certainly were not added to filter...</div><div class="ttdef"><b>Definition:</b> Filter.hpp:16</div></div>
-<div class="ttc" id="aclasssupermap_1_1FilteringRegister_html"><div class="ttname"><a href="classsupermap_1_1FilteringRegister.html">supermap::FilteringRegister</a></div><div class="ttdoc">A storage register, which registers elements in inner filter.</div><div class="ttdef"><b>Definition:</b> FilteringRegister.hpp:17</div></div>
-<div class="ttc" id="aclasssupermap_1_1FilteringRegister_html_a3e8afffd312091cc1dc13969ae5b32bd"><div class="ttname"><a href="classsupermap_1_1FilteringRegister.html#a3e8afffd312091cc1dc13969ae5b32bd">supermap::FilteringRegister::getRegisteredItemsInfo</a></div><div class="ttdeci">std::shared_ptr&lt; FilterBase &gt; getRegisteredItemsInfo() const noexcept override</div><div class="ttdef"><b>Definition:</b> FilteringRegister.hpp:34</div></div>
-<div class="ttc" id="aclasssupermap_1_1FilteringRegister_html_a5250766bca6cf46b30b9b9700a8708e3"><div class="ttname"><a href="classsupermap_1_1FilteringRegister.html#a5250766bca6cf46b30b9b9700a8708e3">supermap::FilteringRegister::registerItem</a></div><div class="ttdeci">void registerItem(const FilterToAdd &amp;item) override</div><div class="ttdoc">Registers an item in storage, by adding it to the inner filter.</div><div class="ttdef"><b>Definition:</b> FilteringRegister.hpp:27</div></div>
-<div class="ttc" id="aclasssupermap_1_1FilteringRegister_html_a9b364fd820ea4f07919dbcf19ee0136e"><div class="ttname"><a href="classsupermap_1_1FilteringRegister.html#a9b364fd820ea4f07919dbcf19ee0136e">supermap::FilteringRegister::clone</a></div><div class="ttdeci">std::unique_ptr&lt; StorageItemRegister&lt; FilterToAdd, std::shared_ptr&lt; FilterBase &gt; &gt; &gt; clone() const override</div><div class="ttdef"><b>Definition:</b> FilteringRegister.hpp:42</div></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    std::shared_ptr&lt;FilterBase&gt; filter_{};</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    std::function&lt;FilterT(<span class="keyword">const</span> RegisterT &amp;)&gt; func_;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;};</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="ttc" id="aclasssupermap_1_1Filter_html"><div class="ttname"><a href="classsupermap_1_1Filter.html">supermap::Filter</a></div><div class="ttdoc">Filter, which can add elements to self and tell which elements are certainly were not added to filter...</div><div class="ttdef"><b>Definition:</b> Filter.hpp:15</div></div>
+<div class="ttc" id="aclasssupermap_1_1FilteringRegister_html"><div class="ttname"><a href="classsupermap_1_1FilteringRegister.html">supermap::FilteringRegister</a></div><div class="ttdoc">A storage register, which registers elements in inner filter.</div><div class="ttdef"><b>Definition:</b> FilteringRegister.hpp:18</div></div>
+<div class="ttc" id="aclasssupermap_1_1FilteringRegister_html_a5a0038896e6504b13791dda50a79c70f"><div class="ttname"><a href="classsupermap_1_1FilteringRegister.html#a5a0038896e6504b13791dda50a79c70f">supermap::FilteringRegister::registerItem</a></div><div class="ttdeci">void registerItem(const RegisterT &amp;item) override</div><div class="ttdoc">Registers an item in storage, by adding it to the inner filter.</div><div class="ttdef"><b>Definition:</b> FilteringRegister.hpp:30</div></div>
+<div class="ttc" id="aclasssupermap_1_1FilteringRegister_html_a747917c177bfce7ab1b0ede9a70bbae1"><div class="ttname"><a href="classsupermap_1_1FilteringRegister.html#a747917c177bfce7ab1b0ede9a70bbae1">supermap::FilteringRegister::getRegisteredItemsInfo</a></div><div class="ttdeci">std::shared_ptr&lt; FilterBase &gt; getRegisteredItemsInfo() const noexcept override</div><div class="ttdef"><b>Definition:</b> FilteringRegister.hpp:37</div></div>
+<div class="ttc" id="aclasssupermap_1_1FilteringRegister_html_ab4e6068bf070affd72342b6b6979705f"><div class="ttname"><a href="classsupermap_1_1FilteringRegister.html#ab4e6068bf070affd72342b6b6979705f">supermap::FilteringRegister::clone</a></div><div class="ttdeci">std::unique_ptr&lt; StorageItemRegister&lt; RegisterT, std::shared_ptr&lt; FilterBase &gt; &gt; &gt; clone() const override</div><div class="ttdef"><b>Definition:</b> FilteringRegister.hpp:45</div></div>
 <div class="ttc" id="aclasssupermap_1_1StorageItemRegister_html"><div class="ttname"><a href="classsupermap_1_1StorageItemRegister.html">supermap::StorageItemRegister</a></div><div class="ttdoc">An abstract registrar of storage items, which aims to add new items to the storage.</div><div class="ttdef"><b>Definition:</b> StorageItemRegister.hpp:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

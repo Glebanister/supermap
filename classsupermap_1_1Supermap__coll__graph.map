@@ -1,4 +1,0 @@
-<map id="supermap::Supermap&lt; Key, Value, IndexT &gt;" name="supermap::Supermap&lt; Key, Value, IndexT &gt;">
-<area shape="rect" id="node1" title="Key&#45;value storage. Stores all values on disk. The index is partially stored in RAM...." alt="" coords="22,95,174,136"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1KeyValueStorage.html" title="An abstract key&#45;value storage." alt="" coords="5,5,191,47"/>
-</map>

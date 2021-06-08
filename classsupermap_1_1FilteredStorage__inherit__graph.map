@@ -1,8 +1,0 @@
-<map id="supermap::FilteredStorage&lt; Content, IndexT, FindPattern, Register, RegisterInfo &gt;" name="supermap::FilteredStorage&lt; Content, IndexT, FindPattern, Register, RegisterInfo &gt;">
-<area shape="rect" id="node1" title="Sorted single file indexed storage with filter as a additional register." alt="" coords="948,31,1151,87"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1SortedSingleFileIndexedStorage.html" title=" " alt="" coords="720,24,900,95"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1SingleFileIndexedStorage.html" title="Indexed storage that stores all items in the single file." alt="" coords="452,5,672,47"/>
-<area shape="rect" id="node4" href="$classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="229,5,404,47"/>
-<area shape="rect" id="node5" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,181,47"/>
-<area shape="rect" id="node6" href="$classsupermap_1_1Findable.html" title="An abstract storage where element of type T can be found." alt="" coords="495,71,629,112"/>
-</map>

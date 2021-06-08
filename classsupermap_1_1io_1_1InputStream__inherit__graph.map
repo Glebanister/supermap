@@ -1,5 +1,0 @@
-<map id="supermap::io::InputStream" name="supermap::io::InputStream">
-<area shape="rect" id="node1" title="Abstract input stream. Only a wrapper to std::istream." alt="" coords="117,5,289,32"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1io_1_1FileInputStream.html" title="Specialization of InputStream which encapsulates work with std::ifstream. Dedicated to work with file..." alt="" coords="5,87,199,114"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1io_1_1StringInputStream.html" title="Specialization of InputStream which encapsulates work with std::stringstream. Dedicated to work with ..." alt="" coords="223,80,387,121"/>
-</map>

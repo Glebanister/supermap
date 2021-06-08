@@ -1,8 +1,0 @@
-<map id="supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterInfo, FindPattern &gt;" name="supermap::SortedSingleFileIndexedStorage&lt; T, IndexT, RegisterInfo, FindPattern &gt;">
-<area shape="rect" id="node1" title="Single file storage where objects are sorted in increasing order, defined by comparator." alt="" coords="797,87,979,143"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1SingleFileIndexedStorage.html" title="Indexed storage that stores all items in the single file." alt="" coords="528,45,748,87"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1IndexedStorage.html" title="A storage that represents something from which you can take an element by index and add an element to..." alt="" coords="231,5,405,47"/>
-<area shape="rect" id="node4" href="$classsupermap_1_1OrderedStorage.html" title="An abstract storage, where elements has particular order. Element added later is of lower order." alt="" coords="5,5,181,47"/>
-<area shape="rect" id="node5" title=" " alt="" coords="231,71,405,112"/>
-<area shape="rect" id="node6" href="$classsupermap_1_1Findable.html" title=" " alt="" coords="571,111,705,152"/>
-</map>
