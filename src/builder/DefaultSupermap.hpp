@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/Supermap.hpp"
+#include "io/DiskFileManager.hpp"
 #include "io/EncapsulatedFileManager.hpp"
 #include "core/BloomFilter.hpp"
 
