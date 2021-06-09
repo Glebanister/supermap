@@ -11,7 +11,7 @@
 namespace supermap {
 
 /**
- * @brief A filter based on the bloom filtering algorithm. Error probability is approximately 1/32
+ * @brief A filter based on the bloom filtering algorithm. Error probability is set in constructor
  */
 template <typename T>
 class BloomFilter : public Filter<T> {
@@ -19,7 +19,7 @@ class BloomFilter : public Filter<T> {
     using BaseFilter = Filter<T>;
 
   public:
-    BloomFilter() {
+    explicit BloomFilter(double errorProbability) : sizeMultiplier_(-1.44 * std::log2(errorProbability)) {
         constexpr std::size_t keysSize = io::FixedDeserializedSizeRegister<T>::exactDeserializedSize;
         auto numberOfHashFunctions = std::max(1ul, static_cast<std::size_t>(std::ceil(std::log2(keysSize))));
         seeds_.resize(numberOfHashFunctions);
@@ -66,13 +66,14 @@ class BloomFilter : public Filter<T> {
     void reserve(std::uint64_t numberOfElements) override {
         assert(!wasReserved_);
         wasReserved_ = true;
-        elements_.resize(numberOfElements * sizeMultiplier_);
+        auto size = static_cast<std::size_t>(std::ceil(static_cast<double>(numberOfElements) * sizeMultiplier_));
+        elements_.resize(size);
     };
 
     BloomFilter(const BloomFilter &other) = default;
 
   private:
-    static constexpr std::size_t sizeMultiplier_ = 7;
+    const double sizeMultiplier_;
     std::vector<XXH64_hash_t> seeds_;
     std::vector<bool> elements_;
     bool wasReserved_ = false;

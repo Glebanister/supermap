@@ -26,7 +26,7 @@ set(CLI_SOURCES
 set(TEST_SOURCES
         test/overallTests.cpp
         test/shrinkStress.cpp
-        test/test.cpp test/supermapStress.cpp)
+        test/test.cpp test/supermapStress.cpp test/bloomFilterTest.cpp)
 
 add_library(${LIBRARY} SHARED ${LIBRARY_SOURCES})
 target_include_directories(${LIBRARY} PUBLIC src)

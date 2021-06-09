@@ -776,7 +776,8 @@ TEST_CASE ("Supermap simple") {
         SupermapBuilder::BuildParameters{
             3,
             0.5,
-            "supermap"
+            "supermap",
+            1 / 32.0
         }
     );
     auto key = [](const std::string &s) {
