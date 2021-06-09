@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "KeyValueStorage.hpp"
 #include "primitive/KeyValue.hpp"
 
