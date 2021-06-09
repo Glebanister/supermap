@@ -85,7 +85,7 @@ class ByteArray {
     static ByteArray<Len> fromString(const std::string &str) {
         if (str.length() != Len) {
             throw IllegalArgumentException(
-                "String length can not be longer than byte array length" + std::to_string(Len));
+                "String length can not be different to template size parameter, expected " + std::to_string(Len));
         }
         ByteArray<Len> arr;
         for (std::size_t i = 0; i < str.length(); ++i) {

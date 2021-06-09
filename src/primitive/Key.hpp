@@ -45,15 +45,12 @@ struct Key : public std::array<std::uint8_t, Len> {
     static Key<Len> fromString(const std::string &strKey) {
         if (strKey.length() != Len) {
             throw IllegalArgumentException(
-                "String key length can not be greater than template size parameter, expected: " + std::to_string(Len));
+                "String key length can not be different to template size parameter, expected: " + std::to_string(Len));
         }
 
         Key<Len> arrKey;
         for (std::size_t i = 0; i < strKey.length(); ++i) {
             arrKey[i] = strKey[i];
-        }
-        for (std::size_t i = strKey.length(); i < Len; ++i) {
-            arrKey[i] = 0;
         }
 
         return arrKey;
