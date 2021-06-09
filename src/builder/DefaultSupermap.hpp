@@ -17,7 +17,7 @@ class DefaultSupermap {
         IndexT batchSize;
         double maxNotSortedPart{};
         std::string folderName;
-        /* TODO: Add BloomFilter c-tor params */
+        double errorProbability{};
     };
 
   public:
@@ -56,11 +56,11 @@ class DefaultSupermap {
         };
 
         std::function<std::unique_ptr<Register>()>
-            innerRegisterSupplier = [/* TODO: capture BloomFilter c-tor params by value here */]() {
+            innerRegisterSupplier = [errorProbability = params.errorProbability]() {
             return std::make_unique<FilteringRegister<KI, K>>(
-                [/* TODO: capture BloomFilter c-tor params by value here */]() {
+                [errorProbability = errorProbability]() {
                     return std::make_unique<BloomFilter<K>>(
-                        /* TODO: pass BloomFilter ctor arguments here */
+                        errorProbability
                     );
                 },
                 [](const KI &ki) { return ki.key; }

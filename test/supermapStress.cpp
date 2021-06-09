@@ -40,7 +40,8 @@ void stressTestSupermap(std::size_t iterations,
         typename SupermapBuilder::BuildParameters{
             batchSize,
             part,
-            "supermap"
+            "supermap",
+            1 / 32.0
         }
     );
 
@@ -51,7 +52,8 @@ void stressTestSupermap(std::size_t iterations,
             typename SupermapBuilder::BuildParameters{
                 batchSize,
                 part,
-                "supermap-other"
+                "supermap-other",
+                1 / 32.0
             }
         );
 

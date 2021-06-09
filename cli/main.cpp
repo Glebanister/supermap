@@ -24,7 +24,8 @@ int main(int, const char **) {
     auto supermapParams = SupermapBuilder::BuildParameters{
         3,
         0.5,
-        "supermap"
+        "supermap",
+        1 / 32.0
     };
 
     auto backendKvs = SupermapBuilder::build(
@@ -35,7 +36,6 @@ int main(int, const char **) {
     std::unique_ptr<supermap::KeyValueStorage<K, V, I>> kvs =
         supermap::builder::fromKvs<K, MaybeV, I>(std::move(backendKvs))
             .removable()
-            .filtered(std::make_unique<supermap::BloomFilter<K>>())
             .build();
 
     std::shared_ptr<supermap::KeyValueStorage<K, V, I>>
