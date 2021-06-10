@@ -1,12 +1,12 @@
 #include "doctest.h"
 
 #include "core/BloomFilter.hpp"
-#include "primitive/Key.hpp"
-#include "exception/IllegalStateException.hpp"
 #include "exception/IllegalArgumentException.hpp"
+#include "exception/IllegalStateException.hpp"
+#include "primitive/Key.hpp"
 
-#include <string>
 #include <random>
+#include <string>
 #include <vector>
 
 std::string generateStringWithLength(std::uint32_t length) {
@@ -23,7 +23,7 @@ std::string generateStringWithLength(std::uint32_t length) {
     return ret;
 }
 
-TEST_CASE ("Small keys") {
+TEST_CASE("Small keys") {
     constexpr std::uint32_t steps = 1000;
     constexpr std::uint32_t length = 1;
     supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
@@ -42,7 +42,7 @@ TEST_CASE ("Small keys") {
     }
 }
 
-TEST_CASE ("Big keys") {
+TEST_CASE("Big keys") {
     constexpr std::uint32_t steps = 1000;
     constexpr std::uint32_t length = 10000;
     supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
@@ -61,13 +61,13 @@ TEST_CASE ("Big keys") {
     }
 }
 
-TEST_CASE ("Zero size filter") {
+TEST_CASE("Zero size filter") {
     CHECK_NOTHROW(
-            supermap::BloomFilter<supermap::Key<10>> filter(1 / 32.0);
-            filter.reserve(0));
+        supermap::BloomFilter<supermap::Key<10>> filter(1 / 32.0);
+        filter.reserve(0));
 }
 
-TEST_CASE ("Big error probability") {
+TEST_CASE("Big error probability") {
     constexpr std::uint32_t length = 1;
     constexpr std::uint32_t steps = 50;
     supermap::BloomFilter<supermap::Key<length>> filter(31 / 32.0);
@@ -80,31 +80,31 @@ TEST_CASE ("Big error probability") {
     }
 }
 
-TEST_CASE ("Wrong probability") {
+TEST_CASE("Wrong probability") {
     CHECK_THROWS_AS(supermap::BloomFilter<supermap::Key<10>> filter(2.0), supermap::IllegalArgumentException);
     CHECK_THROWS_AS(supermap::BloomFilter<supermap::Key<10>> filter(0), supermap::IllegalArgumentException);
     CHECK_THROWS_AS(supermap::BloomFilter<supermap::Key<10>> filter(-1), supermap::IllegalArgumentException);
 }
 
-TEST_CASE ("Wrong state") {
+TEST_CASE("Wrong state") {
     constexpr std::uint32_t length = 10;
     supermap::Key<length> key = supermap::Key<length>::fromString(generateStringWithLength(length));
     CHECK_THROWS_AS(
-            supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
-            filter.add(key),
-            supermap::IllegalStateException);
+        supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
+        filter.add(key),
+        supermap::IllegalStateException);
     CHECK_THROWS_AS(
-            supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
-            filter.mightContain(key),
-            supermap::IllegalStateException);
+        supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
+        filter.mightContain(key),
+        supermap::IllegalStateException);
     CHECK_THROWS_AS(
-            supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
-            filter.reserve(0);
-            filter.add(key),
-            supermap::IllegalStateException);
+        supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
+        filter.reserve(0);
+        filter.add(key),
+        supermap::IllegalStateException);
     CHECK_THROWS_AS(
-            supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
-            filter.reserve(0);
-            filter.mightContain(key),
-            supermap::IllegalStateException);
+        supermap::BloomFilter<supermap::Key<length>> filter(1 / 32.0);
+        filter.reserve(0);
+        filter.mightContain(key),
+        supermap::IllegalStateException);
 }

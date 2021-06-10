@@ -2,7 +2,7 @@
 
 namespace supermap {
 
-    IllegalStateException::IllegalStateException(const std::string &message)
-            : SupermapException("IllegalStateException: " + message) {}
+IllegalStateException::IllegalStateException(const std::string &message)
+    : SupermapException("IllegalStateException: " + message) {}
 
 } // supermap
