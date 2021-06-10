@@ -1,12 +1,13 @@
 var searchData=
 [
-  ['key_247',['Key',['../structsupermap_1_1Key.html',1,'supermap']]],
-  ['keyexception_248',['KeyException',['../classsupermap_1_1KeyException.html',1,'supermap']]],
-  ['keyvalue_249',['KeyValue',['../structsupermap_1_1KeyValue.html',1,'supermap']]],
-  ['keyvalueshrinkablestorage_250',['KeyValueShrinkableStorage',['../classsupermap_1_1KeyValueShrinkableStorage.html',1,'supermap']]],
-  ['keyvaluestorage_251',['KeyValueStorage',['../classsupermap_1_1KeyValueStorage.html',1,'supermap']]],
-  ['keyvaluestorage_3c_20key_2c_20value_2c_20size_20_3e_252',['KeyValueStorage&lt; Key, Value, Size &gt;',['../classsupermap_1_1KeyValueStorage.html',1,'supermap']]],
-  ['keyvaluestoragebuilder_253',['KeyValueStorageBuilder',['../classsupermap_1_1detail_1_1KeyValueStorageBuilder.html',1,'supermap::detail']]],
-  ['keyvaluestoragebuilder_3c_20supermap_3a_3akey_2c_20supermap_3a_3amayberemovedvalue_3c_20value_20_3e_2c_20size_20_3e_254',['KeyValueStorageBuilder&lt; supermap::Key, supermap::MaybeRemovedValue&lt; Value &gt;, Size &gt;',['../classsupermap_1_1detail_1_1KeyValueStorageBuilder.html',1,'supermap::detail']]],
-  ['keyvaluestoragebuilder_3c_20supermap_3a_3akey_2c_20value_2c_20size_20_3e_255',['KeyValueStorageBuilder&lt; supermap::Key, Value, Size &gt;',['../classsupermap_1_1detail_1_1KeyValueStorageBuilder.html',1,'supermap::detail']]]
+  ['illegalargumentexception_245',['IllegalArgumentException',['../classsupermap_1_1IllegalArgumentException.html',1,'supermap']]],
+  ['illegalstateexception_246',['IllegalStateException',['../classsupermap_1_1IllegalStateException.html',1,'supermap']]],
+  ['indexedstorage_247',['IndexedStorage',['../classsupermap_1_1IndexedStorage.html',1,'supermap']]],
+  ['indexedstorage_3c_20keyvalue_3c_20key_2c_20value_20_3e_2c_20indext_2c_20void_20_3e_248',['IndexedStorage&lt; KeyValue&lt; Key, Value &gt;, IndexT, void &gt;',['../classsupermap_1_1IndexedStorage.html',1,'supermap']]],
+  ['inputiterator_249',['InputIterator',['../classsupermap_1_1io_1_1InputIterator.html',1,'supermap::io']]],
+  ['inputstream_250',['InputStream',['../classsupermap_1_1io_1_1InputStream.html',1,'supermap::io']]],
+  ['ioexception_251',['IOException',['../classsupermap_1_1IOException.html',1,'supermap']]],
+  ['isbounds_252',['IsBounds',['../structsupermap_1_1IsBounds.html',1,'supermap']]],
+  ['isbounds_3c_20bounds_3c_20t_20_3e_20_3e_253',['IsBounds&lt; Bounds&lt; T &gt; &gt;',['../structsupermap_1_1IsBounds_3_01Bounds_3_01T_01_4_01_4.html',1,'supermap']]],
+  ['iteratorexception_254',['IteratorException',['../classsupermap_1_1IteratorException.html',1,'supermap']]]
 ];

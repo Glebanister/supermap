@@ -72,20 +72,22 @@ $(function() {
 <div class="contents">
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;KeyValueStorage.hpp&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;primitive/KeyValue.hpp&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>supermap {</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;KeyValueStorage.hpp&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;primitive/KeyValue.hpp&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Key, <span class="keyword">typename</span> Value, <span class="keyword">typename</span> IndexT&gt;</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classsupermap_1_1ExtractibleKeyValueStorage.html">   15</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1ExtractibleKeyValueStorage.html">ExtractibleKeyValueStorage</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorage</a>&lt;Key, Value, IndexT&gt; {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classsupermap_1_1ExtractibleKeyValueStorage.html#a0bd5252523d0a73494b2278c18dd1bb6">   22</a></span>&#160;    <span class="keyword">virtual</span> std::vector&lt;KeyValue&lt;Key, Value&gt;&gt; <a class="code" href="classsupermap_1_1ExtractibleKeyValueStorage.html#a0bd5252523d0a73494b2278c18dd1bb6">extract</a>() &amp;&amp; = 0;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;} <span class="comment">// supermap</span></div>
-<div class="ttc" id="aclasssupermap_1_1ExtractibleKeyValueStorage_html"><div class="ttname"><a href="classsupermap_1_1ExtractibleKeyValueStorage.html">supermap::ExtractibleKeyValueStorage</a></div><div class="ttdoc">KeyValueStorage that can be extracted to the vector.</div><div class="ttdef"><b>Definition:</b> ExtractibleKeyValueStorage.hpp:15</div></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>supermap {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Key, <span class="keyword">typename</span> Value, <span class="keyword">typename</span> IndexT&gt;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classsupermap_1_1ExtractibleKeyValueStorage.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="classsupermap_1_1ExtractibleKeyValueStorage.html">ExtractibleKeyValueStorage</a> : <span class="keyword">public</span> <a class="code" href="classsupermap_1_1KeyValueStorage.html">KeyValueStorage</a>&lt;Key, Value, IndexT&gt; {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classsupermap_1_1ExtractibleKeyValueStorage.html#a0bd5252523d0a73494b2278c18dd1bb6">   24</a></span>&#160;    <span class="keyword">virtual</span> std::vector&lt;KeyValue&lt;Key, Value&gt;&gt; <a class="code" href="classsupermap_1_1ExtractibleKeyValueStorage.html#a0bd5252523d0a73494b2278c18dd1bb6">extract</a>() &amp;&amp; = 0;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// supermap</span></div>
+<div class="ttc" id="aclasssupermap_1_1ExtractibleKeyValueStorage_html"><div class="ttname"><a href="classsupermap_1_1ExtractibleKeyValueStorage.html">supermap::ExtractibleKeyValueStorage</a></div><div class="ttdoc">KeyValueStorage that can be extracted to the vector.</div><div class="ttdef"><b>Definition:</b> ExtractibleKeyValueStorage.hpp:17</div></div>
 <div class="ttc" id="aclasssupermap_1_1ExtractibleKeyValueStorage_html_a0bd5252523d0a73494b2278c18dd1bb6"><div class="ttname"><a href="classsupermap_1_1ExtractibleKeyValueStorage.html#a0bd5252523d0a73494b2278c18dd1bb6">supermap::ExtractibleKeyValueStorage::extract</a></div><div class="ttdeci">virtual std::vector&lt; KeyValue&lt; Key, Value &gt; &gt; extract() &amp;&amp;=0</div><div class="ttdoc">Move all inner key-value pairs to the vector, emptying inner storage, such that the getUpperSizeBound...</div></div>
 <div class="ttc" id="aclasssupermap_1_1KeyValueStorage_html"><div class="ttname"><a href="classsupermap_1_1KeyValueStorage.html">supermap::KeyValueStorage</a></div><div class="ttdoc">An abstract key-value storage.</div><div class="ttdef"><b>Definition:</b> KeyValueStorage.hpp:18</div></div>
 </div><!-- fragment --></div><!-- contents -->

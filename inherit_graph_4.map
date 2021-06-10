@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classsupermap_1_1Cloneable.html" title=" " alt="" coords="5,5,157,61"/>
-<area shape="rect" id="node2" href="$classsupermap_1_1StorageItemRegister.html" title="An abstract registrar of storage items, which aims to add new items to the storage." alt="" coords="205,13,409,54"/>
-<area shape="rect" id="node3" href="$classsupermap_1_1CountingStorageItemRegister.html" title=" " alt="" coords="457,5,639,61"/>
+<area shape="rect" id="node1" href="$classsupermap_1_1Cloneable.html" title=" " alt="" coords="5,5,148,47"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1Hasher.html" title="An abstract hasher, which can hash std::string and supermap::ByteArray to std::uint64_t." alt="" coords="196,13,323,39"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1XXHasher.html" title="A hasher based on xxhash." alt="" coords="371,13,516,39"/>
 </map>

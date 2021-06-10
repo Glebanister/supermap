@@ -101,20 +101,25 @@ Collaboration diagram for supermap::BloomFilter&lt; T &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aadcd025ccf0761cc382a40e7c8b7924e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BloomFilter.html#aadcd025ccf0761cc382a40e7c8b7924e">add</a> (const T &amp;) override</td></tr>
-<tr class="memdesc:aadcd025ccf0761cc382a40e7c8b7924e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an key-index pair to filter.  <a href="classsupermap_1_1BloomFilter.html#aadcd025ccf0761cc382a40e7c8b7924e">More...</a><br /></td></tr>
-<tr class="separator:aadcd025ccf0761cc382a40e7c8b7924e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6badfb16faa8c149461991ede2a4fdff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BloomFilter.html#a6badfb16faa8c149461991ede2a4fdff">mightContain</a> (const T &amp;) const override</td></tr>
-<tr class="separator:a6badfb16faa8c149461991ede2a4fdff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a892be30a663cc38d8a19fff6e64ad988"><td class="memItemLeft" align="right" valign="top"><a id="a892be30a663cc38d8a19fff6e64ad988"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>BloomFilter</b> (double errorProbability, std::unique_ptr&lt; <a class="el" href="classsupermap_1_1Hasher.html">Hasher</a> &gt; &amp;&amp;hasher)</td></tr>
+<tr class="separator:a892be30a663cc38d8a19fff6e64ad988"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4ef52ebc586cd9b14c909975f253c73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BloomFilter.html#ab4ef52ebc586cd9b14c909975f253c73">add</a> (const T &amp;value) override</td></tr>
+<tr class="memdesc:ab4ef52ebc586cd9b14c909975f253c73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an key-index pair to filter.  <a href="classsupermap_1_1BloomFilter.html#ab4ef52ebc586cd9b14c909975f253c73">More...</a><br /></td></tr>
+<tr class="separator:ab4ef52ebc586cd9b14c909975f253c73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68d2add51a940b54edb75b80ad3c660e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BloomFilter.html#a68d2add51a940b54edb75b80ad3c660e">mightContain</a> (const T &amp;value) const override</td></tr>
+<tr class="separator:a68d2add51a940b54edb75b80ad3c660e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afac82f415074e1d8935248341996f2aa"><td class="memItemLeft" align="right" valign="top"><a id="afac82f415074e1d8935248341996f2aa"></a>
 std::unique_ptr&lt; <a class="el" href="classsupermap_1_1Filter.html">BaseFilter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BloomFilter.html#afac82f415074e1d8935248341996f2aa">clone</a> () const override</td></tr>
 <tr class="memdesc:afac82f415074e1d8935248341996f2aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create cloned version of this filter. <br /></td></tr>
 <tr class="separator:afac82f415074e1d8935248341996f2aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_classsupermap_1_1Filter"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classsupermap_1_1Filter')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classsupermap_1_1Filter.html">supermap::Filter&lt; T &gt;</a></td></tr>
-<tr class="memitem:a9ad627929851fdb457c907c25ad0eabb inherit pub_methods_classsupermap_1_1Filter"><td class="memItemLeft" align="right" valign="top"><a id="a9ad627929851fdb457c907c25ad0eabb"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1Filter.html#a9ad627929851fdb457c907c25ad0eabb">reserve</a> (std::uint64_t)</td></tr>
-<tr class="memdesc:a9ad627929851fdb457c907c25ad0eabb inherit pub_methods_classsupermap_1_1Filter"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserve filter for <code>n</code> elements. <br /></td></tr>
-<tr class="separator:a9ad627929851fdb457c907c25ad0eabb inherit pub_methods_classsupermap_1_1Filter"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a310cec01cae37d69ad92e3e1c10e129c"><td class="memItemLeft" align="right" valign="top"><a id="a310cec01cae37d69ad92e3e1c10e129c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1BloomFilter.html#a310cec01cae37d69ad92e3e1c10e129c">reserve</a> (std::uint64_t numberOfElements) override</td></tr>
+<tr class="memdesc:a310cec01cae37d69ad92e3e1c10e129c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reserve filter for <code>n</code> elements. <br /></td></tr>
+<tr class="separator:a310cec01cae37d69ad92e3e1c10e129c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7f6ff7150ef9073295f7589b7b39af7"><td class="memItemLeft" align="right" valign="top"><a id="ad7f6ff7150ef9073295f7589b7b39af7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>BloomFilter</b> (const <a class="el" href="classsupermap_1_1BloomFilter.html">BloomFilter</a> &amp;other)</td></tr>
+<tr class="separator:ad7f6ff7150ef9073295f7589b7b39af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
@@ -122,8 +127,8 @@ class supermap::BloomFilter&lt; T &gt;</h3>
 
 <p>A filter based on the bloom filtering algorithm. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aadcd025ccf0761cc382a40e7c8b7924e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadcd025ccf0761cc382a40e7c8b7924e">&#9670;&nbsp;</a></span>add()</h2>
+<a id="ab4ef52ebc586cd9b14c909975f253c73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4ef52ebc586cd9b14c909975f253c73">&#9670;&nbsp;</a></span>add()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +142,7 @@ template&lt;typename T &gt; </div>
           <td class="memname">void <a class="el" href="classsupermap_1_1BloomFilter.html">supermap::BloomFilter</a>&lt; T &gt;::add </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -160,8 +165,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a6badfb16faa8c149461991ede2a4fdff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6badfb16faa8c149461991ede2a4fdff">&#9670;&nbsp;</a></span>mightContain()</h2>
+<a id="a68d2add51a940b54edb75b80ad3c660e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68d2add51a940b54edb75b80ad3c660e">&#9670;&nbsp;</a></span>mightContain()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,7 +180,7 @@ template&lt;typename T &gt; </div>
           <td class="memname">bool <a class="el" href="classsupermap_1_1BloomFilter.html">supermap::BloomFilter</a>&lt; T &gt;::mightContain </td>
           <td>(</td>
           <td class="paramtype">const T &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>

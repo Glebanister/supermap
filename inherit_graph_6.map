@@ -1,3 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsupermap_1_1CountingStorageInfo.html" title="CountingStorageItemRegister information type." alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node1" href="$classsupermap_1_1Cloneable.html" title="Object which can produce cloned versions." alt="" coords="5,92,177,119"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="225,5,429,61"/>
+<area shape="rect" id="node4" href="$classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="225,85,429,126"/>
+<area shape="rect" id="node6" href="$classsupermap_1_1StorageItemRegister.html" title=" " alt="" coords="225,149,429,205"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1FilteringRegister.html" title="A storage register, which registers elements in inner filter." alt="" coords="483,13,661,54"/>
+<area shape="rect" id="node5" href="$classsupermap_1_1VoidRegister.html" title="Empty register that does nothing." alt="" coords="477,92,667,119"/>
+<area shape="rect" id="node7" href="$classsupermap_1_1CountingStorageItemRegister.html" title="Storage item register which counts every added element to the storage." alt="" coords="481,149,663,205"/>
 </map>

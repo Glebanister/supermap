@@ -1,0 +1,5 @@
+<map id="supermap::Hasher" name="supermap::Hasher">
+<area shape="rect" id="node1" title="An abstract hasher, which can hash std::string and supermap::ByteArray to std::uint64_t." alt="" coords="15,95,141,121"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1XXHasher.html" title="A hasher based on xxhash." alt="" coords="5,169,151,196"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1Cloneable.html" title=" " alt="" coords="7,5,149,47"/>
+</map>
