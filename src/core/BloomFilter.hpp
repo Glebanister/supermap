@@ -8,11 +8,12 @@
 #include "exception/IllegalStateException.hpp"
 #include "exception/IllegalArgumentException.hpp"
 #include "xxhash.h"
+#include "hasher/XXHasher.hpp"
 
 namespace supermap {
 
 /**
- * @brief A filter based on the bloom filtering algorithm. Error probability is set in constructor
+ * @brief A filter based on the bloom filtering algorithm.
  */
 template <typename T>
 class BloomFilter : public Filter<T> {
@@ -20,7 +21,7 @@ class BloomFilter : public Filter<T> {
     using BaseFilter = Filter<T>;
 
   public:
-    explicit BloomFilter(double errorProbability) {
+    explicit BloomFilter(double errorProbability, std::unique_ptr<Hasher> &&hasher) : hasher_(std::move(hasher)) {
         if (errorProbability <= 0 || errorProbability > 1) {
             throw supermap::IllegalArgumentException("Error probability must be a positive number not bigger than 1");
         }
@@ -43,7 +44,7 @@ class BloomFilter : public Filter<T> {
         }
         std::string data = serialize(value);
         for (auto &seed : seeds_) {
-            std::size_t index = getHashWithSeed(data.data(), data.length(), seed);
+            std::uint64_t index = getHashWithSeed(data, seed);
             elements_[index] = true;
         }
     }
@@ -57,7 +58,7 @@ class BloomFilter : public Filter<T> {
         }
         std::string data = serialize(value);
         for (auto &seed : seeds_) {
-            std::size_t index = getHashWithSeed(data.data(), data.length(), seed);
+            std::uint64_t index = getHashWithSeed(data, seed);
             if (!elements_[index]) {
                 return false;
             }
@@ -81,20 +82,23 @@ class BloomFilter : public Filter<T> {
         elements_.resize(size);
     };
 
-    BloomFilter(const BloomFilter &other) = default;
+    BloomFilter(const BloomFilter &other)
+        : hasher_(other.hasher_->clone()),
+          sizeMultiplier_(other.sizeMultiplier_),
+          seeds_(other.seeds_),
+          elements_(other.elements_),
+          wasReserved_(other.wasReserved_) {
+    }
 
   private:
+    std::unique_ptr<Hasher> hasher_;
     double sizeMultiplier_;
     std::vector<XXH64_hash_t> seeds_;
     std::vector<bool> elements_;
     bool wasReserved_ = false;
 
-    std::size_t getHashWithSeed(const void *data, std::size_t len, XXH64_hash_t seed) const {
-        return static_cast<std::size_t>(get64bitHashWithSeed(data, len, seed) % elements_.size());
-    }
-
-    XXH64_hash_t get64bitHashWithSeed(const void *data, std::size_t len, XXH64_hash_t seed) const {
-        return XXH3_64bits_withSeed(data, len, seed);
+    std::uint64_t getHashWithSeed(const std::string &string, XXH64_hash_t seed) const {
+        return hasher_->hash(string, seed) % elements_.size();
     }
 
     std::string serialize(const T &value) const {

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "core/Supermap.hpp"
 #include "io/DiskFileManager.hpp"
 #include "io/EncapsulatedFileManager.hpp"
@@ -61,7 +63,8 @@ class DefaultSupermap {
             return std::make_unique<FilteringRegister<KI, K>>(
                 [errorProbability = errorProbability]() {
                     return std::make_unique<BloomFilter<K>>(
-                        errorProbability
+                        errorProbability,
+                        std::make_unique<XXHasher>()
                     );
                 },
                 [](const KI &ki) { return ki.key; }
