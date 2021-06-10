@@ -12,6 +12,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_GLIBCXX_DEBUG")
 set(LIBRARY_SOURCES
         src/exception/SupermapException.cpp
         src/exception/IllegalArgumentException.cpp
+        src/exception/IllegalStateException.cpp
         src/exception/FileException.cpp
         src/exception/IteratorException.cpp
         src/io/OutputStream.cpp
