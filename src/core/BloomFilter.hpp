@@ -1,11 +1,11 @@
 #pragma once
 
-#include <cassert>
 #include <random>
 #include <sstream>
 
 #include "Filter.hpp"
 #include "primitive/KeyValue.hpp"
+#include "exception/IllegalStateException.hpp"
 #include "xxhash.h"
 
 namespace supermap {
@@ -33,7 +33,9 @@ class BloomFilter : public Filter<T> {
      * @param keyIndex Pair to add to filter.
      */
     void add(const T &value) override {
-        assert(!elements_.empty());
+        if (elements_.empty()) {
+            throw supermap::IllegalStateException("Filter size was not reserved or was set to zero");
+        }
         std::string data = serialize(value);
         for (auto &seed : seeds_) {
             std::size_t index = getHashWithSeed(data.data(), data.length(), seed);
@@ -45,7 +47,9 @@ class BloomFilter : public Filter<T> {
      * @return @p false if @p was never added to filter, anything otherwise.
      */
     bool mightContain(const T &value) const override {
-        assert(!elements_.empty());
+        if (elements_.empty()) {
+            throw supermap::IllegalStateException("Filter size was not reserved or was set to zero");
+        }
         std::string data = serialize(value);
         for (auto &seed : seeds_) {
             std::size_t index = getHashWithSeed(data.data(), data.length(), seed);
@@ -64,7 +68,9 @@ class BloomFilter : public Filter<T> {
     }
 
     void reserve(std::uint64_t numberOfElements) override {
-        assert(!wasReserved_);
+        if (wasReserved_) {
+            throw supermap::IllegalStateException("Filter size has been already reserved");
+        }
         wasReserved_ = true;
         auto size = static_cast<std::size_t>(std::ceil(static_cast<double>(numberOfElements) * sizeMultiplier_));
         elements_.resize(size);
