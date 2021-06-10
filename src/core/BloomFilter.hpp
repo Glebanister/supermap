@@ -6,6 +6,7 @@
 #include "Filter.hpp"
 #include "primitive/KeyValue.hpp"
 #include "exception/IllegalStateException.hpp"
+#include "exception/IllegalArgumentException.hpp"
 #include "xxhash.h"
 
 namespace supermap {
@@ -19,7 +20,11 @@ class BloomFilter : public Filter<T> {
     using BaseFilter = Filter<T>;
 
   public:
-    explicit BloomFilter(double errorProbability) : sizeMultiplier_(-1.44 * std::log2(errorProbability)) {
+    explicit BloomFilter(double errorProbability) {
+        if (errorProbability <= 0 || errorProbability > 1) {
+            throw supermap::IllegalArgumentException("Error probability must be a positive number not bigger than 1");
+        }
+        sizeMultiplier_ = std::max(1.0, -1.44 * std::log2(errorProbability));
         constexpr std::size_t keysSize = io::FixedDeserializedSizeRegister<T>::exactDeserializedSize;
         auto numberOfHashFunctions = std::max(1ul, static_cast<std::size_t>(std::ceil(std::log2(keysSize))));
         seeds_.resize(numberOfHashFunctions);
@@ -79,7 +84,7 @@ class BloomFilter : public Filter<T> {
     BloomFilter(const BloomFilter &other) = default;
 
   private:
-    const double sizeMultiplier_;
+    double sizeMultiplier_;
     std::vector<XXH64_hash_t> seeds_;
     std::vector<bool> elements_;
     bool wasReserved_ = false;
