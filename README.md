@@ -4,6 +4,20 @@
 
 Key-value keys implementation.
 
+## Benchmarks
+
+This bechmark was executed on dataset with 50M key-value pairs,
+3K operations, where 50% of them are 'add' and others are 'get'
+operations.
+
+### Add operations
+
+![add](assets/add.svg)
+
+### Get operations
+
+![get](assets/get.svg)
+
 ## Installation
 
 First make sure `git` and `cmake` are installed,

@@ -23,33 +23,35 @@ class Benchmark {
 
   public:
     struct BenchmarkResult {
-        std::uint64_t averageRequestTimeInMicros;
-        std::uint64_t averageGetRequestTimeInMicros;
-        std::uint64_t averageAddRequestTimeInMicros;
-        std::uint64_t minGetRequestTimeInMicros;
-        std::uint64_t maxGetRequestTimeInMicros;
-        std::uint64_t minAddRequestTimeInMicros;
-        std::uint64_t maxAddRequestTimeInMicros;
+        std::uint64_t averageRequestTimeInMicros{};
+        std::uint64_t averageGetRequestTimeInMicros{};
+        std::uint64_t averageAddRequestTimeInMicros{};
+        std::uint64_t minGetRequestTimeInMicros{};
+        std::uint64_t maxGetRequestTimeInMicros{};
+        std::uint64_t minAddRequestTimeInMicros{};
+        std::uint64_t maxAddRequestTimeInMicros{};
+        std::vector<std::uint64_t> getPercentiles{};
+        std::vector<std::uint64_t> addPercentiles{};
     };
     BenchmarkResult benchmarkKVS(std::int64_t initialNumberOfElements,
                                  std::int64_t numberOfRequests,
                                  std::int64_t percentageOfGetRequests) {
 
         auto supermapParams = SupermapBuilder::BuildParameters{
-                static_cast<unsigned long>(initialNumberOfElements / 10),
-                0.5,
-                "supermap",
-                1 / 32.0
+            static_cast<unsigned long>(initialNumberOfElements / 10),
+            0.5,
+            "supermap",
+            1 / 32.0
         };
 
         auto backendKvs = SupermapBuilder::build(
-                std::make_unique<supermap::BST<K, I, I>>(),
-                supermapParams
+            std::make_unique<supermap::BST<K, I, I>>(),
+            supermapParams
         );
 
         kvs_ = supermap::builder::fromKvs<K, MaybeV, I>(std::move(backendKvs))
-                        .removable()
-                        .build();
+            .removable()
+            .build();
 
         for (std::int64_t k = 0; k < initialNumberOfElements; ++k) {
             std::string keyString = std::to_string(k);
@@ -72,10 +74,13 @@ class Benchmark {
         std::uint64_t sumAddRequestsTimeInMicros = 0;
         std::uint64_t sumGetRequestsTimeInMicros = 0;
 
-        const auto numberOfGetRequests = static_cast<std::uint64_t>(std::round((double)numberOfRequests / 100.0 * (double)percentageOfGetRequests));
+        const auto numberOfGetRequests = static_cast<std::uint64_t>(std::round(
+            (double) numberOfRequests / 100.0 * (double) percentageOfGetRequests));
         std::uint64_t restNumberOfGetRequests = numberOfGetRequests;
 
         const std::uint64_t numberOfAddRequests = numberOfRequests - numberOfGetRequests;
+
+        std::vector<uint64_t> getTimes, addTimes;
 
         for (std::int64_t k = 0; k < numberOfRequests; ++k) {
             int x = distribution_(rnd_);
@@ -83,19 +88,23 @@ class Benchmark {
             std::uint64_t requestTimeInMicros;
             if (isGetRequest) {
                 requestTimeInMicros = measureGetRequest();
+                getTimes.push_back(requestTimeInMicros);
                 maxGetRequestTimeInMicros = std::max(requestTimeInMicros, maxGetRequestTimeInMicros);
                 minGetRequestTimeInMicros = std::min(requestTimeInMicros, minGetRequestTimeInMicros);
                 sumGetRequestsTimeInMicros += requestTimeInMicros;
                 --restNumberOfGetRequests;
             } else {
                 requestTimeInMicros = measureAddRequest();
+                addTimes.push_back(requestTimeInMicros);
                 maxAddRequestTimeInMicros = std::max(requestTimeInMicros, maxAddRequestTimeInMicros);
                 minAddRequestTimeInMicros = std::min(requestTimeInMicros, minAddRequestTimeInMicros);
                 sumAddRequestsTimeInMicros += requestTimeInMicros;
             }
             sumRequestsTimeInMicros += requestTimeInMicros;
         }
+
         BenchmarkResult result{};
+
         result.averageRequestTimeInMicros = sumRequestsTimeInMicros / numberOfRequests;
         result.averageGetRequestTimeInMicros = sumGetRequestsTimeInMicros / numberOfGetRequests;
         result.averageAddRequestTimeInMicros = sumAddRequestsTimeInMicros / numberOfAddRequests;
@@ -103,6 +112,18 @@ class Benchmark {
         result.maxGetRequestTimeInMicros = maxGetRequestTimeInMicros;
         result.minAddRequestTimeInMicros = minAddRequestTimeInMicros;
         result.maxAddRequestTimeInMicros = maxAddRequestTimeInMicros;
+
+        std::sort(getTimes.begin(), getTimes.end());
+        std::sort(addTimes.begin(), addTimes.end());
+
+        result.getPercentiles = std::vector<std::uint64_t>(100);
+        result.addPercentiles = std::vector<std::uint64_t>(100);
+
+        for (std::size_t percent = 0; percent < 100; ++percent) {
+            result.getPercentiles[percent] = getTimes[getTimes.size() * percent / 100];
+            result.addPercentiles[percent] = addTimes[addTimes.size() * percent / 100];
+        }
+
         return result;
     }
 
@@ -150,10 +171,10 @@ void printParametersErrorMessage() {
     std::cout << "Wrong parameters." << std::endl;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     if (argc != 4) {
         printParametersErrorMessage();
-        return 0;
+        return 1;
     }
     std::int64_t initialNumberOfElements = std::strtol(argv[1], nullptr, 10);
     std::int64_t numberOfRequests = std::strtol(argv[2], nullptr, 10);
@@ -163,7 +184,7 @@ int main(int argc, char* argv[]) {
         percentageOfGetRequests < 0 ||
         percentageOfGetRequests > 100) {
         printParametersErrorMessage();
-        return 0;
+        return 1;
     }
 
     Benchmark benchmark;
@@ -175,6 +196,14 @@ int main(int argc, char* argv[]) {
     std::cout << "maxGetRequestTimeInMicros " << result.maxGetRequestTimeInMicros << std::endl;
     std::cout << "minAddRequestTimeInMicros " << result.minAddRequestTimeInMicros << std::endl;
     std::cout << "maxAddRequestTimeInMicros " << result.maxAddRequestTimeInMicros << std::endl;
-
-    return 0;
+    std::cout << "getPercentiles" << std::endl;
+    for (std::size_t percent = 0; percent < 100; ++percent) {
+        std::cout << result.getPercentiles[percent] << ' ';
+    }
+    std::cout << std::endl;
+    std::cout << "addPercentiles" << std::endl;
+    for (std::size_t percent = 0; percent < 100; ++percent) {
+        std::cout << result.addPercentiles[percent] << ' ';
+    }
+    std::cout << std::endl;
 }
