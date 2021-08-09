@@ -6,6 +6,7 @@
 #include "io/DiskFileManager.hpp"
 #include "io/EncapsulatedFileManager.hpp"
 #include "core/BloomFilter.hpp"
+#include "core/KeyHashingShardedKVS.hpp"
 
 namespace supermap {
 

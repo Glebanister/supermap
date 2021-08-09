@@ -10,13 +10,13 @@ namespace supermap {
  */
 class XXHasher : public Hasher {
   public:
-    [[nodiscard]] std::uint64_t hash(const std::string& string, std::uint64_t seed) override {
+    [[nodiscard]] std::uint64_t hash(const std::string& string, std::uint64_t seed) const override {
         const void* data = string.c_str();
         std::size_t len = string.length();
         return get64bitHashWithSeed(data, len, seed);
     }
 
-    [[nodiscard]] std::uint64_t hash(const void* data, std::size_t len, std::uint64_t seed) override {
+    [[nodiscard]] std::uint64_t hash(const void* data, std::size_t len, std::uint64_t seed) const override {
         return get64bitHashWithSeed(data, len, seed);
     }
 

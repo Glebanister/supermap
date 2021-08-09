@@ -18,7 +18,7 @@ class TemporaryFolder {
     explicit TemporaryFolder(std::string name, bool isFilesystem)
         : isFilesystem_(isFilesystem), name_(std::move(name)) {
         if (isFilesystem_) {
-            std::filesystem::create_directory(name_);
+            std::filesystem::create_directories(name_);
         }
     }
 

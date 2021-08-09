@@ -18,7 +18,7 @@ class Hasher : public Cloneable<Hasher> {
      * @param elem std::string to hash.
      * @param seed std::uint64_t used in hash function.
      */
-    [[nodiscard]] virtual std::uint64_t hash(const std::string&, std::uint64_t seed) = 0;
+    [[nodiscard]] virtual std::uint64_t hash(const std::string&, std::uint64_t seed) const = 0;
 
     /**
      * @brief Hash @p elem with length @p len to std::uint64_t using @p seed.
@@ -26,7 +26,7 @@ class Hasher : public Cloneable<Hasher> {
      * @param len std::size_t length of data.
      * @param seed std::uint64_t used in hash function.
      */
-    [[nodiscard]] virtual std::uint64_t hash(const void* data, std::size_t len, std::uint64_t seed) = 0;
+    [[nodiscard]] virtual std::uint64_t hash(const void* data, std::size_t len, std::uint64_t seed) const = 0;
 };
 
 } // supermap

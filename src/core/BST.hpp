@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <memory>
 
 #include "ExtractibleKeyValueStorage.hpp"
 #include "primitive/Bounds.hpp"
@@ -45,9 +46,9 @@ class BST : public ExtractibleKeyValueStorage<Key, Value, IndexT> {
     /**
      * @brief Move all key-value pairs to the vector, emptying the BST itself.
      */
-    std::vector<KeyValue < Key, Value>> extract() && override {
-        std::vector<KeyValue < Key, Value>>
-        extracted;
+    std::vector<KeyValue<Key, Value>> extract() && override {
+        std::vector<KeyValue<Key, Value>>
+            extracted;
         for (auto &&[k, v] : map_) {
             extracted.emplace_back(KeyValue(std::move(k), std::move(v)));
         }
@@ -57,6 +58,10 @@ class BST : public ExtractibleKeyValueStorage<Key, Value, IndexT> {
 
     void remove(const Key &key) override {
         map_.erase(key);
+    }
+
+    std::unique_ptr<ExtractibleKeyValueStorage<Key, Value, IndexT>> createLikeThis() const override {
+        return std::make_unique<BST<Key, Value, IndexT>>();
     }
 
   private:

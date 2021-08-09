@@ -12,7 +12,6 @@
 #include "io/OutputIterator.hpp"
 #include "io/RamFileManager.hpp"
 #include "io/DiskFileManager.hpp"
-#include "io/EncapsulatedFileManager.hpp"
 
 #include "exception/IllegalArgumentException.hpp"
 
@@ -21,10 +20,10 @@
 #include "core/SingleFileIndexedStorage.hpp"
 #include "core/KeyValueShrinkableStorage.hpp"
 #include "core/BinaryCollapsingSortedStoragesList.hpp"
-#include "core/Supermap.hpp"
 #include "core/BST.hpp"
-#include "core/FilteredStorage.hpp"
 #include "core/MockFilter.hpp"
+#include "hasher/XXHasher.hpp"
+#include "builder/ShardedSupermapBuilder.hpp"
 #include "builder/DefaultSupermap.hpp"
 
 using CharKV = supermap::KeyValue<char, char>;
@@ -769,9 +768,11 @@ TEST_CASE ("Supermap simple") {
     using V = ByteArray<3>;
     using I = std::size_t;
 
-    using SupermapBuilder = DefaultSupermap<K, V, I>;
+    using SupermapBuilder = ShardedSupermapBuilder<K, V, I>;
 
     auto superMap = SupermapBuilder::build(
+        5,
+        std::make_unique<XXHasher>(),
         std::make_unique<BST<K, I, I>>(),
         SupermapBuilder::BuildParameters{
             3,

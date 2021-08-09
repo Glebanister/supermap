@@ -9,6 +9,7 @@
 #include "primitive/ByteArray.hpp"
 #include "builder/KeyValueStorageBuilder.hpp"
 #include "builder/DefaultFilteredKvs.hpp"
+#include "builder/ShardedSupermapBuilder.hpp"
 
 class Benchmark {
     static constexpr int KEY_SIZE = 30;
@@ -19,7 +20,7 @@ class Benchmark {
     using KV = supermap::KeyValue<K, V>;
     using I = std::uint64_t;
     using MaybeV = supermap::MaybeRemovedValue<V>;
-    using SupermapBuilder = supermap::DefaultSupermap<K, MaybeV, I>;
+    using SupermapBuilder = supermap::ShardedSupermapBuilder<K, MaybeV, I>;
 
   public:
     struct BenchmarkResult {
@@ -45,6 +46,8 @@ class Benchmark {
         };
 
         auto backendKvs = SupermapBuilder::build(
+            10,
+            std::make_unique<supermap::XXHasher>(),
             std::make_unique<supermap::BST<K, I, I>>(),
             supermapParams
         );

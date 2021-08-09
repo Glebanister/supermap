@@ -4,6 +4,7 @@
 
 #include "KeyValueStorage.hpp"
 #include "primitive/KeyValue.hpp"
+#include "AllowCreateLikeThis.hpp"
 
 namespace supermap {
 
@@ -14,7 +15,9 @@ namespace supermap {
  * @tparam IndexT storage index type.
  */
 template <typename Key, typename Value, typename IndexT>
-class ExtractibleKeyValueStorage : public KeyValueStorage<Key, Value, IndexT> {
+class ExtractibleKeyValueStorage
+    : public KeyValueStorage<Key, Value, IndexT>,
+      public AllowCreateLikeThis<ExtractibleKeyValueStorage<Key, Value, IndexT>> {
   public:
 
     /**

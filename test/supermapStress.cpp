@@ -13,6 +13,7 @@
 #include "core/FilteringRegister.hpp"
 #include "core/FilteredStorage.hpp"
 #include "builder/DefaultSupermap.hpp"
+#include "builder/ShardedSupermapBuilder.hpp"
 
 extern std::uint32_t timeSeed();
 
@@ -33,9 +34,11 @@ void stressTestSupermap(std::size_t iterations,
     using V = ByteArray<ValueLen>;
     using I = std::size_t;
 
-    using SupermapBuilder = DefaultSupermap<K, V, I>;
+    using SupermapBuilder = ShardedSupermapBuilder<K, V, I>;
 
     auto kvs = SupermapBuilder::build(
+        6,
+        std::make_unique<XXHasher>(),
         std::make_unique<BST<K, I, I>>(),
         typename SupermapBuilder::BuildParameters{
             batchSize,
@@ -48,6 +51,8 @@ void stressTestSupermap(std::size_t iterations,
     auto expectedKvs = check
         ? std::make_unique<BST<K, V, I>>()
         : SupermapBuilder::build(
+            6,
+            std::make_unique<XXHasher>(),
             std::make_unique<BST<K, I, I>>(),
             typename SupermapBuilder::BuildParameters{
                 batchSize,
