@@ -101,12 +101,12 @@ Collaboration diagram for supermap::XXHasher:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab8de1589b7ce0d885efe21e2a0f58343"><td class="memItemLeft" align="right" valign="top">std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1XXHasher.html#ab8de1589b7ce0d885efe21e2a0f58343">hash</a> (const std::string &amp;string, std::uint64_t seed) override</td></tr>
-<tr class="memdesc:ab8de1589b7ce0d885efe21e2a0f58343"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash <code>elem</code> to std::uint64_t using <code>seed</code>.  <a href="classsupermap_1_1XXHasher.html#ab8de1589b7ce0d885efe21e2a0f58343">More...</a><br /></td></tr>
-<tr class="separator:ab8de1589b7ce0d885efe21e2a0f58343"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c51aeb7e5ae0c57760719143a63df1d"><td class="memItemLeft" align="right" valign="top">std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1XXHasher.html#a7c51aeb7e5ae0c57760719143a63df1d">hash</a> (const void *data, std::size_t len, std::uint64_t seed) override</td></tr>
-<tr class="memdesc:a7c51aeb7e5ae0c57760719143a63df1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash <code>elem</code> with length <code>len</code> to std::uint64_t using <code>seed</code>.  <a href="classsupermap_1_1XXHasher.html#a7c51aeb7e5ae0c57760719143a63df1d">More...</a><br /></td></tr>
-<tr class="separator:a7c51aeb7e5ae0c57760719143a63df1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f8f1231d0124a00603ba874cbd5c097"><td class="memItemLeft" align="right" valign="top">std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1XXHasher.html#a4f8f1231d0124a00603ba874cbd5c097">hash</a> (const std::string &amp;string, std::uint64_t seed) const override</td></tr>
+<tr class="memdesc:a4f8f1231d0124a00603ba874cbd5c097"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash <code>elem</code> to std::uint64_t using <code>seed</code>.  <a href="classsupermap_1_1XXHasher.html#a4f8f1231d0124a00603ba874cbd5c097">More...</a><br /></td></tr>
+<tr class="separator:a4f8f1231d0124a00603ba874cbd5c097"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73798b6cfb1ccba69e228f946831f8ee"><td class="memItemLeft" align="right" valign="top">std::uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1XXHasher.html#a73798b6cfb1ccba69e228f946831f8ee">hash</a> (const void *data, std::size_t len, std::uint64_t seed) const override</td></tr>
+<tr class="memdesc:a73798b6cfb1ccba69e228f946831f8ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hash <code>elem</code> with length <code>len</code> to std::uint64_t using <code>seed</code>.  <a href="classsupermap_1_1XXHasher.html#a73798b6cfb1ccba69e228f946831f8ee">More...</a><br /></td></tr>
+<tr class="separator:a73798b6cfb1ccba69e228f946831f8ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74126b290bf895e3e935ca2b6363db7e"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classsupermap_1_1Hasher.html">Hasher</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsupermap_1_1XXHasher.html#a74126b290bf895e3e935ca2b6363db7e">clone</a> () const override</td></tr>
 <tr class="separator:a74126b290bf895e3e935ca2b6363db7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -141,8 +141,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab8de1589b7ce0d885efe21e2a0f58343"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8de1589b7ce0d885efe21e2a0f58343">&#9670;&nbsp;</a></span>hash() <span class="overload">[1/2]</span></h2>
+<a id="a4f8f1231d0124a00603ba874cbd5c097"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f8f1231d0124a00603ba874cbd5c097">&#9670;&nbsp;</a></span>hash() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,7 +165,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -184,12 +184,12 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1Hasher.html#a83a1b7d30f1ffcc89059d560662e38a0">supermap::Hasher</a>.</p>
+<p>Implements <a class="el" href="classsupermap_1_1Hasher.html#ad368c9ecbdfc77143d45fd03a3cca5f4">supermap::Hasher</a>.</p>
 
 </div>
 </div>
-<a id="a7c51aeb7e5ae0c57760719143a63df1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c51aeb7e5ae0c57760719143a63df1d">&#9670;&nbsp;</a></span>hash() <span class="overload">[2/2]</span></h2>
+<a id="a73798b6cfb1ccba69e228f946831f8ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73798b6cfb1ccba69e228f946831f8ee">&#9670;&nbsp;</a></span>hash() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -218,7 +218,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> const</td>
         </tr>
       </table>
   </td>
@@ -238,7 +238,7 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="classsupermap_1_1Hasher.html#a5e3ea2d43753febb66fcd8cebebfd242">supermap::Hasher</a>.</p>
+<p>Implements <a class="el" href="classsupermap_1_1Hasher.html#a85728e1cf3f65712f68ee87cd0c1da4d">supermap::Hasher</a>.</p>
 
 </div>
 </div>

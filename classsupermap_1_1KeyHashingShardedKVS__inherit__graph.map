@@ -1,0 +1,4 @@
+<map id="supermap::KeyHashingShardedKVS&lt; Key, Value, IndexT &gt;" name="supermap::KeyHashingShardedKVS&lt; Key, Value, IndexT &gt;">
+<area shape="rect" id="node1" title="A key&#45;value storage, that manipulates with N smaller key&#45;value storages as shards...." alt="" coords="5,95,208,136"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1KeyValueStorage.html" title="An abstract key&#45;value storage." alt="" coords="14,5,199,47"/>
+</map>

@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['cloneable_197',['Cloneable',['../classsupermap_1_1Cloneable.html',1,'supermap']]],
-  ['cloneable_3c_20filter_3c_20t_20_3e_20_3e_198',['Cloneable&lt; Filter&lt; T &gt; &gt;',['../classsupermap_1_1Cloneable.html',1,'supermap']]],
-  ['cloneable_3c_20hasher_20_3e_199',['Cloneable&lt; Hasher &gt;',['../classsupermap_1_1Cloneable.html',1,'supermap']]],
-  ['cloneable_3c_20storageitemregister_3c_20t_2c_20info_20_3e_20_3e_200',['Cloneable&lt; StorageItemRegister&lt; T, Info &gt; &gt;',['../classsupermap_1_1Cloneable.html',1,'supermap']]],
-  ['countingstorageinfo_201',['CountingStorageInfo',['../structsupermap_1_1CountingStorageInfo.html',1,'supermap']]],
-  ['countingstorageinfo_3c_20indext_2c_20void_20_3e_202',['CountingStorageInfo&lt; IndexT, void &gt;',['../structsupermap_1_1CountingStorageInfo_3_01IndexT_00_01void_01_4.html',1,'supermap']]],
-  ['countingstorageitemregister_203',['CountingStorageItemRegister',['../classsupermap_1_1CountingStorageItemRegister.html',1,'supermap']]],
-  ['countingstorageitemregister_3c_20t_2c_20indext_2c_20registerinfo_20_3e_204',['CountingStorageItemRegister&lt; T, IndexT, RegisterInfo &gt;',['../classsupermap_1_1CountingStorageItemRegister.html',1,'supermap']]]
+  ['binarycollapsingsortedstorageslist_197',['BinaryCollapsingSortedStoragesList',['../classsupermap_1_1BinaryCollapsingSortedStoragesList.html',1,'supermap']]],
+  ['bloomfilter_198',['BloomFilter',['../classsupermap_1_1BloomFilter.html',1,'supermap']]],
+  ['bounds_199',['Bounds',['../structsupermap_1_1Bounds.html',1,'supermap']]],
+  ['bst_200',['BST',['../classsupermap_1_1BST.html',1,'supermap']]],
+  ['bstbuilder_201',['BstBuilder',['../classsupermap_1_1BstBuilder.html',1,'supermap']]],
+  ['buildparameters_202',['BuildParameters',['../structsupermap_1_1DefaultSupermap_1_1BuildParameters.html',1,'supermap::DefaultSupermap']]],
+  ['bytearray_203',['ByteArray',['../classsupermap_1_1ByteArray.html',1,'supermap']]]
 ];

@@ -1,17 +1,11 @@
 var searchData=
 [
-  ['defaultfilteredkvs_205',['DefaultFilteredKvs',['../classsupermap_1_1DefaultFilteredKvs.html',1,'supermap']]],
-  ['defaultremovablekvs_206',['DefaultRemovableKvs',['../classsupermap_1_1DefaultRemovableKvs.html',1,'supermap']]],
-  ['defaultsupermap_207',['DefaultSupermap',['../classsupermap_1_1DefaultSupermap.html',1,'supermap']]],
-  ['deserializable_208',['Deserializable',['../structsupermap_1_1io_1_1Deserializable.html',1,'supermap::io']]],
-  ['deserializable_3c_20false_20_3e_209',['Deserializable&lt; false &gt;',['../structsupermap_1_1io_1_1Deserializable.html',1,'supermap::io']]],
-  ['deserializable_3c_20true_20_3e_210',['Deserializable&lt; true &gt;',['../structsupermap_1_1io_1_1Deserializable.html',1,'supermap::io']]],
-  ['deserializehelper_211',['DeserializeHelper',['../structsupermap_1_1io_1_1DeserializeHelper.html',1,'supermap::io']]],
-  ['deserializehelper_3c_20bytearray_3c_20len_20_3e_20_3e_212',['DeserializeHelper&lt; ByteArray&lt; Len &gt; &gt;',['../structsupermap_1_1io_1_1DeserializeHelper_3_01ByteArray_3_01Len_01_4_01_4.html',1,'supermap::io']]],
-  ['deserializehelper_3c_20key_3c_20keylen_20_3e_20_3e_213',['DeserializeHelper&lt; Key&lt; KeyLen &gt; &gt;',['../structsupermap_1_1io_1_1DeserializeHelper_3_01Key_3_01KeyLen_01_4_01_4.html',1,'supermap::io']]],
-  ['deserializehelper_3c_20keyvalue_3c_20key_2c_20value_20_3e_20_3e_214',['DeserializeHelper&lt; KeyValue&lt; Key, Value &gt; &gt;',['../structsupermap_1_1io_1_1DeserializeHelper_3_01KeyValue_3_01Key_00_01Value_01_4_01_4.html',1,'supermap::io']]],
-  ['deserializehelper_3c_20mayberemovedvalue_3c_20t_20_3e_20_3e_215',['DeserializeHelper&lt; MaybeRemovedValue&lt; T &gt; &gt;',['../structsupermap_1_1io_1_1DeserializeHelper_3_01MaybeRemovedValue_3_01T_01_4_01_4.html',1,'supermap::io']]],
-  ['deserializehelper_3c_20storagevalueignorer_3c_20key_2c_20value_20_3e_20_3e_216',['DeserializeHelper&lt; StorageValueIgnorer&lt; Key, Value &gt; &gt;',['../structsupermap_1_1io_1_1DeserializeHelper_3_01StorageValueIgnorer_3_01Key_00_01Value_01_4_01_4.html',1,'supermap::io']]],
-  ['deserializehelper_3c_20t_2c_20std_3a_3aenable_5fif_5ft_3c_20std_3a_3ais_5fintegral_5fv_3c_20t_20_3e_20_3e_20_3e_217',['DeserializeHelper&lt; T, std::enable_if_t&lt; std::is_integral_v&lt; T &gt; &gt; &gt;',['../structsupermap_1_1io_1_1DeserializeHelper_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_01_4_01_4.html',1,'supermap::io']]],
-  ['diskfilemanager_218',['DiskFileManager',['../classsupermap_1_1io_1_1DiskFileManager.html',1,'supermap::io']]]
+  ['cloneable_204',['Cloneable',['../classsupermap_1_1Cloneable.html',1,'supermap']]],
+  ['cloneable_3c_20filter_3c_20t_20_3e_20_3e_205',['Cloneable&lt; Filter&lt; T &gt; &gt;',['../classsupermap_1_1Cloneable.html',1,'supermap']]],
+  ['cloneable_3c_20hasher_20_3e_206',['Cloneable&lt; Hasher &gt;',['../classsupermap_1_1Cloneable.html',1,'supermap']]],
+  ['cloneable_3c_20storageitemregister_3c_20t_2c_20info_20_3e_20_3e_207',['Cloneable&lt; StorageItemRegister&lt; T, Info &gt; &gt;',['../classsupermap_1_1Cloneable.html',1,'supermap']]],
+  ['countingstorageinfo_208',['CountingStorageInfo',['../structsupermap_1_1CountingStorageInfo.html',1,'supermap']]],
+  ['countingstorageinfo_3c_20indext_2c_20void_20_3e_209',['CountingStorageInfo&lt; IndexT, void &gt;',['../structsupermap_1_1CountingStorageInfo_3_01IndexT_00_01void_01_4.html',1,'supermap']]],
+  ['countingstorageitemregister_210',['CountingStorageItemRegister',['../classsupermap_1_1CountingStorageItemRegister.html',1,'supermap']]],
+  ['countingstorageitemregister_3c_20t_2c_20indext_2c_20registerinfo_20_3e_211',['CountingStorageItemRegister&lt; T, IndexT, RegisterInfo &gt;',['../classsupermap_1_1CountingStorageItemRegister.html',1,'supermap']]]
 ];

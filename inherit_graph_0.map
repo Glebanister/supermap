@@ -1,3 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsupermap_1_1Bounds.html" title="Any min&#45;max bounds." alt="" coords="5,5,196,32"/>
+<area shape="rect" id="node1" href="$classsupermap_1_1AllowCreateLikeThis.html" title=" " alt="" coords="5,5,224,61"/>
+<area shape="rect" id="node2" href="$classsupermap_1_1ExtractibleKeyValueStorage.html" title="KeyValueStorage that can be extracted to the vector." alt="" coords="285,5,462,61"/>
+<area shape="rect" id="node3" href="$classsupermap_1_1BST.html" title="Implementation of Binary Search Tree with std::map." alt="" coords="523,13,671,54"/>
+<area shape="rect" id="node4" href="$classsupermap_1_1KeyValueStorage.html" title="An abstract key&#45;value storage." alt="" coords="22,85,207,126"/>
+<area shape="rect" id="node5" href="$classsupermap_1_1KeyHashingShardedKVS.html" title="A key&#45;value storage, that manipulates with N smaller key&#45;value storages as shards...." alt="" coords="272,85,475,126"/>
+<area shape="rect" id="node6" href="$classsupermap_1_1Supermap.html" title="Key&#45;value storage. Stores all values on disk. The index is partially stored in RAM...." alt="" coords="297,150,449,191"/>
 </map>

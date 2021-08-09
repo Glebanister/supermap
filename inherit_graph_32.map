@@ -1,10 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1Serializable.html" title=" " alt="" coords="5,136,172,177"/>
-<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1ShallowSerializer.html" title=" " alt="" coords="235,5,435,47"/>
-<area shape="rect" id="node4" href="$structsupermap_1_1io_1_1SerializeHelper_3_01ByteArray_3_01Len_01_4_01_4.html" title="SerializeHelper template specialization for ByteArray." alt="" coords="241,71,429,112"/>
-<area shape="rect" id="node5" href="$structsupermap_1_1io_1_1SerializeHelper_3_01KeyValue_3_01Key_00_01Value_01_4_01_4.html" title="SerializeHelper specialization for KeyValue." alt="" coords="241,136,429,177"/>
-<area shape="rect" id="node6" href="$structsupermap_1_1io_1_1SerializeHelper_3_01MaybeRemovedValue_3_01T_01_4_01_4.html" title="SerializeHelper template specialization for MaybeRemovedValue." alt="" coords="235,201,435,243"/>
-<area shape="rect" id="node7" href="$structsupermap_1_1io_1_1ShallowSerializer.html" title="Template for SerializeHelper which serializes only shallow structure data." alt="" coords="220,267,451,294"/>
-<area shape="rect" id="node3" href="$structsupermap_1_1io_1_1SerializeHelper_3_01Key_3_01KeyLen_01_4_01_4.html" title="SerializeHelper template specialization for Key." alt="" coords="499,5,687,47"/>
-<area shape="rect" id="node8" href="$structsupermap_1_1io_1_1SerializeHelper_3_01T_00_01std_1_1enable__if__t_3_01std_1_1is__integral__v_3_01T_01_4_01_4_01_4.html" title="Default SerializeHelper for all integral types." alt="" coords="499,253,687,309"/>
+<area shape="rect" id="node1" href="$structsupermap_1_1io_1_1Serializable.html" title=" " alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$structsupermap_1_1io_1_1SerializeHelper.html" title="Container for serialize function. Must be declared for any type that wants to be serialized." alt="" coords="220,5,408,47"/>
 </map>

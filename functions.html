@@ -71,6 +71,7 @@ $(function() {
 , <a class="el" href="classsupermap_1_1DefaultFilteredKvs.html#ab2a0e32de0e76c75486188c87b836f34">supermap::DefaultFilteredKvs&lt; Key, Value, Size &gt;</a>
 , <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#a508a08410fbdf1a61663acd781f93939">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>
 , <a class="el" href="classsupermap_1_1Filter.html#a412cc7f2497afffa9dea0226e9a7722a">supermap::Filter&lt; T &gt;</a>
+, <a class="el" href="classsupermap_1_1KeyHashingShardedKVS.html#ae83ec7db3b200afd20319109a3103bf5">supermap::KeyHashingShardedKVS&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1KeyValueStorage.html#a8ea1d9026377d64b51d269555f33b823">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1MockFilter.html#a8ce32b2bb4efd81726d8be6ff081378e">supermap::MockFilter&lt; T &gt;</a>
 , <a class="el" href="classsupermap_1_1Supermap.html#a343361e611d68f435c4695de48d147a4">supermap::Supermap&lt; Key, Value, IndexT &gt;</a>
@@ -136,6 +137,10 @@ $(function() {
 <li>create()
 : <a class="el" href="classsupermap_1_1io_1_1FileManager.html#a45439a95166eb982fc8c2b6fdb111a24">supermap::io::FileManager</a>
 </li>
+<li>createLikeThis()
+: <a class="el" href="classsupermap_1_1AllowCreateLikeThis.html#a4595c67d876b22868ff4e6a213ab5003">supermap::AllowCreateLikeThis&lt; T &gt;</a>
+, <a class="el" href="classsupermap_1_1BST.html#aa5792df40c289130ad331d7e2a4214f8">supermap::BST&lt; Key, Value, IndexT &gt;</a>
+</li>
 </ul>
 
 
@@ -157,7 +162,7 @@ $(function() {
 : <a class="el" href="structsupermap_1_1KeyValue.html#ac7f998ba65644b0f036958db8d187e47">supermap::KeyValue&lt; Key, Value &gt;</a>
 </li>
 <li>extract()
-: <a class="el" href="classsupermap_1_1BST.html#a8dd230e2b2a6567b6c24433bd1261d27">supermap::BST&lt; Key, Value, IndexT &gt;</a>
+: <a class="el" href="classsupermap_1_1BST.html#a5160f3c074e0f8236858c24b06de7f6a">supermap::BST&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1ExtractibleKeyValueStorage.html#a0bd5252523d0a73494b2278c18dd1bb6">supermap::ExtractibleKeyValueStorage&lt; Key, Value, IndexT &gt;</a>
 </li>
 </ul>
@@ -294,6 +299,7 @@ $(function() {
 : <a class="el" href="classsupermap_1_1BST.html#ac1f5732b269cc694a7e92f5df9a42dd2">supermap::BST&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1DefaultFilteredKvs.html#a0d29f789ae9e7a62ea75ac7a34fe75a3">supermap::DefaultFilteredKvs&lt; Key, Value, Size &gt;</a>
 , <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#a5510d252ec1b92f477e88ebabe3d489d">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>
+, <a class="el" href="classsupermap_1_1KeyHashingShardedKVS.html#a43a7e8d661f736af847e3f434b5af686">supermap::KeyHashingShardedKVS&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1KeyValueStorage.html#a933e9bcb24ed6700a1906d4dfa988056">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1Supermap.html#aedab8e54e0c6c427ffee8cb199ea5516">supermap::Supermap&lt; Key, Value, IndexT &gt;</a>
 </li>
@@ -301,6 +307,7 @@ $(function() {
 : <a class="el" href="classsupermap_1_1BST.html#aed8b4e7aabb6371e17f3a3880eb91185">supermap::BST&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1DefaultFilteredKvs.html#a30d5c3a88bdfae662c1171d36439143c">supermap::DefaultFilteredKvs&lt; Key, Value, Size &gt;</a>
 , <a class="el" href="classsupermap_1_1DefaultRemovableKvs.html#ae6f252d2491fea3a11ada229b3948381">supermap::DefaultRemovableKvs&lt; Key, Value, Size &gt;</a>
+, <a class="el" href="classsupermap_1_1KeyHashingShardedKVS.html#a8d857ccdc882e2633ce5ee15fe39a683">supermap::KeyHashingShardedKVS&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1KeyValueStorage.html#ab885c7fe4b5000fd701cf78c294604fa">supermap::KeyValueStorage&lt; Key, Value, IndexT &gt;</a>
 , <a class="el" href="classsupermap_1_1Supermap.html#add0cda12388d79093882f85543ff667f">supermap::Supermap&lt; Key, Value, IndexT &gt;</a>
 </li>
@@ -309,8 +316,8 @@ $(function() {
 
 <h3><a id="index_h"></a>- h -</h3><ul>
 <li>hash()
-: <a class="el" href="classsupermap_1_1Hasher.html#a83a1b7d30f1ffcc89059d560662e38a0">supermap::Hasher</a>
-, <a class="el" href="classsupermap_1_1XXHasher.html#ab8de1589b7ce0d885efe21e2a0f58343">supermap::XXHasher</a>
+: <a class="el" href="classsupermap_1_1Hasher.html#ad368c9ecbdfc77143d45fd03a3cca5f4">supermap::Hasher</a>
+, <a class="el" href="classsupermap_1_1XXHasher.html#a4f8f1231d0124a00603ba874cbd5c097">supermap::XXHasher</a>
 </li>
 <li>hasNext()
 : <a class="el" href="classsupermap_1_1io_1_1InputIterator.html#a23ea42e64da56bdbfb63578639da7b21">supermap::io::InputIterator&lt; T, IndexT, EachSize, typename &gt;</a>
